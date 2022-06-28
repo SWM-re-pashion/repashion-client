@@ -1,0 +1,92 @@
+[
+    {
+        "name": "📡 API",
+        "color": "7057ff",
+        "description": "서버 API 통신 작업(FE, BE 둘다)"
+    },
+    {
+        "name": "🐞 Bug",
+        "color": "B60205",
+        "description": "Something isn't working"
+    },
+    {
+        "name": "💿 Database",
+        "color": "e4e669",
+        "description": "데이터베이스 작업"
+    },
+    {
+        "name": "🌐 Deploy",
+        "color": "d876e3",
+        "description": "데이터베이스 작업"
+    },
+    {
+        "name": "💼 Design",
+        "color": "FAB211",
+        "description": "설계 작업"
+    },
+    {
+        "name": "📖 Docs",
+        "color": "0075ca",
+        "description": "문서 작성 및 수정(Readme 등)"
+    },
+    {
+        "name": "💻 Feature",
+        "color": "C5DEF5",
+        "description": "기능 개발"
+    },
+    {
+        "name": "⭐️Important",
+        "color": "9FD53E",
+        "description": "중요한 작업"
+    },
+    {
+        "name": "📱 Mobile",
+        "color": "0052cc",
+        "description": "모바일 작업(푸쉬 알림, 웹뷰 등)"
+    },
+    {
+        "name": "🗺 Planning",
+        "color": "D6CB95",
+        "description": "기획 작업"
+    },
+    {
+        "name": "🙋🏻‍♂️ Question",
+        "color": "DE03E1",
+        "description": "질문있어요!"
+    },
+    {
+        "name": "♻︎ Refactor",
+        "color": "0E7E82",
+        "description": "코드 리팩토링 작업"
+    },
+    {
+        "name": "🙌 self-approve",
+        "color": "D8AC68",
+        "description": "코드리뷰 없이 self merge"
+    },
+    {
+        "name": "⚙️ Setting",
+        "color": "3BDAE0",
+        "description": "개발 환경 세팅 작업"
+    },
+    {
+        "name": "🚥 Style",
+        "color": "0E8A16",
+        "description": "코드 스타일"
+    },
+    {
+        "name": "🤝 Suggestion",
+        "color": "c2e0c6",
+        "description": "모든 제안사항 공유"
+    },
+    {
+        "name": "✅ Test",
+        "color": "BFD4F2",
+        "description": "테스팅 관련 작업"
+    },
+    {
+        "name": "💇🏼‍♂️ UI/UX",
+        "color": "6D08F3",
+        "description": "마크업 및 스타일 작업"
+    }
+]
