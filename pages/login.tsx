@@ -1,5 +1,18 @@
-import KakaoLoginBtn from 'components/KakaoLogin';
+import KakaoLoginBtn from 'components/Login/atoms/KakaoLoginBtn';
+import Layout from 'components/shared/templates/Layout';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from './_app';
 
-export default function LoginPage() {
-  return <KakaoLoginBtn />;
-}
+const Login: NextPageWithLayout = () => {
+  return (
+    <main>
+      <KakaoLoginBtn />
+    </main>
+  );
+};
+
+Login.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
+
+export default Login;
