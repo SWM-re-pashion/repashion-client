@@ -1,0 +1,14 @@
+@import '@styles/_color.scss';
+.layout {
+  overflow-y: auto;
+  height: 100vh;
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: $white;
+  }
+}
