@@ -4,7 +4,7 @@ const nextConfig = {
   presets: [['next/babel']],
   env: {
     KAKAO_KEY: process.env.KAKAO_KEY,
-    REDIRECT_URI: process.env.REDIRECT_URI,
+    API_URL: process.env.API_URL,
     REST_API_KEY: process.env.REST_API_KEY,
   },
 };
