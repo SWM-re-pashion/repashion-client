@@ -1,0 +1,20 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.btn-footer {
+  @include btn-footer();
+  display: flex;
+  padding: 0 31px 30px;
+  button {
+    width: 962px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: $border-radius;
+    background-color: $black;
+    color: $white;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.02em;
+  }
+}
