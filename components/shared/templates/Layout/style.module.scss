@@ -1,4 +1,5 @@
 @import '@styles/_color.scss';
+
 .layout {
   overflow-y: auto;
   height: 100vh;
@@ -6,8 +7,9 @@
   .body {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    max-width: 1200px;
+    height: auto;
+    max-width: 962px;
+    padding: 30px 31px;
     margin: 0 auto;
     background-color: $white;
   }
