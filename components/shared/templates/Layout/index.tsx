@@ -1,4 +1,5 @@
 import { useEffect, ReactNode } from 'react';
+
 import style from './style.module.scss';
 
 interface Props {
@@ -25,17 +26,15 @@ export default function PageLayout({
   }, []);
 
   return (
-    <>
-      <main
-        className={style.layout}
-        style={{
-          maxHeight: `calc(100vh - ${
-            headerHeight + footerHeight + decreaseHeight
-          }px)`,
-        }}
-      >
-        <div className={style.body}>{children}</div>
-      </main>
-    </>
+    <main
+      className={style.layout}
+      style={{
+        maxHeight: `calc(100vh - ${
+          headerHeight + footerHeight + decreaseHeight
+        }px)`,
+      }}
+    >
+      <div className={style.body}>{children}</div>
+    </main>
   );
 }

@@ -1,9 +1,13 @@
-import usePostAuthToken from 'hooks/usePostAuthToken';
+/* eslint-disable react/function-component-definition */
+import { useRouter } from 'next/router';
+
+import { ReactElement, useEffect } from 'react';
+
 import Spinner from 'components/shared/atoms/Spinner';
 import Layout from 'components/shared/templates/Layout';
-import { useRouter } from 'next/router';
+import usePostAuthToken from 'hooks/usePostAuthToken';
 import { NextPageWithLayout } from 'pages/_app';
-import { ReactElement, useEffect } from 'react';
+
 import $ from './style.module.scss';
 
 const Oauth: NextPageWithLayout = () => {
@@ -16,7 +20,7 @@ const Oauth: NextPageWithLayout = () => {
 
   return (
     <div className={$['oauth-loading']}>
-      <Spinner width={50} borderWidth={3} color={'#876bf6'} />
+      <Spinner width={50} borderWidth={3} color="#876bf6" />
       <span>{query.code}</span>
     </div>
   );

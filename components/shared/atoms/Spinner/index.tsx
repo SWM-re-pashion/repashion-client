@@ -8,7 +8,7 @@ interface Props {
 
 export default function LoadingSpinner({ width, borderWidth, color }: Props) {
   return (
-    <div className={$['loading']}>
+    <div className={$.loading}>
       <div
         style={{
           width: `${width}px`,
@@ -17,8 +17,8 @@ export default function LoadingSpinner({ width, borderWidth, color }: Props) {
           borderTopColor: color,
           borderBottomColor: color,
         }}
-        className={$['spinner']}
-      ></div>
+        className={$.spinner}
+      />
     </div>
   );
 }

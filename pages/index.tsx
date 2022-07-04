@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 

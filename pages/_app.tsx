@@ -1,11 +1,13 @@
-import '../styles/globals.scss';
+import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { RecoilRoot } from 'recoil';
 import Head from 'next/head';
+
+import React, { ReactElement, ReactNode } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import React, { ReactElement, ReactNode } from 'react';
-import { NextPage } from 'next';
+
+import { RecoilRoot } from 'recoil';
+import '../styles/globals.scss';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
