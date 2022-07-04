@@ -1,8 +1,7 @@
 import { useMutation, UseMutationResult } from 'react-query';
 
-import { AxiosError } from 'axios';
-
 import { postAuthToken } from 'api/postAuthToken';
+import { AxiosError } from 'axios';
 
 export default function usePostAuthToken(): UseMutationResult<
   string,
