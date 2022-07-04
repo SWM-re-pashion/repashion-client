@@ -1,0 +1,21 @@
+@import '@styles/main.scss';
+
+.loading {
+  margin: 0 auto;
+  .spinner {
+    margin: 0 auto;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: transparent;
+    animation: spinner 0.8s linear infinite;
+  }
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
