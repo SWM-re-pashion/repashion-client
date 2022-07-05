@@ -1,0 +1,12 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.basic-info {
+  .gender-btn-box {
+    display: flex;
+    gap: 8px;
+    .gender-btn {
+      padding: 15px 48.5px;
+    }
+  }
+}

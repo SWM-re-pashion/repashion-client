@@ -2,7 +2,7 @@
 /* eslint-disable react/function-component-definition */
 import { ReactElement } from 'react';
 
-import Button from 'components/shared/atoms/Button';
+import ButtonFooter from 'components/shared/atoms/ButtonFooter';
 import ImgBox from 'components/shared/atoms/ImgBox';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
@@ -22,7 +22,7 @@ export const StyleInfo: NextPageWithLayout = () => {
           <ImgBox key={src + idx} src={src} alt="asdf" isNeedClick />
         ))}
       </section>
-      <Button>다음</Button>
+      <ButtonFooter>다음</ButtonFooter>
     </>
   );
 };
