@@ -1,0 +1,31 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.btn-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: $border-radius;
+  background-color: $gray-150;
+  span {
+    margin-left: 7px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.02em;
+    color: $black-200;
+  }
+}
+
+.clicked {
+  background-color: $primary;
+  .icon {
+    path {
+      stroke: $white;
+    }
+  }
+  span {
+    color: $white;
+    font-weight: 600;
+  }
+}
