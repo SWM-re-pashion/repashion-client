@@ -3,14 +3,15 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import { RangeBtn } from 'components/shared/atoms/icon';
 import useDebounceInput from 'hooks/useDebounceInput';
+import { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';
 
-interface Props {
+type Props = {
   rangeValue?: number;
-}
+} & StyleProps;
 
-export default function InputRange({ rangeValue }: Props) {
+export default function InputRange({ className, rangeValue }: Props) {
   const [range, setRange] = useState(['155', '165']);
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const thumbRefs = useRef<SVGSVGElement[]>([]);
@@ -64,7 +65,7 @@ export default function InputRange({ rangeValue }: Props) {
   };
 
   return (
-    <>
+    <div className={className}>
       <span className={$.info}>{`${range[0]} ~ ${range[1]}`}</span>
       <div className={$['input-range']}>
         <input
@@ -109,6 +110,6 @@ export default function InputRange({ rangeValue }: Props) {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
