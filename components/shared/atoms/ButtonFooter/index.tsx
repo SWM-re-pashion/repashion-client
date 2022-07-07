@@ -9,11 +9,11 @@ export default function ButtonFooter({
   children,
 }: DefaultProps) {
   return (
-    <div
+    <footer
       className={classnames($['btn-footer'], className)}
       style={{ ...style }}
     >
       <button type="button">{children}</button>
-    </div>
+    </footer>
   );
 }

@@ -7,7 +7,7 @@ import { Check } from '../../atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {
-  label: string;
+  label: string | number;
 } & StyleProps;
 
 export default function ButtonSelect({ className, style, label }: Props) {

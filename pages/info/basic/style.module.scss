@@ -2,11 +2,40 @@
 @import '@styles/_mixin.scss';
 
 .basic-info {
-  .gender-btn-box {
+  .info-article {
+    margin-bottom: 47px;
+    &:last-child {
+      margin: 0;
+    }
+    .label {
+      margin-bottom: 14px;
+    }
+  }
+  .btn-box {
+    overflow-x: auto;
     display: flex;
     gap: 8px;
-    .gender-btn {
-      padding: 15px 48.5px;
+    .btn {
+      width: 100%;
+      min-width: 70px;
+      padding: 15px 0;
+    }
+  }
+  .height-range {
+  }
+  .size-btn-box {
+    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 8px;
+    .size-btn {
+      width: 100%;
+      min-width: 70px;
+      padding: 15px 0;
+    }
+    @include mobile() {
+      display: flex;
     }
   }
 }
