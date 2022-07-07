@@ -1,0 +1,52 @@
+@import './main.scss';
+
+@mixin mobile {
+  @media (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$laptop}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (min-width: #{$pc}) {
+    @content;
+  }
+}
+
+@mixin btn-footer() {
+  z-index: 99;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+}
+
+@mixin input-range($width, $height, $top) {
+  position: absolute;
+  top: $top;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+  background-color: transparent;
+  &::-webkit-slider-thumb {
+    pointer-events: all;
+    width: $width;
+    height: $height;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+}

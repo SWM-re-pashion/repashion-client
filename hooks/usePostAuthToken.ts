@@ -1,19 +1,23 @@
 import { useMutation, UseMutationResult } from 'react-query';
 
-import { postAuthToken } from 'api/postAuthToken';
+import { OAuthResponse, postAuthToken } from 'api/postAuthToken';
 import { AxiosError } from 'axios';
 
 export default function usePostAuthToken(): UseMutationResult<
-  string,
+  OAuthResponse,
   AxiosError,
   string
 > {
   return useMutation(postAuthToken, {
     onSuccess: (data) => {
-      alert(data);
+      alert(data.user);
+      console.log(data.user);
     },
     onError: (error) => {
       alert(error);
     },
   });
 }
+
+// Todo 인가코드 이상한거 넘어갈 때 다시 로그인 화면
+// 인가코드 타입 undefined이 일 때 다시 로그인 화면

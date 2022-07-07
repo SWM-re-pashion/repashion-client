@@ -1,0 +1,57 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.basic-info {
+  .page-num {
+    width: fit-content;
+    height: 20px;
+    background: $gray-150;
+    padding: 5px 12px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .info-header {
+    margin-top: 17px;
+    .info-title {
+      font-size: 25px;
+      line-height: 30px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.02em;
+    }
+    .info-description {
+      margin: 7px 0 38px 0;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.02em;
+    }
+  }
+  .info-article {
+    margin-bottom: 47px;
+    &:last-child {
+      margin: 0;
+    }
+    .label {
+      margin-bottom: 14px;
+    }
+  }
+  .btn-box {
+    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    @include mobile() {
+      display: flex;
+    }
+    gap: 8px;
+    .btn {
+      width: 100%;
+      min-width: 70px;
+      padding: 15px 0;
+    }
+  }
+
+  .height-range {
+  }
+}
