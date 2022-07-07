@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
 import ButtonSelect from 'components/shared/molecules/ButtonSelect';
+import InputRange from 'components/shared/molecules/InputRange';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
 
@@ -16,6 +17,7 @@ export const BasicInfo: NextPageWithLayout = () => {
           <ButtonSelect label="여성" className={$['gender-btn']} />
           <ButtonSelect label="남성" className={$['gender-btn']} />
         </div>
+        <InputRange />
       </section>
       <ButtonFooter>다음</ButtonFooter>
     </>
