@@ -1,0 +1,18 @@
+@import '@styles/main.scss';
+
+.img-box {
+  position: relative;
+  width: 233px;
+  height: 233px;
+  border-radius: $border-radius;
+  background-color: $gray-500;
+  img {
+    object-fit: contain;
+    border-radius: $border-radius;
+    -webkit-user-drag: none;
+  }
+}
+
+.click-mode {
+  cursor: pointer;
+}

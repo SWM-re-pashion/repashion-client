@@ -7,6 +7,9 @@ const nextConfig = {
     API_URL: process.env.API_URL,
     REST_API_KEY: process.env.REST_API_KEY,
   },
+  images: {
+    domains: ['images.unsplash.com'],
+  },
 };
 
 module.exports = nextConfig;
