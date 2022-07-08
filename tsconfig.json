@@ -4,7 +4,8 @@
     "paths": {
       "@shared/*": ["./shared/*"],
       "@styles/*": ["./styles/*"],
-      "types/*": ["./types/*"]
+      "types/*": ["./types/*"],
+      "@constants/*": ["./constants/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
