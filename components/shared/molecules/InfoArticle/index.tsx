@@ -8,7 +8,7 @@ type Props = {
   label: string | number;
 } & DefaultProps;
 
-export default function InfoHeader({
+export default function InfoArticle({
   className,
   style,
   children,

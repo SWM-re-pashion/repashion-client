@@ -4,6 +4,8 @@ import { ReactElement } from 'react';
 
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
 import ImgBox from 'components/shared/atoms/ImgBox';
+import InfoHeader from 'components/shared/molecules/InfoHeader';
+import InfoPageNum from 'components/shared/molecules/InfoPageNum';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
 
@@ -17,6 +19,12 @@ export const StyleInfo: NextPageWithLayout = () => {
 
   return (
     <>
+      <InfoPageNum>1/3</InfoPageNum>
+
+      <InfoHeader title="style" style={{ marginBottom: '17px' }}>
+        선호하는 스타일을 알려주세요.
+        <br /> 2개까지 선택이 가능해요.
+      </InfoHeader>
       <section className={$['style-info']}>
         {imgBoxMocks.map((src, idx) => (
           <ImgBox key={src + idx} src={src} alt="asdf" isNeedClick />
