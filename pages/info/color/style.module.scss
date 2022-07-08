@@ -1,0 +1,24 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.color-info {
+  .btn-box {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
+    gap: 8px;
+    .btn {
+      height: 50px;
+      border: 1px solid #e3e1e1;
+      div {
+        margin-left: 6px;
+      }
+      span {
+        width: 60px;
+        padding: 15px 10px;
+      }
+    }
+  }
+}

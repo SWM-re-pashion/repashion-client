@@ -7,12 +7,24 @@
   border-radius: $border-radius;
   background-color: $gray-150;
   span {
-    margin-left: 7px;
     font-weight: 600;
     font-size: 16px;
     line-height: 19px;
     letter-spacing: 0.02em;
     color: $black-200;
+  }
+}
+
+.color {
+  background-color: $white;
+  font-weight: 500;
+  &-box {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
   }
 }
 
@@ -25,6 +37,19 @@
   }
   span {
     color: $white;
-    font-weight: 600;
+    font-weight: 800;
+  }
+
+  &-color {
+    background-color: $clicked-background;
+    .icon {
+      path {
+        stroke: $primary-100;
+      }
+    }
+    span {
+      color: $primary-100;
+      font-weight: 700;
+    }
   }
 }

@@ -1,16 +1,21 @@
 import { useState } from 'react';
 
 import classnames from 'classnames';
-import type { StyleProps } from 'types/props';
+import type { DefaultProps } from 'types/props';
 
 import { Check } from '../../atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {
-  label: string | number;
-} & StyleProps;
+  color?: string;
+} & DefaultProps;
 
-export default function ButtonSelect({ className, style, label }: Props) {
+export default function ButtonSelect({
+  className,
+  style,
+  children,
+  color,
+}: Props) {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
@@ -21,13 +26,21 @@ export default function ButtonSelect({ className, style, label }: Props) {
     <button
       type="button"
       className={classnames($['btn-select'], className, {
-        [$.clicked]: isClicked,
+        [$.color]: color,
+        [$.clicked]: isClicked && !color,
+        [$['clicked-color']]: isClicked && color,
       })}
       style={{ ...style }}
       onClick={handleClick}
     >
-      <Check className={$.icon} />
-      <span>{label}</span>
+      {color ? (
+        <div className={$['color-box']} style={{ backgroundColor: color }}>
+          {isClicked && <Check className={$.icon} />}
+        </div>
+      ) : (
+        <Check className={$.icon} />
+      )}
+      <span>{children}</span>
     </button>
   );
 }

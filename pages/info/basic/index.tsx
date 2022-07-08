@@ -1,63 +1,53 @@
 /* eslint-disable react/function-component-definition */
 import { ReactElement } from 'react';
 
-import BorderBox from 'components/shared/atoms/BorderBox';
+import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import Description from 'components/shared/atoms/Description';
-import Label from 'components/shared/atoms/Label';
-import Title from 'components/shared/atoms/Title';
 import ButtonSelect from 'components/shared/molecules/ButtonSelect';
+import InfoArticle from 'components/shared/molecules/InfoArticle';
+import InfoHeader from 'components/shared/molecules/InfoHeader';
+import InfoPageNum from 'components/shared/molecules/InfoPageNum';
 import InputRange from 'components/shared/molecules/InputRange';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
 
 import $ from './style.module.scss';
 
-const genders = ['여성', '남성'];
-const bodyForms = ['체형', '마름', '날씬', '보통', '통통'];
-const topSizes = ['상의 사이즈', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'];
-const bottomSizes = [
-  '하의 사이즈(인치)',
-  ...Array.from({ length: 16 }, (_, i) => 22 + i),
-];
-
 export const BasicInfo: NextPageWithLayout = () => {
   return (
     <>
       <section className={$['basic-info']}>
-        <BorderBox className={$['page-num']}>2/3</BorderBox>
+        <InfoPageNum>2/3</InfoPageNum>
 
-        <header className={$['info-header']}>
-          <Title className={$['info-title']}>basic</Title>
-          <Description className={$['info-description']}>
-            성별, 키, 체형 및 사이즈를 알려주세요.
-            <br /> 사이즈는 복수 선택도 가능해요.
-          </Description>
-        </header>
+        <InfoHeader title="basic">
+          성별, 키, 체형 및 사이즈를 알려주세요.
+          <br /> 사이즈는 복수 선택도 가능해요.
+        </InfoHeader>
 
-        <article className={$['info-article']}>
-          <Label className={$.label}>성별</Label>
+        <InfoArticle label="성별">
           <div className={$['btn-box']}>
             {genders.map((gender) => (
-              <ButtonSelect key={gender} label={gender} className={$.btn} />
+              <ButtonSelect key={gender} className={$.btn}>
+                {gender}
+              </ButtonSelect>
             ))}
           </div>
-        </article>
+        </InfoArticle>
 
-        <article className={$['info-article']}>
-          <Label className={$.label}>키</Label>
+        <InfoArticle label="키">
           <InputRange className={$['height-range']} />
-        </article>
+        </InfoArticle>
 
         {[bodyForms, topSizes, bottomSizes].map((options) => (
-          <article key={options[0]} className={$['info-article']}>
-            <Label className={$.label}>{options[0]}</Label>
+          <InfoArticle key={options[0]} label={options[0]}>
             <div className={$['btn-box']}>
               {options.slice(1).map((option) => (
-                <ButtonSelect key={option} label={option} className={$.btn} />
+                <ButtonSelect key={option} className={$.btn}>
+                  {option}
+                </ButtonSelect>
               ))}
             </div>
-          </article>
+          </InfoArticle>
         ))}
       </section>
       <ButtonFooter>다음</ButtonFooter>
