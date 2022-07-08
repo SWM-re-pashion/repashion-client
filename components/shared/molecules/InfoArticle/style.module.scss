@@ -1,0 +1,9 @@
+.info-article {
+  margin-bottom: 47px;
+  &:last-child {
+    margin: 0;
+  }
+  .label {
+    margin-bottom: 14px;
+  }
+}

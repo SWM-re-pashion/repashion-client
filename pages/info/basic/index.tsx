@@ -2,8 +2,8 @@
 import { ReactElement } from 'react';
 
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import Label from 'components/shared/atoms/Label';
 import ButtonSelect from 'components/shared/molecules/ButtonSelect';
+import InfoArticle from 'components/shared/molecules/InfoArticle';
 import InfoHeader from 'components/shared/molecules/InfoHeader';
 import InfoPageNum from 'components/shared/molecules/InfoPageNum';
 import InputRange from 'components/shared/molecules/InputRange';
@@ -31,29 +31,26 @@ export const BasicInfo: NextPageWithLayout = () => {
           <br /> 사이즈는 복수 선택도 가능해요.
         </InfoHeader>
 
-        <article className={$['info-article']}>
-          <Label className={$.label}>성별</Label>
+        <InfoArticle label="성별">
           <div className={$['btn-box']}>
             {genders.map((gender) => (
               <ButtonSelect key={gender} label={gender} className={$.btn} />
             ))}
           </div>
-        </article>
+        </InfoArticle>
 
-        <article className={$['info-article']}>
-          <Label className={$.label}>키</Label>
+        <InfoArticle label="키">
           <InputRange className={$['height-range']} />
-        </article>
+        </InfoArticle>
 
         {[bodyForms, topSizes, bottomSizes].map((options) => (
-          <article key={options[0]} className={$['info-article']}>
-            <Label className={$.label}>{options[0]}</Label>
+          <InfoArticle key={options[0]} label={options[0]}>
             <div className={$['btn-box']}>
               {options.slice(1).map((option) => (
                 <ButtonSelect key={option} label={option} className={$.btn} />
               ))}
             </div>
-          </article>
+          </InfoArticle>
         ))}
       </section>
       <ButtonFooter>다음</ButtonFooter>
