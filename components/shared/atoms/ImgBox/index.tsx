@@ -27,7 +27,13 @@ export default function ImgBox({
       })}
       style={{ background, ...style }}
     >
-      <Image {...{ src, alt }} layout="fill" />
+      <Image
+        {...{ src, alt }}
+        width="233"
+        height="233"
+        layout="responsive"
+        priority
+      />
     </div>
   );
 }
