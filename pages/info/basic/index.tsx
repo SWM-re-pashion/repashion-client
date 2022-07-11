@@ -1,19 +1,59 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 
 import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import ButtonSelect from 'components/shared/molecules/ButtonSelect';
 import InfoArticle from 'components/shared/molecules/InfoArticle';
 import InfoHeader from 'components/shared/molecules/InfoHeader';
 import InfoPageNum from 'components/shared/molecules/InfoPageNum';
 import InputRange from 'components/shared/molecules/InputRange';
+import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
 
 import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {
+  const [gender, setGender] = useState('');
+  const [bodyForm, setBodyForm] = useState('');
+  const [topSize, setTopSize] = useState<string[]>([]);
+  const [bottomSize, setBottomSize] = useState<string[]>([]);
+
+  const handleGenderClick = (gen: string) => setGender(gen);
+  const handleBodyFormClick = (body: string) => setBodyForm(body);
+  const handleTopSizeClick = useCallback(
+    (size: string) => {
+      if (topSize.find((x) => x === size) === undefined) {
+        setTopSize([...topSize, size]);
+      } else {
+        setTopSize(topSize.filter((x) => x !== size));
+      }
+    },
+    [topSize],
+  );
+  // useCallback 공부, dynamic import 공부
+  const handleBottomSizeClick = useCallback(
+    (size: string) => {
+      if (bottomSize.find((x) => x === size) === undefined) {
+        setBottomSize([...bottomSize, size]);
+      } else {
+        setBottomSize(bottomSize.filter((x) => x !== size));
+      }
+    },
+    [bottomSize],
+  );
+
+  const btnData: [
+    string,
+    string | string[],
+    (value: string) => void,
+    string[],
+  ][] = [
+    ['체형 *', bodyForm, handleBodyFormClick, bodyForms],
+    ['상의 사이즈', topSize, handleTopSizeClick, topSizes],
+    ['상의 사이즈', bottomSize, handleBottomSizeClick, bottomSizes],
+  ];
+
   return (
     <>
       <section className={$['basic-info']}>
@@ -24,30 +64,25 @@ export const BasicInfo: NextPageWithLayout = () => {
           <br /> 사이즈는 복수 선택도 가능해요.
         </InfoHeader>
 
-        <InfoArticle label="성별">
-          <div className={$['btn-box']}>
-            {genders.map((gender) => (
-              <ButtonSelect key={gender} className={$.btn}>
-                {gender}
-              </ButtonSelect>
-            ))}
-          </div>
-        </InfoArticle>
+        <InfoBtnBox
+          label="성별 *"
+          datas={genders}
+          compareData={gender}
+          handleFunc={handleGenderClick}
+        />
 
-        <InfoArticle label="키">
+        <InfoArticle label="키 *">
           <InputRange className={$['height-range']} />
         </InfoArticle>
 
-        {[bodyForms, topSizes, bottomSizes].map((options) => (
-          <InfoArticle key={options[0]} label={options[0]}>
-            <div className={$['btn-box']}>
-              {options.slice(1).map((option) => (
-                <ButtonSelect key={option} className={$.btn}>
-                  {option}
-                </ButtonSelect>
-              ))}
-            </div>
-          </InfoArticle>
+        {btnData.map((options) => (
+          <InfoBtnBox
+            key={options[3][0]}
+            label={options[0]}
+            datas={options[3].slice(1)}
+            compareData={bottomSize}
+            handleFunc={options[2]}
+          />
         ))}
       </section>
       <ButtonFooter>다음</ButtonFooter>
