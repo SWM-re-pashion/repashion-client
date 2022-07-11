@@ -1,4 +1,4 @@
-import { BasicUserInfo } from '../types/index';
+import { BasicUserInfo } from 'types';
 
 type ActionProps = {
   type: string;
@@ -41,4 +41,4 @@ function basicInfoReducer(state: BasicUserInfo, action: ActionProps) {
   }
 }
 
-export default { initialState, basicInfoReducer };
+export { initialState, basicInfoReducer };

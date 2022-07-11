@@ -4,3 +4,8 @@ export type BasicUserInfo = {
   topSize: string[];
   bottomSize: string[];
 };
+
+export type ColorUserInfo = {
+  topColor: string[];
+  bottomColor: string[];
+};
