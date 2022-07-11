@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useReducer } from 'react';
 
 import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
@@ -10,48 +10,35 @@ import InputRange from 'components/shared/molecules/InputRange';
 import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
+import { basicInfo } from 'reducer';
+import { BasicUserInfo } from 'types';
 
 import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {
-  const [gender, setGender] = useState('');
-  const [bodyForm, setBodyForm] = useState('');
-  const [topSize, setTopSize] = useState<string[]>([]);
-  const [bottomSize, setBottomSize] = useState<string[]>([]);
+  const { initialState, basicInfoReducer } = basicInfo;
+  const [state, dispatch] = useReducer(basicInfoReducer, initialState);
 
-  const handleGenderClick = (gen: string) => setGender(gen);
-  const handleBodyFormClick = (body: string) => setBodyForm(body);
-  const handleTopSizeClick = useCallback(
-    (size: string) => {
-      if (topSize.find((x) => x === size) === undefined) {
-        setTopSize([...topSize, size]);
-      } else {
-        setTopSize(topSize.filter((x) => x !== size));
-      }
-    },
-    [topSize],
-  );
+  const handleGenderClick = (value: string) =>
+    dispatch({ type: 'GENDER', payload: value });
+  const handleBodyFormClick = (value: string) =>
+    dispatch({ type: 'BODY_FORM', payload: value });
+  const handleTopSizeClick = (value: string) =>
+    dispatch({ type: 'TOP_SIZE', payload: value });
+  const handleBottomSizeClick = (value: string) =>
+    dispatch({ type: 'BOTTOM_SIZE', payload: value });
+
   // useCallback 공부, dynamic import 공부
-  const handleBottomSizeClick = useCallback(
-    (size: string) => {
-      if (bottomSize.find((x) => x === size) === undefined) {
-        setBottomSize([...bottomSize, size]);
-      } else {
-        setBottomSize(bottomSize.filter((x) => x !== size));
-      }
-    },
-    [bottomSize],
-  );
 
   const btnData: [
     string,
-    string | string[],
+    keyof BasicUserInfo,
     (value: string) => void,
     string[],
   ][] = [
-    ['체형 *', bodyForm, handleBodyFormClick, bodyForms],
-    ['상의 사이즈', topSize, handleTopSizeClick, topSizes],
-    ['상의 사이즈', bottomSize, handleBottomSizeClick, bottomSizes],
+    ['체형 *', 'bodyForm', handleBodyFormClick, bodyForms],
+    ['상의 사이즈', 'topSize', handleTopSizeClick, topSizes],
+    ['하의 사이즈(인치)', 'bottomSize', handleBottomSizeClick, bottomSizes],
   ];
 
   return (
@@ -67,7 +54,7 @@ export const BasicInfo: NextPageWithLayout = () => {
         <InfoBtnBox
           label="성별 *"
           datas={genders}
-          compareData={gender}
+          compareData={state.gender}
           handleFunc={handleGenderClick}
         />
 
@@ -80,7 +67,7 @@ export const BasicInfo: NextPageWithLayout = () => {
             key={options[3][0]}
             label={options[0]}
             datas={options[3].slice(1)}
-            compareData={bottomSize}
+            compareData={state[options[1]]}
             handleFunc={options[2]}
           />
         ))}
