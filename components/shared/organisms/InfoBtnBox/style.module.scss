@@ -1,0 +1,18 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.btn-box {
+  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    display: flex;
+  }
+  gap: 8px;
+  .btn {
+    width: 100%;
+    min-width: 70px;
+    padding: 15px 0;
+  }
+}
