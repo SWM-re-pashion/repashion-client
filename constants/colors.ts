@@ -1,4 +1,4 @@
-const colors = [
+const colors: [string, string][] = [
   ['Black', '#000'],
   ['White', '#000'],
   ['Beige', '#000'],

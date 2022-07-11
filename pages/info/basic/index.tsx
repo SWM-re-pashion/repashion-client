@@ -10,13 +10,12 @@ import InputRange from 'components/shared/molecules/InputRange';
 import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
-import { basicInfo } from 'reducer';
+import { initialState, basicInfoReducer } from 'reducer/basicInfoReducer';
 import { BasicUserInfo } from 'types';
 
 import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {
-  const { initialState, basicInfoReducer } = basicInfo;
   const [state, dispatch] = useReducer(basicInfoReducer, initialState);
 
   const handleGenderClick = (value: string) =>
@@ -27,8 +26,6 @@ export const BasicInfo: NextPageWithLayout = () => {
     dispatch({ type: 'TOP_SIZE', payload: value });
   const handleBottomSizeClick = (value: string) =>
     dispatch({ type: 'BOTTOM_SIZE', payload: value });
-
-  // useCallback 공부, dynamic import 공부
 
   const btnData: [
     string,
@@ -44,7 +41,7 @@ export const BasicInfo: NextPageWithLayout = () => {
   return (
     <>
       <section className={$['basic-info']}>
-        <InfoPageNum>2/3</InfoPageNum>
+        <InfoPageNum>1/3</InfoPageNum>
 
         <InfoHeader title="basic">
           성별, 키, 체형 및 사이즈를 알려주세요.
@@ -64,9 +61,9 @@ export const BasicInfo: NextPageWithLayout = () => {
 
         {btnData.map((options) => (
           <InfoBtnBox
-            key={options[3][0]}
+            key={options[0]}
             label={options[0]}
-            datas={options[3].slice(1)}
+            datas={options[3]}
             compareData={state[options[1]]}
             handleFunc={options[2]}
           />
