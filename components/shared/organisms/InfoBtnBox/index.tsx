@@ -10,9 +10,10 @@ import $ from './style.module.scss';
 type Props = {
   isColor?: boolean;
   label: string;
+  type?: string;
   datas: (string | [string, string])[];
   compareData: string | string[];
-  handleFunc: (value: string) => void;
+  handleFunc: (type: string, value: string) => void;
   required?: boolean;
 } & StyleProps;
 
@@ -21,6 +22,7 @@ function InfoBtnBox({
   style,
   isColor,
   label,
+  type,
   datas,
   compareData,
   required,
@@ -35,22 +37,26 @@ function InfoBtnBox({
           className,
         )}
       >
-        {datas.map((data) => (
-          <ButtonSelect
-            key={!isColor && typeof data === 'string' ? data : data[0]}
-            className={$.btn}
-            label={!isColor && typeof data === 'string' ? data : data[0]}
-            isSelected={
-              typeof compareData === 'string'
-                ? compareData === data
-                : compareData.includes(
-                    !isColor && typeof data === 'string' ? data : data[0],
-                  )
-            }
-            handleClick={handleFunc}
-            color={isColor ? data[1] : undefined}
-          />
-        ))}
+        {datas.map((data) => {
+          const validData =
+            !isColor && typeof data === 'string' ? data : data[0];
+
+          return (
+            <ButtonSelect
+              key={validData}
+              className={$.btn}
+              label={validData}
+              type={type || undefined}
+              isSelected={
+                typeof compareData === 'string'
+                  ? compareData === data
+                  : compareData.includes(validData)
+              }
+              handleClick={handleFunc}
+              color={isColor ? data[1] : undefined}
+            />
+          );
+        })}
       </div>
     </InfoArticle>
   );
