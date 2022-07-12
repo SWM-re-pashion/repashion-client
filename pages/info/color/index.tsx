@@ -16,23 +16,14 @@ import $ from './style.module.scss';
 export const ColorInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(colorInfoReducer, initialState);
 
-  const handleTopColorClick = useCallback(
-    (value: string) => dispatch({ type: 'TOP_COLOR', payload: value }),
-    [dispatch],
-  );
-  const handleBottomColorClick = useCallback(
-    (value: string) => dispatch({ type: 'BOTTOM_COLOR', payload: value }),
+  const handleClick = useCallback(
+    (type: string, value: string) => dispatch({ type, payload: value }),
     [dispatch],
   );
 
-  const btnData: [
-    string,
-    keyof ColorUserInfo,
-    (value: string) => void,
-    [string, string][],
-  ][] = [
-    ['상의 컬러', 'topColor', handleTopColorClick, colors],
-    ['하의 컬러', 'bottomColor', handleBottomColorClick, colors],
+  const btnData: [string, keyof ColorUserInfo, string, [string, string][]][] = [
+    ['상의 컬러', 'topColor', 'TOP_COLOR', colors],
+    ['하의 컬러', 'bottomColor', 'BOTTOM_COLOR', colors],
   ];
 
   return (
@@ -49,9 +40,10 @@ export const ColorInfo: NextPageWithLayout = () => {
           <InfoBtnBox
             key={options[0]}
             label={options[0]}
+            type={options[2]}
             datas={options[3]}
             compareData={state[options[1]]}
-            handleFunc={options[2]}
+            handleFunc={handleClick}
             isColor
           />
         ))}
