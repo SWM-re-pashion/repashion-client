@@ -1,12 +1,19 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useReducer, useCallback } from 'react';
+import {
+  ReactElement,
+  useReducer,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
+import Label from 'components/shared/atoms/Label';
+import TextInput from 'components/shared/atoms/TextInput';
 import InfoArticle from 'components/shared/molecules/InfoArticle';
 import InfoHeader from 'components/shared/molecules/InfoHeader';
 import InfoPageNum from 'components/shared/molecules/InfoPageNum';
-import InputRange from 'components/shared/molecules/InputRange';
 import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
@@ -17,6 +24,13 @@ import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(basicInfoReducer, initialState);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (!state.gender || !state.bodyForm) {
+      setErrorMsg('필수 항목을 입력해주세요.');
+    }
+  }, [state.gender, state.bodyForm]);
 
   const handleGenderClick = useCallback(
     (value: string) => dispatch({ type: 'GENDER', payload: value }),
@@ -34,6 +48,17 @@ export const BasicInfo: NextPageWithLayout = () => {
     (value: string) => dispatch({ type: 'BOTTOM_SIZE', payload: value }),
     [dispatch],
   );
+
+  const handleSubmit = () => {
+    console.log(1);
+  };
+
+  // validation flow
+  // 평상시 dimmed
+  // 그러면 계속 사용자가 입력하는 값을 탐지
+  // 유저가 모든 값을 올바르게 입력했을 때, 버튼이 검은색으로 바뀜
+  // 만약 유저가 140 ~ 200 범위가 아닌 키를 입력했을 때, 오류 메시지를 띄워줌
+  // 즉, 유저가 입력할 때마다 렌더링해야 함.
 
   const btnData: [
     string,
@@ -62,9 +87,13 @@ export const BasicInfo: NextPageWithLayout = () => {
           required
         />
 
-        <InfoArticle label="키">
-          <InputRange className={$['height-range']} />
+        <InfoArticle label="키" required>
+          <div className={$['height-input']}>
+            <TextInput placeholder="130 ~ 200 범위의 키를 입력해주세요." />
+            <Label className={$['height-cm']}>CM</Label>
+          </div>
         </InfoArticle>
+
         {btnData.map((options) => (
           <InfoBtnBox
             key={options[0]}
@@ -76,7 +105,7 @@ export const BasicInfo: NextPageWithLayout = () => {
           />
         ))}
       </section>
-      <ButtonFooter>다음</ButtonFooter>
+      <ButtonFooter onClick={handleSubmit}>다음</ButtonFooter>
     </>
   );
 };
