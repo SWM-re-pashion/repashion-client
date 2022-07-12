@@ -8,19 +8,16 @@ import $ from './style.module.scss';
 
 type Props = {
   label: string;
+  type?: string;
   isSelected: boolean;
-  handleClick: (value: string) => void;
+  handleClick: (type: string, value: string) => void;
   color?: string;
 } & StyleProps;
 
-function ButtonSelect({
-  className,
-  style,
-  label,
-  isSelected,
-  handleClick,
-  color,
-}: Props) {
+function ButtonSelect(btnProps: Props) {
+  const { className, style, label, type, isSelected, handleClick, color } =
+    btnProps;
+
   return (
     <button
       type="button"
@@ -30,7 +27,9 @@ function ButtonSelect({
         [$['clicked-color']]: isSelected && color,
       })}
       style={{ ...style }}
-      onClick={() => handleClick(label)}
+      onClick={() => {
+        if (type) handleClick(type, label);
+      }}
     >
       {color ? (
         <div className={$['color-box']} style={{ backgroundColor: color }}>
