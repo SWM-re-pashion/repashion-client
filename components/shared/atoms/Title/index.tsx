@@ -5,8 +5,8 @@ import $ from './style.module.scss';
 
 export default function Title({ className, style, children }: DefaultProps) {
   return (
-    <h2 {...{ style }} className={classnames($.title, className)}>
+    <h1 {...{ style }} className={classnames($.title, className)}>
       {children}
-    </h2>
+    </h1>
   );
 }

@@ -41,7 +41,7 @@ export const BasicInfo: NextPageWithLayout = () => {
     (value: string) => void,
     string[],
   ][] = [
-    ['체형 *', 'bodyForm', handleBodyFormClick, bodyForms],
+    ['체형', 'bodyForm', handleBodyFormClick, bodyForms],
     ['상의 사이즈', 'topSize', handleTopSizeClick, topSizes],
     ['하의 사이즈(인치)', 'bottomSize', handleBottomSizeClick, bottomSizes],
   ];
@@ -55,13 +55,14 @@ export const BasicInfo: NextPageWithLayout = () => {
           <br /> 사이즈는 복수 선택도 가능해요.
         </InfoHeader>
         <InfoBtnBox
-          label="성별 *"
+          label="성별"
           datas={genders}
           compareData={state.gender}
           handleFunc={handleGenderClick}
+          required
         />
 
-        <InfoArticle label="키 *">
+        <InfoArticle label="키">
           <InputRange className={$['height-range']} />
         </InfoArticle>
         {btnData.map((options) => (
@@ -71,6 +72,7 @@ export const BasicInfo: NextPageWithLayout = () => {
             datas={options[3]}
             compareData={state[options[1]]}
             handleFunc={options[2]}
+            required={options[0] === '체형'}
           />
         ))}
       </section>

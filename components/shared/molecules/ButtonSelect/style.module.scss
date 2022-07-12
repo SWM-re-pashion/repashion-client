@@ -20,6 +20,7 @@
 
 .color {
   background-color: $white;
+  border: 1px solid $gray-280;
   font-weight: 500;
   &-box {
     width: 38px;
@@ -53,13 +54,14 @@
 
   &-color {
     background-color: $clicked-background;
+    border: 1px solid $primary;
     .icon {
       path {
-        stroke: $primary-100;
+        stroke: $gray-280;
       }
     }
     span {
-      color: $primary-100;
+      color: $primary;
       font-weight: 700;
     }
   }
