@@ -3,8 +3,9 @@ import {
   ReactElement,
   useReducer,
   useCallback,
-  useEffect,
   useState,
+  ChangeEvent,
+  useRef,
 } from 'react';
 
 import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
@@ -25,50 +26,39 @@ import $ from './style.module.scss';
 export const BasicInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(basicInfoReducer, initialState);
   const [errorMsg, setErrorMsg] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
+  const handleClick = useCallback(
+    (type: string, value: string) => dispatch({ type, payload: value }),
+    [dispatch],
+  );
+  const handleHeightChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    e.target.value = value.replace(/[^0-9]/g, '');
+    if (value.length > 3) e.target.value = value.substring(0, 3);
+  }, []);
+
+  const handleSubmit = useCallback(() => {
     if (!state.gender || !state.bodyForm) {
       setErrorMsg('필수 항목을 입력해주세요.');
+      return;
     }
+    if (
+      inputRef.current &&
+      (+inputRef.current.value < 130 ||
+        +inputRef.current.value > 200 ||
+        !inputRef.current.value)
+    ) {
+      setErrorMsg('130 ~ 200 범위의 키를 입력해주세요.');
+      return;
+    }
+    setErrorMsg('');
   }, [state.gender, state.bodyForm]);
 
-  const handleGenderClick = useCallback(
-    (value: string) => dispatch({ type: 'GENDER', payload: value }),
-    [dispatch],
-  );
-  const handleBodyFormClick = useCallback(
-    (value: string) => dispatch({ type: 'BODY_FORM', payload: value }),
-    [dispatch],
-  );
-  const handleTopSizeClick = useCallback(
-    (value: string) => dispatch({ type: 'TOP_SIZE', payload: value }),
-    [dispatch],
-  );
-  const handleBottomSizeClick = useCallback(
-    (value: string) => dispatch({ type: 'BOTTOM_SIZE', payload: value }),
-    [dispatch],
-  );
-
-  const handleSubmit = () => {
-    console.log(1);
-  };
-
-  // validation flow
-  // 평상시 dimmed
-  // 그러면 계속 사용자가 입력하는 값을 탐지
-  // 유저가 모든 값을 올바르게 입력했을 때, 버튼이 검은색으로 바뀜
-  // 만약 유저가 140 ~ 200 범위가 아닌 키를 입력했을 때, 오류 메시지를 띄워줌
-  // 즉, 유저가 입력할 때마다 렌더링해야 함.
-
-  const btnData: [
-    string,
-    keyof BasicUserInfo,
-    (value: string) => void,
-    string[],
-  ][] = [
-    ['체형', 'bodyForm', handleBodyFormClick, bodyForms],
-    ['상의 사이즈', 'topSize', handleTopSizeClick, topSizes],
-    ['하의 사이즈(인치)', 'bottomSize', handleBottomSizeClick, bottomSizes],
+  const btnData: [string, keyof BasicUserInfo, string, string[]][] = [
+    ['체형', 'bodyForm', 'BODY_FORM', bodyForms],
+    ['상의 사이즈', 'topSize', 'TOP_SIZE', topSizes],
+    ['하의 사이즈(인치)', 'bottomSize', 'BOTTOM_SIZE', bottomSizes],
   ];
 
   return (
@@ -81,15 +71,20 @@ export const BasicInfo: NextPageWithLayout = () => {
         </InfoHeader>
         <InfoBtnBox
           label="성별"
+          type="GENDER"
           datas={genders}
           compareData={state.gender}
-          handleFunc={handleGenderClick}
+          handleFunc={handleClick}
           required
         />
 
         <InfoArticle label="키" required>
           <div className={$['height-input']}>
-            <TextInput placeholder="130 ~ 200 범위의 키를 입력해주세요." />
+            <TextInput
+              placeholder="130 ~ 200 범위의 키를 입력해주세요."
+              handleChange={handleHeightChange}
+              ref={inputRef}
+            />
             <Label className={$['height-cm']}>CM</Label>
           </div>
         </InfoArticle>
@@ -98,13 +93,15 @@ export const BasicInfo: NextPageWithLayout = () => {
           <InfoBtnBox
             key={options[0]}
             label={options[0]}
+            type={options[2]}
             datas={options[3]}
             compareData={state[options[1]]}
-            handleFunc={options[2]}
+            handleFunc={handleClick}
             required={options[0] === '체형'}
           />
         ))}
       </section>
+      {errorMsg}
       <ButtonFooter onClick={handleSubmit}>다음</ButtonFooter>
     </>
   );
