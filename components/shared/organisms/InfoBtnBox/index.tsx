@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import classnames from 'classnames';
 import { StyleProps } from 'types/props';
 
@@ -52,4 +54,4 @@ function InfoBtnBox({
   );
 }
 
-export default InfoBtnBox;
+export default memo(InfoBtnBox);

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import classnames from 'classnames';
 import type { StyleProps } from 'types/props';
 
@@ -11,7 +13,7 @@ type Props = {
   color?: string;
 } & StyleProps;
 
-export default function ButtonSelect({
+function ButtonSelect({
   className,
   style,
   label,
@@ -41,3 +43,5 @@ export default function ButtonSelect({
     </button>
   );
 }
+
+export default memo(ButtonSelect);

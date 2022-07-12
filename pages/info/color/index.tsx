@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useReducer } from 'react';
+import { ReactElement, useCallback, useReducer } from 'react';
 
 import { colors } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
@@ -16,10 +16,14 @@ import $ from './style.module.scss';
 export const ColorInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(colorInfoReducer, initialState);
 
-  const handleTopColorClick = (value: string) =>
-    dispatch({ type: 'TOP_COLOR', payload: value });
-  const handleBottomColorClick = (value: string) =>
-    dispatch({ type: 'BOTTOM_COLOR', payload: value });
+  const handleTopColorClick = useCallback(
+    (value: string) => dispatch({ type: 'TOP_COLOR', payload: value }),
+    [dispatch],
+  );
+  const handleBottomColorClick = useCallback(
+    (value: string) => dispatch({ type: 'BOTTOM_COLOR', payload: value }),
+    [dispatch],
+  );
 
   const btnData: [
     string,

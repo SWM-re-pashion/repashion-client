@@ -1,5 +1,5 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useReducer } from 'react';
+import { ReactElement, useReducer, useCallback } from 'react';
 
 import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
@@ -18,14 +18,22 @@ import $ from './style.module.scss';
 export const BasicInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(basicInfoReducer, initialState);
 
-  const handleGenderClick = (value: string) =>
-    dispatch({ type: 'GENDER', payload: value });
-  const handleBodyFormClick = (value: string) =>
-    dispatch({ type: 'BODY_FORM', payload: value });
-  const handleTopSizeClick = (value: string) =>
-    dispatch({ type: 'TOP_SIZE', payload: value });
-  const handleBottomSizeClick = (value: string) =>
-    dispatch({ type: 'BOTTOM_SIZE', payload: value });
+  const handleGenderClick = useCallback(
+    (value: string) => dispatch({ type: 'GENDER', payload: value }),
+    [dispatch],
+  );
+  const handleBodyFormClick = useCallback(
+    (value: string) => dispatch({ type: 'BODY_FORM', payload: value }),
+    [dispatch],
+  );
+  const handleTopSizeClick = useCallback(
+    (value: string) => dispatch({ type: 'TOP_SIZE', payload: value }),
+    [dispatch],
+  );
+  const handleBottomSizeClick = useCallback(
+    (value: string) => dispatch({ type: 'BOTTOM_SIZE', payload: value }),
+    [dispatch],
+  );
 
   const btnData: [
     string,
@@ -42,12 +50,10 @@ export const BasicInfo: NextPageWithLayout = () => {
     <>
       <section className={$['basic-info']}>
         <InfoPageNum>1/3</InfoPageNum>
-
         <InfoHeader title="basic">
           성별, 키, 체형 및 사이즈를 알려주세요.
           <br /> 사이즈는 복수 선택도 가능해요.
         </InfoHeader>
-
         <InfoBtnBox
           label="성별 *"
           datas={genders}
@@ -58,7 +64,6 @@ export const BasicInfo: NextPageWithLayout = () => {
         <InfoArticle label="키 *">
           <InputRange className={$['height-range']} />
         </InfoArticle>
-
         {btnData.map((options) => (
           <InfoBtnBox
             key={options[0]}
