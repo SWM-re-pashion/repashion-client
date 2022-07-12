@@ -1,9 +1,5 @@
-import { BasicUserInfo } from 'types';
-
-type ActionProps = {
-  type: string;
-  payload: string;
-};
+import { ActionProps, BasicUserInfo } from 'types';
+import { updateInfo } from 'utils';
 
 const initialState: BasicUserInfo = {
   gender: '',
@@ -11,11 +7,6 @@ const initialState: BasicUserInfo = {
   topSize: [],
   bottomSize: [],
 };
-
-const updateSizeInfo = (size: string[], value: string) =>
-  size.find((x) => x === value) === undefined
-    ? [...size, value]
-    : size.filter((x) => x !== value);
 
 function basicInfoReducer(state: BasicUserInfo, action: ActionProps) {
   const { topSize, bottomSize } = state;
@@ -29,12 +20,12 @@ function basicInfoReducer(state: BasicUserInfo, action: ActionProps) {
     case 'TOP_SIZE':
       return {
         ...state,
-        topSize: updateSizeInfo(topSize, payload),
+        topSize: updateInfo(topSize, payload),
       };
     case 'BOTTOM_SIZE':
       return {
         ...state,
-        bottomSize: updateSizeInfo(bottomSize, payload),
+        bottomSize: updateInfo(bottomSize, payload),
       };
     default:
       throw new Error();

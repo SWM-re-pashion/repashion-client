@@ -1,19 +1,10 @@
-import { ColorUserInfo } from 'types';
-
-type ActionProps = {
-  type: string;
-  payload: string;
-};
+import { ActionProps, ColorUserInfo } from 'types';
+import { updateInfo } from 'utils';
 
 const initialState: ColorUserInfo = {
   topColor: [],
   bottomColor: [],
 };
-
-const updateSizeInfo = (size: string[], value: string) =>
-  size.find((x) => x === value) === undefined
-    ? [...size, value]
-    : size.filter((x) => x !== value);
 
 function colorInfoReducer(state: ColorUserInfo, action: ActionProps) {
   const { topColor, bottomColor } = state;
@@ -23,12 +14,12 @@ function colorInfoReducer(state: ColorUserInfo, action: ActionProps) {
     case 'TOP_COLOR':
       return {
         ...state,
-        topColor: updateSizeInfo(topColor, payload),
+        topColor: updateInfo(topColor, payload),
       };
     case 'BOTTOM_COLOR':
       return {
         ...state,
-        bottomColor: updateSizeInfo(bottomColor, payload),
+        bottomColor: updateInfo(bottomColor, payload),
       };
     default:
       throw new Error();
