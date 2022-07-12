@@ -13,6 +13,7 @@ type Props = {
   datas: (string | [string, string])[];
   compareData: string | string[];
   handleFunc: (value: string) => void;
+  required?: boolean;
 } & StyleProps;
 
 function InfoBtnBox({
@@ -22,10 +23,11 @@ function InfoBtnBox({
   label,
   datas,
   compareData,
+  required,
   handleFunc,
 }: Props) {
   return (
-    <InfoArticle label={label}>
+    <InfoArticle label={label} required={required}>
       <div
         {...{ style }}
         className={classnames(

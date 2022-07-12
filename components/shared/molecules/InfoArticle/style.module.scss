@@ -1,9 +1,14 @@
+@import '@styles/_mixin.scss';
+
 .info-article {
   margin-bottom: 47px;
   &:last-child {
     margin: 0;
   }
-  .label {
-    margin-bottom: 14px;
+  &-header {
+    @include required-header(14px);
+    .required-msg {
+      margin-left: 7px;
+    }
   }
 }
