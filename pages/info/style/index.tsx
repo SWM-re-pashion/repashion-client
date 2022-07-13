@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
 import ImgBox from 'components/shared/atoms/ImgBox';
@@ -17,22 +17,29 @@ const EXAMPLE_URL =
 
 export const StyleInfo: NextPageWithLayout = () => {
   const [imgList, setImgList] = useState<number[]>([]);
+  const [errorMsg, setErrorMsg] = useState('');
+
   const imgBoxMocks = Array.from({ length: 12 }, (_, i) => ({
     id: i,
     src: EXAMPLE_URL,
   }));
 
-  const handleClick = useCallback(
-    (id: number) => setImgList(updateInfo<number>(imgList, id)),
-    [imgList],
-  );
+  const handleClick = (id: number) =>
+    setImgList(updateInfo<number>(imgList, id));
+  const handleSubmit = () => {
+    if (imgList.length < 2) {
+      setErrorMsg('이미지를 2개 이상 선택해주세요.');
+      return;
+    }
+    setErrorMsg('');
+  };
 
   return (
     <>
       <InfoPageNum>1/3</InfoPageNum>
 
       <InfoHeader title="style" style={{ marginBottom: '17px' }} required>
-        선호하는 사진을 선택주세요.
+        선호하는 이미지를 선택주세요.
         <br /> 2개 이상 선택 가능해요.
       </InfoHeader>
       <section className={$['style-info']}>
@@ -48,7 +55,9 @@ export const StyleInfo: NextPageWithLayout = () => {
           />
         ))}
       </section>
-      <ButtonFooter>다음</ButtonFooter>
+      <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
+        다음
+      </ButtonFooter>
     </>
   );
 };
