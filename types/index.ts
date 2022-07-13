@@ -14,3 +14,18 @@ export type ColorUserInfo = {
   topColor: string[];
   bottomColor: string[];
 };
+
+type btnBox = {
+  label: string;
+  type: string;
+  datas: (string | [string, string])[];
+  required?: boolean;
+};
+
+export type basicBtnBox = {
+  prop: keyof BasicUserInfo;
+} & btnBox;
+
+export type colorBtnBox = {
+  prop: keyof ColorUserInfo;
+} & btnBox;
