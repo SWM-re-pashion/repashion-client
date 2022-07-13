@@ -20,12 +20,12 @@ function basicInfoReducer(state: BasicUserInfo, action: ActionProps) {
     case 'TOP_SIZE':
       return {
         ...state,
-        topSize: updateInfo(topSize, payload),
+        topSize: updateInfo<string>(topSize, payload),
       };
     case 'BOTTOM_SIZE':
       return {
         ...state,
-        bottomSize: updateInfo(bottomSize, payload),
+        bottomSize: updateInfo<string>(bottomSize, payload),
       };
     default:
       throw new Error();
