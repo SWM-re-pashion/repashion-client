@@ -8,7 +8,7 @@ import {
   useRef,
 } from 'react';
 
-import { genders, bodyForms, topSizes, bottomSizes } from '@constants/index';
+import { genders, bodyShapes, topSizes, bottomSizes } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
 import Label from 'components/shared/atoms/Label';
 import TextInput from 'components/shared/atoms/TextInput';
@@ -24,7 +24,7 @@ import { BasicUserInfo } from 'types';
 import $ from './style.module.scss';
 
 const btnData: [string, keyof BasicUserInfo, string, string[]][] = [
-  ['체형', 'bodyForm', 'BODY_FORM', bodyForms],
+  ['체형', 'bodyShape', 'BODY_SHAPE', bodyShapes],
   ['상의 사이즈', 'topSize', 'TOP_SIZE', topSizes],
   ['하의 사이즈(인치)', 'bottomSize', 'BOTTOM_SIZE', bottomSizes],
 ];
@@ -45,7 +45,7 @@ export const BasicInfo: NextPageWithLayout = () => {
   }, []);
 
   const handleSubmit = useCallback(() => {
-    if (!state.gender || !state.bodyForm) {
+    if (!state.gender || !state.bodyShape) {
       setErrorMsg('필수 항목을 입력해주세요.');
       return;
     }
@@ -59,7 +59,7 @@ export const BasicInfo: NextPageWithLayout = () => {
       return;
     }
     setErrorMsg('');
-  }, [state.gender, state.bodyForm]);
+  }, [state.gender, state.bodyShape]);
 
   return (
     <>

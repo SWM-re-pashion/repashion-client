@@ -5,7 +5,7 @@ export type ActionProps = {
 
 export type BasicUserInfo = {
   gender: string;
-  bodyForm: string;
+  bodyShape: string;
   topSize: string[];
   bottomSize: string[];
 };
