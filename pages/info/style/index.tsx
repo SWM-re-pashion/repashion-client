@@ -29,9 +29,7 @@ export const StyleInfo: NextPageWithLayout = () => {
   const handleSubmit = () => {
     if (imgList.length < 2) {
       setErrorMsg('이미지를 2개 이상 선택해주세요.');
-      return;
-    }
-    setErrorMsg('');
+    } else setErrorMsg('');
   };
 
   return (
