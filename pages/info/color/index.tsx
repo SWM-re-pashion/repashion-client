@@ -1,20 +1,31 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, useReducer } from 'react';
 
 import { colors } from '@constants/index';
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import ButtonSelect from 'components/shared/molecules/ButtonSelect';
-import InfoArticle from 'components/shared/molecules/InfoArticle';
 import InfoHeader from 'components/shared/molecules/InfoHeader';
 import InfoPageNum from 'components/shared/molecules/InfoPageNum';
+import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
 import Layout from 'components/shared/templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
+import { colorInfoReducer, initialState } from 'reducer/colorInfoReducer';
+import { ColorUserInfo } from 'types';
 
 import $ from './style.module.scss';
 
-const clothsColor = [[...colors], [...colors]];
-
 export const ColorInfo: NextPageWithLayout = () => {
+  const [state, dispatch] = useReducer(colorInfoReducer, initialState);
+
+  const handleClick = useCallback(
+    (type: string, value: string) => dispatch({ type, payload: value }),
+    [dispatch],
+  );
+
+  const btnData: [string, keyof ColorUserInfo, string, [string, string][]][] = [
+    ['상의 컬러', 'topColor', 'TOP_COLOR', colors],
+    ['하의 컬러', 'bottomColor', 'BOTTOM_COLOR', colors],
+  ];
+
   return (
     <>
       <section className={$['color-info']}>
@@ -25,19 +36,16 @@ export const ColorInfo: NextPageWithLayout = () => {
           <br /> 여러 개 선택하는 것도 가능해요.
         </InfoHeader>
 
-        {clothsColor.map((clothColor, idx) => (
-          <InfoArticle
-            key={idx ? '하의 컬러' : '상의 컬러'}
-            label={idx ? '하의 컬러' : '상의 컬러'}
-          >
-            <div className={$['btn-box']}>
-              {clothColor.map(([text, color]) => (
-                <ButtonSelect key={text} className={$.btn} color={color}>
-                  {text}
-                </ButtonSelect>
-              ))}
-            </div>
-          </InfoArticle>
+        {btnData.map((options) => (
+          <InfoBtnBox
+            key={options[0]}
+            label={options[0]}
+            type={options[2]}
+            datas={options[3]}
+            compareData={state[options[1]]}
+            handleFunc={handleClick}
+            isColor
+          />
         ))}
       </section>
       <ButtonFooter>다음</ButtonFooter>

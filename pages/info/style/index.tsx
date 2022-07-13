@@ -21,7 +21,7 @@ export const StyleInfo: NextPageWithLayout = () => {
     <>
       <InfoPageNum>1/3</InfoPageNum>
 
-      <InfoHeader title="style" style={{ marginBottom: '17px' }}>
+      <InfoHeader title="style" style={{ marginBottom: '17px' }} required>
         선호하는 스타일을 알려주세요.
         <br /> 2개까지 선택이 가능해요.
       </InfoHeader>

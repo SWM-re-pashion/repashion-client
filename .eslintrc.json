@@ -38,10 +38,6 @@
     "no-tabs": "error",
     "object-shorthand": "error",
     "@typescript-eslint/no-redeclare": 0,
-    "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": "*", "next": "return" }
-    ],
     "import/order": [
       "error",
       {

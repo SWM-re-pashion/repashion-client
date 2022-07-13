@@ -1,14 +1,19 @@
+@import '@styles/_mixin.scss';
+
 .info-header {
   margin: 17px 0 38px 0;
   .info-title {
-    font-size: 25px;
-    line-height: 30px;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.02em;
+    @include required-header(7px);
+    &-msg {
+      font-size: 25px;
+      line-height: 30px;
+      letter-spacing: 0.02em;
+    }
+    .required-msg {
+      margin-left: 5px;
+    }
   }
   .info-description {
-    margin-top: 7px;
     font-size: 14px;
     line-height: 17px;
     letter-spacing: 0.02em;

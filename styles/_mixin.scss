@@ -50,3 +50,9 @@
     cursor: pointer;
   }
 }
+
+@mixin required-header($marginBottom) {
+  display: flex;
+  align-items: center;
+  margin-bottom: $marginBottom;
+}

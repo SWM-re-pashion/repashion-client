@@ -1,46 +1,51 @@
-import { useState } from 'react';
+import { memo } from 'react';
 
 import classnames from 'classnames';
-import type { DefaultProps } from 'types/props';
+import type { StyleProps } from 'types/props';
 
 import { Check } from '../../atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {
+  label: string;
+  type?: string;
+  isSelected: boolean;
+  handleClick: (type: string, value: string) => void;
   color?: string;
-} & DefaultProps;
+} & StyleProps;
 
-export default function ButtonSelect({
-  className,
-  style,
-  children,
-  color,
-}: Props) {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked((clicked) => !clicked);
-  };
+function ButtonSelect(btnProps: Props) {
+  const { className, style, label, type, isSelected, handleClick, color } =
+    btnProps;
 
   return (
     <button
       type="button"
       className={classnames($['btn-select'], className, {
         [$.color]: color,
-        [$.clicked]: isClicked && !color,
-        [$['clicked-color']]: isClicked && color,
+        [$.clicked]: isSelected && !color,
+        [$['clicked-color']]: isSelected && color,
       })}
       style={{ ...style }}
-      onClick={handleClick}
+      onClick={() => {
+        if (type) handleClick(type, label);
+      }}
     >
       {color ? (
-        <div className={$['color-box']} style={{ backgroundColor: color }}>
-          {isClicked && <Check className={$.icon} />}
+        <div
+          className={classnames($['color-box'], {
+            [$.white]: color === '#fff',
+          })}
+          style={{ backgroundColor: color }}
+        >
+          {isSelected && <Check className={$.icon} />}
         </div>
       ) : (
         <Check className={$.icon} />
       )}
-      <span>{children}</span>
+      <span>{label}</span>
     </button>
   );
 }
+
+export default memo(ButtonSelect);
