@@ -13,6 +13,11 @@ import { ColorUserInfo } from 'types';
 
 import $ from './style.module.scss';
 
+const btnData: [string, keyof ColorUserInfo, string, [string, string][]][] = [
+  ['상의 컬러', 'topColor', 'TOP_COLOR', colors],
+  ['하의 컬러', 'bottomColor', 'BOTTOM_COLOR', colors],
+];
+
 export const ColorInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(colorInfoReducer, initialState);
 
@@ -20,11 +25,6 @@ export const ColorInfo: NextPageWithLayout = () => {
     (type: string, value: string) => dispatch({ type, payload: value }),
     [dispatch],
   );
-
-  const btnData: [string, keyof ColorUserInfo, string, [string, string][]][] = [
-    ['상의 컬러', 'topColor', 'TOP_COLOR', colors],
-    ['하의 컬러', 'bottomColor', 'BOTTOM_COLOR', colors],
-  ];
 
   return (
     <>

@@ -23,6 +23,12 @@ import { BasicUserInfo } from 'types';
 
 import $ from './style.module.scss';
 
+const btnData: [string, keyof BasicUserInfo, string, string[]][] = [
+  ['체형', 'bodyForm', 'BODY_FORM', bodyForms],
+  ['상의 사이즈', 'topSize', 'TOP_SIZE', topSizes],
+  ['하의 사이즈(인치)', 'bottomSize', 'BOTTOM_SIZE', bottomSizes],
+];
+
 export const BasicInfo: NextPageWithLayout = () => {
   const [state, dispatch] = useReducer(basicInfoReducer, initialState);
   const [errorMsg, setErrorMsg] = useState('');
@@ -54,12 +60,6 @@ export const BasicInfo: NextPageWithLayout = () => {
     }
     setErrorMsg('');
   }, [state.gender, state.bodyForm]);
-
-  const btnData: [string, keyof BasicUserInfo, string, string[]][] = [
-    ['체형', 'bodyForm', 'BODY_FORM', bodyForms],
-    ['상의 사이즈', 'topSize', 'TOP_SIZE', topSizes],
-    ['하의 사이즈(인치)', 'bottomSize', 'BOTTOM_SIZE', bottomSizes],
-  ];
 
   return (
     <>
