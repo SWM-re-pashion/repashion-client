@@ -32,7 +32,12 @@ function ButtonSelect(btnProps: Props) {
       }}
     >
       {color ? (
-        <div className={$['color-box']} style={{ backgroundColor: color }}>
+        <div
+          className={classnames($['color-box'], {
+            [$.white]: color === '#fff',
+          })}
+          style={{ backgroundColor: color }}
+        >
           {isSelected && <Check className={$.icon} />}
         </div>
       ) : (

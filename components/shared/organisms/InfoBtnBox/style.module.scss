@@ -22,6 +22,9 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: auto;
+    @include mobile() {
+      grid-template-columns: repeat(9, 1fr);
+    }
     gap: 8px;
     .btn {
       height: 50px;
