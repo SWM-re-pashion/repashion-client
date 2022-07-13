@@ -25,6 +25,7 @@ export default function ButtonFooter({
         type="button"
         onClick={onClick}
         className={classnames($.btn, { [$.error]: msg })}
+        aria-label={`${children}버튼`}
       >
         {children}
       </button>

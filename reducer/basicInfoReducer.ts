@@ -3,7 +3,7 @@ import { updateInfo } from 'utils';
 
 const initialState: BasicUserInfo = {
   gender: '',
-  bodyForm: '',
+  bodyShape: '',
   topSize: [],
   bottomSize: [],
 };
@@ -15,17 +15,17 @@ function basicInfoReducer(state: BasicUserInfo, action: ActionProps) {
   switch (type) {
     case 'GENDER':
       return { ...state, gender: payload };
-    case 'BODY_FORM':
-      return { ...state, bodyForm: payload };
+    case 'BODY_SHAPE':
+      return { ...state, bodyShape: payload };
     case 'TOP_SIZE':
       return {
         ...state,
-        topSize: updateInfo(topSize, payload),
+        topSize: updateInfo<string>(topSize, payload),
       };
     case 'BOTTOM_SIZE':
       return {
         ...state,
-        bottomSize: updateInfo(bottomSize, payload),
+        bottomSize: updateInfo<string>(bottomSize, payload),
       };
     default:
       throw new Error();

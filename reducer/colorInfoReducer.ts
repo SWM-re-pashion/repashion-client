@@ -14,12 +14,12 @@ function colorInfoReducer(state: ColorUserInfo, action: ActionProps) {
     case 'TOP_COLOR':
       return {
         ...state,
-        topColor: updateInfo(topColor, payload),
+        topColor: updateInfo<string>(topColor, payload),
       };
     case 'BOTTOM_COLOR':
       return {
         ...state,
-        bottomColor: updateInfo(bottomColor, payload),
+        bottomColor: updateInfo<string>(bottomColor, payload),
       };
     default:
       throw new Error();

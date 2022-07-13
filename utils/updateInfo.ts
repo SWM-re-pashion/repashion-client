@@ -1,4 +1,5 @@
-export const updateInfo = (size: string[], value: string) =>
-  size.find((x) => x === value) === undefined
-    ? [...size, value]
-    : size.filter((x) => x !== value);
+export function updateInfo<T>(arr: T[], value: T) {
+  return arr.find((x) => x === value) === undefined
+    ? [...arr, value]
+    : arr.filter((x) => x !== value);
+}

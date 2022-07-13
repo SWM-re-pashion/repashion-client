@@ -30,6 +30,7 @@ function ButtonSelect(btnProps: Props) {
       onClick={() => {
         if (type) handleClick(type, label);
       }}
+      aria-label={`${label} 버튼`}
     >
       {color ? (
         <div

@@ -1,4 +1,4 @@
-import { genders, bodyForms, topSizes, bottomSizes } from './basic';
+import { genders, bodyShapes, topSizes, bottomSizes } from './basic';
 import { colors } from './colors';
 
-export { colors, genders, bodyForms, topSizes, bottomSizes };
+export { colors, genders, bodyShapes, topSizes, bottomSizes };
