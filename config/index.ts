@@ -1,3 +1,4 @@
 import { basicBtnProps } from './basicBtnProps';
+import { colorBtnProps } from './colorBtnProps';
 
-export { basicBtnProps };
+export { basicBtnProps, colorBtnProps };

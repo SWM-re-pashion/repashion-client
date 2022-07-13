@@ -1,13 +1,7 @@
 import { bodyShapes, bottomSizes, genders, topSizes } from '@constants/basic';
-import { BasicUserInfo } from 'types/index';
+import { basicBtnBox } from 'types/index';
 
-const basicBtnProps: {
-  label: string;
-  type: string;
-  datas: string[];
-  prop: keyof BasicUserInfo;
-  required?: boolean;
-}[] = [
+const basicBtnProps: basicBtnBox[] = [
   {
     label: '성별',
     type: 'GENDER',
