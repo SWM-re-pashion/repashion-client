@@ -1,10 +1,11 @@
 import Image from 'next/image';
 
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
 import { DefaultProps } from 'types/props';
 
+import { Check } from '../icon';
 import $ from './style.module.scss';
 
 type Props = {
@@ -26,6 +27,8 @@ function ImgBox({
   handleClick,
   style,
 }: Props) {
+  const boxRef = useRef<HTMLDivElement>(null);
+
   return (
     <div
       className={classnames($['img-box'], className, {
@@ -42,6 +45,7 @@ function ImgBox({
         if (isNeedClick && handleClick) handleClick(id);
       }}
       aria-label={`${alt} 이미지 박스`}
+      ref={boxRef}
     >
       <Image
         {...{ src, alt }}
@@ -50,6 +54,11 @@ function ImgBox({
         layout="responsive"
         priority
       />
+      {isSelected && (
+        <div className={$['selected-box']}>
+          <Check className={$.icon} />
+        </div>
+      )}
     </div>
   );
 }
