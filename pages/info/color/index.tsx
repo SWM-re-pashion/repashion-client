@@ -35,7 +35,6 @@ export const ColorInfo: NextPageWithLayout = () => {
           {...options}
           compareData={state[options.prop]}
           handleFunc={handleClick}
-          isColor
         />
       ))}
 

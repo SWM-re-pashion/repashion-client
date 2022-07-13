@@ -7,12 +7,14 @@ const colorBtnProps: colorBtnBox[] = [
     type: 'TOP_COLOR',
     datas: colors,
     prop: 'topColor',
+    isColor: true,
   },
   {
     label: '하의 컬러',
     type: 'BOTTOM_COLOR',
     datas: colors,
     prop: 'bottomColor',
+    isColor: true,
   },
 ];
 

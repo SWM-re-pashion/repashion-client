@@ -28,4 +28,5 @@ export type basicBtnBox = {
 
 export type colorBtnBox = {
   prop: keyof ColorUserInfo;
+  isColor?: boolean;
 } & btnBox;
