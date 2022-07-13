@@ -5,6 +5,7 @@ import $ from './style.module.scss';
 
 type Props = {
   onClick?: () => void;
+  msg?: string;
 } & DefaultProps;
 
 export default function ButtonFooter({
@@ -12,13 +13,19 @@ export default function ButtonFooter({
   style,
   children,
   onClick,
+  msg,
 }: Props) {
   return (
     <footer
       className={classnames($['btn-footer'], className)}
       style={{ ...style }}
     >
-      <button type="button" onClick={onClick}>
+      {msg && <span className={$['error-msg']}>{msg}</span>}
+      <button
+        type="button"
+        onClick={onClick}
+        className={classnames($.btn, { [$.error]: msg })}
+      >
         {children}
       </button>
     </footer>

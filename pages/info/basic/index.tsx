@@ -101,8 +101,9 @@ export const BasicInfo: NextPageWithLayout = () => {
           />
         ))}
       </section>
-      {errorMsg}
-      <ButtonFooter onClick={handleSubmit}>다음</ButtonFooter>
+      <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
+        다음
+      </ButtonFooter>
     </>
   );
 };
