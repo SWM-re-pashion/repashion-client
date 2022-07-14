@@ -1,6 +1,6 @@
+import Label from '@atoms/Label';
+import Required from '@atoms/Required';
 import classnames from 'classnames';
-import Label from 'components/shared/atoms/Label';
-import Required from 'components/shared/atoms/Required';
 import { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';

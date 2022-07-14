@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
-import { UserInfo } from 'types/index';
+import { UserInfo } from 'types/info';
 import { DefaultProps } from 'types/props';
 
 import { Check } from '../icon';

@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useState, useCallback } from 'react';
 
-import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import ImgBox from 'components/shared/atoms/ImgBox';
-import InfoHeader from 'components/shared/molecules/InfoHeader';
-import InfoPageNum from 'components/shared/molecules/InfoPageNum';
-import Layout from 'components/shared/templates/Layout';
+import ButtonFooter from '@atoms/ButtonFooter';
+import ImgBox from '@atoms/ImgBox';
+import InfoHeader from '@molecules/InfoHeader';
+import InfoPageNum from '@molecules/InfoPageNum';
+import Layout from '@templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 

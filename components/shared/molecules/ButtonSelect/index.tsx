@@ -1,10 +1,10 @@
 import { memo } from 'react';
 
+import type { StyleProps } from '#types/props';
+import { Check } from '@atoms/icon';
 import classnames from 'classnames';
-import { UserInfo } from 'types/index';
-import type { StyleProps } from 'types/props';
+import { UserInfo } from 'types/info';
 
-import { Check } from '../../atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {

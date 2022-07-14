@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback } from 'react';
 
-import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import InfoHeader from 'components/shared/molecules/InfoHeader';
-import InfoPageNum from 'components/shared/molecules/InfoPageNum';
-import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
-import Layout from 'components/shared/templates/Layout';
+import ButtonFooter from '@atoms/ButtonFooter';
+import InfoHeader from '@molecules/InfoHeader';
+import InfoPageNum from '@molecules/InfoPageNum';
+import InfoBtnBox from '@organisms/InfoBtnBox';
+import Layout from '@templates/Layout';
 import { colorBtnProps } from 'config';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';

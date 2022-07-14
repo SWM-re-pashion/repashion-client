@@ -9,14 +9,14 @@ import {
   useRef,
 } from 'react';
 
-import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import Label from 'components/shared/atoms/Label';
-import TextInput from 'components/shared/atoms/TextInput';
-import InfoArticle from 'components/shared/molecules/InfoArticle';
-import InfoHeader from 'components/shared/molecules/InfoHeader';
-import InfoPageNum from 'components/shared/molecules/InfoPageNum';
-import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
-import Layout from 'components/shared/templates/Layout';
+import ButtonFooter from '@atoms/ButtonFooter';
+import Label from '@atoms/Label';
+import TextInput from '@atoms/TextInput';
+import InfoArticle from '@molecules/InfoArticle';
+import InfoHeader from '@molecules/InfoHeader';
+import InfoPageNum from '@molecules/InfoPageNum';
+import InfoBtnBox from '@organisms/InfoBtnBox';
+import Layout from '@templates/Layout';
 import { basicBtnProps } from 'config';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
