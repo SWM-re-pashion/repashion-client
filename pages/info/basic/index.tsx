@@ -83,7 +83,7 @@ export const BasicInfo: NextPageWithLayout = () => {
             value={state.height}
             ref={inputRef}
           />
-          <Label className={$['height-cm']}>CM</Label>
+          <Label className={$['height-cm']}>cm</Label>
         </div>
       </InfoArticle>
 

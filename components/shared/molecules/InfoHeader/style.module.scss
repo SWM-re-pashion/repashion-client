@@ -2,6 +2,7 @@
 
 .info-header {
   margin: 17px 0 38px 0;
+  font-family: 'Montserrat Alternates', sans-serif;
   .info-title {
     @include required-header(7px);
     &-msg {
