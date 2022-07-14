@@ -1,5 +1,7 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useCallback, useReducer } from 'react';
+import { useRouter } from 'next/router';
+
+import { ReactElement, useCallback } from 'react';
 
 import ButtonFooter from 'components/shared/atoms/ButtonFooter';
 import InfoHeader from 'components/shared/molecules/InfoHeader';
@@ -8,17 +10,16 @@ import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
 import Layout from 'components/shared/templates/Layout';
 import { colorBtnProps } from 'config';
 import { NextPageWithLayout } from 'pages/_app';
-import { colorInfoReducer, initialState } from 'reducer/colorInfoReducer';
-
-import $ from './style.module.scss';
+import { useInfoStore } from 'store/useInfoStore';
 
 export const ColorInfo: NextPageWithLayout = () => {
-  const [state, dispatch] = useReducer(colorInfoReducer, initialState);
+  const state = useInfoStore((stat) => stat);
+  const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
+  const router = useRouter();
 
-  const handleClick = useCallback(
-    (type: string, value: string) => dispatch({ type, payload: value }),
-    [dispatch],
-  );
+  const handleSubmit = () => {
+    router.push('/info/basic');
+  };
 
   return (
     <>
@@ -33,12 +34,12 @@ export const ColorInfo: NextPageWithLayout = () => {
         <InfoBtnBox
           key={options.label}
           {...options}
-          compareData={state[options.prop]}
+          compareData={state[options.type]}
           handleFunc={handleClick}
         />
       ))}
 
-      <ButtonFooter>다음</ButtonFooter>
+      <ButtonFooter onClick={handleSubmit}>입력완료</ButtonFooter>
     </>
   );
 };
