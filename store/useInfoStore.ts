@@ -1,4 +1,4 @@
-import { UserInfo } from 'types';
+import { UserInfo } from 'types/info';
 import { updateInfo } from 'utils';
 import create, { State } from 'zustand';
 

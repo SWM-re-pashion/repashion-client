@@ -1,6 +1,6 @@
 import { bodyShapes, bottomSizes, genders, topSizes } from '@constants/basic';
 import { colors } from '@constants/index';
-import { basicBtnBox, colorBtnBox } from 'types/index';
+import { basicBtnBox, colorBtnBox } from 'types/info';
 
 const basicBtnProps: basicBtnBox[] = [
   {
