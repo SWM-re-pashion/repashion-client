@@ -23,16 +23,18 @@
     letter-spacing: 0.02em;
   }
   .error {
-    border: 1px solid $third;
+    border: 2px solid $third;
     box-sizing: border-box;
   }
 
   .error-msg {
-    margin-bottom: 5px;
+    position: absolute;
+    top: 50px;
+    margin-top: 5px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     @include mobile() {
-      font-size: 10px;
+      font-size: 14px;
     }
     line-height: 12px;
     letter-spacing: 0.02em;

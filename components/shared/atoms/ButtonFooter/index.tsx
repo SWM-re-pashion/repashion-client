@@ -20,7 +20,6 @@ export default function ButtonFooter({
       className={classnames($['btn-footer'], className)}
       style={{ ...style }}
     >
-      {msg && <span className={$['error-msg']}>{msg}</span>}
       <button
         type="button"
         onClick={onClick}
@@ -29,6 +28,7 @@ export default function ButtonFooter({
       >
         {children}
       </button>
+      {msg && <span className={$['error-msg']}>{msg}</span>}
     </footer>
   );
 }
