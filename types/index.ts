@@ -10,6 +10,17 @@ export type BasicUserInfo = {
   bottomSize: string[];
 };
 
+export type UserInfo = {
+  styles: number[];
+  gender: string;
+  height: string;
+  bodyShape: string;
+  topSize: string[];
+  bottomSize: string[];
+  topColor: string[];
+  bottomColor: string[];
+};
+
 export type ColorUserInfo = {
   topColor: string[];
   bottomColor: string[];
@@ -17,16 +28,15 @@ export type ColorUserInfo = {
 
 type btnBox = {
   label: string;
-  type: string;
   datas: (string | [string, string])[];
   required?: boolean;
 };
 
 export type basicBtnBox = {
-  prop: keyof BasicUserInfo;
+  type: keyof BasicUserInfo;
 } & btnBox;
 
 export type colorBtnBox = {
-  prop: keyof ColorUserInfo;
+  type: keyof ColorUserInfo;
   isColor?: boolean;
 } & btnBox;
