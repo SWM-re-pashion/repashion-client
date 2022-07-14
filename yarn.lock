@@ -775,6 +775,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -793,6 +800,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.30.0
     "@typescript-eslint/parser": ^5.30.0
     axios: ^0.27.2
+    classnames: ^2.3.1
     eslint: ^8.18.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-next: 12.2.0
@@ -807,9 +815,9 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-query: ^3.39.1
-    recoil: ^0.7.4
     sass: ^1.53.0
     typescript: 4.7.4
+    zustand: ^4.0.0-rc.1
   languageName: unknown
   linkType: soft
 
@@ -1739,13 +1747,6 @@ __metadata:
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
   checksum: 3f109d70ae123951905d85032ebeae3c2a5a7a997430df00ea30df0e3a6c60cf6689b109654d6fdacd28810a053348c4d14642da1d075049e6be1ba5216218da
-  languageName: node
-  linkType: hard
-
-"hamt_plus@npm:1.0.2":
-  version: 1.0.2
-  resolution: "hamt_plus@npm:1.0.2"
-  checksum: af26ea32db03009019cc83dfa9411521a2fa16079443de1a502c9be46d8b3c975acda8ed93fc5750ef08d3186d35901e2d8cfe717dd54bea67b358601fa74e4c
   languageName: node
   linkType: hard
 
@@ -2911,22 +2912,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "recoil@npm:0.7.4"
-  dependencies:
-    hamt_plus: 1.0.2
-  peerDependencies:
-    react: ">=16.13.1"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 797b97ee74b2fbbb8e4dda8a951b13569d45a3440cfc05e870056255ff22c73aa816de70d66168a5b9ebe16c14d262777947dd752c8cb9559ef8ae3fbb586472
-  languageName: node
-  linkType: hard
-
 "regenerator-runtime@npm:^0.13.4":
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
@@ -3537,5 +3522,22 @@ __metadata:
   version: 4.0.0
   resolution: "yallist@npm:4.0.0"
   checksum: 343617202af32df2a15a3be36a5a8c0c8545208f3d3dfbc6bb7c3e3b7e8c6f8e7485432e4f3b88da3031a6e20afa7c711eded32ddfb122896ac5d914e75848d5
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.0.0-rc.1":
+  version: 4.0.0-rc.1
+  resolution: "zustand@npm:4.0.0-rc.1"
+  dependencies:
+    use-sync-external-store: 1.1.0
+  peerDependencies:
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: c88ae96286229b3c463cf7989c860fcde8ec9cf885eb50a0e0eaf9642388d407a854e5e07b9f80676454732bf15e1c7645201cff21fd9feacd5df8bbd62fcd46
   languageName: node
   linkType: hard
