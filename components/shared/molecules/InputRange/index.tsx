@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
+import { RangeBtn } from '@atoms/icon';
 import classnames from 'classnames';
-import { RangeBtn } from 'components/shared/atoms/icon';
 import useDebounceInput from 'hooks/useDebounceInput';
 import { StyleProps } from 'types/props';
 

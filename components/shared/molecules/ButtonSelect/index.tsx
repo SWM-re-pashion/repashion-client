@@ -1,16 +1,17 @@
 import { memo } from 'react';
 
+import type { StyleProps } from '#types/props';
+import { Check } from '@atoms/icon';
 import classnames from 'classnames';
-import type { StyleProps } from 'types/props';
+import { UserInfo } from 'types/info';
 
-import { Check } from '../../atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {
   label: string;
-  type?: string;
+  type?: keyof UserInfo;
   isSelected: boolean;
-  handleClick: (type: string, value: string) => void;
+  handleClick: (type: keyof UserInfo, value: string) => void;
   color?: string;
 } & StyleProps;
 

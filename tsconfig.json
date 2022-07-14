@@ -4,8 +4,12 @@
     "paths": {
       "@shared/*": ["./shared/*"],
       "@styles/*": ["./styles/*"],
-      "types/*": ["./types/*"],
-      "@constants/*": ["./constants/*"]
+      "#types/*": ["./types/*"],
+      "@constants/*": ["./constants/*"],
+      "@atoms/*": ["./components/shared/atoms/*"],
+      "@molecules/*": ["./components/shared/molecules/*"],
+      "@organisms/*": ["./components/shared/organisms/*"],
+      "@templates/*": ["./components/shared/templates/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

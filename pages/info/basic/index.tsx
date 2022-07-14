@@ -1,36 +1,34 @@
 /* eslint-disable react/function-component-definition */
+import { useRouter } from 'next/router';
+
 import {
   ReactElement,
-  useReducer,
   useCallback,
   useState,
   ChangeEvent,
   useRef,
 } from 'react';
 
-import ButtonFooter from 'components/shared/atoms/ButtonFooter';
-import Label from 'components/shared/atoms/Label';
-import TextInput from 'components/shared/atoms/TextInput';
-import InfoArticle from 'components/shared/molecules/InfoArticle';
-import InfoHeader from 'components/shared/molecules/InfoHeader';
-import InfoPageNum from 'components/shared/molecules/InfoPageNum';
-import InfoBtnBox from 'components/shared/organisms/InfoBtnBox';
-import Layout from 'components/shared/templates/Layout';
+import ButtonFooter from '@atoms/ButtonFooter';
+import Label from '@atoms/Label';
+import TextInput from '@atoms/TextInput';
+import InfoArticle from '@molecules/InfoArticle';
+import InfoHeader from '@molecules/InfoHeader';
+import InfoPageNum from '@molecules/InfoPageNum';
+import InfoBtnBox from '@organisms/InfoBtnBox';
+import Layout from '@templates/Layout';
 import { basicBtnProps } from 'config';
 import { NextPageWithLayout } from 'pages/_app';
-import { initialState, basicInfoReducer } from 'reducer/basicInfoReducer';
+import { useInfoStore } from 'store/useInfoStore';
 
 import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {
-  const [state, dispatch] = useReducer(basicInfoReducer, initialState);
+  const state = useInfoStore((stat) => stat);
   const [errorMsg, setErrorMsg] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleClick = useCallback(
-    (type: string, value: string) => dispatch({ type, payload: value }),
-    [dispatch],
-  );
+  const updateInfo = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
+  const router = useRouter();
 
   const heightChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -47,8 +45,11 @@ export const BasicInfo: NextPageWithLayout = () => {
       setErrorMsg('필수 항목을 입력해주세요.');
     } else if (inputRef.current && verifyHeight(inputRef.current.value)) {
       setErrorMsg('130 ~ 200 범위의 키를 입력해주세요.');
+      inputRef.current.focus();
     } else {
+      if (inputRef.current) updateInfo('height', inputRef.current.value);
       setErrorMsg('');
+      router.push('/info/color');
     }
   };
 
@@ -56,11 +57,13 @@ export const BasicInfo: NextPageWithLayout = () => {
   const handleSubmit = useCallback(submitCallback, [
     state.gender,
     state.bodyShape,
+    updateInfo,
+    router,
   ]);
 
   return (
     <>
-      <InfoPageNum>1/3</InfoPageNum>
+      <InfoPageNum>2/3</InfoPageNum>
       <InfoHeader title="basic">
         성별, 키, 체형 및 사이즈를 알려주세요.
         <br /> 사이즈는 복수 선택도 가능해요.
@@ -68,8 +71,8 @@ export const BasicInfo: NextPageWithLayout = () => {
 
       <InfoBtnBox
         {...basicBtnProps[0]}
-        compareData={state[basicBtnProps[0].prop]}
-        handleFunc={handleClick}
+        compareData={state[basicBtnProps[0].type]}
+        handleFunc={updateInfo}
       />
 
       <InfoArticle label="키" required>
@@ -77,6 +80,7 @@ export const BasicInfo: NextPageWithLayout = () => {
           <TextInput
             placeholder="130 ~ 200 범위의 키를 입력해주세요."
             handleChange={handleHeightChange}
+            value={state.height}
             ref={inputRef}
           />
           <Label className={$['height-cm']}>CM</Label>
@@ -87,8 +91,8 @@ export const BasicInfo: NextPageWithLayout = () => {
         <InfoBtnBox
           {...options}
           key={options.label}
-          compareData={state[options.prop]}
-          handleFunc={handleClick}
+          compareData={state[options.type]}
+          handleFunc={updateInfo}
         />
       ))}
 

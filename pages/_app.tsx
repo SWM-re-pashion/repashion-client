@@ -6,7 +6,6 @@ import React, { ReactElement, ReactNode } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-import { RecoilRoot } from 'recoil';
 import '../styles/globals.scss';
 
 export type NextPageWithLayout = NextPage & {
@@ -23,22 +22,20 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <Head>
-          <meta charSet="utf-8" />
-          <meta name="description" content="중고 의류 마켓 refashion" />
-          <meta
-            name="viewport"
-            content="initial-scale=1, maximum-scale=1, width=device-width, 
+      <Head>
+        <meta charSet="utf-8" />
+        <meta name="description" content="중고 의류 마켓 refashion" />
+        <meta
+          name="viewport"
+          content="initial-scale=1, maximum-scale=1, width=device-width, 
       shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-          />
-          <title>refashion</title>
-        </Head>
-        <Hydrate state={pageProps.dehydratedState}>
-          {getLayout(<Component {...pageProps} />)}
-          <ReactQueryDevtools initialIsOpen={false} />
-        </Hydrate>
-      </RecoilRoot>
+        />
+        <title>refashion</title>
+      </Head>
+      <Hydrate state={pageProps.dehydratedState}>
+        {getLayout(<Component {...pageProps} />)}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </Hydrate>
     </QueryClientProvider>
   );
 }

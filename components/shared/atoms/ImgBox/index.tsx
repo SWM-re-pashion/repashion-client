@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
+import { UserInfo } from 'types/info';
 import { DefaultProps } from 'types/props';
 
 import { Check } from '../icon';
@@ -14,7 +15,7 @@ type Props = {
   alt: string;
   isNeedClick?: boolean;
   isSelected?: boolean;
-  handleClick?: (id: number) => void;
+  handleClick?: (type: keyof UserInfo, value: number) => void;
 } & DefaultProps;
 
 function ImgBox({
@@ -39,10 +40,10 @@ function ImgBox({
       role="button"
       tabIndex={0}
       onClick={() => {
-        if (isNeedClick && handleClick) handleClick(id);
+        if (isNeedClick && handleClick) handleClick('styles', id);
       }}
       onKeyPress={() => {
-        if (isNeedClick && handleClick) handleClick(id);
+        if (isNeedClick && handleClick) handleClick('styles', id);
       }}
       aria-label={`${alt} 이미지 박스`}
       ref={boxRef}

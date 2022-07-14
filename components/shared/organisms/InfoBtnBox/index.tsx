@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
 import classnames from 'classnames';
+import { UserInfo } from 'types/info';
 import { StyleProps } from 'types/props';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
@@ -10,10 +11,10 @@ import $ from './style.module.scss';
 type Props = {
   isColor?: boolean;
   label: string;
-  type?: string;
+  type?: keyof UserInfo;
   datas: (string | [string, string])[];
   compareData: string | string[];
-  handleFunc: (type: string, value: string) => void;
+  handleFunc: (type: keyof UserInfo, value: string) => void;
   required?: boolean;
 } & StyleProps;
 
@@ -40,6 +41,10 @@ function InfoBtnBox({
         {datas.map((data) => {
           const validData =
             !isColor && typeof data === 'string' ? data : data[0];
+          const isSelected =
+            typeof compareData === 'string'
+              ? compareData === data
+              : compareData.includes(validData);
 
           return (
             <ButtonSelect
@@ -47,11 +52,7 @@ function InfoBtnBox({
               className={$.btn}
               label={validData}
               type={type || undefined}
-              isSelected={
-                typeof compareData === 'string'
-                  ? compareData === data
-                  : compareData.includes(validData)
-              }
+              isSelected={isSelected}
               handleClick={handleFunc}
               color={isColor ? data[1] : undefined}
             />
