@@ -13,4 +13,8 @@
     margin: 0 auto;
     background-color: $white;
   }
+  .no-padding {
+    max-width: 1024px;
+    padding: 0;
+  }
 }
