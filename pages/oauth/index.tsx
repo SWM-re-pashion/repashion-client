@@ -16,12 +16,11 @@ const Oauth: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (query.code && typeof query.code === 'string') mutate(query.code);
-  }, [query]);
+  }, [mutate, query]);
 
   return (
     <div className={$['oauth-loading']}>
       <Spinner width={50} borderWidth={3} color="#876bf6" />
-      <span>{query.code}</span>
     </div>
   );
 };

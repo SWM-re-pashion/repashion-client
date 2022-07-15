@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { useMutation, UseMutationResult } from 'react-query';
 
 import { OAuthResponse, postAuthToken } from 'api/postAuthToken';
@@ -8,13 +10,14 @@ export default function usePostAuthToken(): UseMutationResult<
   AxiosError,
   string
 > {
+  const router = useRouter();
+
   return useMutation(postAuthToken, {
     onSuccess: (data) => {
-      alert(data.user);
-      console.log(data.user);
+      router.push('/info/style');
     },
     onError: (error) => {
-      alert(error);
+      router.back();
     },
   });
 }

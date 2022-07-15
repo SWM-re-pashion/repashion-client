@@ -1,0 +1,6 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.login {
+  min-height: calc(100vh - 60px);
+}
