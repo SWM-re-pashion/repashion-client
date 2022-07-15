@@ -1,16 +1,43 @@
 /* eslint-disable react/function-component-definition */
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-const Home: NextPage = () => {
-  const { query } = useRouter();
-  console.log(query.code);
+import { ReactElement } from 'react';
+
+import ButtonFooter from '@atoms/ButtonFooter';
+import { Ellipse } from '@atoms/icon/Ellipse';
+import { Polygon } from '@atoms/icon/Polygon';
+import { Rectangle } from '@atoms/icon/Rectangle';
+import { Star } from '@atoms/icon/Star';
+import Layout from '@templates/Layout';
+import classnames from 'classnames';
+
+import $ from '../styles/index.module.scss';
+import { NextPageWithLayout } from './_app';
+
+const OnBoarding: NextPageWithLayout = () => {
+  const router = useRouter();
+  const handleClick = () => router.push('/login');
 
   return (
-    <div>
-      <main>refashion whatever you want</main>
-    </div>
+    <section className={$['on-boarding']}>
+      <Ellipse className={classnames($.icon, $.ellipse)} />
+      <Star className={classnames($.icon, $.star)} />
+      <Polygon className={classnames($.icon, $.polygon)} />
+      <Rectangle className={classnames($.icon, $.rectangle)} />
+      <h1 className={$.title}>refashion</h1>
+      <span className={$.decription}>
+        recommend individual outfit from secondhand
+      </span>
+
+      <ButtonFooter background="#4a4a4a" onClick={handleClick}>
+        시작하기
+      </ButtonFooter>
+    </section>
   );
 };
 
-export default Home;
+OnBoarding.getLayout = function getLayout(page: ReactElement) {
+  return <Layout noPadding>{page}</Layout>;
+};
+
+export default OnBoarding;

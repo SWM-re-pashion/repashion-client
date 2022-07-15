@@ -4,6 +4,7 @@ import type { DefaultProps } from 'types/props';
 import $ from './style.module.scss';
 
 type Props = {
+  background?: string;
   onClick?: () => void;
   msg?: string;
 } & DefaultProps;
@@ -12,6 +13,7 @@ export default function ButtonFooter({
   className,
   style,
   children,
+  background,
   onClick,
   msg,
 }: Props) {
@@ -23,6 +25,7 @@ export default function ButtonFooter({
       <button
         type="button"
         onClick={onClick}
+        style={{ backgroundColor: background }}
         className={classnames($.btn, { [$.error]: msg })}
         aria-label={`${children}버튼`}
       >
