@@ -1,8 +1,11 @@
 import { useEffect, ReactNode } from 'react';
 
-import style from './style.module.scss';
+import classnames from 'classnames';
+
+import $ from './style.module.scss';
 
 interface Props {
+  noPadding?: boolean;
   isNeedFooter?: boolean;
   children: ReactNode;
   headerHeight?: number;
@@ -10,6 +13,7 @@ interface Props {
 }
 
 export default function PageLayout({
+  noPadding,
   isNeedFooter,
   children,
   headerHeight = 0,
@@ -27,14 +31,16 @@ export default function PageLayout({
 
   return (
     <main
-      className={style.layout}
+      className={$.layout}
       style={{
         maxHeight: `calc(100vh - ${
           headerHeight + footerHeight + decreaseHeight
         }px)`,
       }}
     >
-      <div className={style.body}>{children}</div>
+      <div className={classnames($.body, { [$['no-padding']]: noPadding })}>
+        {children}
+      </div>
     </main>
   );
 }
