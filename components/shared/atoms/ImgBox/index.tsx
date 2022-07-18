@@ -10,11 +10,12 @@ import { Check } from '../icon';
 import $ from './style.module.scss';
 
 type Props = {
-  id: number;
-  src: string;
-  alt: string;
+  id?: number;
+  src?: string;
+  alt?: string;
   isNeedClick?: boolean;
   isSelected?: boolean;
+  isLoading?: boolean;
   handleClick?: (type: keyof UserInfo, value: number) => void;
 } & DefaultProps;
 
@@ -25,6 +26,7 @@ function ImgBox({
   alt,
   isNeedClick = false,
   isSelected,
+  isLoading,
   handleClick,
   style,
 }: Props) {
@@ -34,27 +36,33 @@ function ImgBox({
     <div
       className={classnames($['img-box'], className, {
         [$['click-mode']]: isNeedClick,
-        [$.selected]: isSelected,
+        [$.selected]: isSelected && isNeedClick,
+        [$.loading]: isLoading,
       })}
       style={{ ...style }}
       role="button"
       tabIndex={0}
       onClick={() => {
-        if (isNeedClick && handleClick) handleClick('styles', id);
+        if (id && isNeedClick && handleClick) handleClick('styles', id);
       }}
       onKeyPress={() => {
-        if (isNeedClick && handleClick) handleClick('styles', id);
+        if (id && isNeedClick && handleClick) handleClick('styles', id);
       }}
       aria-label={`${alt} 이미지 박스`}
       ref={boxRef}
     >
-      <Image
-        {...{ src, alt }}
-        width="233"
-        height="233"
-        layout="responsive"
-        priority
-      />
+      {!isLoading && src ? (
+        <Image
+          {...{ src, alt }}
+          width="233"
+          height="233"
+          layout="responsive"
+          priority
+        />
+      ) : (
+        <div className={$.skeleton} />
+      )}
+
       {isSelected && (
         <div className={$['selected-box']}>
           <Check className={$.icon} />

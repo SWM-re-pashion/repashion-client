@@ -8,7 +8,10 @@ const nextConfig = {
     REST_API_KEY: process.env.REST_API_KEY,
   },
   images: {
-    domains: ['images.unsplash.com'],
+    domains: [
+      'images.unsplash.com',
+      'webserver0712.s3.ap-northeast-2.amazonaws.com',
+    ],
   },
 };
 
