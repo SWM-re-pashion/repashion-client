@@ -1,0 +1,17 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.img-btn {
+  @include btn-footer();
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 31px 30px;
+  .btn {
+    max-width: 962px;
+    @include mobile() {
+      width: 100%;
+    }
+    height: 50px;
+  }
+}
