@@ -56,3 +56,31 @@
   align-items: center;
   margin-bottom: $marginBottom;
 }
+
+@mixin loading() {
+  @-webkit-keyframes loading {
+    0% {
+      background-color: $skeleton-start;
+    }
+    50% {
+      background-color: $skeleton-mid;
+    }
+    100% {
+      background-color: $skeleton-start;
+    }
+  }
+
+  @keyframes loading {
+    0% {
+      background-color: $skeleton-start;
+    }
+    50% {
+      background-color: $skeleton-mid;
+    }
+    100% {
+      background-color: $skeleton-start;
+    }
+  }
+  -webkit-animation: loading 1.8s infinite ease-in-out;
+  animation: loading 1.8s infinite ease-in-out;
+}

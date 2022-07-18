@@ -1,9 +1,10 @@
 @import '@styles/main.scss';
+@import '@styles/_mixin.scss';
 
 .img-box {
   position: relative;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   border-radius: $border-radius;
   background-color: $gray-500;
   img {
@@ -33,4 +34,12 @@
 
 .click-mode {
   cursor: pointer;
+}
+
+.loading {
+  width: 100%;
+  @include loading();
+  .skeleton {
+    padding-top: 100%;
+  }
 }

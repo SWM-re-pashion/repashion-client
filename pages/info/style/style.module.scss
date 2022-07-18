@@ -3,11 +3,13 @@
 
 .style-info {
   display: grid;
-  gap: 10px;
+  grid-template-rows: auto;
   @media (min-width: #{$tablet}) {
     grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
   }
   @include mobile() {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
   }
 }
