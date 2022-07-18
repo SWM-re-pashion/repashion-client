@@ -8,7 +8,8 @@
   align-items: center;
   padding: 0 31px 30px;
   .btn {
-    width: 962px;
+    max-width: 962px;
+    width: 100%;
     @include mobile() {
       width: 100%;
     }
@@ -30,7 +31,7 @@
   .error-msg {
     position: absolute;
     top: 50px;
-    margin-top: 5px;
+    margin: 5px auto 0;
     font-weight: 700;
     font-size: 16px;
     @include mobile() {
