@@ -2,16 +2,16 @@ import { UserInfo } from 'types/info';
 import { updateInfo } from 'utils';
 import create, { State } from 'zustand';
 
-interface InfoState extends State {
+export interface InfoState extends State {
   styles: number[];
   gender: string;
   height: string;
   bodyShape: string;
   topSize: string[];
   bottomSize: string[];
-  topColor: string[];
-  bottomColor: string[];
-  infoUpdate: <T>(type: keyof UserInfo, value: T) => void;
+  topColors: string[];
+  bottomColors: string[];
+  infoUpdate?: <T>(type: keyof UserInfo, value: T) => void;
 }
 
 export const useInfoStore = create<InfoState>((set) => ({
@@ -21,15 +21,15 @@ export const useInfoStore = create<InfoState>((set) => ({
   bodyShape: '',
   topSize: [],
   bottomSize: [],
-  topColor: [],
-  bottomColor: [],
+  topColors: [],
+  bottomColors: [],
   infoUpdate: <T>(type: keyof UserInfo, value: T) => {
     set((state) => {
       const isStringArr =
         type === 'topSize' ||
         type === 'bottomSize' ||
-        type === 'topColor' ||
-        type === 'bottomColor';
+        type === 'topColors' ||
+        type === 'bottomColors';
 
       if (type === 'styles' && typeof value === 'number')
         return { [type]: updateInfo<number>(state[type], value) };

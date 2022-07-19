@@ -11,7 +11,7 @@ type Props = {
   label: string;
   type?: keyof UserInfo;
   isSelected: boolean;
-  handleClick: (type: keyof UserInfo, value: string) => void;
+  handleClick?: (type: keyof UserInfo, value: string) => void;
   color?: string;
 } & StyleProps;
 
@@ -29,7 +29,7 @@ function ButtonSelect(btnProps: Props) {
       })}
       style={{ ...style }}
       onClick={() => {
-        if (type) handleClick(type, label);
+        if (type && handleClick) handleClick(type, label);
       }}
       aria-label={`${label} 버튼`}
     >

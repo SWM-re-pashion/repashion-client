@@ -12,22 +12,24 @@ export type UserInfo = {
   bodyShape: string;
   topSize: string[];
   bottomSize: string[];
-  topColor: string[];
-  bottomColor: string[];
+  topColors: string[];
+  bottomColors: string[];
 };
 
 export type ColorUserInfo = {
-  topColor: string[];
-  bottomColor: string[];
+  topColors: string[];
+  bottomColors: string[];
 };
+
+export type ColorData = { name: string; code: string };
 
 type btnBox = {
   label: string;
-  datas: (string | [string, string])[];
   required?: boolean;
 };
 
 export type basicBtnBox = {
+  datas: string[];
   type: keyof BasicUserInfo;
 } & btnBox;
 

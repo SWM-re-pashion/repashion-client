@@ -1,22 +1,24 @@
-const colors: [string, string][] = [
-  ['Black', '#000'],
-  ['White', '#fff'],
-  ['Beige', '#e4d2c1'],
-  ['Ivory', '#f4edda'],
-  ['silver', '#e3e1e1'],
-  ['Gray', '#959595'],
-  ['Red', '#ff5e5e'],
-  ['Pink', '#ff61d7'],
-  ['Orange', '#ff9635'],
-  ['Yellow', '#ffd747'],
-  ['Brown', '#967556'],
-  ['Khaki', '#848974'],
-  ['Green', '#7db768'],
-  ['Light Green', '#aae396'],
-  ['Mint', '#acfbdf'],
-  ['Blue', '#4bb4ff'],
-  ['Navy', '#38466c'],
-  ['Purple', '#936dff'],
+import { ColorData } from '#types/info';
+
+const colors: ColorData[] = [
+  { name: 'Black', code: '#000' },
+  { name: 'White', code: '#fff' },
+  { name: 'Beige', code: '#e4d2c1' },
+  { name: 'Ivory', code: '#f4edda' },
+  { name: 'silver', code: '#e3e1e1' },
+  { name: 'Gray', code: '#959595' },
+  { name: 'Red', code: '#ff5e5e' },
+  { name: 'Pink', code: '#ff61d7' },
+  { name: 'Orange', code: '#ff9635' },
+  { name: 'Yellow', code: '#ffd747' },
+  { name: 'Brown', code: '#967556' },
+  { name: 'Khaki', code: '#848974' },
+  { name: 'Green', code: '#7db768' },
+  { name: 'Light Green', code: '#aae396' },
+  { name: 'Mint', code: '#acfbdf' },
+  { name: 'Blue', code: '#4bb4ff' },
+  { name: 'Navy', code: '#38466c' },
+  { name: 'Purple', code: '#936dff' },
 ];
 
 export { colors };
