@@ -35,7 +35,7 @@ export const StyleInfo: NextPageWithLayout = () => {
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const [errorMsg, setErrorMsg] = useState('');
   const router = useRouter();
-  const { isLoading, isError, data, error } = useQuery('styles', getStyleImg, {
+  const { isLoading, isError, data } = useQuery('styles', getStyleImg, {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
@@ -49,6 +49,8 @@ export const StyleInfo: NextPageWithLayout = () => {
     }
   };
 
+  const handleErrorSubmit = () => router.push('/info/basic');
+
   return (
     <>
       <InfoPageNum>1/3</InfoPageNum>
@@ -59,24 +61,32 @@ export const StyleInfo: NextPageWithLayout = () => {
       </InfoHeader>
 
       <section className={$['style-info']}>
-        {!isLoading && data
-          ? data.styles.map(({ id, src, alt }) => (
-              <ImgBox
-                {...{ id, src, alt }}
-                key={src + id}
-                isNeedClick
-                isSelected={state.styles.includes(id)}
-                handleClick={handleClick}
-              />
-            ))
-          : skeletonImgBox.map((_, idx) => (
-              <ImgBox key={`skeleton-${idx}`} isLoading />
-            ))}
+        {data &&
+          data?.styles.length !== 0 &&
+          data.styles.map(({ id, src, alt }) => (
+            <ImgBox
+              {...{ id, src, alt }}
+              key={src + id}
+              isNeedClick
+              isSelected={state.styles.includes(id)}
+              handleClick={handleClick}
+            />
+          ))}
+
+        {isLoading &&
+          skeletonImgBox.map((_, idx) => (
+            <ImgBox key={`skeleton-${idx}`} isLoading />
+          ))}
+        {(isError || data?.styles.length === 0) && <p>오류가 발생했습니다.</p>}
       </section>
 
-      <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
-        다음
-      </ButtonFooter>
+      {!isError && data?.styles.length !== 0 ? (
+        <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
+          다음
+        </ButtonFooter>
+      ) : (
+        <ButtonFooter onClick={handleErrorSubmit}>건너뛰기</ButtonFooter>
+      )}
     </>
   );
 };

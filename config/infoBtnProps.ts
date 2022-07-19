@@ -1,5 +1,4 @@
 import { bodyShapes, bottomSizes, genders, topSizes } from '@constants/basic';
-import { colors } from '@constants/index';
 import { basicBtnBox, colorBtnBox } from 'types/info';
 
 const basicBtnProps: basicBtnBox[] = [
@@ -30,14 +29,12 @@ const basicBtnProps: basicBtnBox[] = [
 const colorBtnProps: colorBtnBox[] = [
   {
     label: '상의 컬러',
-    type: 'topColor',
-    datas: colors,
+    type: 'topColors',
     isColor: true,
   },
   {
     label: '하의 컬러',
-    type: 'bottomColor',
-    datas: colors,
+    type: 'bottomColors',
     isColor: true,
   },
 ];
