@@ -39,8 +39,8 @@ function InfoBtnBox({
         )}
       >
         {datas.map((data) => {
-          const validData =
-            !isColor && typeof data === 'string' ? data : data.name;
+          const validData: string | keyof ColorData =
+            typeof data === 'object' ? data.name : data;
           const isSelected =
             typeof compareData === 'string'
               ? compareData === data
@@ -54,7 +54,9 @@ function InfoBtnBox({
               type={type || undefined}
               isSelected={isSelected}
               handleClick={handleFunc}
-              color={isColor ? data.code : undefined}
+              color={
+                isColor && typeof data === 'object' ? data.code : undefined
+              }
             />
           );
         })}
