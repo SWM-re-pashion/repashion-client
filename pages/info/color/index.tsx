@@ -1,5 +1,7 @@
 /* eslint-disable react/function-component-definition */
-import { ReactElement, useCallback } from 'react';
+import { useRouter } from 'next/router';
+
+import { ReactElement, useCallback, useEffect } from 'react';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
@@ -33,6 +35,12 @@ export const ColorInfo: NextPageWithLayout = () => {
     refetchOnMount: false,
   });
   const { mutate } = usePostPreference();
+  const router = useRouter();
+
+  useEffect(() => {
+    const { bodyShape, height, gender } = state;
+    if (!(bodyShape && height && gender)) router.push('/info/basic');
+  }, []);
 
   const handleSubmit = () => mutate(state);
 

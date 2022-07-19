@@ -47,7 +47,8 @@ export const BasicInfo: NextPageWithLayout = () => {
       setErrorMsg('130 ~ 200 범위의 키를 입력해주세요.');
       inputRef.current.focus();
     } else {
-      if (inputRef.current) updateInfo('height', inputRef.current.value);
+      if (inputRef.current && updateInfo)
+        updateInfo('height', inputRef.current.value);
       setErrorMsg('');
       router.push('/info/color');
     }
