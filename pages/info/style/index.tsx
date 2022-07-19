@@ -35,11 +35,7 @@ export const StyleInfo: NextPageWithLayout = () => {
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const [errorMsg, setErrorMsg] = useState('');
   const router = useRouter();
-  const { isLoading, isError, data } = useQuery('styles', getStyleImg, {
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-
+  const { isLoading, isError, data } = useQuery('styles', getStyleImg);
   const handleSubmit = () => {
     if (state.styles.length < 2) {
       setErrorMsg('이미지를 2개 이상 선택해주세요.');

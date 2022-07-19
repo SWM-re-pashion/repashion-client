@@ -30,10 +30,7 @@ export async function getStaticProps() {
 export const ColorInfo: NextPageWithLayout = () => {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
-  const { isLoading, isError, data, error } = useQuery('colors', getColors, {
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
+  const { isLoading, isError, data, error } = useQuery('colors', getColors);
   const { mutate } = usePostPreference();
   const router = useRouter();
 
