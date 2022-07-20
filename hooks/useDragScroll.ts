@@ -27,7 +27,7 @@ export default function useDragScroll(dragRef: RefObject<HTMLElement>) {
     const ref = dragRef.current;
 
     if (!isDown) return;
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
 
     if (ref) {
       if (e.type === 'mousemove' && 'pageX' in e) {

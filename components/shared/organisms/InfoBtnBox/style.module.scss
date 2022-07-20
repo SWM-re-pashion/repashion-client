@@ -2,7 +2,7 @@
 @import '@styles/_mixin.scss';
 
 .btn-box {
-  overflow-x: auto;
+  overflow: hidden;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
@@ -17,8 +17,7 @@
   }
 
   &-color {
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: auto;
