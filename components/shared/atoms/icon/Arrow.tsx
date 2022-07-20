@@ -1,17 +1,21 @@
 import type { StyleProps } from 'types/props';
 
-function Arrow({ className, style }: StyleProps) {
+type Props = {
+  onClick?: () => void;
+} & StyleProps;
+
+function Arrow({ className, style, onClick }: Props) {
   return (
     <svg
-      {...{ className, style }}
-      width="30"
-      height="30"
-      viewBox="0 0 30 30"
+      {...{ className, style, onClick }}
+      width="18"
+      height="14"
+      viewBox="0 0 18 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M13 9L7 15L13 21" stroke="white" strokeWidth="2" />
-      <line x1="8" y1="15" x2="23" y2="15" stroke="white" strokeWidth="2" />
+      <path d="M8 1L2 7L8 13" stroke="white" strokeWidth="2" />
+      <line x1="3" y1="7" x2="18" y2="7" stroke="white" strokeWidth="2" />
     </svg>
   );
 }
