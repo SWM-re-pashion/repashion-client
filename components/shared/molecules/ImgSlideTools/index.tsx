@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router';
 
+import { memo } from 'react';
+
 import { Arrow } from '@atoms/icon/Arrow';
 import { More } from '@atoms/icon/More';
 
 import $ from './style.module.scss';
 
-export default function ImgSlideTools() {
+function ImgSlideTools() {
   const router = useRouter();
   const handleClick = () => router.back();
 
@@ -16,3 +18,5 @@ export default function ImgSlideTools() {
     </article>
   );
 }
+
+export default memo(ImgSlideTools);

@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-import { Arrow } from '@atoms/icon/Arrow';
 import ImgSlide from '@organisms/ImgSlide';
 import Layout from '@templates/Layout';
 
