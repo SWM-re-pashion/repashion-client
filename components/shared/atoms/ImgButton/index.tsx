@@ -31,7 +31,7 @@ export default function ImgButton({
         type="button"
         onClick={onClick}
         className={$.btn}
-        aria-label={`${alt}버튼`}
+        aria-label={alt}
       >
         <Image {...{ src, alt, width, height }} priority />
       </button>

@@ -1,6 +1,7 @@
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
+import useDragScroll from 'hooks/useDragScroll';
 import { ColorData, UserInfo } from 'types/info';
 import { StyleProps } from 'types/props';
 
@@ -29,6 +30,9 @@ function InfoBtnBox({
   required,
   handleFunc,
 }: Props) {
+  const btnBoxRef = useRef<HTMLDivElement>(null);
+  useDragScroll(btnBoxRef);
+
   return (
     <InfoArticle label={label} required={required}>
       <div
@@ -37,6 +41,7 @@ function InfoBtnBox({
           !isColor ? $['btn-box'] : $['btn-box-color'],
           className,
         )}
+        ref={btnBoxRef}
       >
         {datas.map((data) => {
           const validData: string | keyof ColorData =
