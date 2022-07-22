@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-import { ProductBasicInfo, ProductNoticeInfo } from '#types/product';
 import { shopDetail } from '@mocks/index';
 import ImgSlide from '@organisms/ImgSlide';
 import Layout from '@templates/Layout';
@@ -13,24 +12,21 @@ function ShopDetail() {
   const {
     isMe,
     sellerInfo,
+    image,
     basic,
     sellerNotice,
     measure,
+    opinion,
     price,
     isIncludeDelivery,
   } = shopDetail;
 
-  const productBasicInfo: ProductBasicInfo = { ...basic };
-  const productNoticeInfo: ProductNoticeInfo = { ...sellerNotice };
-  delete productBasicInfo.image;
-  delete productNoticeInfo.opinion;
-
   return (
     <>
-      <ImgSlide imgList={basic.image} />
+      <ImgSlide imgList={image} />
       <section className={$['shop-detail-info']}>
-        <ProductBasic basic={productBasicInfo} />
-        <ProductNotice sellerNotice={productNoticeInfo} />
+        <ProductBasic basic={basic} />
+        <ProductNotice sellerNotice={sellerNotice} />
       </section>
     </>
   );
