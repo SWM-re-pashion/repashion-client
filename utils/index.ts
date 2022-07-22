@@ -1,3 +1,4 @@
+import { productSizeUtil } from './product';
 import { updateInfo } from './updateInfo';
 
-export { updateInfo };
+export { updateInfo, productSizeUtil };
