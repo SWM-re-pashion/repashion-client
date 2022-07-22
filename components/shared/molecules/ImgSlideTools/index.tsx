@@ -2,8 +2,7 @@ import { useRouter } from 'next/router';
 
 import { memo } from 'react';
 
-import { Arrow } from '@atoms/icon/Arrow';
-import { More } from '@atoms/icon/More';
+import { Arrow, More } from '@atoms/icon';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
