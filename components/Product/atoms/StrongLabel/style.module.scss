@@ -1,0 +1,27 @@
+@import '@styles/main.scss';
+@import '@styles/mixin.scss';
+
+.strong-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 13px;
+  color: $primary;
+  .icon-left {
+    margin-right: 7px;
+  }
+  .icon-right {
+    margin-left: 7px;
+    transform: rotate(180deg);
+  }
+  .label {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: 16px;
+    line-height: 19px;
+    @include mobile() {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+}
