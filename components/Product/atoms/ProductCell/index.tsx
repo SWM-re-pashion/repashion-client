@@ -6,6 +6,7 @@ import $ from './style.module.scss';
 type Props = {
   label: string;
   desc: string | number | undefined;
+  isTop?: boolean;
   isBottom?: boolean;
 } & StyleProps;
 
@@ -13,6 +14,7 @@ export default function ProductCell({
   label,
   desc,
   isBottom,
+  isTop,
   className,
 }: Props) {
   return (
@@ -20,6 +22,7 @@ export default function ProductCell({
       className={classnames(
         $['product-cell'],
         { [$.bottom]: isBottom },
+        { [$.top]: isTop },
         className,
       )}
     >
