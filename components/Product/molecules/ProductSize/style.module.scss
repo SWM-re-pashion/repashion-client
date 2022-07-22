@@ -1,0 +1,22 @@
+@import '@styles/main.scss';
+@import '@styles/mixin.scss';
+
+.product-size {
+  margin-top: 23px;
+  padding: 19px 23px 6px 21px;
+  border-radius: 10px;
+  background-color: $product-size-box;
+  .clothes-info {
+    display: flex;
+    align-items: center;
+    margin-top: 22px;
+    .clothes-img {
+      width: 202px;
+      height: 130px;
+    }
+    .size-info {
+      width: 100%;
+      margin-left: 16px;
+    }
+  }
+}
