@@ -15,8 +15,8 @@ function OnePiece({ className, style }: StyleProps) {
         fill="#8860FB"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M27.4822 0H16L19.9576 24.4014C21.1355 31.6639 27.4068 37 34.7641 37H43.8921C51.3998 37 57.7512 31.4493 58.7569 24.0093L62.0022 0H50.1559C50.1554 6.79688 45.0799 12.3067 38.8191 12.3067C32.5582 12.3067 27.4827 6.79688 27.4822 0Z"
         fill="#DFD3FF"
       />

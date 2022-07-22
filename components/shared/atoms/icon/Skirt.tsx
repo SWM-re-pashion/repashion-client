@@ -16,23 +16,23 @@ function Skirt({ className, style }: StyleProps) {
       <path
         d="M31 5.5L27.5 52"
         stroke="#DFD3FF"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-dasharray="2 2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="2 2"
       />
       <path
         d="M37 6L35 36.5"
         stroke="#DFD3FF"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-dasharray="2 2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="2 2"
       />
       <path
         d="M60 5.5L63.5 52"
         stroke="#DFD3FF"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-dasharray="2 2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="2 2"
       />
     </svg>
   );

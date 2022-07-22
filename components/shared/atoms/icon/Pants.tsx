@@ -20,12 +20,12 @@ function Pants({ className, style }: StyleProps) {
       <path
         d="M18 14V20C18 29.3888 10.3888 37 1 37V37"
         stroke="#DFD3FF"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M67 14V20C67 29.3888 74.6112 37 84 37V37"
         stroke="#DFD3FF"
-        stroke-dasharray="2 2"
+        strokeDasharray="2 2"
       />
       <path
         d="M72 13.5V19C72 26.4558 78.0442 32.5 85.5 32.5V32.5"
