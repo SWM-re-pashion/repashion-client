@@ -4,7 +4,7 @@ export type ActionProps = {
 };
 
 export type ImgProps = {
-  id: number;
+  id?: number;
   src: string;
   alt: string;
   width?: number;

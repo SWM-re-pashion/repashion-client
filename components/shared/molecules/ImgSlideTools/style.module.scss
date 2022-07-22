@@ -1,27 +1,29 @@
 @import '@styles/main.scss';
+@import '@styles/mixin.scss';
 
 .header-box {
   z-index: 1;
   position: absolute;
-  width: calc(100% - 48px);
+  width: 100%;
   height: fit-content;
   display: flex;
   align-items: center;
-  padding: 19px 24px;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.2) 0%,
     rgba(0, 0, 0, 0) 100%
   );
-  .back-btn {
+  .btn {
     width: 30px;
     height: 30px;
+    padding: 23px;
+    @include mobile() {
+      width: 23px;
+      height: 23px;
+    }
     cursor: pointer;
   }
-  .more-btn {
-    width: 30px;
-    height: 30px;
+  .more {
     margin: 0 0 0 auto;
-    cursor: pointer;
   }
 }

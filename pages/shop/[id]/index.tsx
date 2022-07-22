@@ -1,24 +1,34 @@
 import { ReactElement } from 'react';
 
+import { shopDetail } from '@mocks/index';
 import ImgSlide from '@organisms/ImgSlide';
 import Layout from '@templates/Layout';
+import ProductBasic from 'components/Product/molecules/ProductBasic';
+import ProductNotice from 'components/Product/molecules/ProductNotice';
 
-const EXAMPLE_URL =
-  'https://images.unsplash.com/photo-1618588507085-c79565432917?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwbmF0dXJlfGVufDB8fDB8fA%3D%3D&w=1000&q=80';
-
-const imgBoxMocks = Array.from({ length: 4 }, (_, i) => ({
-  id: i + 1,
-  src: EXAMPLE_URL,
-  alt: `img-mock-${i}`,
-  width: 360,
-  height: 360,
-}));
+import $ from './style.module.scss';
 
 function ShopDetail() {
+  const {
+    isMe,
+    sellerInfo,
+    image,
+    basic,
+    sellerNotice,
+    measure,
+    opinion,
+    price,
+    isIncludeDelivery,
+  } = shopDetail;
+
   return (
-    <section>
-      <ImgSlide imgList={imgBoxMocks} />
-    </section>
+    <>
+      <ImgSlide imgList={image} />
+      <section className={$['shop-detail-info']}>
+        <ProductBasic basic={basic} />
+        <ProductNotice sellerNotice={sellerNotice} />
+      </section>
+    </>
   );
 }
 

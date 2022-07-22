@@ -4,6 +4,7 @@ import { memo } from 'react';
 
 import { Arrow } from '@atoms/icon/Arrow';
 import { More } from '@atoms/icon/More';
+import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
@@ -12,10 +13,10 @@ function ImgSlideTools() {
   const handleClick = () => router.back();
 
   return (
-    <article className={$['header-box']}>
-      <Arrow className={$['back-btn']} onClick={handleClick} />
-      <More className={$['more-btn']} />
-    </article>
+    <div className={$['header-box']}>
+      <Arrow className={$.btn} onClick={handleClick} />
+      <More className={classnames($.btn, $.more)} />
+    </div>
   );
 }
 

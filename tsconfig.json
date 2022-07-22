@@ -5,6 +5,7 @@
       "@shared/*": ["./shared/*"],
       "@styles/*": ["./styles/*"],
       "#types/*": ["./types/*"],
+      "@mocks/*": ["./__mocks__/*"],
       "@constants/*": ["./constants/*"],
       "@atoms/*": ["./components/shared/atoms/*"],
       "@molecules/*": ["./components/shared/molecules/*"],
