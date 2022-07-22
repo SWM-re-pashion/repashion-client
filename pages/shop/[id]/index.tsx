@@ -28,7 +28,7 @@ function ShopDetail() {
       <section className={$['shop-detail-info']}>
         <ProductBasic basic={basic} />
         <ProductNotice sellerNotice={sellerNotice} />
-        <ProductSize size={measure} />
+        <ProductSize size={measure} kind={basic.classification} />
       </section>
     </>
   );
