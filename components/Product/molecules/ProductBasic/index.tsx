@@ -1,3 +1,4 @@
+import { ProductBasicInfo } from '#types/product';
 import { StyleProps } from '#types/props';
 import { replace } from 'utils/replace';
 
@@ -5,13 +6,7 @@ import ProductCell from '../../atoms/ProductCell';
 import $ from './style.module.scss';
 
 type Props = {
-  basic: {
-    title: string;
-    classification: string;
-    brand: string;
-    productInfo: string;
-    styleInfo: string;
-  };
+  basic: ProductBasicInfo;
 } & StyleProps;
 
 export default function ProductBasic({ basic }: Props) {

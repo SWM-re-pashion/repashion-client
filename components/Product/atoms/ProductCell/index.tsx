@@ -5,7 +5,7 @@ import $ from './style.module.scss';
 
 type Props = {
   label: string;
-  description: string;
+  description: string | undefined;
   isBottom?: boolean;
 } & StyleProps;
 

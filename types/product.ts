@@ -2,7 +2,6 @@ import { ImgProps } from '#types/index';
 
 export type ProductBasicInfo = {
   title: string;
-  image?: ImgProps[];
   classification: string;
   brand: string;
   productInfo: string;
@@ -16,8 +15,7 @@ export type ProductNoticeInfo = {
   length: string;
   bodyForm: string;
   fit: string;
-  purchaseTime: string;
-  purchasePlace: string;
+  purchaseTime?: string;
+  purchasePlace?: string;
   reason: string;
-  opinion?: string;
 };
