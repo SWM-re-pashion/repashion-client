@@ -7,6 +7,7 @@ import ProductBasic from 'components/Product/molecules/ProductBasic';
 import ProductNotice from 'components/Product/molecules/ProductNotice';
 
 import $ from './style.module.scss';
+import ProductSize from 'components/Product/molecules/ProductSize';
 
 function ShopDetail() {
   const {
@@ -27,6 +28,7 @@ function ShopDetail() {
       <section className={$['shop-detail-info']}>
         <ProductBasic basic={basic} />
         <ProductNotice sellerNotice={sellerNotice} />
+        <ProductSize size={measure} kind={basic.classification} />
       </section>
     </>
   );

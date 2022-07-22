@@ -5,14 +5,16 @@ import $ from './style.module.scss';
 
 type Props = {
   label: string;
-  description: string | undefined;
+  desc: string | number | undefined;
+  isTop?: boolean;
   isBottom?: boolean;
 } & StyleProps;
 
 export default function ProductCell({
   label,
-  description,
+  desc,
   isBottom,
+  isTop,
   className,
 }: Props) {
   return (
@@ -20,11 +22,12 @@ export default function ProductCell({
       className={classnames(
         $['product-cell'],
         { [$.bottom]: isBottom },
+        { [$.top]: isTop },
         className,
       )}
     >
       <strong className={$.label}>{label}</strong>
-      <span className={classnames($.label, $.description)}>{description}</span>
+      <span className={classnames($.label, $.desc)}>{desc}</span>
     </div>
   );
 }

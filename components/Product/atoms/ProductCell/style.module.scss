@@ -19,7 +19,7 @@
     color: $gray-590;
   }
 
-  .description {
+  .desc {
     display: inline-block;
     margin: 0 0 0 auto;
     font-weight: 400;
@@ -30,4 +30,8 @@
 
 .bottom {
   border-bottom: 1px solid $product-border;
+}
+
+.top {
+  border: 0;
 }

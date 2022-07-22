@@ -1,5 +1,6 @@
 import { ProductBasicInfo } from '#types/product';
 import { StyleProps } from '#types/props';
+import { productBasicUtil } from 'utils/product';
 import { replace } from 'utils/replace';
 
 import ProductCell from '../../atoms/ProductCell';
@@ -10,17 +11,8 @@ type Props = {
 } & StyleProps;
 
 export default function ProductBasic({ basic }: Props) {
-  const { title, classification, brand, productInfo, styleInfo } = basic;
-
-  const datas = [
-    { label: '브랜드', description: brand },
-    { label: '판매제품 정보', description: replace(productInfo, '/', '・') },
-    {
-      label: '스타일 정보',
-      description: replace(styleInfo, '/', '・'),
-      isBottom: true,
-    },
-  ];
+  const { title, classification } = basic;
+  const datas = productBasicUtil(basic);
 
   return (
     <>

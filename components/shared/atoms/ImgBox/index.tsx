@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { UserInfo } from 'types/info';
 import { DefaultProps } from 'types/props';
 
-import { Check } from '../icon';
+import { Check } from '@atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {

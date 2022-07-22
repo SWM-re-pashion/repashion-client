@@ -1,5 +1,3 @@
-import { ImgProps } from '#types/index';
-
 export type ProductBasicInfo = {
   title: string;
   classification: string;
@@ -18,4 +16,15 @@ export type ProductNoticeInfo = {
   purchaseTime?: string;
   purchasePlace?: string;
   reason: string;
+};
+
+export type ProductSizeInfo = {
+  length: number;
+  shoulderWidth?: number;
+  chestSection?: number;
+  sleeveLength?: number;
+  waistSection?: number;
+  thighSection?: number;
+  rise?: number;
+  bottomSection?: number;
 };

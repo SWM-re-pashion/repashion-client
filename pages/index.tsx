@@ -4,10 +4,7 @@ import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
-import { Ellipse } from '@atoms/icon/Ellipse';
-import { Polygon } from '@atoms/icon/Polygon';
-import { Rectangle } from '@atoms/icon/Rectangle';
-import { Star } from '@atoms/icon/Star';
+import { Ellipse, Star, Rectangle, Polygon } from '@atoms/icon';
 import Layout from '@templates/Layout';
 import classnames from 'classnames';
 
