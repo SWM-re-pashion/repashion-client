@@ -34,7 +34,7 @@ export default function ProductNotice({ sellerNotice }: Props) {
 
   return (
     <article className={$['product-notice']}>
-      <StrongLabel label="판매자가 알려드려요" />
+      <StrongLabel label="판매자가 알려드려요" mid />
       {datas.map((data) => {
         if (data.description) return <ProductCell key={data.label} {...data} />;
       })}

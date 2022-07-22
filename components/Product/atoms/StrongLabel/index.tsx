@@ -1,16 +1,19 @@
 import { StyleProps } from '#types/props';
-import { Strong } from '@atoms/icon/Strong';
+import { Strong } from '@atoms/icon';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
 type Props = {
   label: string;
+  mid?: boolean;
 } & StyleProps;
 
-export default function StrongLabel({ label, className }: Props) {
+export default function StrongLabel({ label, className, mid }: Props) {
   return (
-    <h2 className={classnames($['strong-label'], className)}>
+    <h2
+      className={classnames($['strong-label'], { [$['mid']]: mid }, className)}
+    >
       <Strong className={$['icon-left']} />
       <span className={$.label}>{label}</span>
       <Strong className={$['icon-right']} />
