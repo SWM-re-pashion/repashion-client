@@ -1,3 +1,4 @@
+import { Skirt, OnePiece, Pants, Top } from '@atoms/icon';
 import {
   ProductSizeInfo,
   ProductNoticeInfo,
@@ -65,4 +66,11 @@ export const productSizeUtil = (size: ProductSizeInfo) => {
     { label: `밑위`, desc: rise },
     { label: `밑단단면`, desc: bottomSection },
   ];
+};
+
+export const judgeProductIcon = (kind: string) => {
+  if (kind.includes('스커트')) return Skirt;
+  if (kind.includes('원피스')) return OnePiece;
+  if (kind.includes('하의')) return Pants;
+  return Top;
 };

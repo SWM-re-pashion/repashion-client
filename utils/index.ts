@@ -1,4 +1,15 @@
-import { productSizeUtil } from './product';
+import {
+  productSizeUtil,
+  judgeProductIcon,
+  productBasicUtil,
+  productNoticeUtil,
+} from './product';
 import { updateInfo } from './updateInfo';
 
-export { updateInfo, productSizeUtil };
+export {
+  updateInfo,
+  productSizeUtil,
+  productBasicUtil,
+  productNoticeUtil,
+  judgeProductIcon,
+};
