@@ -1,0 +1,33 @@
+@import '@styles/main.scss';
+@import '@styles/mixin.scss';
+
+.product-cell {
+  display: flex;
+  border-top: 1px solid $product-border;
+  padding: 9px 0;
+
+  .label {
+    max-width: 50%;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    @include mobile() {
+      font-size: 14px;
+      line-height: 17px;
+    }
+    letter-spacing: 0.02em;
+    color: $gray-590;
+  }
+
+  .description {
+    display: inline-block;
+    margin: 0 0 0 auto;
+    font-weight: 400;
+    text-align: right;
+    word-break: keep-all;
+  }
+}
+
+.bottom {
+  border-bottom: 1px solid $product-border;
+}
