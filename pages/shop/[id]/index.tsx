@@ -8,6 +8,7 @@ import ProductNotice from 'components/Product/molecules/ProductNotice';
 
 import $ from './style.module.scss';
 import ProductSize from 'components/Product/molecules/ProductSize';
+import SellerComment from 'components/Product/molecules/SellerComment';
 
 function ShopDetail() {
   const {
@@ -28,7 +29,12 @@ function ShopDetail() {
       <section className={$['shop-detail-info']}>
         <ProductBasic basic={basic} />
         <ProductNotice sellerNotice={sellerNotice} />
-        <ProductSize size={measure} kind={basic.classification} />
+        {measure.length && (
+          <ProductSize size={measure} kind={basic.classification} />
+        )}
+        {opinion && (
+          <SellerComment opinion={opinion} src={sellerInfo.profileImg} />
+        )}
       </section>
     </>
   );

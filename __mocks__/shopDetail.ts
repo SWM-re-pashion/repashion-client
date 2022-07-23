@@ -35,8 +35,6 @@ export const shopDetail = {
     fit: '루즈',
     purchaseTime: '작년 9월',
     purchasePlace: '스투시 온라인 매장',
-    reason:
-      '안 입는데 옷장에 있어서 팔아요 연락주시면 감사하겠습니다. 좋은 하루 되세요!',
   },
   measure: {
     length: 73,
