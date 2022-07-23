@@ -9,6 +9,7 @@ import ProductNotice from 'components/Product/molecules/ProductNotice';
 import $ from './style.module.scss';
 import ProductSize from 'components/Product/molecules/ProductSize';
 import SellerComment from 'components/Product/molecules/SellerComment';
+import Profile from '@molecules/Profile';
 
 function ShopDetail() {
   const {
@@ -26,6 +27,7 @@ function ShopDetail() {
   return (
     <>
       <ImgSlide imgList={image} />
+      <Profile profile={sellerInfo} />
       <section className={$['shop-detail-info']}>
         <ProductBasic basic={basic} />
         <ProductNotice sellerNotice={sellerNotice} />

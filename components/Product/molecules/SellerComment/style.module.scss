@@ -6,7 +6,7 @@
   align-items: center;
   margin-top: 20px;
   &-container {
-    // width: 100%;
+    width: 100%;
     max-width: calc(100% - 57px);
     @include mobile() {
       max-width: calc(100% - 49px);
