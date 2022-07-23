@@ -30,7 +30,6 @@ export const productNoticeUtil = (notice: ProductNoticeInfo) => {
     fit,
     purchaseTime,
     purchasePlace,
-    reason,
   } = notice;
 
   return [
@@ -40,7 +39,6 @@ export const productNoticeUtil = (notice: ProductNoticeInfo) => {
     { label: `${bodyForm}체형 기준`, desc: `${fit}핏이에요` },
     { label: '구매시기', desc: purchaseTime },
     { label: '구매처', desc: purchasePlace },
-    { label: '판매이유', desc: reason },
   ];
 };
 
