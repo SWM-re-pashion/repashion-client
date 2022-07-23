@@ -1,0 +1,37 @@
+@import '@styles/main.scss';
+@import '@styles/_mixin.scss';
+
+.seller-comment {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  &-container {
+    width: 100%;
+    max-width: calc(100% - 57px);
+    @include mobile() {
+      max-width: calc(100% - 49px);
+    }
+    display: flex;
+    align-items: center;
+    margin-right: 13px;
+  }
+  &-box {
+    width: 100%;
+    padding: 19px 14px 14px 18px;
+    border-radius: 10px;
+    background-color: $product-size-box;
+    span {
+      font-weight: 400;
+      font-size: 16px;
+      @include mobile() {
+        font-size: 14px;
+      }
+      line-height: 20px;
+      letter-spacing: 0.02em;
+    }
+  }
+  .icon {
+    position: relative;
+    left: -0.75px;
+  }
+}

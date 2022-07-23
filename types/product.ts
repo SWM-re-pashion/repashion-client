@@ -15,11 +15,10 @@ export type ProductNoticeInfo = {
   fit: string;
   purchaseTime?: string;
   purchasePlace?: string;
-  reason: string;
 };
 
 export type ProductSizeInfo = {
-  length: number;
+  length?: number;
   shoulderWidth?: number;
   chestSection?: number;
   sleeveLength?: number;
