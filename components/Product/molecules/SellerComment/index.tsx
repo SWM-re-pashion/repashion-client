@@ -18,7 +18,7 @@ export default function SellerComment({ opinion, src }: Props) {
           <StrongLabel label="판매자의 한마디" />
           <span>{opinion}</span>
         </BorderBox>
-        <SmallTriangle />
+        <SmallTriangle className={$.icon} />
       </div>
 
       <ProfileImg src={src} alt="사용자 프로필" className={$['profile-img']} />
