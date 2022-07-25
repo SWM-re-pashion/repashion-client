@@ -1,0 +1,14 @@
+.btn {
+  margin: 0 auto;
+  border-radius: $border-radius;
+  background-color: $black-600;
+  color: $white;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.02em;
+}
+.error {
+  border: 2px solid $third;
+  box-sizing: border-box;
+}
