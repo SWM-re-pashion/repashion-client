@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
+import { join } from 'path';
+
 const nextConfig = {
   reactStrictMode: true,
   presets: [['next/babel']],
+  sassOptions: {
+    includePaths: [join(__dirname, 'styles')],
+    prependData: '@import "styles/main.scss"; @import "styles/_mixin.scss";',
+  },
   env: {
     KAKAO_KEY: process.env.KAKAO_KEY,
     API_URL: process.env.API_URL,
@@ -16,4 +22,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
