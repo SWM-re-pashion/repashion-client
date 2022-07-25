@@ -1,15 +1,16 @@
 import { ReactElement } from 'react';
 
 import { shopDetail } from '@mocks/index';
+import Profile from '@molecules/Profile';
 import ImgSlide from '@organisms/ImgSlide';
 import Layout from '@templates/Layout';
+import SellerComment from 'components/Product/molecules/SellerComment';
 import ProductBasic from 'components/Product/organisms/ProductBasic';
+import ProductFooter from 'components/Product/organisms/ProductFooter';
 import ProductNotice from 'components/Product/organisms/ProductNotice';
+import ProductSize from 'components/Product/organisms/ProductSize';
 
 import $ from './style.module.scss';
-import ProductSize from 'components/Product/organisms/ProductSize';
-import SellerComment from 'components/Product/molecules/SellerComment';
-import Profile from '@molecules/Profile';
 
 function ShopDetail() {
   const {
@@ -22,6 +23,9 @@ function ShopDetail() {
     opinion,
     price,
     isIncludeDelivery,
+    updatedAt,
+    like,
+    views,
   } = shopDetail;
 
   return (
@@ -37,13 +41,22 @@ function ShopDetail() {
         {opinion && (
           <SellerComment opinion={opinion} src={sellerInfo.profileImg} />
         )}
+        <ProductFooter
+          footer={{ ...{ price, isIncludeDelivery, updatedAt, like, views } }}
+        >
+          연락하기
+        </ProductFooter>
       </section>
     </>
   );
 }
 
 ShopDetail.getLayout = function getLayout(page: ReactElement) {
-  return <Layout noPadding>{page}</Layout>;
+  return (
+    <Layout noPadding decreaseHeight={100}>
+      {page}
+    </Layout>
+  );
 };
 
 export default ShopDetail;
