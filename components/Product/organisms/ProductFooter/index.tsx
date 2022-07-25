@@ -19,6 +19,24 @@ export default function ProductFooter({
   footer,
 }: Props) {
   const { price, isIncludeDelivery, updatedAt, like, views } = footer;
+  const iconData = [
+    {
+      Icon: Views,
+      color: '#936DFF',
+      colorText: `${views}명`,
+      text: '이 보았어요・',
+    },
+    {
+      Icon: SmallHeart,
+      color: '#FF9635',
+      colorText: `${like}명`,
+      text: '이 관심있어요',
+    },
+    {
+      Icon: Time,
+      text: '3일전',
+    },
+  ];
 
   return (
     <footer
@@ -27,13 +45,15 @@ export default function ProductFooter({
     >
       <div className={classnames($['footer-wrapper'], className)}>
         <div className={$['icon-text-box']}>
-          <IconText Icon={Views} color="#936DFF" colorText={`${views}명`}>
-            이 보았어요・
-          </IconText>
-          <IconText Icon={SmallHeart} color="#FF9635" colorText={`${like}명`}>
-            이 관심있어요
-          </IconText>
-          <IconText Icon={Time}>이 관심있어요</IconText>
+          {iconData.map(({ Icon, color, colorText, text }, idx) => (
+            <IconText
+              key={text}
+              className={classnames({ [$.time]: idx === 2 })}
+              {...{ Icon, color, colorText }}
+            >
+              {text}
+            </IconText>
+          ))}
         </div>
 
         <div className={$['attractive-box']}>

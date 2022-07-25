@@ -4,16 +4,23 @@
   flex-direction: column;
   align-items: center;
   background-color: $white;
+
   .footer-wrapper {
     max-width: 1024px;
     width: 100%;
+
     .icon-text-box {
       height: 40px;
       display: flex;
+      padding: 0 23px;
       box-sizing: border-box;
       border-bottom: 1px solid $gray-500;
       background-color: $product-footer-icon-box;
+      .time {
+        margin-left: auto;
+      }
     }
+
     .attractive-box {
       display: flex;
       align-items: center;
@@ -23,25 +30,24 @@
         flex-direction: column;
         margin-left: 18px;
         .delivery {
-          font-size: 14px;
-          line-height: 17px;
+          @include typography(14);
           @include mobile() {
-            font-size: 10px;
-            line-height: 12px;
+            @include typography(10);
           }
         }
         .price {
-          font-size: 24px;
-          line-height: 26px;
-          @include mobile() {
-            font-size: 20px;
-            line-height: 24px;
-          }
+          @include typography(20);
         }
       }
+
       .product-btn {
-        width: 110px;
+        max-width: 200px;
+        width: 100%;
+        @include mobile() {
+          width: 110px;
+        }
         height: 40px;
+        margin-right: 0;
       }
     }
   }
