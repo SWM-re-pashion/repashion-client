@@ -1,28 +1,19 @@
-@import '@styles/main.scss';
-@import '@styles/mixin.scss';
-
 .product-header {
   margin-bottom: 19px;
   .product-title {
     font-weight: 700;
-    font-size: 24px;
-    line-height: 26px;
+    @include typography(24);
     @include mobile() {
-      font-size: 20px;
-      line-height: 24px;
+      @include typography(20);
     }
-    letter-spacing: 0.02em;
     color: $black-600;
   }
   .product-category {
     font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
+    @include typography(14);
     @include mobile() {
-      font-size: 12px;
-      line-height: 14px;
+      @include typography(12);
     }
-    letter-spacing: 0.02em;
     color: $gray-550;
   }
 }

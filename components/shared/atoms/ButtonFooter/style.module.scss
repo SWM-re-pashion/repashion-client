@@ -18,12 +18,10 @@
     top: 50px;
     margin: 5px auto 0;
     font-weight: 700;
-    font-size: 16px;
+    @include typography(16);
     @include mobile() {
-      font-size: 14px;
+      @include typography(14);
     }
-    line-height: 12px;
-    letter-spacing: 0.02em;
     color: $third;
   }
 }
