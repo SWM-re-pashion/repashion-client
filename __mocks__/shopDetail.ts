@@ -46,7 +46,7 @@ export const shopDetail = {
     '상태도 좋고 세탁도 딱 한 번 했어요! 직거래 택배거래 모두 가능하니 편하게 연락주세요! 감사합니다.',
   price: 20000,
   isIncludeDelivery: true,
-  updatedAt: '2022-07-22 16:48', // yyyy-mm-dd hh:mm
+  updatedAt: '2022-07-25 17:34:40', // yyyy-mm-dd hh:mm:ss
   like: 27,
   views: 15,
 };

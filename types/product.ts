@@ -31,7 +31,7 @@ export type ProductSizeInfo = {
 export type ProductFooterInfo = {
   price: number;
   isIncludeDelivery: boolean;
-  updatedAt: Date;
+  updatedAt: string;
   like: number;
   views: number;
 };
