@@ -11,9 +11,7 @@ type Props = {
 
 export default function StrongLabel({ label, className, mid }: Props) {
   return (
-    <h2
-      className={classnames($['strong-label'], { [$['mid']]: mid }, className)}
-    >
+    <h2 className={classnames($['strong-label'], { [$.mid]: mid }, className)}>
       <Strong className={$['icon-left']} />
       <span className={$.label}>{label}</span>
       <Strong className={$['icon-right']} />

@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next').NextConfig} */
-import { join } from 'path';
+const path = require('path');
 
 const nextConfig = {
   reactStrictMode: true,
   presets: [['next/babel']],
   sassOptions: {
-    includePaths: [join(__dirname, 'styles')],
-    prependData: '@import "styles/main.scss"; @import "styles/_mixin.scss";',
+    includePaths: [path.join(__dirname, 'styles')],
+    prependData:
+      '@import "styles/main.scss"; @import "styles/_mixin.scss"; @import "styles/_typography.scss";',
   },
   env: {
     KAKAO_KEY: process.env.KAKAO_KEY,
@@ -22,4 +24,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

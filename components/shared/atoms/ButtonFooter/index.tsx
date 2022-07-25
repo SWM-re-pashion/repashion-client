@@ -24,10 +24,10 @@ export default function ButtonFooter({
       style={{ ...style }}
     >
       <Button
-        isError={msg !== ''}
+        errorMsg={msg}
         onClick={onClick}
-        style={{ backgroundColor: background }}
-        className={classnames($.btn, { [$.error]: msg })}
+        background={background}
+        className={$.btn}
       >
         {children}
       </Button>

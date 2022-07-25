@@ -6,7 +6,7 @@ import $ from './style.module.scss';
 type Props = {
   background?: string;
   onClick?: () => void;
-  isError?: boolean;
+  errorMsg?: string;
 } & DefaultProps;
 
 export default function Button({
@@ -15,14 +15,14 @@ export default function Button({
   children,
   background,
   onClick,
-  isError,
+  errorMsg,
 }: Props) {
   return (
     <button
       type="button"
       onClick={onClick}
       style={{ ...style, backgroundColor: background }}
-      className={classnames($.btn, className, { [$.error]: isError })}
+      className={classnames($.btn, className, { [$.error]: errorMsg })}
       aria-label={`${children}`}
     >
       {children}
