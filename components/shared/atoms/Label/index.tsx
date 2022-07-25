@@ -3,9 +3,16 @@ import type { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';
 
-export default function Label({ className, style, children }: DefaultProps) {
+type Props = {
+  color?: string;
+} & DefaultProps;
+
+export default function Label({ className, style, color, children }: Props) {
   return (
-    <span {...{ style }} className={classNames($.label, className)}>
+    <span
+      style={{ ...style, color }}
+      className={classNames($.label, className)}
+    >
       {children}
     </span>
   );
