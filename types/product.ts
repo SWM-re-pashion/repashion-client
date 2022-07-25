@@ -27,3 +27,11 @@ export type ProductSizeInfo = {
   rise?: number;
   bottomSection?: number;
 };
+
+export type ProductFooterInfo = {
+  price: number;
+  isIncludeDelivery: boolean;
+  updatedAt: Date;
+  like: number;
+  views: number;
+};
