@@ -1,0 +1,18 @@
+.icon-text {
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-right: 4px;
+  }
+  .text {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    @include mobile() {
+      font-size: 12px;
+      line-height: 14px;
+    }
+    letter-spacing: 0.02em;
+    color: $gray-550;
+  }
+}
