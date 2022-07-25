@@ -1,9 +1,10 @@
-import { Skirt, OnePiece, Pants, Top } from '@atoms/icon';
 import {
   ProductSizeInfo,
   ProductNoticeInfo,
   ProductBasicInfo,
 } from '#types/product';
+import { Skirt, OnePiece, Pants, Top } from '@atoms/icon';
+
 import { replace } from './replace';
 
 export const productBasicUtil = (basic: ProductBasicInfo) => {
@@ -58,11 +59,11 @@ export const productSizeUtil = (size: ProductSizeInfo) => {
     { label: '총장', desc: length },
     { label: '어깨너비', desc: shoulderWidth },
     { label: '가슴단면', desc: chestSection },
-    { label: `소매길이`, desc: sleeveLength },
-    { label: `허리단면`, desc: waistSection },
-    { label: `허벅지단면`, desc: thighSection },
-    { label: `밑위`, desc: rise },
-    { label: `밑단단면`, desc: bottomSection },
+    { label: '소매길이', desc: sleeveLength },
+    { label: '허리단면', desc: waistSection },
+    { label: '허벅지단면', desc: thighSection },
+    { label: '밑위', desc: rise },
+    { label: '밑단단면', desc: bottomSection },
   ];
 };
 
