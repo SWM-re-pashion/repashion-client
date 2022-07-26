@@ -1,3 +1,4 @@
+import Button from '@atoms/Button';
 import classnames from 'classnames';
 import type { DefaultProps } from 'types/props';
 
@@ -22,15 +23,14 @@ export default function ButtonFooter({
       className={classnames($['btn-footer'], className)}
       style={{ ...style }}
     >
-      <button
-        type="button"
+      <Button
+        errorMsg={msg}
         onClick={onClick}
-        style={{ backgroundColor: background }}
-        className={classnames($.btn, { [$.error]: msg })}
-        aria-label={`${children}`}
+        background={background}
+        className={$.btn}
       >
         {children}
-      </button>
+      </Button>
       {msg && <span className={$['error-msg']}>{msg}</span>}
     </footer>
   );

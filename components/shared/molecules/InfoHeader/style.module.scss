@@ -1,22 +1,16 @@
-@import '@styles/_mixin.scss';
-
 .info-header {
   margin: 17px 0 38px 0;
   font-family: 'Montserrat Alternates', sans-serif;
   .info-title {
     @include required-header(7px);
     &-msg {
-      font-size: 25px;
-      line-height: 30px;
-      letter-spacing: 0.02em;
+      @include typography(25);
     }
     .required-msg {
       margin-left: 5px;
     }
   }
   .info-description {
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.02em;
+    @include typography(14);
   }
 }

@@ -1,0 +1,12 @@
+.btn {
+  margin: 0 auto;
+  border-radius: $border-radius;
+  background-color: $black-600;
+  color: $white;
+  font-weight: 700;
+  @include typography(16);
+}
+.error {
+  border: 2px solid $third;
+  box-sizing: border-box;
+}

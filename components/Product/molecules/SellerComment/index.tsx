@@ -3,6 +3,7 @@ import BorderBox from '@atoms/BorderBox';
 import { SmallTriangle } from '@atoms/icon/SmallTriangle';
 import ProfileImg from '@atoms/ProfileImg';
 import StrongLabel from 'components/Product/atoms/StrongLabel';
+
 import $ from './style.module.scss';
 
 type Props = {

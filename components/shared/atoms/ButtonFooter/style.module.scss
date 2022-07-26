@@ -1,6 +1,3 @@
-@import '@styles/main.scss';
-@import '@styles/_mixin.scss';
-
 .btn-footer {
   @include btn-footer();
   display: flex;
@@ -14,18 +11,6 @@
       width: 100%;
     }
     height: 50px;
-    margin: 0 auto;
-    border-radius: $border-radius;
-    background-color: $black-600;
-    color: $white;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.02em;
-  }
-  .error {
-    border: 2px solid $third;
-    box-sizing: border-box;
   }
 
   .error-msg {
@@ -33,12 +18,10 @@
     top: 50px;
     margin: 5px auto 0;
     font-weight: 700;
-    font-size: 16px;
+    @include typography(16);
     @include mobile() {
-      font-size: 14px;
+      @include typography(14);
     }
-    line-height: 12px;
-    letter-spacing: 0.02em;
     color: $third;
   }
 }

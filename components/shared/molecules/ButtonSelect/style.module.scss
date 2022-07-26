@@ -1,5 +1,3 @@
-@import '@styles/main.scss';
-
 .btn-select {
   display: flex;
   justify-content: center;
@@ -8,9 +6,7 @@
   background-color: $gray-150;
   span {
     font-weight: 600;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.02em;
+    @include typography(16);
     color: $black-200;
   }
   .icon {

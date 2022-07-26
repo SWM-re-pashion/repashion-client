@@ -1,5 +1,6 @@
 import { Arrow } from './Arrow';
 import { Check } from './Check';
+import { ClickHeart } from './ClickHeart';
 import { Ellipse } from './Ellipse';
 import { More } from './More';
 import { OnePiece } from './OnePiece';
@@ -8,9 +9,12 @@ import { Polygon } from './Polygon';
 import { RangeBtn } from './RangeBtn';
 import { Rectangle } from './Rectangle';
 import { Skirt } from './Skirt';
+import { SmallHeart } from './SmallHeart';
 import { Star } from './Star';
 import { Strong } from './Strong';
+import { Time } from './Time';
 import { Top } from './Top';
+import { Views } from './Views';
 
 export {
   Arrow,
@@ -26,4 +30,8 @@ export {
   Skirt,
   Pants,
   OnePiece,
+  Views,
+  SmallHeart,
+  ClickHeart,
+  Time,
 };

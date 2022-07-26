@@ -1,6 +1,3 @@
-@import '@styles/main.scss';
-@import '@styles/_mixin.scss';
-
 .height-input {
   @include tablet() {
     width: 50%;
@@ -10,9 +7,7 @@
   .height-cm {
     margin-left: 15px;
     font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0.02em;
+    @include typography(20);
     color: $black-600;
   }
 }

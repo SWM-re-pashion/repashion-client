@@ -1,12 +1,10 @@
 import Image from 'next/image';
 
+import { ImgProps } from '#types/index';
 import classnames from 'classnames';
 import type { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';
-import { ImgProps } from '#types/index';
-
-type Props = {} & DefaultProps & ImgProps;
 
 export default function ProfileImg({
   className,
@@ -15,7 +13,7 @@ export default function ProfileImg({
   height = 44,
   src,
   alt,
-}: Props) {
+}: DefaultProps & ImgProps) {
   return (
     <span
       className={classnames($['profile-img'], className)}

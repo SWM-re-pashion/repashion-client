@@ -1,0 +1,15 @@
+.icon-text {
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-right: 4px;
+  }
+  .text {
+    font-weight: 700;
+    @include typography(14);
+    @include mobile() {
+      @include typography(12);
+    }
+    color: $gray-550;
+  }
+}

@@ -1,5 +1,6 @@
-import $ from './style.module.scss';
 import ProfileImg from '@atoms/ProfileImg';
+
+import $ from './style.module.scss';
 
 type Props = {
   profile: {
