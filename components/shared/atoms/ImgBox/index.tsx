@@ -2,11 +2,11 @@ import Image from 'next/image';
 
 import { memo, useRef } from 'react';
 
+import { Check } from '@atoms/icon';
 import classnames from 'classnames';
 import { UserInfo } from 'types/info';
 import { DefaultProps } from 'types/props';
 
-import { Check } from '@atoms/icon';
 import $ from './style.module.scss';
 
 type Props = {

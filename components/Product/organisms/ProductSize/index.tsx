@@ -22,17 +22,17 @@ export default function ProductSize({ size, kind }: Props) {
       <div className={$['clothes-info']}>
         <ProductKind className={$['clothes-img']} />
         <div className={$['size-info']}>
-          {datas.map(({ label, desc }, idx) => {
-            if (desc)
-              return (
+          {datas.map(
+            ({ label, desc }, idx) =>
+              desc && (
                 <ProductCell
                   key={label}
                   label={label}
                   desc={`${desc}cm`}
                   isTop={idx === 0}
                 />
-              );
-          })}
+              ),
+          )}
         </div>
       </div>
     </BorderBox>
