@@ -1,0 +1,19 @@
+.filter-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 23px 27px;
+  box-sizing: border-box;
+  border-bottom: 1px solid $gray-280;
+  .filter-close {
+    z-index: 99;
+  }
+  .title {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    @include typography(18);
+  }
+}
