@@ -156,6 +156,10 @@ input {
 }
 
 button {
+  display: flex;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   padding: 0;
   background-color: transparent;
   border: none;
