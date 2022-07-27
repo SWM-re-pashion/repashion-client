@@ -1,7 +1,9 @@
 import { Arrow } from './Arrow';
 import { Check } from './Check';
 import { ClickHeart } from './ClickHeart';
+import { Close } from './Close';
 import { Ellipse } from './Ellipse';
+import { Filter } from './Filter';
 import { More } from './More';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
@@ -34,4 +36,6 @@ export {
   SmallHeart,
   ClickHeart,
   Time,
+  Filter,
+  Close,
 };
