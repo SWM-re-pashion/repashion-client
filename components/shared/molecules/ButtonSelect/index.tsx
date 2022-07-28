@@ -3,38 +3,42 @@ import { memo } from 'react';
 import type { StyleProps } from '#types/props';
 import { Check } from '@atoms/icon';
 import classnames from 'classnames';
-import { ClothesCategory } from 'types/info';
 
 import $ from './style.module.scss';
 
-type Props<T> = {
+type Props<T, U> = {
   type?: T;
+  subType?: U;
   label: string;
-  subType?: keyof ClothesCategory;
   isSelected: boolean;
-  handleClick?: (type: T, value: string) => void;
+  handleClick?: (type: T, value: string, subType?: U) => void;
   color?: string;
+  noCheckColor?: boolean;
 } & StyleProps;
 
-function ButtonSelect<T>(btnProps: Props<T>) {
-  const { className, style, label, type, isSelected, handleClick, color } =
+function ButtonSelect<T, U>(btnProps: Props<T, U>) {
+  const { className, style } = btnProps;
+  const { label, type, isSelected, handleClick, color, noCheckColor, subType } =
     btnProps;
 
   return (
     <button
       type="button"
       className={classnames($['btn-select'], className, {
-        [$.color]: color,
+        [$.color]: color || noCheckColor,
         [$.clicked]: isSelected && !color,
-        [$['clicked-color']]: isSelected && color,
+        [$['clicked-color']]: isSelected && (color || noCheckColor),
       })}
       style={{ ...style }}
       onClick={() => {
-        if (type && handleClick) handleClick(type, label);
+        if (type && handleClick) {
+          if (subType) handleClick(type, label, subType);
+          else handleClick(type, label);
+        }
       }}
       aria-label={`${label} 버튼`}
     >
-      {color ? (
+      {color && (
         <div
           className={classnames($['color-box'], {
             [$.white]: color === '#fff',
@@ -43,10 +47,11 @@ function ButtonSelect<T>(btnProps: Props<T>) {
         >
           {isSelected && <Check className={$.icon} />}
         </div>
-      ) : (
-        <Check className={$.icon} />
       )}
-      <span>{label}</span>
+      {!color && !noCheckColor && <Check className={$.icon} />}
+      <span className={classnames($.label, { [$['no-check']]: noCheckColor })}>
+        {label}
+      </span>
     </button>
   );
 }

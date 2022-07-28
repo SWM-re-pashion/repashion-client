@@ -4,7 +4,7 @@
   align-items: center;
   border-radius: $border-radius;
   background-color: $gray-150;
-  span {
+  .label {
     font-weight: 600;
     @include typography(16);
     color: $black-200;
@@ -31,9 +31,12 @@
     border: 1px solid $gray-280;
     box-sizing: border-box;
   }
-  span {
+  .label {
     width: 60px;
     padding: 15px 10px;
+  }
+  .no-check {
+    width: 88px;
   }
   .icon {
     margin: 0;
@@ -47,7 +50,7 @@
       stroke: $white;
     }
   }
-  span {
+  .label {
     color: $white;
     font-weight: 800;
   }
@@ -60,7 +63,7 @@
         stroke: $gray-280;
       }
     }
-    span {
+    .label {
       color: $primary;
       font-weight: 700;
     }
