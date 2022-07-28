@@ -8,6 +8,7 @@ const commonProps: filterBtnBox[] = [
     label: '스타일',
     type: 'styles',
     datas: styles,
+    noCheckColor: true,
   },
 ];
 
@@ -31,18 +32,21 @@ export const filterData = (category: string): filterBtnBox[] => {
           type: 'fit',
           subType: category,
           datas: fits[category],
+          noCheckColor: true,
         },
         {
           label: '기장',
           type: 'length',
           subType: category,
           datas: lengths[category],
+          noCheckColor: true,
         },
         {
           label: '사이즈',
           type: 'size',
           subType: category,
           datas: category === 'top' ? topSizes : bottomSizes,
+          noCheckColor: true,
         },
       ];
     default:

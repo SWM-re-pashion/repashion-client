@@ -56,4 +56,5 @@ export type filterBtnBox = {
   subType?: keyof ClothesCategory;
   datas: string[] | ColorData[];
   isColor?: boolean;
+  noCheckColor?: boolean;
 } & btnBox;
