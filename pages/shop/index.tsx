@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { Filter } from '@atoms/icon';
 import Layout from '@templates/Layout';
@@ -10,18 +10,32 @@ import $ from './style.module.scss';
 
 function Shop() {
   const [filterOpen, setFilterOpen] = useState(false);
-  const router = useRouter();
+  const [category, setCategory] = useState('all');
+  const router = useRouter(); // query가 이상하면 api 호출 취소하기
+
   const openFilterModal = () => {
     setFilterOpen(true);
-    router.push(`?category=${encodeURI(encodeURIComponent('bottom'))}`);
   };
   const closeFilterModal = () => setFilterOpen(false);
+
+  useEffect(() => {
+    router.push({
+      query: { category },
+    });
+  }, [category]);
+
+  const categories = ['all', 'top', 'bottom', 'outer'];
 
   return (
     <div>
       <button type="button" onClick={openFilterModal}>
         <Filter />
       </button>
+      <select onChange={(e) => setCategory(e.target.value)}>
+        {categories.map((x) => (
+          <option key={x}>{x}</option>
+        ))}
+      </select>
       <FilterModal isOpen={filterOpen} onClose={closeFilterModal} />
     </div>
   );
