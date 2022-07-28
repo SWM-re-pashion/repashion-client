@@ -36,6 +36,7 @@ export default function PageLayout({
         maxHeight: `calc(100vh - ${
           headerHeight + footerHeight + decreaseHeight
         }px)`,
+        marginTop: `${headerHeight}px`,
       }}
     >
       <div className={classnames($.body, { [$['no-padding']]: noPadding })}>

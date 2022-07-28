@@ -1,0 +1,18 @@
+.filter-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.filter-container {
+  padding: 95px 24px 35px;
+}
+
+.clear {
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+  background-color: $gray-280;
+  color: $black-600;
+}

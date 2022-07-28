@@ -2,34 +2,29 @@ import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
 import useDragScroll from 'hooks/useDragScroll';
-import { ColorData, UserInfo } from 'types/info';
+import { ColorData } from 'types/info';
 import { StyleProps } from 'types/props';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
 import InfoArticle from '../../molecules/InfoArticle';
 import $ from './style.module.scss';
 
-type Props = {
+type Props<T, U> = {
+  type?: T;
+  subType?: U;
   isColor?: boolean;
+  noCheckColor?: boolean;
   label: string;
-  type?: keyof UserInfo;
   datas: (string | ColorData)[];
   compareData: string | string[];
-  handleFunc?: (type: keyof UserInfo, value: string) => void;
+  handleFunc?: (type: T, value: string, subType?: U) => void;
   required?: boolean;
 } & StyleProps;
 
-function InfoBtnBox({
-  className,
-  style,
-  isColor,
-  label,
-  type,
-  datas,
-  compareData,
-  required,
-  handleFunc,
-}: Props) {
+function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
+  const { className, style, isColor, noCheckColor } = btnBoxProps;
+  const { label, type, datas, subType, compareData, required, handleFunc } =
+    btnBoxProps;
   const btnBoxRef = useRef<HTMLDivElement>(null);
   useDragScroll(btnBoxRef);
 
@@ -38,7 +33,8 @@ function InfoBtnBox({
       <div
         {...{ style }}
         className={classnames(
-          !isColor ? $['btn-box'] : $['btn-box-color'],
+          !isColor && !noCheckColor ? $['btn-box'] : $['btn-box-color'],
+          { [$['btn-box-color-no-check']]: noCheckColor },
           className,
         )}
         ref={btnBoxRef}
@@ -57,11 +53,13 @@ function InfoBtnBox({
               className={$.btn}
               label={validData}
               type={type || undefined}
+              subType={subType || undefined}
               isSelected={isSelected}
               handleClick={handleFunc}
               color={
                 isColor && typeof data === 'object' ? data.code : undefined
               }
+              noCheckColor={noCheckColor}
             />
           );
         })}
@@ -69,5 +67,5 @@ function InfoBtnBox({
     </InfoArticle>
   );
 }
-
-export default memo(InfoBtnBox);
+const typedMemo: <T>(c: T) => T = memo;
+export default typedMemo(InfoBtnBox);
