@@ -1,3 +1,4 @@
+import { filterData } from './filterData';
 import {
   productSizeUtil,
   judgeProductIcon,
@@ -12,4 +13,5 @@ export {
   productBasicUtil,
   productNoticeUtil,
   judgeProductIcon,
+  filterData,
 };
