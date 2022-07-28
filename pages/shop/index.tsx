@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { ReactElement, useState } from 'react';
 
 import { Filter } from '@atoms/icon';
@@ -8,7 +10,11 @@ import $ from './style.module.scss';
 
 function Shop() {
   const [filterOpen, setFilterOpen] = useState(false);
-  const openFilterModal = () => setFilterOpen(true);
+  const router = useRouter();
+  const openFilterModal = () => {
+    setFilterOpen(true);
+    router.push(`?category=${encodeURI(encodeURIComponent('bottom'))}`);
+  };
   const closeFilterModal = () => setFilterOpen(false);
 
   return (
