@@ -2,34 +2,36 @@ import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
 import useDragScroll from 'hooks/useDragScroll';
-import { ColorData, UserInfo } from 'types/info';
+import { ColorData, ClothesCategory } from 'types/info';
 import { StyleProps } from 'types/props';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
 import InfoArticle from '../../molecules/InfoArticle';
 import $ from './style.module.scss';
 
-type Props = {
+type Props<T> = {
+  type?: T;
   isColor?: boolean;
   label: string;
-  type?: keyof UserInfo;
+  subType?: keyof ClothesCategory;
   datas: (string | ColorData)[];
   compareData: string | string[];
-  handleFunc?: (type: keyof UserInfo, value: string) => void;
+  handleFunc?: (type: T, value: string) => void;
   required?: boolean;
 } & StyleProps;
 
-function InfoBtnBox({
+function InfoBtnBox<T>({
   className,
   style,
   isColor,
   label,
   type,
   datas,
+  subType,
   compareData,
   required,
   handleFunc,
-}: Props) {
+}: Props<T>) {
   const btnBoxRef = useRef<HTMLDivElement>(null);
   useDragScroll(btnBoxRef);
 
@@ -52,11 +54,12 @@ function InfoBtnBox({
               : compareData.includes(validData);
 
           return (
-            <ButtonSelect
+            <ButtonSelect<T>
               key={validData}
               className={$.btn}
               label={validData}
               type={type || undefined}
+              subType={subType || undefined}
               isSelected={isSelected}
               handleClick={handleFunc}
               color={
@@ -69,5 +72,5 @@ function InfoBtnBox({
     </InfoArticle>
   );
 }
-
-export default memo(InfoBtnBox);
+const typedMemo: <T>(c: T) => T = memo;
+export default typedMemo(InfoBtnBox);

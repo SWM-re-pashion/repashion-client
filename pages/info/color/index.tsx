@@ -55,8 +55,8 @@ export const ColorInfo: NextPageWithLayout = () => {
         data.colors &&
         colorBtnProps.map((options) => (
           <InfoBtnBox
-            key={options.label}
             {...options}
+            key={options.label}
             datas={data.colors}
             compareData={state[options.type]}
             handleFunc={handleClick}

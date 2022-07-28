@@ -3,19 +3,20 @@ import { memo } from 'react';
 import type { StyleProps } from '#types/props';
 import { Check } from '@atoms/icon';
 import classnames from 'classnames';
-import { UserInfo } from 'types/info';
+import { ClothesCategory } from 'types/info';
 
 import $ from './style.module.scss';
 
-type Props = {
+type Props<T> = {
+  type?: T;
   label: string;
-  type?: keyof UserInfo;
+  subType?: keyof ClothesCategory;
   isSelected: boolean;
-  handleClick?: (type: keyof UserInfo, value: string) => void;
+  handleClick?: (type: T, value: string) => void;
   color?: string;
 } & StyleProps;
 
-function ButtonSelect(btnProps: Props) {
+function ButtonSelect<T>(btnProps: Props<T>) {
   const { className, style, label, type, isSelected, handleClick, color } =
     btnProps;
 
@@ -49,5 +50,5 @@ function ButtonSelect(btnProps: Props) {
     </button>
   );
 }
-
-export default memo(ButtonSelect);
+const typedMemo: <T>(c: T) => T = memo;
+export default typedMemo(ButtonSelect);
