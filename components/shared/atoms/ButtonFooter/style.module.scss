@@ -1,16 +1,18 @@
 .btn-footer {
   @include btn-footer();
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 0 31px 30px;
-  .btn {
+  .btn-box {
     max-width: 962px;
     width: 100%;
-    @include mobile() {
-      width: 100%;
-    }
     height: 50px;
+    display: flex;
+    .btn {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .error-msg {

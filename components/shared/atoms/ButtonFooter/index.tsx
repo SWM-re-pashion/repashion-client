@@ -7,30 +7,30 @@ import $ from './style.module.scss';
 type Props = {
   background?: string;
   onClick?: () => void;
+  LeftBtn?: JSX.Element;
   msg?: string;
 } & DefaultProps;
 
-export default function ButtonFooter({
-  className,
-  style,
-  children,
-  background,
-  onClick,
-  msg,
-}: Props) {
+export default function ButtonFooter(footerProps: Props) {
+  const { className, style, LeftBtn, children, background, onClick, msg } =
+    footerProps;
   return (
     <footer
       className={classnames($['btn-footer'], className)}
       style={{ ...style }}
     >
-      <Button
-        errorMsg={msg}
-        onClick={onClick}
-        background={background}
-        className={$.btn}
-      >
-        {children}
-      </Button>
+      <div className={$['btn-box']}>
+        {LeftBtn}
+        <Button
+          errorMsg={msg}
+          onClick={onClick}
+          background={background}
+          className={$.btn}
+        >
+          {children}
+        </Button>
+      </div>
+
       {msg && <span className={$['error-msg']}>{msg}</span>}
     </footer>
   );
