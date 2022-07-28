@@ -1,3 +1,5 @@
+import { deepClone } from 'utils/deepCopy';
+
 import { filterData } from './filterData';
 import {
   productSizeUtil,
@@ -14,4 +16,5 @@ export {
   productNoticeUtil,
   judgeProductIcon,
   filterData,
+  deepClone,
 };

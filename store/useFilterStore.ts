@@ -1,6 +1,5 @@
 import { FilterInfo, ClothesCategory } from 'types/info';
-import { updateInfo } from 'utils';
-import { deepCopy } from 'utils/deepCopy';
+import { updateInfo, deepClone } from 'utils';
 import create, { State } from 'zustand';
 
 export interface FilterState extends State {
@@ -54,7 +53,7 @@ export const initialState: FilterState = {
 export const useFilterStore = create<FilterState>((set) => ({
   ...initialState,
   clear: () => {
-    set((state) => ({ ...state, ...deepCopy<FilterState>(initialState) }));
+    set((state) => ({ ...state, ...deepClone(initialState) }));
   },
   filterUpdate: (
     type: keyof FilterInfo,
