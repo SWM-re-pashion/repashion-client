@@ -2,36 +2,29 @@ import { memo, useRef } from 'react';
 
 import classnames from 'classnames';
 import useDragScroll from 'hooks/useDragScroll';
-import { ColorData, ClothesCategory } from 'types/info';
+import { ColorData } from 'types/info';
 import { StyleProps } from 'types/props';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
 import InfoArticle from '../../molecules/InfoArticle';
 import $ from './style.module.scss';
 
-type Props<T> = {
+type Props<T, U> = {
   type?: T;
+  subType?: U;
   isColor?: boolean;
+  noCheckColor?: boolean;
   label: string;
-  subType?: keyof ClothesCategory;
   datas: (string | ColorData)[];
   compareData: string | string[];
-  handleFunc?: (type: T, value: string) => void;
+  handleFunc?: (type: T, value: string, subType?: U) => void;
   required?: boolean;
 } & StyleProps;
 
-function InfoBtnBox<T>({
-  className,
-  style,
-  isColor,
-  label,
-  type,
-  datas,
-  subType,
-  compareData,
-  required,
-  handleFunc,
-}: Props<T>) {
+function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
+  const { className, style, isColor, noCheckColor } = btnBoxProps;
+  const { label, type, datas, subType, compareData, required, handleFunc } =
+    btnBoxProps;
   const btnBoxRef = useRef<HTMLDivElement>(null);
   useDragScroll(btnBoxRef);
 
@@ -40,7 +33,8 @@ function InfoBtnBox<T>({
       <div
         {...{ style }}
         className={classnames(
-          !isColor ? $['btn-box'] : $['btn-box-color'],
+          !isColor && !noCheckColor ? $['btn-box'] : $['btn-box-color'],
+          { [$['btn-box-color-no-check']]: noCheckColor },
           className,
         )}
         ref={btnBoxRef}
@@ -54,7 +48,7 @@ function InfoBtnBox<T>({
               : compareData.includes(validData);
 
           return (
-            <ButtonSelect<T>
+            <ButtonSelect
               key={validData}
               className={$.btn}
               label={validData}
@@ -65,6 +59,7 @@ function InfoBtnBox<T>({
               color={
                 isColor && typeof data === 'object' ? data.code : undefined
               }
+              noCheckColor={noCheckColor}
             />
           );
         })}

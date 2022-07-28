@@ -21,6 +21,11 @@
     @include mobile() {
       grid-template-columns: repeat(9, 1fr);
     }
+    &-no-check {
+      @include mobile() {
+        display: flex;
+      }
+    }
     gap: 8px;
     .btn {
       height: 50px;
