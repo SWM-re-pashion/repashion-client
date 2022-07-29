@@ -12,12 +12,6 @@
   .input {
     z-index: 1;
     @include input-range(29px, 16px, -3px);
-    &-left {
-      left: 13px;
-    }
-    &-right {
-      right: 13px;
-    }
   }
   .info {
     right: 0;
@@ -29,11 +23,22 @@
   .track {
     z-index: 0;
     position: relative;
-    width: 100%;
+    width: calc(100% - 29px);
     height: 10px;
     background-color: $gray-150;
     border-radius: $border-radius;
+    &::after {
+      content: '';
+      z-index: 0;
+      position: absolute;
+      left: -14.5px;
+      width: calc(100% + 29px);
+      height: 10px;
+      background-color: $gray-150;
+      border-radius: $border-radius;
+    }
     .range {
+      z-index: 1;
       position: absolute;
       top: 0;
       bottom: 0;
@@ -43,14 +48,17 @@
       background-color: $primary;
     }
     .thumb {
+      z-index: 1;
       position: absolute;
       top: -3px;
     }
     .left {
-      left: 0;
+      left: 0px;
+      transform: translateX(-14.5px);
     }
     .right {
-      right: 0;
+      right: 0px;
+      transform: translateX(14.5px);
     }
   }
 }

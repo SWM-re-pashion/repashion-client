@@ -8,23 +8,32 @@ import { StyleProps } from 'types/props';
 import $ from './style.module.scss';
 
 type Props = {
-  rangeValue?: number;
+  defaultValue: {
+    minValue: number;
+    maxValue: number;
+  };
+  left: number;
+  right: number;
+  step: number;
 } & StyleProps;
 
-export default function InputRange({ className, rangeValue }: Props) {
-  const [range, setRange] = useState(['155', '165']);
+export default function InputRange(rangeProps: Props) {
+  const { className, defaultValue, left, right, step } = rangeProps;
+  const { minValue, maxValue } = defaultValue;
+  const [range, setRange] = useState([`${minValue}`, `${maxValue}`]);
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const thumbRefs = useRef<SVGSVGElement[]>([]);
   const rangeRef = useRef<HTMLDivElement>(null);
-  const handleInput = useDebounceInput<[string, string]>(setRange);
+  const handleInput = useDebounceInput<[string, string]>(setRange, 100);
 
   useEffect(() => {
+    // SSR에서는 적용안되는지 확인
     const initRange = () => {
       const leftThumb = thumbRefs.current && thumbRefs.current[0];
       const rightThumb = thumbRefs.current && thumbRefs.current[1];
 
-      const leftPercent = ((+range[0] - 140) / 50) * 100;
-      const rightPercent = ((+range[1] - 140) / 50) * 100;
+      const leftPercent = ((+range[0] - minValue) / maxValue) * 100;
+      const rightPercent = ((+range[1] - minValue) / maxValue) * 100;
 
       if (leftThumb && rightThumb && rangeRef.current) {
         leftThumb.style.left = `${leftPercent}%`;
@@ -45,12 +54,14 @@ export default function InputRange({ className, rangeValue }: Props) {
     const inputRef = inputRefs.current && inputRefs.current[+isLeft];
     const thumbRef = thumbRefs.current && thumbRefs.current[+!isLeft];
 
-    if (isLeft && inputRef && +inputRef.value - +value < 10)
-      e.currentTarget.value = `${+inputRef.value - 5}`;
-    else if (!isLeft && inputRef && +value - +inputRef.value < 10)
-      e.currentTarget.value = `${+inputRef.value + 5}`;
+    if (isLeft && inputRef) {
+      e.currentTarget.value = `${Math.min(+value, +inputRef.value - step)}`;
+    } else if (!isLeft && inputRef) {
+      e.currentTarget.value = `${Math.max(+value, +inputRef.value + step)}`;
+    }
 
     const percent = ((+e.currentTarget.value - +min) / (+max - +min)) * 100;
+
     if (thumbRef && rangeRef.current) {
       if (isLeft) {
         thumbRef.style.left = `${percent}%`;
@@ -75,10 +86,10 @@ export default function InputRange({ className, rangeValue }: Props) {
           ref={(elem: HTMLInputElement) => {
             if (inputRefs.current) inputRefs.current[0] = elem;
           }}
-          min="140"
-          max="190"
+          min={minValue}
+          max={maxValue}
           value={range[0]}
-          step="5"
+          step={step}
           onInput={(e) => handleValue(e, 0)}
         />
         <input
@@ -88,10 +99,10 @@ export default function InputRange({ className, rangeValue }: Props) {
           ref={(elem: HTMLInputElement) => {
             if (inputRefs.current) inputRefs.current[1] = elem;
           }}
-          min="140"
-          max="190"
+          min={minValue}
+          max={maxValue}
           value={range[1]}
-          step="5"
+          step={step}
           onInput={(e) => handleValue(e, 1)}
         />
         <div className={$.track}>
