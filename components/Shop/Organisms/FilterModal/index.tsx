@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 
 import Button from '@atoms/Button';
 import ButtonFooter from '@atoms/ButtonFooter';
+import InputRange from '@molecules/InputRange';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { Modal } from '@templates/Modal';
@@ -51,6 +52,15 @@ function FilterModal({ onClose }: { onClose: () => void }) {
             />
           );
         })}
+        <InputRange
+          defaultValue={{
+            minValue: 0,
+            maxValue: 1000000,
+          }}
+          left={0}
+          right={1000000}
+          step={10000}
+        />
       </div>
 
       <ButtonFooter
