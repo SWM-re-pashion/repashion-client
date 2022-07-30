@@ -79,6 +79,7 @@ export const BasicInfo: NextPageWithLayout = () => {
       <InfoArticle label="키" required>
         <div className={$['height-input']}>
           <TextInput
+            controlled={false}
             placeholder="130 ~ 200 범위의 키를 입력해주세요."
             handleChange={handleHeightChange}
             value={state.height}

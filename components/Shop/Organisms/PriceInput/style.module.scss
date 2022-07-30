@@ -1,0 +1,10 @@
+.input-box {
+  margin: 11px 0;
+  display: flex;
+  align-items: center;
+  .range-text {
+    margin: 0 13px;
+    font-weight: 700;
+    @include typography(20);
+  }
+}

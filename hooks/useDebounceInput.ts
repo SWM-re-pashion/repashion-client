@@ -2,9 +2,12 @@ import { useMemo } from 'react';
 
 import { debounce } from '../lib/debounce';
 
-export default function useDebounceInput<T>(setInput: (inputValue: T) => void) {
+export default function useDebounceInput<T extends unknown[]>(
+  setInput: (...args: T) => void,
+  delay: number,
+) {
   return useMemo(
-    () => debounce<T>((inputValue: T) => setInput(inputValue), 200),
+    () => debounce<T>((...args: T) => setInput(...args), delay),
     [],
   );
 }

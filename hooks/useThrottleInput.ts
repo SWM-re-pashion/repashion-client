@@ -2,9 +2,12 @@ import { useMemo } from 'react';
 
 import { throttle } from '../lib/throttle';
 
-export default function useThrottleInput<T>(setInput: (inputValue: T) => void) {
+export default function useThrottleInput<T extends unknown[]>(
+  setInput: (...args: T) => void,
+  delay: number,
+) {
   return useMemo(
-    () => throttle<T>((inputValue: T) => setInput(inputValue), 300),
+    () => throttle<T>((...args: T) => setInput(...args), delay),
     [],
   );
 }

@@ -20,13 +20,17 @@ export interface FilterState extends State {
     top: string[];
     bottom: string[];
   };
-  price: number[];
-  filterUpdate?: (
+  price: [number, number];
+}
+
+interface FilterStoreState extends FilterState {
+  filterUpdate: (
     type: keyof FilterInfo,
     value: string,
     subType?: keyof ClothesCategory,
   ) => void;
-  clear?: () => void;
+  priceUpdate: (value: number, idx: number) => void;
+  clear: () => void;
 }
 
 export const initialState: FilterState = {
@@ -50,8 +54,15 @@ export const initialState: FilterState = {
   price: [0, 0],
 };
 
-export const useFilterStore = create<FilterState>((set) => ({
+export const useFilterStore = create<FilterStoreState>((set) => ({
   ...initialState,
+  priceUpdate: (value: number, idx: number) => {
+    set((state) => {
+      const toBeModified: [number, number] = [...state.price];
+      toBeModified[idx] = value;
+      return { ...state, price: toBeModified };
+    });
+  },
   clear: () => {
     set((state) => ({ ...state, ...deepClone(initialState) }));
   },

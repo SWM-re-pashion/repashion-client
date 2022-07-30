@@ -19,9 +19,13 @@ function Shop() {
   const closeFilterModal = () => setFilterOpen(false);
 
   useEffect(() => {
-    router.push({
-      query: { category },
-    });
+    router.push(
+      {
+        query: { category },
+      },
+      undefined,
+      { shallow: true },
+    );
   }, [category]);
 
   const categories = ['all', 'top', 'bottom', 'outer'];
