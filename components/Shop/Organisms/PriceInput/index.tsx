@@ -5,6 +5,7 @@ import InfoArticle from '@molecules/InfoArticle';
 import InputRange from '@molecules/InputRange';
 
 import $ from './style.module.scss';
+import { priceInputProps, rangeProps } from './utils';
 
 type Props = {
   label: string;
@@ -24,32 +25,18 @@ function PriceInput(priceProps: Props) {
 
   return (
     <InfoArticle label={label}>
-      <InputRange
-        defaultValue={{
-          minValue: min,
-          maxValue: max,
-        }}
-        left={states[0]}
-        right={states[1]}
-        step={step}
-        update={update}
-      />
+      <InputRange {...rangeProps(states, step, min, max)} update={update} />
+
       <div className={$['input-box']}>
         <TextInput
-          controlled
-          idx={0}
-          placeholder={`${min.toLocaleString()}원 부터`}
+          {...priceInputProps(0, states, min)}
           handleChange={handleChange}
-          value={`${states[0]}`}
           ref={leftRef}
         />
         <span className={$['range-text']}>~</span>
         <TextInput
-          controlled
-          idx={1}
-          placeholder={`${max.toLocaleString()}원 까지`}
+          {...priceInputProps(1, states, max)}
           handleChange={handleChange}
-          value={`${states[1]}`}
           ref={rightRef}
         />
       </div>
