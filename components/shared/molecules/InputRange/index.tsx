@@ -3,31 +3,28 @@ import { FormEvent, memo, useEffect, useRef } from 'react';
 import { RangeBtn } from '@atoms/icon';
 import classnames from 'classnames';
 import useDebounceInput from 'hooks/useDebounceInput';
-import { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';
+import { inputProps } from './utils';
 
 type Props = {
-  defaultValue: {
-    minValue: number;
-    maxValue: number;
-  };
+  minValue: number;
+  maxValue: number;
   left: number;
   right: number;
   step: number;
   update: (value: number, idx: number) => void;
-} & StyleProps;
+};
 
 function InputRange(rangeProps: Props) {
-  const { className, defaultValue, left, right, step, update } = rangeProps;
-  const { minValue, maxValue } = defaultValue;
+  const { left, right, step, update, minValue, maxValue } = rangeProps;
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const thumbRefs = useRef<SVGSVGElement[]>([]);
   const rangeRef = useRef<HTMLDivElement>(null);
   const handleInput = useDebounceInput<[number, number]>(update, 100);
 
   useEffect(() => {
-    // SSR에서는 적용안되는지 확인
+    // SSR에서 적용되는지 확인
     const initRange = () => {
       const leftThumb = thumbRefs.current && thumbRefs.current[0];
       const rightThumb = thumbRefs.current && thumbRefs.current[1];
@@ -51,10 +48,10 @@ function InputRange(rangeProps: Props) {
     const isLeft = direction === 0;
     const { value, min, max } = e.currentTarget;
 
-    const otherInput = inputRefs.current && inputRefs.current[+isLeft];
     const thumbRef = thumbRefs.current && thumbRefs.current[+!isLeft];
     const inputRef = inputRefs.current && inputRefs.current[+!isLeft];
     const otherThumb = thumbRefs.current && thumbRefs.current[+isLeft];
+    const otherInput = inputRefs.current && inputRefs.current[+isLeft];
 
     if (isLeft && otherInput) {
       e.currentTarget.value = `${Math.min(+value, +otherInput.value - step)}`;
@@ -93,49 +90,40 @@ function InputRange(rangeProps: Props) {
   };
 
   return (
-    <div className={className}>
-      <div className={$['input-range']}>
-        <input
-          className={classnames($.input, $['input-left'])}
-          type="range"
-          id="input-left"
-          ref={(elem: HTMLInputElement) => {
-            if (inputRefs.current) inputRefs.current[0] = elem;
+    <div className={$['input-range']}>
+      <input
+        {...inputProps(left, step, minValue, maxValue)}
+        className={classnames($.input, $['input-left'])}
+        id="input-left"
+        ref={(elem: HTMLInputElement) => {
+          if (inputRefs.current) inputRefs.current[0] = elem;
+        }}
+        onInput={(e) => handleValue(e, 0)}
+      />
+      <input
+        {...inputProps(right, step, minValue, maxValue)}
+        className={classnames($.input, $['input-right'])}
+        id="input-right"
+        ref={(elem: HTMLInputElement) => {
+          if (inputRefs.current) inputRefs.current[1] = elem;
+        }}
+        onInput={(e) => handleValue(e, 1)}
+      />
+
+      <div className={$.track}>
+        <div className={$.range} ref={rangeRef} />
+        <RangeBtn
+          className={classnames($.thumb, $.left)}
+          ref={(elem: SVGSVGElement) => {
+            if (thumbRefs.current) thumbRefs.current[0] = elem;
           }}
-          min={minValue}
-          max={maxValue}
-          value={left}
-          step={step}
-          onInput={(e) => handleValue(e, 0)}
         />
-        <input
-          className={classnames($.input, $['input-right'])}
-          type="range"
-          id="input-right"
-          ref={(elem: HTMLInputElement) => {
-            if (inputRefs.current) inputRefs.current[1] = elem;
+        <RangeBtn
+          className={classnames($.thumb, $.right)}
+          ref={(elem: SVGSVGElement) => {
+            if (thumbRefs.current) thumbRefs.current[1] = elem;
           }}
-          min={minValue}
-          max={maxValue}
-          value={right}
-          step={step}
-          onInput={(e) => handleValue(e, 1)}
         />
-        <div className={$.track}>
-          <div className={$.range} ref={rangeRef} />
-          <RangeBtn
-            className={classnames($.thumb, $.left)}
-            ref={(elem: SVGSVGElement) => {
-              if (thumbRefs.current) thumbRefs.current[0] = elem;
-            }}
-          />
-          <RangeBtn
-            className={classnames($.thumb, $.right)}
-            ref={(elem: SVGSVGElement) => {
-              if (thumbRefs.current) thumbRefs.current[1] = elem;
-            }}
-          />
-        </div>
       </div>
     </div>
   );
