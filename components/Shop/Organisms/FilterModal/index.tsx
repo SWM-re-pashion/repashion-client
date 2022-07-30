@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
 
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 import Button from '@atoms/Button';
 import ButtonFooter from '@atoms/ButtonFooter';
-import InputRange from '@molecules/InputRange';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { Modal } from '@templates/Modal';
@@ -12,6 +11,8 @@ import FilterHeader from 'components/Shop/molecules/FilterHeader';
 import { useFilterStore } from 'store/useFilterStore';
 import { filterData } from 'utils';
 
+import PriceInput from '../PriceInput';
+import { max, min, step } from './constants';
 import $ from './style.module.scss';
 
 type Props = {
@@ -25,12 +26,35 @@ function FilterModal({ onClose }: { onClose: () => void }) {
     useCallback((stat) => stat.filterUpdate, []),
   );
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
+  const priceUpdate = useFilterStore(
+    useCallback((stat) => stat.priceUpdate, []),
+  );
+  const inputLeftRef = useRef<HTMLInputElement>(null);
+  const inputRightRef = useRef<HTMLInputElement>(null);
   const { query } = useRouter();
   const category = decodeURI(decodeURIComponent(query.category as string));
 
   const clear = () => {
     if (clearState) clearState();
   };
+
+  const priceChangeCallback = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    idx?: number,
+  ) => {
+    const { value } = e.target;
+    e.target.value = value.replace(/[^0-9]/g, '');
+
+    if (+value > max) {
+      if (value.substring(0, 7) === `${max}`) {
+        e.target.value = `${max}`;
+      } else e.target.value = value.substring(0, 6);
+    }
+    if (typeof idx === 'number') {
+      priceUpdate(+e.target.value, idx);
+    }
+  };
+  const handlePriceChange = useCallback(priceChangeCallback, []);
 
   return (
     <>
@@ -52,14 +76,17 @@ function FilterModal({ onClose }: { onClose: () => void }) {
             />
           );
         })}
-        <InputRange
-          defaultValue={{
-            minValue: 0,
-            maxValue: 1000000,
-          }}
-          left={0}
-          right={1000000}
-          step={10000}
+
+        <PriceInput
+          label="가격"
+          handleChange={handlePriceChange}
+          max={max}
+          min={min}
+          step={step}
+          leftRef={inputLeftRef}
+          rightRef={inputRightRef}
+          states={states.price}
+          update={priceUpdate}
         />
       </div>
 
