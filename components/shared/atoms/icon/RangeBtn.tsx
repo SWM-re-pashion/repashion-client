@@ -9,16 +9,16 @@ const RangeBtn = forwardRef(
       <svg
         {...{ className, style }}
         ref={ref}
-        width="29"
-        height="16"
-        viewBox="0 0 29 16"
+        width="30"
+        height="20"
+        viewBox="0 0 30 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect width="29" height="16" rx="8" fill="#936DFF" />
-        <rect x="7" y="4" width="3" height="8" rx="1.5" fill="white" />
-        <rect x="13" y="4" width="3" height="8" rx="1.5" fill="white" />
-        <rect x="19" y="4" width="3" height="8" rx="1.5" fill="white" />
+        <rect width="30" height="20" rx="3" fill="#936DFF" />
+        <rect x="9" y="6" width="2" height="8" rx="1" fill="white" />
+        <rect x="19" y="6" width="2" height="8" rx="1" fill="white" />
+        <rect x="14" y="6" width="2" height="8" rx="1" fill="white" />
       </svg>
     );
   },
