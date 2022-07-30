@@ -1,10 +1,13 @@
-export function throttle<T>(callback: (arg: T) => void, delay: number) {
+export function throttle<T extends unknown[]>(
+  callback: (...args: T) => void,
+  delay: number,
+) {
   let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return (arg: T) => {
+  return (...args: T) => {
     if (!timer) {
       timer = setTimeout(() => {
-        callback(arg);
+        callback(...args);
         timer = null;
       }, delay);
     }
