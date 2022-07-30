@@ -7,23 +7,28 @@ import { StyleProps } from 'types/props';
 import $ from './style.module.scss';
 
 type Props = {
+  controlled: boolean;
+  idx?: number;
   placeholder: string;
   value?: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement>, idx?: number) => void;
 } & StyleProps;
 
 const TextInput = forwardRef(
-  (
-    { style, className, placeholder, value, handleChange }: Props,
-    ref: LegacyRef<HTMLInputElement> | null,
-  ) => {
+  (inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) => {
+    const { controlled, idx, placeholder, value, handleChange } = inputProps;
+    const { style, className } = inputProps;
     return (
       <input
         {...{ style, placeholder, ref }}
         type="text"
-        defaultValue={value}
+        defaultValue={!controlled ? value : undefined}
+        value={controlled ? value : undefined}
         className={classnames($['text-input'], className)}
-        onChange={handleChange}
+        onChange={(e) => {
+          if (typeof idx === 'number') handleChange(e, idx);
+          else handleChange(e);
+        }}
       />
     );
   },
