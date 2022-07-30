@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, memo, useEffect, useRef } from 'react';
 
 import { RangeBtn } from '@atoms/icon';
 import classnames from 'classnames';
@@ -15,16 +15,16 @@ type Props = {
   left: number;
   right: number;
   step: number;
+  update: (value: number, idx: number) => void;
 } & StyleProps;
 
-export default function InputRange(rangeProps: Props) {
-  const { className, defaultValue, left, right, step } = rangeProps;
+function InputRange(rangeProps: Props) {
+  const { className, defaultValue, left, right, step, update } = rangeProps;
   const { minValue, maxValue } = defaultValue;
-  const [range, setRange] = useState([`${minValue}`, `${maxValue}`]);
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const thumbRefs = useRef<SVGSVGElement[]>([]);
   const rangeRef = useRef<HTMLDivElement>(null);
-  const handleInput = useDebounceInput<[string, string]>(setRange, 100);
+  const handleInput = useDebounceInput<[number, number]>(update, 100);
 
   useEffect(() => {
     // SSR에서는 적용안되는지 확인
@@ -32,8 +32,8 @@ export default function InputRange(rangeProps: Props) {
       const leftThumb = thumbRefs.current && thumbRefs.current[0];
       const rightThumb = thumbRefs.current && thumbRefs.current[1];
 
-      const leftPercent = ((+range[0] - minValue) / maxValue) * 100;
-      const rightPercent = ((+range[1] - minValue) / maxValue) * 100;
+      const leftPercent = ((left - minValue) / maxValue) * 100;
+      const rightPercent = ((right - minValue) / maxValue) * 100;
 
       if (leftThumb && rightThumb && rangeRef.current) {
         leftThumb.style.left = `${leftPercent}%`;
@@ -45,19 +45,33 @@ export default function InputRange(rangeProps: Props) {
     initRange();
 
     return () => initRange();
-  }, []);
+  }, [left, right]);
 
   const handleValue = (e: FormEvent<HTMLInputElement>, direction: number) => {
     const isLeft = direction === 0;
     const { value, min, max } = e.currentTarget;
 
-    const inputRef = inputRefs.current && inputRefs.current[+isLeft];
+    const otherInput = inputRefs.current && inputRefs.current[+isLeft];
     const thumbRef = thumbRefs.current && thumbRefs.current[+!isLeft];
+    const inputRef = inputRefs.current && inputRefs.current[+!isLeft];
+    const otherThumb = thumbRefs.current && thumbRefs.current[+isLeft];
 
-    if (isLeft && inputRef) {
-      e.currentTarget.value = `${Math.min(+value, +inputRef.value - step)}`;
-    } else if (!isLeft && inputRef) {
-      e.currentTarget.value = `${Math.max(+value, +inputRef.value + step)}`;
+    if (isLeft && otherInput) {
+      e.currentTarget.value = `${Math.min(+value, +otherInput.value - step)}`;
+      if (right === +e.currentTarget.value + step) {
+        thumbRef.style.zIndex = '2';
+        inputRef.style.zIndex = '2';
+        otherThumb.style.zIndex = '1';
+        otherInput.style.zIndex = '1';
+      }
+    } else if (!isLeft && otherInput) {
+      e.currentTarget.value = `${Math.max(+value, +otherInput.value + step)}`;
+      if (left === +e.currentTarget.value - step) {
+        thumbRef.style.zIndex = '2';
+        inputRef.style.zIndex = '2';
+        otherThumb.style.zIndex = '1';
+        otherInput.style.zIndex = '1';
+      }
     }
 
     const percent = ((+e.currentTarget.value - +min) / (+max - +min)) * 100;
@@ -71,13 +85,15 @@ export default function InputRange(rangeProps: Props) {
         rangeRef.current.style.right = `${100 - percent}%`;
       }
     }
-    if (isLeft) handleInput([e.currentTarget.value, range[1]]);
-    else handleInput([range[0], e.currentTarget.value]);
+    if (isLeft) {
+      handleInput(+e.currentTarget.value, 0);
+    } else {
+      handleInput(+e.currentTarget.value, 1);
+    }
   };
 
   return (
     <div className={className}>
-      <span className={$.info}>{`${range[0]} ~ ${range[1]}`}</span>
       <div className={$['input-range']}>
         <input
           className={classnames($.input, $['input-left'])}
@@ -88,7 +104,7 @@ export default function InputRange(rangeProps: Props) {
           }}
           min={minValue}
           max={maxValue}
-          value={range[0]}
+          value={left}
           step={step}
           onInput={(e) => handleValue(e, 0)}
         />
@@ -101,7 +117,7 @@ export default function InputRange(rangeProps: Props) {
           }}
           min={minValue}
           max={maxValue}
-          value={range[1]}
+          value={right}
           step={step}
           onInput={(e) => handleValue(e, 1)}
         />
@@ -124,3 +140,4 @@ export default function InputRange(rangeProps: Props) {
     </div>
   );
 }
+export default memo(InputRange);

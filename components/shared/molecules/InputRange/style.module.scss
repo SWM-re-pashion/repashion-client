@@ -5,25 +5,15 @@
   justify-content: flex-start;
   align-items: center;
 
-  label {
-    font-size: 15px;
-    color: $gray-700;
-  }
   .input {
     z-index: 1;
-    @include input-range(29px, 16px, -3px);
-  }
-  .info {
-    right: 0;
-    color: $primary;
-    font-size: 16px;
-    font-weight: 700;
+    @include input-range(30px, 20px, -5px);
   }
 
   .track {
     z-index: 0;
     position: relative;
-    width: calc(100% - 29px);
+    width: calc(100% - 30px);
     height: 10px;
     background-color: $gray-150;
     border-radius: $border-radius;
@@ -31,8 +21,8 @@
       content: '';
       z-index: 0;
       position: absolute;
-      left: -14.5px;
-      width: calc(100% + 29px);
+      left: -15px;
+      width: calc(100% + 30px);
       height: 10px;
       background-color: $gray-150;
       border-radius: $border-radius;
@@ -50,15 +40,15 @@
     .thumb {
       z-index: 1;
       position: absolute;
-      top: -3px;
+      top: -5px;
     }
     .left {
       left: 0px;
-      transform: translateX(-14.5px);
+      transform: translateX(-15px);
     }
     .right {
       right: 0px;
-      transform: translateX(14.5px);
+      transform: translateX(15px);
     }
   }
 }
