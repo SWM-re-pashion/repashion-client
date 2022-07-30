@@ -12,7 +12,7 @@ import { useFilterStore } from 'store/useFilterStore';
 import { filterData } from 'utils';
 
 import PriceInput from '../PriceInput';
-import { max, min, step } from './constants';
+import { max, priceProps } from './constants';
 import $ from './style.module.scss';
 
 type Props = {
@@ -43,12 +43,13 @@ function FilterModal({ onClose }: { onClose: () => void }) {
     idx?: number,
   ) => {
     const { value } = e.target;
-    e.target.value = value.replace(/[^0-9]/g, '');
+    const filteredValue = value.replace(/[^0-9]/g, '');
+    e.target.value = filteredValue;
 
-    if (+value > max) {
-      if (value.substring(0, 7) === `${max}`) {
+    if (+filteredValue > max) {
+      if (filteredValue.substring(0, 7) === `${max}`) {
         e.target.value = `${max}`;
-      } else e.target.value = value.substring(0, 6);
+      } else e.target.value = filteredValue.substring(0, 6);
     }
     if (typeof idx === 'number') {
       priceUpdate(+e.target.value, idx);
@@ -78,14 +79,10 @@ function FilterModal({ onClose }: { onClose: () => void }) {
         })}
 
         <PriceInput
-          label="가격"
+          {...priceProps(states.price)}
           handleChange={handlePriceChange}
-          max={max}
-          min={min}
-          step={step}
           leftRef={inputLeftRef}
           rightRef={inputRightRef}
-          states={states.price}
           update={priceUpdate}
         />
       </div>
