@@ -1,61 +1,12 @@
+import { FilterStoreState } from '#types/storeType/filter';
 import { FilterInfo, ClothesCategory } from 'types/info';
 import { updateInfo, deepClone } from 'utils';
-import create, { State } from 'zustand';
+import create from 'zustand';
 
-export interface FilterState extends State {
-  styles: string[];
-  colors: {
-    top: string[];
-    bottom: string[];
-  };
-  fit: {
-    top: string[];
-    bottom: string[];
-  };
-  length: {
-    top: string[];
-    bottom: string[];
-  };
-  size: {
-    top: string[];
-    bottom: string[];
-  };
-  price: [number, number];
-}
-
-interface FilterStoreState extends FilterState {
-  filterUpdate: (
-    type: keyof FilterInfo,
-    value: string,
-    subType?: keyof ClothesCategory,
-  ) => void;
-  priceUpdate: (value: number, idx: number) => void;
-  clear: () => void;
-}
-
-export const initialState: FilterState = {
-  styles: [],
-  colors: {
-    top: [],
-    bottom: [],
-  },
-  fit: {
-    top: [],
-    bottom: [],
-  },
-  length: {
-    top: [],
-    bottom: [],
-  },
-  size: {
-    top: [],
-    bottom: [],
-  },
-  price: [0, 0],
-};
+import { filterCommonState, filterInitialState } from './constants';
 
 export const useFilterStore = create<FilterStoreState>((set) => ({
-  ...initialState,
+  ...filterInitialState,
   priceUpdate: (value: number, idx: number) => {
     set((state) => {
       const toBeModified: [number, number] = [...state.price];
@@ -63,9 +14,39 @@ export const useFilterStore = create<FilterStoreState>((set) => ({
       return { ...state, price: toBeModified };
     });
   },
-  clear: () => {
-    set((state) => ({ ...state, ...deepClone(initialState) }));
+
+  clear: (subType: string) => {
+    const remain = subType === 'bottom' ? 'top' : 'bottom';
+    const current = subType === 'outer' ? 'top' : subType;
+
+    set((state) => {
+      if (subType === 'all')
+        return {
+          ...state,
+          ...deepClone(filterCommonState),
+        };
+      return {
+        ...deepClone(filterCommonState),
+        colors: {
+          [remain]: [...state.colors[remain]],
+          [current]: [],
+        },
+        fit: {
+          [remain]: [...state.fit[remain]],
+          [current]: [],
+        },
+        length: {
+          [remain]: [...state.length[remain]],
+          [current]: [],
+        },
+        size: {
+          [remain]: [...state.size[remain]],
+          [current]: [],
+        },
+      };
+    });
   },
+
   filterUpdate: (
     type: keyof FilterInfo,
     value: string,
