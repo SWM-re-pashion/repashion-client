@@ -9,11 +9,11 @@ import Layout from '@templates/Layout';
 import { Modal } from '@templates/Modal';
 import FilterHeader from 'components/Shop/molecules/FilterHeader';
 import { useFilterStore } from 'store/useFilterStore';
-import { filterData } from 'utils';
 
 import PriceInput from '../PriceInput';
 import { max, priceProps } from './constants';
 import $ from './style.module.scss';
+import { filterData } from './utils';
 
 type Props = {
   isOpen: boolean;
@@ -21,6 +21,8 @@ type Props = {
 };
 
 function FilterModal({ onClose }: { onClose: () => void }) {
+  const { query } = useRouter();
+  const category = (query.category as string) || 'all';
   const states = useFilterStore((state) => state);
   const filterUpdate = useFilterStore(
     useCallback((stat) => stat.filterUpdate, []),
@@ -31,11 +33,9 @@ function FilterModal({ onClose }: { onClose: () => void }) {
   );
   const inputLeftRef = useRef<HTMLInputElement>(null);
   const inputRightRef = useRef<HTMLInputElement>(null);
-  const { query } = useRouter();
-  const category = decodeURI(decodeURIComponent(query.category as string));
 
   const clear = () => {
-    if (clearState) clearState();
+    if (clearState) clearState(category);
   };
 
   const priceChangeCallback = (
