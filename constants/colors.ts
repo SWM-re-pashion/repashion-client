@@ -1,6 +1,6 @@
-import { ColorData } from '#types/info';
+import { DefaultData } from '#types/index';
 
-const colors: ColorData[] = [
+const colors: DefaultData[] = [
   { name: 'Black', code: '#000' },
   { name: 'White', code: '#fff' },
   { name: 'Beige', code: '#e4d2c1' },

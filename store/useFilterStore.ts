@@ -57,8 +57,8 @@ export const useFilterStore = create(
       ) => {
         set((state) => {
           const removeAllCatecory = (arr: string[]) =>
-            arr.filter((x) => x !== '전체');
-          const isValueAll = typeof value === 'string' && value === '전체';
+            arr.filter((x) => x !== 'all');
+          const isValueAll = typeof value === 'string' && value === 'all';
 
           if (type === 'styles') {
             if (type === 'styles' && isValueAll)
