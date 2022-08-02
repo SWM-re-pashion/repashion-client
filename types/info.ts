@@ -1,3 +1,5 @@
+import { DefaultData } from './index';
+
 export type BasicUserInfo = {
   gender: string;
   bodyShape: string;
@@ -34,15 +36,13 @@ export type FilterInfo = {
   size: ClothesCategory;
 };
 
-export type ColorData = { name: string; code: string };
-
 type btnBox = {
   label: string;
   required?: boolean;
 };
 
 export type basicBtnBox = {
-  datas: string[];
+  datas: (string | DefaultData)[];
   type: keyof BasicUserInfo;
 } & btnBox;
 
@@ -54,7 +54,7 @@ export type colorBtnBox = {
 export type filterBtnBox = {
   type: keyof FilterInfo;
   subType?: keyof ClothesCategory;
-  datas: string[] | ColorData[];
+  datas: string[] | DefaultData[];
   isColor?: boolean;
   noCheckColor?: boolean;
 } & btnBox;

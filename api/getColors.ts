@@ -1,8 +1,8 @@
-import { ColorData } from '#types/info';
+import { DefaultData } from '#types/index';
 import axios from 'lib/axios';
 
 export type StyleResponse = {
-  colors: ColorData[];
+  colors: DefaultData[];
 };
 
 export const getColors = async (): Promise<StyleResponse> => {

@@ -5,3 +5,5 @@ export type ImgProps = {
   width?: number;
   height?: number;
 };
+
+export type DefaultData = { name: string; code: string };
