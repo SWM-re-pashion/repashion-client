@@ -13,39 +13,43 @@ const commonProps: filterBtnBox[] = [
 ];
 
 export const filterData = (category: string): filterBtnBox[] => {
+  const categoryCondition =
+    category === 'top' || category === 'outer' ? 'top' : 'bottom';
   switch (category) {
     case 'all':
       return [...commonProps];
     case 'top':
     case 'bottom':
+    case 'outer':
       return [
         ...commonProps,
         {
           label: '컬러',
           type: 'colors',
-          subType: category,
+          subType: categoryCondition,
           isColor: true,
           datas: colors,
         },
         {
           label: '핏',
           type: 'fit',
-          subType: category,
-          datas: fits[category],
+          subType: categoryCondition,
+          datas: fits[categoryCondition],
           noCheckColor: true,
         },
         {
           label: '기장',
           type: 'length',
-          subType: category,
-          datas: lengths[category],
+          subType: categoryCondition,
+          datas: lengths[categoryCondition],
           noCheckColor: true,
         },
         {
           label: '사이즈',
           type: 'size',
-          subType: category,
-          datas: category === 'top' ? topSizes : bottomSizes,
+          subType: categoryCondition,
+          datas:
+            category === 'top' || category === 'outer' ? topSizes : bottomSizes,
           noCheckColor: true,
         },
       ];

@@ -1,28 +1,12 @@
+import { InfoState } from '#types/storeType/info';
 import { UserInfo } from 'types/info';
 import { updateInfo } from 'utils';
-import create, { State } from 'zustand';
+import create from 'zustand';
 
-export interface InfoState extends State {
-  styles: number[];
-  gender: string;
-  height: string;
-  bodyShape: string;
-  topSize: string[];
-  bottomSize: string[];
-  topColors: string[];
-  bottomColors: string[];
-  infoUpdate?: <T>(type: keyof UserInfo, value: T) => void;
-}
+import { infoInitialState } from './constants';
 
 export const useInfoStore = create<InfoState>((set) => ({
-  styles: [],
-  gender: '',
-  height: '',
-  bodyShape: '',
-  topSize: [],
-  bottomSize: [],
-  topColors: [],
-  bottomColors: [],
+  ...infoInitialState,
   infoUpdate: <T>(type: keyof UserInfo, value: T) => {
     set((state) => {
       const isStringArr =

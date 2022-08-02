@@ -5,7 +5,7 @@ const priceInputProps = (
 ) => ({
   controlled: true,
   idx,
-  value: `${states[idx].toLocaleString()}`,
+  value: `${states[idx]}`,
   placeholder: !idx
     ? `${value.toLocaleString()}원 부터`
     : `${value.toLocaleString()}원 까지`,

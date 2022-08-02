@@ -1,8 +1,3 @@
-export type ActionProps = {
-  type: string;
-  payload: string;
-};
-
 export type ImgProps = {
   id?: number;
   src: string;
@@ -10,3 +5,5 @@ export type ImgProps = {
   width?: number;
   height?: number;
 };
+
+export type DefaultData = { name: string; code: string };

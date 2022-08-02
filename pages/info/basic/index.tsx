@@ -17,10 +17,10 @@ import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
-import { basicBtnProps } from 'config';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
+import { basicBtnProps } from './constants';
 import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {
