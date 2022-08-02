@@ -1,8 +1,9 @@
+/* eslint-disable no-nested-ternary */
 import { memo, useRef } from 'react';
 
+import { DefaultData } from '#types/index';
 import classnames from 'classnames';
 import useDragScroll from 'hooks/useDragScroll';
-import { ColorData } from 'types/info';
 import { StyleProps } from 'types/props';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
@@ -15,7 +16,7 @@ type Props<T, U> = {
   isColor?: boolean;
   noCheckColor?: boolean;
   label: string;
-  datas: (string | ColorData)[];
+  datas: (string | DefaultData)[];
   compareData: string | string[];
   handleFunc?: (type: T, value: string, subType?: U) => void;
   required?: boolean;
@@ -40,18 +41,22 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
         ref={btnBoxRef}
       >
         {datas.map((data) => {
-          const validData: string | keyof ColorData =
+          const validLabel: string =
             typeof data === 'object' ? data.name : data;
+          const validData: string =
+            typeof data === 'object' ? (isColor ? data.name : data.code) : data;
+
           const isSelected =
             typeof compareData === 'string'
-              ? compareData === data
+              ? compareData === validData
               : compareData.includes(validData);
 
           return (
             <ButtonSelect
               key={validData}
               className={$.btn}
-              label={validData}
+              label={validLabel}
+              data={validData}
               type={type || undefined}
               subType={subType || undefined}
               isSelected={isSelected}
