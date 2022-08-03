@@ -4,10 +4,11 @@ import { useCallback, useRef } from 'react';
 
 import Button from '@atoms/Button';
 import ButtonFooter from '@atoms/ButtonFooter';
+import { Close } from '@atoms/icon';
+import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { Modal } from '@templates/Modal';
-import FilterHeader from 'components/Shop/molecules/FilterHeader';
 import { useFilterStore } from 'store/useFilterStore';
 
 import PriceInput from '../PriceInput';
@@ -59,7 +60,14 @@ function FilterModal({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <FilterHeader onClose={onClose} />
+      <PageHeader
+        title="필터"
+        left={
+          <Button onClick={onClose} label="필터 닫기" iconBtn>
+            <Close />
+          </Button>
+        }
+      />
 
       <div className={$['filter-container']}>
         {filterData(category).map((options) => {
