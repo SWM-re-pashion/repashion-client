@@ -22,6 +22,16 @@
   }
 }
 
+@mixin icon-btn($width, $height, $mWidth, $mHeight) {
+  width: $width;
+  height: $height;
+  @include mobile() {
+    width: $mWidth;
+    height: $mHeight;
+  }
+  cursor: pointer;
+}
+
 @mixin btn-footer() {
   z-index: 99;
   position: fixed;

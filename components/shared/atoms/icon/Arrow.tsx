@@ -1,13 +1,9 @@
 import type { StyleProps } from 'types/props';
 
-type Props = {
-  onClick?: () => void;
-} & StyleProps;
-
-function Arrow({ className, style, onClick }: Props) {
+function Arrow({ className, style }: StyleProps) {
   return (
     <svg
-      {...{ className, style, onClick }}
+      {...{ className, style }}
       width="18"
       height="14"
       viewBox="0 0 18 14"
