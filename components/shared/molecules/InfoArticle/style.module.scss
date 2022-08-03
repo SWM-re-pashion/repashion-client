@@ -4,9 +4,15 @@
     margin: 0;
   }
   &-header {
-    @include required-header(14px);
+    @include required-header(10px);
     .required-msg {
       margin-left: 7px;
     }
+  }
+}
+.children-box {
+  margin-bottom: 20px;
+  .label {
+    font-weight: 400;
   }
 }
