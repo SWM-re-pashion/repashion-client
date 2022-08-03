@@ -11,14 +11,9 @@ type Props = {
   required?: boolean;
 } & DefaultProps;
 
-export default function InfoArticle({
-  className,
-  style,
-  children,
-  label,
-  childrenBox,
-  required,
-}: Props) {
+export default function InfoArticle(infoProps: Props) {
+  const { className, style, children, label, childrenBox, required } =
+    infoProps;
   return (
     <article
       style={{ ...style }}
