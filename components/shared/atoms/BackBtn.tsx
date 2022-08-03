@@ -5,13 +5,17 @@ import { Arrow } from '@atoms/icon';
 
 import Button from './Button';
 
-export default function BackBtn({ className }: StyleProps) {
+type Props = {
+  color?: string;
+} & StyleProps;
+
+export default function BackBtn({ className, color }: Props) {
   const router = useRouter();
   const handleClick = () => router.back();
 
   return (
     <Button onClick={handleClick} iconBtn>
-      <Arrow className={className} />
+      <Arrow color={color} className={className} />
     </Button>
   );
 }

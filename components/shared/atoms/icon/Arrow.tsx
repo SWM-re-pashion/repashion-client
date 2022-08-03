@@ -1,6 +1,10 @@
 import type { StyleProps } from 'types/props';
 
-function Arrow({ className, style }: StyleProps) {
+type Props = {
+  color?: string;
+} & StyleProps;
+
+function Arrow({ className, style, color }: Props) {
   return (
     <svg
       {...{ className, style }}
@@ -10,8 +14,15 @@ function Arrow({ className, style }: StyleProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M8 1L2 7L8 13" stroke="white" strokeWidth="2" />
-      <line x1="3" y1="7" x2="18" y2="7" stroke="white" strokeWidth="2" />
+      <path d="M8 1L2 7L8 13" stroke={color || 'white'} strokeWidth="2" />
+      <line
+        x1="3"
+        y1="7"
+        x2="18"
+        y2="7"
+        stroke={color || 'white'}
+        strokeWidth="2"
+      />
     </svg>
   );
 }
