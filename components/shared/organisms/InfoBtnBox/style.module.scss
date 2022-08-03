@@ -1,34 +1,39 @@
 .btn-box {
   overflow: hidden;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
-  @include mobile() {
-    display: flex;
-  }
   gap: 8px;
-  .btn {
-    width: 100%;
-    min-width: 70px;
-    padding: 15px 0;
-  }
+}
 
+.btn {
+  width: 100%;
+  min-width: 70px;
+  padding: 15px 0;
   &-color {
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: auto;
-    @include mobile() {
-      grid-template-columns: repeat(9, 1fr);
-    }
-    &-no-check {
-      @include mobile() {
-        display: flex;
-      }
-    }
-    gap: 8px;
-    .btn {
-      height: 50px;
-    }
+    height: 50px;
   }
+}
+
+.column-4 {
+  @include column-4();
+}
+.column-6 {
+  @include column-6();
+}
+.column-8 {
+  @include column-8();
+}
+.column-9 {
+  @include column-9();
+}
+.column-12 {
+  @include column-12();
+}
+.column-13 {
+  @include column-13();
+}
+.column-15 {
+  @include column-15();
+}
+.column-17 {
+  @include column-17();
 }

@@ -9,6 +9,7 @@ import { StyleProps } from 'types/props';
 import ButtonSelect from '../../molecules/ButtonSelect';
 import InfoArticle from '../../molecules/InfoArticle';
 import $ from './style.module.scss';
+import { columns } from './util';
 
 type Props<T, U> = {
   type?: T;
@@ -20,24 +21,21 @@ type Props<T, U> = {
   compareData: string | string[];
   handleFunc?: (type: T, value: string, subType?: U) => void;
   required?: boolean;
+  childrenBox?: boolean;
 } & StyleProps;
 
 function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
-  const { className, style, isColor, noCheckColor } = btnBoxProps;
+  const { className, style, isColor, noCheckColor, childrenBox } = btnBoxProps;
   const { label, type, datas, subType, compareData, required, handleFunc } =
     btnBoxProps;
   const btnBoxRef = useRef<HTMLDivElement>(null);
   useDragScroll(btnBoxRef);
 
   return (
-    <InfoArticle label={label} required={required}>
+    <InfoArticle label={label} required={required} {...{ childrenBox }}>
       <div
         {...{ style }}
-        className={classnames(
-          !isColor && !noCheckColor ? $['btn-box'] : $['btn-box-color'],
-          { [$['btn-box-color-no-check']]: noCheckColor },
-          className,
-        )}
+        className={classnames($['btn-box'], columns(datas.length), className)}
         ref={btnBoxRef}
       >
         {datas.map((data) => {
@@ -54,7 +52,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
           return (
             <ButtonSelect
               key={validData}
-              className={$.btn}
+              className={!isColor && !noCheckColor ? $.btn : $['btn-color']}
               label={validLabel}
               data={validData}
               type={type || undefined}
