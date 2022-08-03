@@ -1,0 +1,60 @@
+@mixin column-4() {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    display: flex;
+  }
+}
+
+@mixin column-6() {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    display: flex;
+  }
+}
+
+@mixin column-8() {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    display: flex;
+  }
+}
+
+@mixin column-9() {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    display: flex;
+  }
+}
+
+@mixin column-12() {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+}
+
+@mixin column-13() {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@mixin column-15() {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@mixin column-17() {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    grid-template-columns: repeat(9, 1fr);
+  }
+}

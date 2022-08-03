@@ -8,7 +8,7 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData:
-      '@import "styles/main.scss"; @import "styles/_mixin.scss"; @import "styles/_typography.scss";',
+      '@import "styles/main.scss"; @import "styles/_mixin.scss"; @import "styles/_typography.scss"; @import "styles/_grid.scss";',
   },
   env: {
     KAKAO_KEY: process.env.KAKAO_KEY,
