@@ -58,3 +58,9 @@ export type filterBtnBox = {
   isColor?: boolean;
   noCheckColor?: boolean;
 } & btnBox;
+
+export type styleSelectBox = {
+  datas: string[] | DefaultData[];
+  isColor?: boolean;
+  noCheckColor?: boolean;
+} & btnBox;
