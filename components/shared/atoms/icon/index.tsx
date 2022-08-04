@@ -16,6 +16,7 @@ import { Star } from './Star';
 import { Strong } from './Strong';
 import { Time } from './Time';
 import { Top } from './Top';
+import { Upload } from './Upload';
 import { Views } from './Views';
 
 export {
@@ -38,4 +39,5 @@ export {
   Time,
   Filter,
   Close,
+  Upload,
 };
