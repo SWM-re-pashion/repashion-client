@@ -3,6 +3,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import Layout from '@templates/Layout';
+import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 
 import { styleData } from './constants';
@@ -16,6 +17,7 @@ function Uplaod() {
         left={<BackBtn color="#000" className={$.back} />}
       />
       <div className={$.upload}>
+        <ImgUpload />
         <StyleSelect data={styleData} />
       </div>
     </>
