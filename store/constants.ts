@@ -1,4 +1,5 @@
 import { FilterState } from '#types/storeType/filter';
+import { UploadState } from '#types/storeType/upload';
 
 export const infoInitialState = {
   styles: [],
@@ -36,5 +37,14 @@ export const filterInitialState: FilterState = {
   size: {
     top: [],
     bottom: [],
+  },
+};
+
+export const uploadInitialState: UploadState = {
+  imgList: [],
+  style: {
+    tag: '',
+    color: [],
+    material: '',
   },
 };
