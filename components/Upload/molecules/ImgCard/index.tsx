@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { memo } from 'react';
+
 import { ImgClose } from '@atoms/icon';
 
 import $ from './style.module.scss';
@@ -32,4 +34,4 @@ function ImgCard(imgProps: Props) {
   );
 }
 
-export default ImgCard;
+export default memo(ImgCard);
