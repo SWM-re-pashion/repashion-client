@@ -1,0 +1,24 @@
+.img-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 106px;
+  height: 106px;
+  border: 1px solid #e3e1e1;
+  border-radius: $border-radius;
+  background-color: $white;
+  .img-num {
+    margin-top: 11px;
+    font-weight: 400;
+    @include typography(16);
+    color: $black-600;
+    .num {
+      font-weight: 700;
+      color: $primary;
+    }
+  }
+  .input {
+    display: none;
+  }
+}
