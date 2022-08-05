@@ -1,9 +1,14 @@
-import { filterBtnBox } from '#types/info';
+import { DefaultData } from '#types/index';
+import { btnTemplateBox, ClothesCategory, FilterInfo } from '#types/info';
 import { bottomSizes } from '@constants/basic';
 import { colors, topSizes } from '@constants/index';
 import { fits, lengths, styles } from '@constants/style';
 
-const commonProps: filterBtnBox[] = [
+type btnBox = btnTemplateBox<keyof FilterInfo, keyof ClothesCategory> & {
+  datas: (string | DefaultData)[];
+};
+
+const commonProps: btnBox[] = [
   {
     label: '스타일',
     type: 'styles',
@@ -12,7 +17,7 @@ const commonProps: filterBtnBox[] = [
   },
 ];
 
-export const filterData = (category: string): filterBtnBox[] => {
+export const filterData = (category: string): btnBox[] => {
   const categoryCondition =
     category === 'top' || category === 'outer' ? 'top' : 'bottom';
   switch (category) {
