@@ -4,6 +4,7 @@ import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
 import { Ellipse } from './Ellipse';
 import { Filter } from './Filter';
+import { ImgClose } from './ImgClose';
 import { More } from './More';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
@@ -16,6 +17,7 @@ import { Star } from './Star';
 import { Strong } from './Strong';
 import { Time } from './Time';
 import { Top } from './Top';
+import { Upload } from './Upload';
 import { Views } from './Views';
 
 export {
@@ -38,4 +40,6 @@ export {
   Time,
   Filter,
   Close,
+  Upload,
+  ImgClose,
 };

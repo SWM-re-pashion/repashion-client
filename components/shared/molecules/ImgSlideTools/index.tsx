@@ -1,19 +1,15 @@
-import { useRouter } from 'next/router';
-
 import { memo } from 'react';
 
-import { Arrow, More } from '@atoms/icon';
+import BackBtn from '@atoms/BackBtn';
+import { More } from '@atoms/icon';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
 function ImgSlideTools() {
-  const router = useRouter();
-  const handleClick = () => router.back();
-
   return (
     <div className={$['header-box']}>
-      <Arrow className={$.btn} onClick={handleClick} />
+      <BackBtn className={$.btn} />
       <More className={classnames($.btn, $.more)} />
     </div>
   );

@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { ChangeEvent, forwardRef, LegacyRef, memo } from 'react';
 
 import classnames from 'classnames';
@@ -34,4 +33,5 @@ const TextInput = forwardRef(
   },
 );
 
+TextInput.displayName = 'TextInput';
 export default memo(TextInput);

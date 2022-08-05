@@ -1,7 +1,12 @@
+import { DefaultData } from '#types/index';
+import { BasicUserInfo, btnTemplateBox } from '#types/info';
 import { bodyShapes, bottomSizes, genders, topSizes } from '@constants/basic';
-import { basicBtnBox } from 'types/info';
 
-const basicBtnProps: basicBtnBox[] = [
+type btnBox = btnTemplateBox<keyof BasicUserInfo, undefined> & {
+  datas: (string | DefaultData)[];
+};
+
+const basicBtnProps: btnBox[] = [
   {
     label: '성별',
     type: 'gender',

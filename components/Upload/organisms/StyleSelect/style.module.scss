@@ -1,0 +1,5 @@
+.material {
+  @include tablet() {
+    width: 50%;
+  }
+}

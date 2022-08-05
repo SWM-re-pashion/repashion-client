@@ -1,0 +1,6 @@
+.upload {
+  padding: 80px 21px 30px;
+  .back {
+    @include icon-btn(25px, 25px, 20px, 20px);
+  }
+}

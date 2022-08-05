@@ -6,6 +6,12 @@
   font-weight: 700;
   @include typography(16);
 }
+.icon-btn {
+  display: flex;
+  margin: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
 .error {
   border: 2px solid $third;
   box-sizing: border-box;

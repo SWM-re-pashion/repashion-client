@@ -22,6 +22,16 @@
   }
 }
 
+@mixin icon-btn($width, $height, $mWidth, $mHeight) {
+  width: $width;
+  height: $height;
+  @include mobile() {
+    width: $mWidth;
+    height: $mHeight;
+  }
+  cursor: pointer;
+}
+
 @mixin btn-footer() {
   z-index: 99;
   position: fixed;
@@ -69,6 +79,19 @@
   display: flex;
   align-items: center;
   margin-bottom: $marginBottom;
+}
+
+@mixin visually-hidden {
+  z-index: -1;
+  overflow: hidden;
+  display: inline-block;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
 }
 
 @mixin loading() {

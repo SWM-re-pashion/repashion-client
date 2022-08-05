@@ -11,14 +11,8 @@
     rgba(0, 0, 0, 0) 100%
   );
   .btn {
-    width: 30px;
-    height: 30px;
+    @include icon-btn(30px, 30px, 23px, 23px);
     padding: 23px;
-    @include mobile() {
-      width: 23px;
-      height: 23px;
-    }
-    cursor: pointer;
   }
   .more {
     margin: 0 0 0 auto;

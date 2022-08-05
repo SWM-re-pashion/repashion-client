@@ -36,25 +36,13 @@ export type FilterInfo = {
   size: ClothesCategory;
 };
 
-type btnBox = {
+export type btnTemplateBox<T, U> = {
   label: string;
-  required?: boolean;
-};
-
-export type basicBtnBox = {
-  datas: (string | DefaultData)[];
-  type: keyof BasicUserInfo;
-} & btnBox;
-
-export type colorBtnBox = {
-  type: keyof ColorUserInfo;
-  isColor?: boolean;
-} & btnBox;
-
-export type filterBtnBox = {
-  type: keyof FilterInfo;
-  subType?: keyof ClothesCategory;
-  datas: string[] | DefaultData[];
+  type: T;
+  subType?: U;
+  datas?: (string | DefaultData)[];
   isColor?: boolean;
   noCheckColor?: boolean;
-} & btnBox;
+  childrenBox?: boolean;
+  required?: boolean;
+};

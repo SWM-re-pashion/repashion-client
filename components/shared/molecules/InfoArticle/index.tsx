@@ -7,20 +7,19 @@ import $ from './style.module.scss';
 
 type Props = {
   label: string | number;
+  childrenBox?: boolean;
   required?: boolean;
 } & DefaultProps;
 
-export default function InfoArticle({
-  className,
-  style,
-  children,
-  label,
-  required,
-}: Props) {
+export default function InfoArticle(infoProps: Props) {
+  const { className, style, children, label, childrenBox, required } =
+    infoProps;
   return (
     <article
-      {...{ style }}
-      className={classnames($['info-article'], className)}
+      style={{ ...style }}
+      className={classnames($['info-article'], className, {
+        [$['children-box']]: childrenBox,
+      })}
     >
       <div className={$['info-article-header']}>
         <Label className={$.label}>{label}</Label>

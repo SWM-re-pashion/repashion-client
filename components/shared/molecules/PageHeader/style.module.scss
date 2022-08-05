@@ -1,0 +1,22 @@
+.page-header {
+  position: fixed;
+  width: 100%;
+  max-width: 1024px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 22px 27px;
+  box-sizing: border-box;
+  border-bottom: 1px solid $gray-280;
+  background-color: $white;
+  .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 700;
+    @include typography(18);
+  }
+  .right {
+    margin: 0 0 0 auto;
+  }
+}
