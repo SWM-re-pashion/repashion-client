@@ -47,4 +47,10 @@ export const uploadInitialState: UploadState = {
     color: [],
     material: '',
   },
+  basicInfo: {
+    title: '',
+    category: '',
+    brand: '',
+  },
+  size: '',
 };

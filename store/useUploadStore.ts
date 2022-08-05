@@ -34,8 +34,10 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
   ) => {
     set((state) => {
       const isValidSubType = subType === 'color';
-      if (subType) {
-        if (isValidSubType && type !== 'imgList' && typeof value === 'string')
+      const isValidType = type === 'style';
+
+      if (subType && isValidType) {
+        if (isValidSubType && typeof value === 'string')
           return {
             ...state,
             [type]: {
@@ -48,7 +50,7 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
           [type]: { ...state[type], [subType]: value },
         };
       }
-      return state;
+      return { ...state, [type]: value };
     });
   },
 }));

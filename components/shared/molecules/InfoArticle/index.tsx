@@ -12,8 +12,8 @@ type Props = {
 } & DefaultProps;
 
 export default function InfoArticle(infoProps: Props) {
-  const { className, style, children, label, childrenBox, required } =
-    infoProps;
+  const { className, style, children } = infoProps;
+  const { label, childrenBox, required } = infoProps;
   return (
     <article
       style={{ ...style }}

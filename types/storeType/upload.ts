@@ -8,9 +8,17 @@ export interface StyleUpload {
   material: string;
 }
 
+export interface BasicInfo {
+  title: string;
+  category: string;
+  brand: string;
+}
+
 export interface UploadState extends State {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
+  size: string;
+  basicInfo: BasicInfo;
 }
 
 export interface UploadStoreState extends UploadState {

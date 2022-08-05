@@ -32,7 +32,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
   useDragScroll(btnBoxRef);
 
   return (
-    <InfoArticle label={label} required={required} {...{ childrenBox }}>
+    <InfoArticle {...{ label, required, childrenBox }}>
       <div
         {...{ style }}
         className={classnames($['btn-box'], columns(datas.length), className)}
