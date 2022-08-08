@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { forwardRef, LegacyRef } from 'react';
 
 import type { StyleProps } from 'types/props';
@@ -9,19 +8,41 @@ const RangeBtn = forwardRef(
       <svg
         {...{ className, style }}
         ref={ref}
-        width="30"
+        width="20"
         height="20"
-        viewBox="0 0 30 20"
+        viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect width="30" height="20" rx="3" fill="#936DFF" />
-        <rect x="9" y="6" width="2" height="8" rx="1" fill="white" />
-        <rect x="19" y="6" width="2" height="8" rx="1" fill="white" />
-        <rect x="14" y="6" width="2" height="8" rx="1" fill="white" />
+        <rect width="20" height="20" rx="3" fill="#936DFF" />
+        <rect
+          x="5"
+          y="6"
+          width="1.66667"
+          height="8"
+          rx="0.833333"
+          fill="white"
+        />
+        <rect
+          x="13.3333"
+          y="6"
+          width="1.66667"
+          height="8"
+          rx="0.833333"
+          fill="white"
+        />
+        <rect
+          x="9.16666"
+          y="6"
+          width="1.66667"
+          height="8"
+          rx="0.833333"
+          fill="white"
+        />
       </svg>
     );
   },
 );
 
+RangeBtn.displayName = 'RangeButton';
 export { RangeBtn };
