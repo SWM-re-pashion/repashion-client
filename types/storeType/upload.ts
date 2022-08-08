@@ -24,8 +24,8 @@ export interface UploadState extends State {
 }
 
 export type UpdateUpload = (
-  type: keyof UploadState,
   value: string | boolean,
+  type: keyof UploadState,
   subType?: keyof StyleUpload,
 ) => void;
 

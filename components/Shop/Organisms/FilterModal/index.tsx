@@ -40,7 +40,7 @@ function FilterModal({ onClose }: { onClose: () => void }) {
     (e: React.ChangeEvent<HTMLInputElement>, idx?: number) => {
       const num = filterPrice(e.target.value, max).toString();
       e.target.value = num;
-      if (idx) priceUpdate(+num, idx);
+      if (typeof idx === 'number') priceUpdate(+num, idx);
     },
     [priceUpdate],
   );

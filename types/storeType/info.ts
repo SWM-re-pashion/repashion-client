@@ -10,5 +10,5 @@ export interface InfoState extends State {
   bottomSize: string[];
   topColors: string[];
   bottomColors: string[];
-  infoUpdate?: <T>(type: keyof UserInfo, value: T) => void;
+  infoUpdate?: <T>(value: T, type: keyof UserInfo) => void;
 }

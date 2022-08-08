@@ -1,5 +1,4 @@
 import { FilterStoreState } from '#types/storeType/filter';
-import { FilterInfo, ClothesCategory } from 'types/info';
 import { updateInfo, deepClone } from 'utils';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -50,11 +49,7 @@ export const useFilterStore = create(
         });
       },
 
-      filterUpdate: (
-        type: keyof FilterInfo,
-        value: string,
-        subType?: keyof ClothesCategory,
-      ) => {
+      filterUpdate: (value, type, subType?) => {
         set((state) => {
           const removeAllCatecory = (arr: string[]) =>
             arr.filter((x) => x !== 'all');

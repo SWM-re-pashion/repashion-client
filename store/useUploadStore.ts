@@ -1,9 +1,5 @@
 import { ImgBasicProps } from '#types/index';
-import {
-  StyleUpload,
-  UploadState,
-  UploadStoreState,
-} from '#types/storeType/upload';
+import { UploadStoreState } from '#types/storeType/upload';
 import { updateInfo } from 'utils';
 import create from 'zustand';
 
@@ -27,7 +23,7 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
       };
     });
   },
-  updateUpload: (type, value, subType) => {
+  updateUpload: (value, type, subType) => {
     set((state) => {
       const isValidSubType = subType === 'color';
       const isValidType = type === 'style';

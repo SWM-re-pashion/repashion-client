@@ -48,7 +48,7 @@ export const BasicInfo: NextPageWithLayout = () => {
       inputRef.current.focus();
     } else {
       if (inputRef.current && updateInfo)
-        updateInfo('height', inputRef.current.value);
+        updateInfo(inputRef.current.value, 'height');
       setErrorMsg('');
       router.push('/info/color');
     }

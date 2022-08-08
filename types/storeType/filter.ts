@@ -22,12 +22,14 @@ export interface FilterState extends State {
   price: [number, number];
 }
 
+export type FilterUpdate = (
+  value: string,
+  type: keyof FilterInfo,
+  subType?: keyof ClothesCategory,
+) => void;
+
 export interface FilterStoreState extends FilterState {
-  filterUpdate: (
-    type: keyof FilterInfo,
-    value: string,
-    subType?: keyof ClothesCategory,
-  ) => void;
+  filterUpdate: FilterUpdate;
   priceUpdate: (value: number, idx: number) => void;
   clear: (subType: string) => void;
 }

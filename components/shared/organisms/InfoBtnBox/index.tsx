@@ -19,7 +19,7 @@ type Props<T, U> = {
   label: string;
   datas: (string | DefaultData)[];
   compareData: string | string[];
-  handleFunc?: (type: T, value: string, subType?: U) => void;
+  handleFunc?: (value: string, type: T, subType?: U) => void;
   required?: boolean;
   childrenBox?: boolean;
 } & StyleProps;
