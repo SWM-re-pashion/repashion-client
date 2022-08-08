@@ -1,10 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import {
-  // StyleUpload,
-  UpdateUpload,
-  UploadState,
-} from '#types/storeType/upload';
+import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import Label from '@atoms/Label';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
@@ -23,7 +19,7 @@ type Props = {
 
 function Price(priceProps: Props) {
   const { delivery, onChange } = priceProps;
-  const handleInput = useDebounceInput<[keyof UploadState, string, undefined]>(
+  const handleInput = useDebounceInput<[string, keyof UploadState, undefined]>(
     onChange,
     200,
   );
@@ -31,7 +27,7 @@ function Price(priceProps: Props) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const num = filterPrice(e.target.value, max).toString();
       e.target.value = num;
-      handleInput('price', num, undefined);
+      handleInput(num, 'price', undefined);
     },
     [handleInput],
   );
@@ -52,7 +48,7 @@ function Price(priceProps: Props) {
       <div className={classnames($.box, $.delivery)}>
         <RadioBtn
           isClicked={delivery}
-          handleClick={onChange}
+          onTypeClick={onChange}
           type="isIncludeDelivery"
         />
         <Label className={$.label} fontSize={16}>
