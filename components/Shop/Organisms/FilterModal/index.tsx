@@ -10,6 +10,7 @@ import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { Modal } from '@templates/Modal';
 import { useFilterStore } from 'store/useFilterStore';
+import { filterPrice } from 'utils';
 
 import PriceInput from '../PriceInput';
 import { max, priceProps } from './constants';
@@ -35,28 +36,18 @@ function FilterModal({ onClose }: { onClose: () => void }) {
   const inputLeftRef = useRef<HTMLInputElement>(null);
   const inputRightRef = useRef<HTMLInputElement>(null);
 
+  const handlePriceChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, idx?: number) => {
+      const num = filterPrice(e.target.value, max).toString();
+      e.target.value = num;
+      if (idx) priceUpdate(+num, idx);
+    },
+    [priceUpdate],
+  );
+
   const clear = () => {
     if (clearState) clearState(category);
   };
-
-  const priceChangeCallback = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    idx?: number,
-  ) => {
-    const { value } = e.target;
-    const filteredValue = value.replace(/[^0-9]/g, '');
-    e.target.value = filteredValue;
-
-    if (+filteredValue > max) {
-      if (filteredValue.substring(0, 7) === `${max}`) {
-        e.target.value = `${max}`;
-      } else e.target.value = filteredValue.substring(0, 6);
-    }
-    if (typeof idx === 'number') {
-      priceUpdate(+e.target.value, idx);
-    }
-  };
-  const handlePriceChange = useCallback(priceChangeCallback, []);
 
   return (
     <>
