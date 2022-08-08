@@ -30,13 +30,13 @@ function PriceInput(priceProps: Props) {
       <div className={$['input-box']}>
         <TextInput
           {...priceInputProps(0, states, min)}
-          handleChange={handleChange}
+          onChange={handleChange}
           ref={leftRef}
         />
         <span className={$['range-text']}>~</span>
         <TextInput
           {...priceInputProps(1, states, max)}
-          handleChange={handleChange}
+          onChange={handleChange}
           ref={rightRef}
         />
       </div>

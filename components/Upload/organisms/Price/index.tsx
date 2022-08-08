@@ -38,7 +38,7 @@ function Price(priceProps: Props) {
         <TextInput
           controlled={false}
           placeholder="판매할 가격을 입력해주세요."
-          handleChange={handleChange}
+          onChange={handleChange}
         />
         <Label className={$.label} fontSize={20}>
           원

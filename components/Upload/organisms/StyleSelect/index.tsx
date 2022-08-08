@@ -25,12 +25,12 @@ function StyleSelect(styleProps: Props) {
   const states = useUploadStore((state) => state.style);
   const updateUpload = useUploadStore((state) => state.updateUpload);
   const handleInput = useDebounceInput<
-    [keyof UploadState, string, keyof StyleUpload]
+    [string, keyof UploadState, keyof StyleUpload]
   >(updateUpload, 200);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleInput('style', e.target.value, 'material'),
+      handleInput(e.target.value, 'style', 'material'),
     [handleInput],
   );
 
@@ -52,7 +52,7 @@ function StyleSelect(styleProps: Props) {
           className={$.material}
           controlled={false}
           placeholder="코튼 등"
-          handleChange={handleChange}
+          onChange={handleChange}
         />
       </InfoArticle>
     </InfoArticle>

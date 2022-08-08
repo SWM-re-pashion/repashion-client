@@ -58,7 +58,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
               type={type || undefined}
               subType={subType || undefined}
               isSelected={isSelected}
-              handleClick={handleFunc}
+              onClick={handleFunc}
               color={
                 isColor && typeof data === 'object' ? data.code : undefined
               }

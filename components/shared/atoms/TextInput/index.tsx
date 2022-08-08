@@ -10,12 +10,12 @@ type Props = {
   idx?: number;
   placeholder: string;
   value?: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>, idx?: number) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>, idx?: number) => void;
 } & StyleProps;
 
 const TextInput = forwardRef(
   (inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) => {
-    const { controlled, idx, placeholder, value, handleChange } = inputProps;
+    const { controlled, idx, placeholder, value, onChange } = inputProps;
     const { style, className } = inputProps;
     return (
       <input
@@ -25,8 +25,8 @@ const TextInput = forwardRef(
         value={controlled ? value : undefined}
         className={classnames($['text-input'], className)}
         onChange={(e) => {
-          if (typeof idx === 'number') handleChange(e, idx);
-          else handleChange(e);
+          if (typeof idx === 'number') onChange(e, idx);
+          else onChange(e);
         }}
       />
     );

@@ -81,7 +81,7 @@ export const BasicInfo: NextPageWithLayout = () => {
           <TextInput
             controlled={false}
             placeholder="130 ~ 200 범위의 키를 입력해주세요."
-            handleChange={handleHeightChange}
+            onChange={handleHeightChange}
             value={state.height}
             ref={inputRef}
           />

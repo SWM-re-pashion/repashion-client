@@ -16,7 +16,7 @@ type Props = {
   isNeedClick?: boolean;
   isSelected?: boolean;
   isLoading?: boolean;
-  handleClick?: (value: number, type: keyof UserInfo) => void;
+  onClick?: (value: number, type: keyof UserInfo) => void;
 } & DefaultProps;
 
 function ImgBox({
@@ -27,7 +27,7 @@ function ImgBox({
   isNeedClick = false,
   isSelected,
   isLoading,
-  handleClick,
+  onClick,
   style,
 }: Props) {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -43,10 +43,10 @@ function ImgBox({
       role="button"
       tabIndex={0}
       onClick={() => {
-        if (id && isNeedClick && handleClick) handleClick(id, 'styles');
+        if (id && isNeedClick && onClick) onClick(id, 'styles');
       }}
       onKeyPress={() => {
-        if (id && isNeedClick && handleClick) handleClick(id, 'styles');
+        if (id && isNeedClick && onClick) onClick(id, 'styles');
       }}
       aria-label={`${alt} 이미지 박스`}
       ref={boxRef}
