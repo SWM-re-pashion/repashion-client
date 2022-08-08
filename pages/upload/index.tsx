@@ -4,8 +4,8 @@ import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
-import Price from 'components/Upload/molecules/Price';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
+import Price from 'components/Upload/organisms/Price';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { useUploadStore } from 'store/useUploadStore';
 
