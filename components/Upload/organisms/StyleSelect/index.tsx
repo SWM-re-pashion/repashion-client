@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
@@ -59,4 +59,4 @@ function StyleSelect(styleProps: Props) {
   );
 }
 
-export default StyleSelect;
+export default memo(StyleSelect);

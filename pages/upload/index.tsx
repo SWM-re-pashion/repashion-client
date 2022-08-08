@@ -4,6 +4,7 @@ import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
+import Price from 'components/Upload/molecules/Price';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { useUploadStore } from 'store/useUploadStore';
@@ -35,6 +36,7 @@ function Uplaod() {
           remove={removeImg}
         />
         <StyleSelect data={styleData} />
+        <Price delivery={states.isIncludeDelivery} onChange={updateUpload} />
         <InfoBtnBox
           {...size}
           key={size.label}

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 
 import { ImgBasicProps } from '#types/index';
 import ImgCard from 'components/Upload/molecules/ImgCard';
@@ -55,4 +55,4 @@ function ImgUpload(imgProps: Props) {
   );
 }
 
-export default ImgUpload;
+export default memo(ImgUpload);
