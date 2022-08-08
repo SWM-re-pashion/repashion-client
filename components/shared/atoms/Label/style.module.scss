@@ -3,3 +3,30 @@
   font-weight: 700;
   @include typography(16);
 }
+.font-25 {
+  @include typography(25);
+}
+.font-24 {
+  @include typography(24);
+}
+.font-20 {
+  @include typography(20);
+}
+.font-18 {
+  @include typography(18);
+}
+.font-16 {
+  @include typography(16);
+}
+.font-14 {
+  @include typography(14);
+}
+.font-13 {
+  @include typography(13);
+}
+.font-12 {
+  @include typography(12);
+}
+.font-10 {
+  @include typography(10);
+}

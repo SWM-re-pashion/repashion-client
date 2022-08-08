@@ -9,6 +9,7 @@ import { More } from './More';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
 import { Polygon } from './Polygon';
+import { Radio } from './Radio';
 import { RangeBtn } from './RangeBtn';
 import { Rectangle } from './Rectangle';
 import { Skirt } from './Skirt';
@@ -42,4 +43,5 @@ export {
   Close,
   Upload,
   ImgClose,
+  Radio,
 };
