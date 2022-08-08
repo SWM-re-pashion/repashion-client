@@ -17,16 +17,20 @@ export interface BasicInfo {
 export interface UploadState extends State {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
-  size: string;
+  price: number;
+  isIncludeDelivery: boolean;
   basicInfo: BasicInfo;
+  size: string;
 }
+
+export type UpdateUpload = (
+  type: keyof UploadState,
+  value: string | boolean,
+  subType?: keyof StyleUpload,
+) => void;
 
 export interface UploadStoreState extends UploadState {
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;
-  updateUpload: (
-    type: keyof UploadState,
-    value: string,
-    subType?: keyof StyleUpload,
-  ) => void;
+  updateUpload: UpdateUpload;
 }

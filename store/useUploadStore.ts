@@ -27,11 +27,7 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
       };
     });
   },
-  updateUpload: (
-    type: keyof UploadState,
-    value: string,
-    subType?: keyof StyleUpload,
-  ) => {
+  updateUpload: (type, value, subType) => {
     set((state) => {
       const isValidSubType = subType === 'color';
       const isValidType = type === 'style';
