@@ -22,14 +22,11 @@ type Props = {
   onClose: () => void;
 };
 
-function FilterModal({ onClose }: { onClose: () => void }) {
-  const { query } = useRouter();
-  const category = (query.category as string) || 'all';
+function FilterModal({ category }: { category: string }) {
   const states = useFilterStore((state) => state);
   const filterUpdate = useFilterStore(
     useCallback((stat) => stat.filterUpdate, []),
   );
-  const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
   const priceUpdate = useFilterStore(
     useCallback((stat) => stat.priceUpdate, []),
   );
@@ -45,12 +42,45 @@ function FilterModal({ onClose }: { onClose: () => void }) {
     [priceUpdate],
   );
 
+  return (
+    <div className={$['filter-container']}>
+      {filterData(category).map((options) => {
+        const compareData: string[] =
+          options.type !== 'styles' && options.subType
+            ? states[options.type][options.subType]
+            : (states[options.type] as string[]); // Todo: 타입 단언 제거
+
+        return (
+          <InfoBtnBox
+            {...options}
+            key={options.label}
+            compareData={compareData}
+            handleFunc={filterUpdate}
+          />
+        );
+      })}
+
+      <PriceInput
+        {...priceProps(states.price)}
+        handleChange={handlePriceChange}
+        leftRef={inputLeftRef}
+        rightRef={inputRightRef}
+        update={priceUpdate}
+      />
+    </div>
+  );
+}
+
+export default function FilterModalWrapper({ isOpen, onClose }: Props) {
+  const { query } = useRouter();
+  const category = (query.category as string) || 'all';
+  const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
   const clear = () => {
     if (clearState) clearState(category);
   };
 
   return (
-    <>
+    <Modal id="filter-modal" {...{ isOpen, onClose }}>
       <PageHeader
         title="필터"
         left={
@@ -60,33 +90,14 @@ function FilterModal({ onClose }: { onClose: () => void }) {
         }
       />
 
-      <div className={$['filter-container']}>
-        {filterData(category).map((options) => {
-          const compareData: string[] =
-            options.type !== 'styles' && options.subType
-              ? states[options.type][options.subType]
-              : (states[options.type] as string[]); // Todo: 타입 단언 제거
-
-          return (
-            <InfoBtnBox
-              {...options}
-              key={options.label}
-              compareData={compareData}
-              handleFunc={filterUpdate}
-            />
-          );
-        })}
-
-        <PriceInput
-          {...priceProps(states.price)}
-          handleChange={handlePriceChange}
-          leftRef={inputLeftRef}
-          rightRef={inputRightRef}
-          update={priceUpdate}
-        />
+      <div className={$['filter-modal']} aria-describedby="필터 페이지">
+        <Layout noPadding decreaseHeight={140}>
+          <FilterModal {...{ category }} />
+        </Layout>
       </div>
 
       <ButtonFooter
+        background="white"
         LeftBtn={
           <Button className={$.clear} onClick={clear}>
             초기화
@@ -96,18 +107,6 @@ function FilterModal({ onClose }: { onClose: () => void }) {
       >
         설정완료
       </ButtonFooter>
-    </>
-  );
-}
-
-export default function FilterModalWrapper({ isOpen, onClose }: Props) {
-  return (
-    <Modal id="filter-modal" open={isOpen}>
-      <div className={$['filter-modal']} aria-describedby="필터 페이지">
-        <Layout noPadding decreaseHeight={80}>
-          <FilterModal onClose={onClose} />
-        </Layout>
-      </div>
     </Modal>
   );
 }

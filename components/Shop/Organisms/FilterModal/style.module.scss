@@ -1,12 +1,10 @@
 .filter-modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  @include modal();
+  top: 60px;
 }
 
 .filter-container {
-  padding: 95px 24px 35px;
+  padding: 35px 24px 35px;
 }
 
 .clear {
