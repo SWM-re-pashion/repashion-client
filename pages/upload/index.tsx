@@ -1,9 +1,10 @@
-import { ReactElement, useCallback } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
+import Dialog from 'components/Upload/organisms/Dialog';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import Price from 'components/Upload/organisms/Price';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
@@ -14,6 +15,10 @@ import $ from './style.module.scss';
 import { sizeData } from './utils';
 
 function Uplaod() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const openDialogModal = () => setDialogOpen(true);
+  const closeDialogModal = () => setDialogOpen(false);
   const imgUpload = useUploadStore(useCallback((state) => state.imgUpload, []));
   const removeImg = useUploadStore(useCallback((state) => state.removeImg, []));
   const updateUpload = useUploadStore(
@@ -37,6 +42,12 @@ function Uplaod() {
         />
         <StyleSelect data={styleData} />
         <Price delivery={states.isIncludeDelivery} onChange={updateUpload} />
+
+        <button type="button" onClick={openDialogModal}>
+          카테고리
+        </button>
+        <Dialog isOpen={dialogOpen} onClose={closeDialogModal} />
+
         <InfoBtnBox
           {...size}
           key={size.label}

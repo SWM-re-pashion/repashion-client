@@ -32,6 +32,14 @@
   cursor: pointer;
 }
 
+@mixin modal() {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1024px;
+}
+
 @mixin btn-footer() {
   z-index: 99;
   position: fixed;

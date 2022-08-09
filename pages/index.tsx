@@ -26,7 +26,7 @@ const OnBoarding: NextPageWithLayout = () => {
         recommend individual outfit from secondhand
       </span>
 
-      <ButtonFooter background="#4a4a4a" onClick={handleClick}>
+      <ButtonFooter btnColor="#4a4a4a" onClick={handleClick}>
         시작하기
       </ButtonFooter>
     </section>
