@@ -2,7 +2,7 @@ import { ProductFooterInfo } from '#types/product';
 import Button from '@atoms/Button';
 import { ClickHeart, SmallHeart, Time, Views } from '@atoms/icon';
 import IconText from '@atoms/IconText';
-import Label from '@atoms/Label';
+import Span from '@atoms/Span';
 import classnames from 'classnames';
 import useTimeForToday from 'hooks/useTimeForToday';
 import type { DefaultProps } from 'types/props';
@@ -61,13 +61,13 @@ export default function ProductFooter({
         <div className={$['attractive-box']}>
           <ClickHeart />
           <div className={$['price-box']}>
-            <Label color="#9E9E9E" className={$.delivery}>
+            <Span color="#9E9E9E" className={$.delivery}>
               {isIncludeDelivery ? '배송비 포함' : '배송비 제외'}
-            </Label>
-            <Label
+            </Span>
+            <Span
               color="#936DFF"
               className={$.price}
-            >{`${price.toLocaleString()}원`}</Label>
+            >{`${price.toLocaleString()}원`}</Span>
           </div>
           <Button className={$['product-btn']}>{children}</Button>
         </div>

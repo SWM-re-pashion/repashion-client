@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
-import Label from '@atoms/Label';
+import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import RadioBtn from '@molecules/RadioBtn';
@@ -40,9 +40,9 @@ function Price(priceProps: Props) {
           placeholder="판매할 가격을 입력해주세요."
           onChange={handleChange}
         />
-        <Label className={$.label} fontSize={20}>
+        <Span className={$.label} fontSize={20}>
           원
-        </Label>
+        </Span>
       </div>
 
       <div className={classnames($.box, $.delivery)}>
@@ -51,9 +51,9 @@ function Price(priceProps: Props) {
           onTypeClick={onChange}
           type="isIncludeDelivery"
         />
-        <Label className={$.label} fontSize={16}>
+        <Span className={$.label} fontSize={16}>
           배송비 포함
-        </Label>
+        </Span>
       </div>
     </InfoArticle>
   );

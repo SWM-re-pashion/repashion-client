@@ -10,7 +10,7 @@ import {
 } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
-import Label from '@atoms/Label';
+import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
@@ -85,7 +85,7 @@ export const BasicInfo: NextPageWithLayout = () => {
             value={state.height}
             ref={inputRef}
           />
-          <Label className={$['height-cm']}>cm</Label>
+          <Span className={$['height-cm']}>cm</Span>
         </div>
       </InfoArticle>
 

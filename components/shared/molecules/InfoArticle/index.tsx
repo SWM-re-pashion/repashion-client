@@ -1,4 +1,4 @@
-import Label from '@atoms/Label';
+import Span from '@atoms/Span';
 import Required from '@atoms/Required';
 import classnames from 'classnames';
 import { DefaultProps } from 'types/props';
@@ -22,7 +22,7 @@ export default function InfoArticle(infoProps: Props) {
       })}
     >
       <div className={$['info-article-header']}>
-        <Label className={$.label}>{label}</Label>
+        <Span className={$.label}>{label}</Span>
         {required && <Required className={$['required-msg']} />}
       </div>
       {children}

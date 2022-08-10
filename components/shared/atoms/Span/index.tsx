@@ -10,7 +10,7 @@ type Props = {
   fontWeight?: number;
 } & DefaultProps;
 
-export default function Label(labelProps: Props) {
+export default function Span(labelProps: Props) {
   const { className, style, color, fontSize, fontWeight, children } =
     labelProps;
 

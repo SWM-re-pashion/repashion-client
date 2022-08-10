@@ -1,8 +1,7 @@
-import Label from '@atoms/Label';
+import Span from '@atoms/Span';
 import { category } from '@mocks/category';
 import RadioSelect from '@molecules/RadioSelect';
 import { Modal } from '@templates/Modal';
-import { deepClone, mergeObjInArr } from 'utils';
 
 import $ from './style.module.scss';
 import { filteredCategory } from './utils';
@@ -18,13 +17,13 @@ function Dialog() {
 
   return (
     <div className={$['dialog-body']}>
-      <Label>카테고리 선택</Label>
-      <Label>{genderCategory.name}</Label>
-      <select>
+      <Span>카테고리 선택</Span>
+      <Span>{genderCategory.name}</Span>
+      <div>
         {genderCategory.children.map(({ name, code }) => {
           return <RadioSelect label={name} />;
         })}
-      </select>
+      </div>
     </div>
   );
 }
@@ -37,7 +36,7 @@ export default function DialogWrapper({ isOpen, onClose }: Props) {
         aria-describedby="카테고리 다이얼로그"
       >
         <header className={$['dialog-header']}>
-          <Label>카테고리 선택</Label>
+          <Span>카테고리 선택</Span>
         </header>
         <Dialog />
       </div>
