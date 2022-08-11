@@ -1,5 +1,6 @@
 .category-dialog {
   @include modal();
+  overflow-y: auto;
   bottom: 0;
   height: 70%;
   background-color: $white;
@@ -7,13 +8,31 @@
   border-radius: 20px 20px 0px 0px;
 
   .dialog-header {
+    position: fixed;
+    width: calc(100% - 46px);
+    display: flex;
+    align-items: center;
     padding: 20px 23px;
     border-bottom: 1px solid $gray-280;
+    .title {
+      margin-right: 7px;
+    }
+    .page-num {
+      margin-left: auto;
+    }
   }
 
   .dialog-body {
+    position: absolute;
+    width: calc(100% - 48px);
+    top: 60px;
     display: flex;
     flex-direction: column;
-    padding: 20px 23px;
+    padding: 0 24px;
+
+    .prev {
+      width: 100%;
+      margin-right: 5px;
+    }
   }
 }
