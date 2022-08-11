@@ -23,13 +23,16 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
       };
     });
   },
-  updateUpload: (value, type, subType) => {
+  updateUpload: (value, type, subType, idx) => {
     set((state) => {
-      const isValidSubType = subType === 'color';
-      const isValidType = type === 'style';
+      const isObjectType = type === 'style' || type === 'basicInfo';
+      const isSubTypeColor = subType === 'color';
+      const isSubTypeCategory = subType === 'category';
+      const isTypeStyle = type === 'style';
+      const isTypeBasicInfo = type === 'basicInfo';
 
-      if (subType && isValidType) {
-        if (isValidSubType && typeof value === 'string')
+      if (subType && isObjectType) {
+        if (isSubTypeColor && isTypeStyle && typeof value === 'string') {
           return {
             ...state,
             [type]: {
@@ -37,10 +40,28 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
               [subType]: updateInfo<string>(state[type][subType], value),
             },
           };
-        return {
-          ...state,
-          [type]: { ...state[type], [subType]: value },
-        };
+        } else if (
+          isSubTypeCategory &&
+          isTypeBasicInfo &&
+          typeof value === 'string' &&
+          idx !== undefined
+        ) {
+          const clone: [string, string, string] = [...state[type][subType]];
+          clone[idx] = value;
+
+          return {
+            ...state,
+            [type]: {
+              ...state[type],
+              [subType]: clone,
+            },
+          };
+        } else {
+          return {
+            ...state,
+            [type]: { ...state[type], [subType]: value },
+          };
+        }
       }
       return { ...state, [type]: value };
     });

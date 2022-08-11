@@ -10,7 +10,8 @@ export interface StyleUpload {
 
 export interface BasicInfo {
   title: string;
-  category: string;
+  currentCategoryIdx: number;
+  category: [string, string, string];
   brand: string;
 }
 
@@ -24,9 +25,10 @@ export interface UploadState extends State {
 }
 
 export type UpdateUpload = (
-  value: string | boolean,
+  value: string | number | boolean,
   type: keyof UploadState,
-  subType?: keyof StyleUpload,
+  subType?: keyof StyleUpload | keyof BasicInfo,
+  idx?: number,
 ) => void;
 
 export interface UploadStoreState extends UploadState {
