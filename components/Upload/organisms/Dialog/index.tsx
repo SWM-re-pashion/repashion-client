@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { BasicInfo, UpdateUpload } from '#types/storeType/upload';
 import Button from '@atoms/Button';
 import ButtonFooter from '@atoms/ButtonFooter';
@@ -5,7 +7,6 @@ import Span from '@atoms/Span';
 import { categoryData } from '@mocks/categoryData';
 import RadioSelect from '@molecules/RadioSelect';
 import { Modal } from '@templates/Modal';
-import { useEffect, useState } from 'react';
 
 import $ from './style.module.scss';
 import { categoryProperty, filteredCategory, findChildren } from './utils';
@@ -17,20 +18,6 @@ type Props = {
   onChange: UpdateUpload;
 };
 
-export default function DialogWrapper(dialogProps: Props) {
-  const { isOpen, onClose, data, onChange } = dialogProps;
-  return (
-    <Modal id="category-dialog" {...{ isOpen, onClose }}>
-      <div
-        className={$['category-dialog']}
-        aria-describedby="카테고리 다이얼로그"
-      >
-        <Dialog {...{ data, onChange }} />
-      </div>
-    </Modal>
-  );
-}
-
 function Dialog(dialogProps: Pick<Props, 'data' | 'onChange'>) {
   const { data, onChange } = dialogProps;
   const { category, currentCategoryIdx } = data;
@@ -38,9 +25,9 @@ function Dialog(dialogProps: Pick<Props, 'data' | 'onChange'>) {
   const mainCategory = filteredCategory(category[0], categoryData);
 
   useEffect(() => {
-    return () =>
-      // 현재 idx로 이동하도록 하기
-      onChange(currentCategoryIdx, 'basicInfo', 'currentCategoryIdx');
+    return () => {
+      onChange(0, 'basicInfo', 'currentCategoryIdx');
+    };
   }, []);
 
   const prevBtn = (idx: number) => {
@@ -119,5 +106,19 @@ function Dialog(dialogProps: Pick<Props, 'data' | 'onChange'>) {
         </ButtonFooter>
       </div>
     </>
+  );
+}
+
+export default function DialogWrapper(dialogProps: Props) {
+  const { isOpen, onClose, data, onChange } = dialogProps;
+  return (
+    <Modal id="category-dialog" {...{ isOpen, onClose }}>
+      <div
+        className={$['category-dialog']}
+        aria-describedby="카테고리 다이얼로그"
+      >
+        <Dialog {...{ data, onChange }} />
+      </div>
+    </Modal>
   );
 }

@@ -1,16 +1,16 @@
-import Button from '@atoms/Button';
-import { RadioInner } from '@atoms/icon';
-import Span from '@atoms/Span';
-import classnames from 'classnames';
 import { memo } from 'react';
+
+import Span from '@atoms/Span';
+import RadioBtn from '@molecules/RadioBtn';
+import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
 type Props<T, U> = {
   name: string;
   code: string;
-  isBorder: boolean;
-  isClicked?: boolean;
+  isClicked: boolean;
+  isBorder?: boolean;
   type?: T;
   subType?: U;
   idx?: number;
@@ -33,16 +33,13 @@ function RadioSelect<T, U>(radioProps: Props<T, U>) {
 
   return (
     <div
-      onClick={() => handleClick(code)}
       className={classnames($['radio-select'], { [$.border]: isBorder })}
+      role="button"
+      tabIndex={0}
+      onClick={() => handleClick(code)}
+      onKeyDown={() => handleClick(code)}
     >
-      <Button
-        iconBtn
-        label="라디오 버튼"
-        className={classnames($['radio-btn'], { [$.clicked]: isClicked })}
-      >
-        {isClicked && <RadioInner />}
-      </Button>
+      <RadioBtn {...{ isClicked }} />
       <Span fontWeight={400} className={$.name}>
         {name}
       </Span>
