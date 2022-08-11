@@ -25,7 +25,7 @@ function Uplaod() {
     useCallback((state) => state.updateUpload, []),
   );
   const states = useUploadStore((state) => state);
-  const mainCategory = states.basicInfo.category.split('/')[1];
+  const mainCategory = states.basicInfo.category[1];
   const size = sizeData(mainCategory || 'top');
 
   return (
@@ -46,7 +46,12 @@ function Uplaod() {
         <button type="button" onClick={openDialogModal}>
           카테고리
         </button>
-        <Dialog isOpen={dialogOpen} onClose={closeDialogModal} />
+        <Dialog
+          isOpen={dialogOpen}
+          onClose={closeDialogModal}
+          data={states.basicInfo}
+          onChange={updateUpload}
+        />
 
         <InfoBtnBox
           {...size}
