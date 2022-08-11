@@ -1,0 +1,29 @@
+.radio-select {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  .radio-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    border: 1px solid $black-600;
+    border-radius: 50%;
+    background: $white;
+  }
+  .clicked {
+    border: 1px solid $primary;
+  }
+  .name {
+    margin-left: 9px;
+  }
+}
+
+.border {
+  padding: 19px 0;
+  border-bottom: 1px solid $gray-280;
+}
