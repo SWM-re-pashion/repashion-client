@@ -8,7 +8,6 @@
   border-radius: 20px 20px 0px 0px;
 
   .dialog-header {
-    position: fixed;
     width: calc(100% - 46px);
     display: flex;
     align-items: center;
@@ -23,12 +22,12 @@
   }
 
   .dialog-body {
-    position: absolute;
+    overflow-y: auto;
     width: calc(100% - 48px);
-    top: 60px;
+    height: calc(100% - 160px);
     display: flex;
     flex-direction: column;
-    padding: 0 24px;
+    padding: 0 24px 20px;
 
     .prev {
       width: 100%;

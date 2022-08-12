@@ -33,7 +33,7 @@
 }
 
 @mixin modal() {
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
