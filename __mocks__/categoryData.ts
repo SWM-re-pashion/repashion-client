@@ -73,7 +73,7 @@ export const categoryData: data.CategoryTree = {
             { name: '코트', code: 'coat' },
             { name: '재킷', code: 'jacket' },
             { name: '점퍼', code: 'jumper' },
-            { name: '패딩', code: 'paddig' },
+            { name: '패딩', code: 'padding' },
             { name: '베스트', code: 'vest' },
             { name: '가디건', code: 'cardigan' },
             { name: '집업', code: 'zipup' },
