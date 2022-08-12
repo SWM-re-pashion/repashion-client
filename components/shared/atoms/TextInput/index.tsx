@@ -7,31 +7,40 @@ import $ from './style.module.scss';
 
 type Props = {
   controlled: boolean;
-  idx?: number;
   placeholder: string;
+  label?: string;
+  idx?: number;
   value?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>, idx?: number) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>, param?: number) => void;
 } & StyleProps;
 
-const TextInput = forwardRef(
-  (inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) => {
-    const { controlled, idx, placeholder, value, onChange } = inputProps;
-    const { style, className } = inputProps;
-    return (
+function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
+  const { controlled, idx, placeholder, value, onChange } = inputProps;
+  const { label, style, className } = inputProps;
+  return (
+    <div className={classnames($['text-input'], className)}>
+      {label && (
+        <label htmlFor={`input-${label}`} className={$.label}>
+          {label}
+        </label>
+      )}
       <input
+        id={label ? `input-${label}` : undefined}
         {...{ style, placeholder, ref }}
         type="text"
         defaultValue={!controlled ? value : undefined}
         value={controlled ? value : undefined}
-        className={classnames($['text-input'], className)}
+        className={$.input}
         onChange={(e) => {
           if (typeof idx === 'number') onChange(e, idx);
           else onChange(e);
         }}
       />
-    );
-  },
-);
+    </div>
+  );
+}
 
-TextInput.displayName = 'TextInput';
-export default memo(TextInput);
+const TextInputWithRef = forwardRef(TextInput);
+
+TextInputWithRef.displayName = 'TextInput';
+export default memo(TextInputWithRef);
