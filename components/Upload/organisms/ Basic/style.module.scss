@@ -1,0 +1,26 @@
+.basic-info {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    @include halfWidth();
+    margin-bottom: 12px;
+    &:last-child {
+      margin: 12px 0 0 0;
+    }
+  }
+
+  .open-dialog {
+    display: flex;
+    align-items: center;
+    @include halfWidth();
+    height: 50px;
+    margin: 0;
+    padding: 0 16px;
+    @include input-border();
+    text-align: left;
+    .icon {
+      margin: 0 0 0 auto;
+    }
+  }
+}
