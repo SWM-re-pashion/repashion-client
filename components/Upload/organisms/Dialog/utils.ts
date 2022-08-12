@@ -15,9 +15,12 @@ export const filteredCategory = (code: string, category: data.CategoryTree) => {
   return mergedCategory;
 };
 
-export const categoryProperty = (idx: number) => {
+export const categoryProps = (idx: number) => {
   if (idx === 0) return { name: '성별', code: 'gender' };
   if (idx === 1) return { name: '메인 카테고리', code: 'mainCategory' };
   if (idx === 2) return { name: '서브 카테고리', code: 'subCategory' };
   return { name: '', code: '' };
 };
+
+export const curCategoryChildren = (category: data.CategoryTreeChildren) =>
+  category.children?.map(({ name, code }) => code) || [];

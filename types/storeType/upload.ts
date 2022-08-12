@@ -10,7 +10,7 @@ export interface StyleUpload {
 
 export interface BasicInfo {
   title: string;
-  currentCategoryIdx: number;
+  curCategoryIdx: number;
   category: [string, string, string];
   brand: string;
 }

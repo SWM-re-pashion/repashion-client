@@ -49,8 +49,11 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
           idx !== undefined
         ) {
           console.log('category', 'basicInfo');
-          const clone: [string, string, string] = [...state[type][subType]];
-          clone[idx] = value;
+          let clone: [string, string, string] = [...state[type][subType]];
+
+          if (idx === 1) clone = [clone[0], value, ''];
+          else if (idx === 0) clone = [value, '', ''];
+          else clone[idx] = value;
 
           return {
             ...state,
