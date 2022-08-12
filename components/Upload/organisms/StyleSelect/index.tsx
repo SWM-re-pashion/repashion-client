@@ -2,12 +2,15 @@ import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
-import { StyleUpload, UploadState } from '#types/storeType/upload';
+import {
+  StyleUpload,
+  UpdateUpload,
+  UploadState,
+} from '#types/storeType/upload';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import useDebounceInput from 'hooks/useDebounceInput';
-import { useUploadStore } from 'store/useUploadStore';
 
 import $ from './style.module.scss';
 
@@ -18,15 +21,13 @@ type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
 
 type Props = {
   data: btnBox[];
+  state: UploadState['style'];
+  onChange: UpdateUpload;
 };
 
 function StyleSelect(styleProps: Props) {
-  const { data } = styleProps;
-  const states = useUploadStore((state) => state.style);
-  const updateUpload = useUploadStore((state) => state.updateUpload);
-  const handleInput = useDebounceInput<
-    [string, keyof UploadState, keyof StyleUpload]
-  >(updateUpload, 200);
+  const { data, state, onChange } = styleProps;
+  const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -42,8 +43,8 @@ function StyleSelect(styleProps: Props) {
             {...options}
             datas={options.datas}
             key={options.label}
-            compareData={states[options.subType]}
-            handleFunc={updateUpload}
+            compareData={state[options.subType]}
+            handleFunc={onChange}
           />
         );
       })}

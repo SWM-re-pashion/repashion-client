@@ -4,7 +4,7 @@ import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
-import Dialog from 'components/Upload/organisms/Dialog';
+import Basic from 'components/Upload/organisms/ Basic';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import Price from 'components/Upload/organisms/Price';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
@@ -16,9 +16,8 @@ import { sizeData } from './utils';
 
 function Uplaod() {
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const openDialogModal = () => setDialogOpen(true);
-  const closeDialogModal = () => setDialogOpen(false);
+  const openDialog = () => setDialogOpen(true);
+  const closeDialog = () => setDialogOpen(false);
   const imgUpload = useUploadStore(useCallback((state) => state.imgUpload, []));
   const removeImg = useUploadStore(useCallback((state) => state.removeImg, []));
   const updateUpload = useUploadStore(
@@ -37,22 +36,20 @@ function Uplaod() {
       <div className={$.upload}>
         <ImgUpload
           dispatch={imgUpload}
-          data={states.imgList}
+          state={states.imgList}
           remove={removeImg}
         />
-        <StyleSelect data={styleData} />
-        <Price delivery={states.isIncludeDelivery} onChange={updateUpload} />
-
-        <button type="button" onClick={openDialogModal}>
-          카테고리
-        </button>
-        <Dialog
-          isOpen={dialogOpen}
-          onClose={closeDialogModal}
-          data={states.basicInfo}
+        <StyleSelect
+          data={styleData}
+          state={states.style}
           onChange={updateUpload}
         />
-
+        <Price delivery={states.isIncludeDelivery} onChange={updateUpload} />
+        <Basic
+          state={states.basicInfo}
+          onChange={updateUpload}
+          {...{ dialogOpen, openDialog, closeDialog }}
+        />
         <InfoBtnBox
           {...size}
           key={size.label}

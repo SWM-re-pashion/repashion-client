@@ -21,8 +21,9 @@ type Props = {
 function Dialog(dialogProps: Pick<Props, 'data' | 'onChange'>) {
   const { data, onChange } = dialogProps;
   const { category, currentCategoryIdx } = data;
+  const [gender] = category;
   const [currentCategory, setCurrentCategory] = useState(categoryData);
-  const mainCategory = filteredCategory(category[0], categoryData);
+  const mainCategory = filteredCategory(gender, categoryData);
 
   useEffect(() => {
     return () => {

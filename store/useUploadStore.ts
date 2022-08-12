@@ -33,6 +33,7 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
 
       if (subType && isObjectType) {
         if (isSubTypeColor && isTypeStyle && typeof value === 'string') {
+          console.log('color', 'style');
           return {
             ...state,
             [type]: {
@@ -40,12 +41,14 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
               [subType]: updateInfo<string>(state[type][subType], value),
             },
           };
-        } else if (
+        }
+        if (
           isSubTypeCategory &&
           isTypeBasicInfo &&
           typeof value === 'string' &&
           idx !== undefined
         ) {
+          console.log('category', 'basicInfo');
           const clone: [string, string, string] = [...state[type][subType]];
           clone[idx] = value;
 
@@ -56,13 +59,14 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
               [subType]: clone,
             },
           };
-        } else {
-          return {
-            ...state,
-            [type]: { ...state[type], [subType]: value },
-          };
         }
+        console.log('other subtype');
+        return {
+          ...state,
+          [type]: { ...state[type], [subType]: value },
+        };
       }
+      console.log('other');
       return { ...state, [type]: value };
     });
   },

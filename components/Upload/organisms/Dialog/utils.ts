@@ -7,7 +7,7 @@ export const findChildren = (
 
 export const filteredCategory = (code: string, category: data.CategoryTree) => {
   const commonData = findChildren(category.children, 'common');
-  if (code === 'common') return commonData;
+  if (code === 'common' || !code) return commonData;
   const genderData = findChildren(category.children, code);
   const mergedCategory = deepClone(
     mergeObjInArr(commonData, genderData, 'name', 'children'),

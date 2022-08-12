@@ -83,6 +83,18 @@
   }
 }
 
+@mixin input-border() {
+  box-sizing: border-box;
+  border: 1px solid $gray-280;
+  border-radius: 5px;
+}
+
+@mixin halfWidth() {
+  @include tablet() {
+    width: 50%;
+  }
+}
+
 @mixin required-header($marginBottom) {
   display: flex;
   align-items: center;

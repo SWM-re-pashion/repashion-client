@@ -1,5 +1,5 @@
-import Span from '@atoms/Span';
 import Required from '@atoms/Required';
+import Span from '@atoms/Span';
 import classnames from 'classnames';
 import { DefaultProps } from 'types/props';
 
