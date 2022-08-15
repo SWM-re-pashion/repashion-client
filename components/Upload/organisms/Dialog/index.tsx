@@ -67,8 +67,7 @@ function Dialog(dialogProps: Pick<Props, 'data' | 'onChange' | 'onClose'>) {
         children: mainCategory,
       });
     } else if (idx === 1) {
-      const children =
-        findChildren(mainCategory, category[curCategoryIdx]) || [];
+      const children = findChildren(mainCategory, category[curCategoryIdx]);
       setCurCategory({
         ...categoryProps(idx + 1),
         children,

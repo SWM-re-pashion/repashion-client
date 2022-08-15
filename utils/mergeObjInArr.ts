@@ -9,7 +9,7 @@ export const mergeObjInArr = <T>(
   if (arr2) {
     arr2.forEach((item) => {
       const getItem = map.get(item[comparekey]);
-      if (getItem && Array.isArray(item[keyToMerge])) {
+      if (getItem && Array.isArray(item)) {
         map.set(item[comparekey], {
           ...getItem,
           [keyToMerge]: [...getItem[keyToMerge], ...item[keyToMerge]],

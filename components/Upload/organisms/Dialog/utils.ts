@@ -3,7 +3,7 @@ import { deepClone, mergeObjInArr } from 'utils';
 export const findChildren = (
   category: data.CategoryTree['children'],
   code: string,
-) => category.find((children) => children.code === code)?.children;
+) => category.find((children) => children.code === code)?.children || [];
 
 export const filteredCategory = (code: string, category: data.CategoryTree) => {
   const commonData = findChildren(category.children, 'common');
