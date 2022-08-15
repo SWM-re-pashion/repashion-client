@@ -47,4 +47,13 @@ export const uploadInitialState: UploadState = {
     color: [],
     material: '',
   },
+  price: 0,
+  isIncludeDelivery: false,
+  basicInfo: {
+    title: '',
+    currentCategoryIdx: 0,
+    category: ['', '', ''],
+    brand: '',
+  },
+  size: '',
 };

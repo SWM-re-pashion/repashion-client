@@ -32,6 +32,14 @@
   cursor: pointer;
 }
 
+@mixin modal() {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1024px;
+}
+
 @mixin btn-footer() {
   z-index: 99;
   position: fixed;
@@ -72,6 +80,18 @@
     padding: calc($height / 2) calc($width / 2);
     appearance: none;
     cursor: pointer;
+  }
+}
+
+@mixin input-border() {
+  box-sizing: border-box;
+  border: 1px solid $gray-280;
+  border-radius: 5px;
+}
+
+@mixin halfWidth() {
+  @include tablet() {
+    width: 50%;
   }
 }
 

@@ -65,7 +65,7 @@ export const StyleInfo: NextPageWithLayout = () => {
               key={src + id}
               isNeedClick
               isSelected={state.styles.includes(id)}
-              handleClick={handleClick}
+              onClick={handleClick}
             />
           ))}
 

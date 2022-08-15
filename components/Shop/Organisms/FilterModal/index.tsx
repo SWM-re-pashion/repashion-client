@@ -7,9 +7,9 @@ import ButtonFooter from '@atoms/ButtonFooter';
 import { Close } from '@atoms/icon';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
-import Layout from '@templates/Layout';
 import { Modal } from '@templates/Modal';
 import { useFilterStore } from 'store/useFilterStore';
+import { filterPrice } from 'utils';
 
 import PriceInput from '../PriceInput';
 import { max, priceProps } from './constants';
@@ -21,54 +21,36 @@ type Props = {
   onClose: () => void;
 };
 
-function FilterModal({ onClose }: { onClose: () => void }) {
+function FilterModal() {
   const { query } = useRouter();
   const category = (query.category as string) || 'all';
+  const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
+
   const states = useFilterStore((state) => state);
   const filterUpdate = useFilterStore(
     useCallback((stat) => stat.filterUpdate, []),
   );
-  const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
   const priceUpdate = useFilterStore(
     useCallback((stat) => stat.priceUpdate, []),
   );
   const inputLeftRef = useRef<HTMLInputElement>(null);
   const inputRightRef = useRef<HTMLInputElement>(null);
 
+  const handlePriceChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, idx?: number) => {
+      const num = filterPrice(e.target.value, max).toString();
+      e.target.value = num;
+      if (typeof idx === 'number') priceUpdate(+num, idx);
+    },
+    [priceUpdate],
+  );
+
   const clear = () => {
     if (clearState) clearState(category);
   };
 
-  const priceChangeCallback = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    idx?: number,
-  ) => {
-    const { value } = e.target;
-    const filteredValue = value.replace(/[^0-9]/g, '');
-    e.target.value = filteredValue;
-
-    if (+filteredValue > max) {
-      if (filteredValue.substring(0, 7) === `${max}`) {
-        e.target.value = `${max}`;
-      } else e.target.value = filteredValue.substring(0, 6);
-    }
-    if (typeof idx === 'number') {
-      priceUpdate(+e.target.value, idx);
-    }
-  };
-  const handlePriceChange = useCallback(priceChangeCallback, []);
-
   return (
     <>
-      <PageHeader
-        title="필터"
-        left={
-          <Button onClick={onClose} label="필터 닫기" iconBtn>
-            <Close />
-          </Button>
-        }
-      />
-
       <div className={$['filter-container']}>
         {filterData(category).map((options) => {
           const compareData: string[] =
@@ -85,7 +67,6 @@ function FilterModal({ onClose }: { onClose: () => void }) {
             />
           );
         })}
-
         <PriceInput
           {...priceProps(states.price)}
           handleChange={handlePriceChange}
@@ -96,6 +77,7 @@ function FilterModal({ onClose }: { onClose: () => void }) {
       </div>
 
       <ButtonFooter
+        background="white"
         LeftBtn={
           <Button className={$.clear} onClick={clear}>
             초기화
@@ -111,11 +93,17 @@ function FilterModal({ onClose }: { onClose: () => void }) {
 
 export default function FilterModalWrapper({ isOpen, onClose }: Props) {
   return (
-    <Modal id="filter-modal" open={isOpen}>
+    <Modal id="filter-modal" {...{ isOpen, onClose }}>
+      <PageHeader
+        title="필터"
+        left={
+          <Button onClick={onClose} label="필터 닫기" iconBtn>
+            <Close />
+          </Button>
+        }
+      />
       <div className={$['filter-modal']} aria-describedby="필터 페이지">
-        <Layout noPadding decreaseHeight={80}>
-          <FilterModal onClose={onClose} />
-        </Layout>
+        <FilterModal />
       </div>
     </Modal>
   );

@@ -1,9 +1,5 @@
 import { ImgBasicProps } from '#types/index';
-import {
-  StyleUpload,
-  UploadState,
-  UploadStoreState,
-} from '#types/storeType/upload';
+import { UploadStoreState } from '#types/storeType/upload';
 import { updateInfo } from 'utils';
 import create from 'zustand';
 
@@ -27,15 +23,17 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
       };
     });
   },
-  updateUpload: (
-    type: keyof UploadState,
-    value: string,
-    subType?: keyof StyleUpload,
-  ) => {
+  updateUpload: (value, type, subType, idx) => {
     set((state) => {
-      const isValidSubType = subType === 'color';
-      if (subType) {
-        if (isValidSubType && type !== 'imgList' && typeof value === 'string')
+      const isObjectType = type === 'style' || type === 'basicInfo';
+      const isSubTypeColor = subType === 'color';
+      const isSubTypeCategory = subType === 'category';
+      const isTypeStyle = type === 'style';
+      const isTypeBasicInfo = type === 'basicInfo';
+
+      if (subType && isObjectType) {
+        if (isSubTypeColor && isTypeStyle && typeof value === 'string') {
+          console.log('color', 'style');
           return {
             ...state,
             [type]: {
@@ -43,12 +41,36 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
               [subType]: updateInfo<string>(state[type][subType], value),
             },
           };
+        }
+        if (
+          isSubTypeCategory &&
+          isTypeBasicInfo &&
+          typeof value === 'string' &&
+          idx !== undefined
+        ) {
+          console.log('category', 'basicInfo');
+          let clone: [string, string, string] = [...state[type][subType]];
+
+          if (idx === 1) clone = [clone[0], value, ''];
+          else if (idx === 0) clone = [value, '', ''];
+          else clone[idx] = value;
+
+          return {
+            ...state,
+            [type]: {
+              ...state[type],
+              [subType]: clone,
+            },
+          };
+        }
+        console.log('other subtype');
         return {
           ...state,
           [type]: { ...state[type], [subType]: value },
         };
       }
-      return state;
+      console.log('other');
+      return { ...state, [type]: value };
     });
   },
 }));

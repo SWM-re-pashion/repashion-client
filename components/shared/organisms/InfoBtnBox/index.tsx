@@ -19,7 +19,7 @@ type Props<T, U> = {
   label: string;
   datas: (string | DefaultData)[];
   compareData: string | string[];
-  handleFunc?: (type: T, value: string, subType?: U) => void;
+  handleFunc?: (value: string, type: T, subType?: U) => void;
   required?: boolean;
   childrenBox?: boolean;
 } & StyleProps;
@@ -32,7 +32,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
   useDragScroll(btnBoxRef);
 
   return (
-    <InfoArticle label={label} required={required} {...{ childrenBox }}>
+    <InfoArticle {...{ label, required, childrenBox }}>
       <div
         {...{ style }}
         className={classnames($['btn-box'], columns(datas.length), className)}
@@ -58,7 +58,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
               type={type || undefined}
               subType={subType || undefined}
               isSelected={isSelected}
-              handleClick={handleFunc}
+              onClick={handleFunc}
               color={
                 isColor && typeof data === 'object' ? data.code : undefined
               }

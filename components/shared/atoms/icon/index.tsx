@@ -9,8 +9,10 @@ import { More } from './More';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
 import { Polygon } from './Polygon';
+import { RadioInner } from './RadioInner';
 import { RangeBtn } from './RangeBtn';
 import { Rectangle } from './Rectangle';
+import { SelectArrow } from './SelectArrow';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
 import { Star } from './Star';
@@ -42,4 +44,6 @@ export {
   Close,
   Upload,
   ImgClose,
+  RadioInner,
+  SelectArrow,
 };

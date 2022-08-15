@@ -7,7 +7,7 @@ import { infoInitialState } from './constants';
 
 export const useInfoStore = create<InfoState>((set) => ({
   ...infoInitialState,
-  infoUpdate: <T>(type: keyof UserInfo, value: T) => {
+  infoUpdate: <T>(value: T, type: keyof UserInfo) => {
     set((state) => {
       const isStringArr =
         type === 'topSize' ||

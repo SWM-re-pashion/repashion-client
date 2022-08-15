@@ -12,14 +12,14 @@ type Props<T, U> = {
   label: string;
   data: string;
   isSelected: boolean;
-  handleClick?: (type: T, value: string, subType?: U) => void;
+  onClick?: (value: string, type: T, subType?: U) => void;
   color?: string;
   noCheckColor?: boolean;
 } & StyleProps;
 
 function ButtonSelect<T, U>(btnProps: Props<T, U>) {
   const { className, style } = btnProps;
-  const { label, data, type, subType, isSelected, handleClick } = btnProps;
+  const { label, data, type, subType, isSelected, onClick } = btnProps;
   const { color, noCheckColor } = btnProps;
 
   return (
@@ -32,9 +32,9 @@ function ButtonSelect<T, U>(btnProps: Props<T, U>) {
       })}
       style={{ ...style }}
       onClick={() => {
-        if (type && handleClick) {
-          if (subType) handleClick(type, data, subType);
-          else handleClick(type, data);
+        if (type && onClick) {
+          if (subType) onClick(data, type, subType);
+          else onClick(data, type);
         }
       }}
       aria-label={`${label} 버튼`}

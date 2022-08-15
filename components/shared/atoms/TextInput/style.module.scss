@@ -1,14 +1,24 @@
 .text-input {
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 50px;
-  padding-left: 16px;
+  gap: 10px;
+  padding: 0 16px;
   background: $white;
-  border: 1px solid $gray-280;
-  box-sizing: border-box;
-  border-radius: 5px;
-  font-weight: 400;
-  @include typography(16);
-  &::placeholder {
-    color: $gray-280;
+  @include input-border();
+  .label {
+    @include typography(16);
+    color: $black-200;
+    word-break: keep-all;
+  }
+  .input {
+    width: 100%;
+    height: 48px;
+    font-weight: 400;
+    @include typography(16);
+    &::placeholder {
+      color: $gray-280;
+    }
   }
 }

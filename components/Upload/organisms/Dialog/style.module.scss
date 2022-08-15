@@ -1,0 +1,37 @@
+.category-dialog {
+  @include modal();
+  overflow-y: auto;
+  bottom: 0;
+  height: 70%;
+  background-color: $white;
+  box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 20px 0px 0px;
+
+  .dialog-header {
+    width: calc(100% - 46px);
+    display: flex;
+    align-items: center;
+    padding: 20px 23px;
+    border-bottom: 1px solid $gray-280;
+    .title {
+      margin-right: 7px;
+    }
+    .page-num {
+      margin-left: auto;
+    }
+  }
+
+  .dialog-body {
+    overflow-y: auto;
+    width: calc(100% - 48px);
+    height: calc(100% - 160px);
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px 20px;
+
+    .prev {
+      width: 100%;
+      margin-right: 5px;
+    }
+  }
+}

@@ -8,17 +8,31 @@ export interface StyleUpload {
   material: string;
 }
 
+export interface BasicInfo {
+  title: string;
+  curCategoryIdx: number;
+  category: [string, string, string];
+  brand: string;
+}
+
 export interface UploadState extends State {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
+  price: number;
+  isIncludeDelivery: boolean;
+  basicInfo: BasicInfo;
+  size: string;
 }
+
+export type UpdateUpload = (
+  value: string | number | boolean,
+  type: keyof UploadState,
+  subType?: keyof StyleUpload | keyof BasicInfo,
+  idx?: number,
+) => void;
 
 export interface UploadStoreState extends UploadState {
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;
-  updateUpload: (
-    type: keyof UploadState,
-    value: string,
-    subType?: keyof StyleUpload,
-  ) => void;
+  updateUpload: UpdateUpload;
 }

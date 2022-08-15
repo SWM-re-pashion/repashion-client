@@ -1,0 +1,15 @@
+.radio-select {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  .name {
+    margin-left: 9px;
+  }
+}
+
+.border {
+  padding: 19px 0;
+  border-bottom: 1px solid $gray-280;
+}

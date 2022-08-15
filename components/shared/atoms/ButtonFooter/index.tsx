@@ -5,6 +5,7 @@ import type { DefaultProps } from 'types/props';
 import $ from './style.module.scss';
 
 type Props = {
+  btnColor?: string;
   background?: string;
   onClick?: () => void;
   LeftBtn?: JSX.Element;
@@ -12,19 +13,19 @@ type Props = {
 } & DefaultProps;
 
 export default function ButtonFooter(footerProps: Props) {
-  const { className, style, LeftBtn, children, background, onClick, msg } =
-    footerProps;
+  const { className, style, LeftBtn, children } = footerProps;
+  const { btnColor, background, onClick, msg } = footerProps;
   return (
-    <footer
-      className={classnames($['btn-footer'], className)}
-      style={{ ...style }}
-    >
-      <div className={$['btn-box']}>
+    <footer className={classnames($['btn-footer'], className)}>
+      <div
+        className={$['btn-box']}
+        style={{ ...style, backgroundColor: background }}
+      >
         {LeftBtn}
         <Button
+          background={btnColor}
           errorMsg={msg}
           onClick={onClick}
-          background={background}
           className={$.btn}
         >
           {children}

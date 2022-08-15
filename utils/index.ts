@@ -1,5 +1,7 @@
 import { deepClone } from 'utils/deepClone';
 
+import { filterPrice } from './filterPrice';
+import { mergeObjInArr } from './mergeObjInArr';
 import {
   productSizeUtil,
   judgeProductIcon,
@@ -15,4 +17,6 @@ export {
   productNoticeUtil,
   judgeProductIcon,
   deepClone,
+  filterPrice,
+  mergeObjInArr,
 };

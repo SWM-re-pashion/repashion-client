@@ -10,7 +10,7 @@ import {
 } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
-import Label from '@atoms/Label';
+import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
@@ -48,7 +48,7 @@ export const BasicInfo: NextPageWithLayout = () => {
       inputRef.current.focus();
     } else {
       if (inputRef.current && updateInfo)
-        updateInfo('height', inputRef.current.value);
+        updateInfo(inputRef.current.value, 'height');
       setErrorMsg('');
       router.push('/info/color');
     }
@@ -81,11 +81,11 @@ export const BasicInfo: NextPageWithLayout = () => {
           <TextInput
             controlled={false}
             placeholder="130 ~ 200 범위의 키를 입력해주세요."
-            handleChange={handleHeightChange}
+            onChange={handleHeightChange}
             value={state.height}
             ref={inputRef}
           />
-          <Label className={$['height-cm']}>cm</Label>
+          <Span className={$['height-cm']}>cm</Span>
         </div>
       </InfoArticle>
 
