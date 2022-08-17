@@ -9,7 +9,7 @@ import useSelect from './useSelect';
 
 type Props<T, U> = {
   options: (string | DefaultData)[];
-  selected: string;
+  selected: string | number;
   onChange: (value: string, type: T, subType: U) => void;
   name: string;
   type?: T;
@@ -20,8 +20,9 @@ type Props<T, U> = {
 function SelectBox<T, U>(selectProps: Props<T, U>) {
   const { options, selected, onChange } = selectProps;
   const { name, width, type, subType } = selectProps;
-  const labelRef = useRef<HTMLLabelElement>(null);
+  const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
+  const labelName = selected.toString().split('/')[0];
 
   const handleMouseDown = (
     e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
@@ -30,18 +31,8 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     setIsClicked((clicked) => !clicked);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (!e.code) return;
-    if (e.code === 'Enter' || e.code === 'Space') {
-      setIsClicked((clicked) => !clicked);
-    }
-  };
-
   const handleSelectItem = (
-    e:
-      | React.ChangeEvent<HTMLSelectElement>
-      | React.MouseEvent<HTMLLIElement>
-      | React.KeyboardEvent<HTMLLIElement>,
+    e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
     option?: string,
   ) => {
     if (type && subType) {
@@ -54,49 +45,32 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
 
   return (
     <div
-      role="button"
-      tabIndex={0}
       className={classnames($['select-box'], {
         [$['select-box-clicked']]: isClicked,
       })}
       style={{ ...{ width } }}
-      onClick={handleMouseDown}
-      onKeyPress={handleKeyDown}
     >
-      <label ref={labelRef} htmlFor={`${name}-select`} aria-label={name}>
-        <select
-          id={`${name}-select`}
-          value={selected}
-          onChange={handleSelectItem}
-        >
-          {selected &&
-            options.map((option) => {
-              const optionName =
-                typeof option === 'object' ? option.name : option;
-              const optionCode =
-                typeof option === 'object' ? option.code : option;
-              return (
-                <option key={optionName} value={optionCode}>
-                  {optionName}
-                </option>
-              );
-            })}
-          {!selected && (
-            <option key="선택" value="선택">
-              선택
-            </option>
-          )}
-        </select>
-
+      <button
+        id={`${name}-select-box`}
+        ref={labelRef}
+        type="button"
+        aria-haspopup="true"
+        aria-expanded="true"
+        aria-controls={`${name}-select-list`}
+        onClick={handleMouseDown}
+      >
+        {labelName || '선택'}
         <SelectArrow
           className={classnames($.arrow, {
             [$['arrow-clicked']]: isClicked,
           })}
         />
-      </label>
+      </button>
 
       {isClicked && (
         <ul
+          id={`${name}-select-list`}
+          aria-labelledby={`${name}-select-box`}
           role="menu"
           tabIndex={0}
           className={classnames($['select-wrapper'], {
@@ -106,17 +80,21 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
           {options.map((option) => {
             const optionName =
               typeof option === 'object' ? option.name : option;
-            const optionCode =
-              typeof option === 'object' ? option.code : option;
+            const optionData =
+              typeof option === 'object'
+                ? `${optionName}/${option.code}`
+                : option;
 
             return (
               <li
                 tabIndex={0}
                 role="menuitem"
                 key={optionName}
-                className={$['select-item']}
-                onClick={(e) => handleSelectItem(e, optionCode)}
-                onKeyPress={(e) => handleSelectItem(e, optionCode)}
+                className={classnames($['select-item'], {
+                  [$['select-item-clicked']]: labelName === optionName,
+                })}
+                onClick={(e) => handleSelectItem(e, optionData)}
+                onKeyPress={(e) => handleSelectItem(e, optionData)}
               >
                 {optionName}
               </li>

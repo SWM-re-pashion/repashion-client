@@ -7,17 +7,15 @@
   background-color: $white;
   @include input-border($gray-280);
   &,
-  label,
-  select {
+  button {
     @include typography(16);
   }
-  label {
+  button {
     display: flex;
     align-items: center;
     width: 100%;
     height: 100%;
     padding: 0 15px;
-    cursor: pointer;
   }
   &-clicked {
     border-color: $black-600;
@@ -45,6 +43,10 @@
     }
     &:hover,
     &:focus {
+      background-color: $clicked-background;
+      font-weight: 600;
+    }
+    &-clicked {
       background-color: $clicked-background;
       font-weight: 600;
     }
