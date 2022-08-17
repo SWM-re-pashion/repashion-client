@@ -9,6 +9,7 @@ type Props = {
   controlled: boolean;
   placeholder: string;
   label?: string;
+  postLabel?: string;
   idx?: number;
   value?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>, param?: number) => void;
@@ -16,7 +17,7 @@ type Props = {
 
 function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
   const { controlled, idx, placeholder, value, onChange } = inputProps;
-  const { label, style, className } = inputProps;
+  const { label, postLabel, style, className } = inputProps;
   return (
     <div className={classnames($['text-input'], className)}>
       {label && (
@@ -36,6 +37,11 @@ function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
           else onChange(e);
         }}
       />
+      {postLabel && (
+        <label htmlFor={`input-${label}`} className={$.label}>
+          {postLabel}
+        </label>
+      )}
     </div>
   );
 }
