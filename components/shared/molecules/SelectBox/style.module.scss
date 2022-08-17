@@ -1,0 +1,59 @@
+.select-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: $white;
+  @include input-border($gray-280);
+  &,
+  label,
+  select {
+    @include typography(16);
+  }
+  label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+    cursor: pointer;
+  }
+  &-clicked {
+    border-color: $black-600;
+  }
+}
+
+.select-wrapper {
+  z-index: 10;
+  position: absolute;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  @include input-border($black-600);
+  background-color: $white;
+
+  .select-item {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 15px;
+    border-bottom: 1px solid $black-600;
+    cursor: pointer;
+    &:last-child {
+      border: 0;
+    }
+    &:hover,
+    &:focus {
+      background-color: $clicked-background;
+      font-weight: 600;
+    }
+  }
+}
+
+.arrow {
+  margin: 0 0 0 auto;
+  &-clicked {
+    transform: rotate(180deg);
+  }
+}
