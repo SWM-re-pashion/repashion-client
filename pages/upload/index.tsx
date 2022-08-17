@@ -4,15 +4,16 @@ import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
-import Basic from 'components/Upload/organisms/ Basic';
+import Basic from 'components/Upload/organisms/Basic';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import Price from 'components/Upload/organisms/Price';
+import SellerReview from 'components/Upload/organisms/SellerReview';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { useUploadStore } from 'store/useUploadStore';
 
 import { styleData } from './constants';
 import $ from './style.module.scss';
-import { sizeData } from './utils';
+import { reviewData, sizeData } from './utils';
 
 function Uplaod() {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -25,7 +26,12 @@ function Uplaod() {
   );
   const states = useUploadStore((state) => state);
   const mainCategory = states.basicInfo.category[1];
-  const size = sizeData(mainCategory || 'top');
+  const category = mainCategory || 'top';
+  const size = sizeData(category);
+  const review = reviewData(category);
+
+  const height = 170;
+  const bodyShape = 'normal'; // Todo: 서버에서 받은 height, bodyShape 상태 저장하기
 
   return (
     <>
@@ -55,6 +61,12 @@ function Uplaod() {
           key={size.label}
           compareData={states[size.type]}
           handleFunc={updateUpload}
+        />
+        <SellerReview
+          {...{ height, bodyShape }}
+          data={review}
+          state={states.sellerNote}
+          onChange={updateUpload}
         />
       </div>
     </>

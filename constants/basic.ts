@@ -11,4 +11,12 @@ const bodyShapes = [
 const topSizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'];
 const bottomSizes = [...Array.from({ length: 16 }, (_, i) => `${22 + i}`)];
 
-export { genders, bodyShapes, topSizes, bottomSizes };
+const condition = [
+  { name: '새 상품', code: 'new' },
+  { name: '거의 없음', code: 'none' },
+  { name: '보통', code: 'normal' },
+  { name: '조금 있음', code: 'little' },
+  { name: '많이 있음', code: 'many' },
+];
+
+export { genders, bodyShapes, topSizes, bottomSizes, condition };

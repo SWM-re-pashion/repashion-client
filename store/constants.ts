@@ -51,9 +51,17 @@ export const uploadInitialState: UploadState = {
   isIncludeDelivery: false,
   basicInfo: {
     title: '',
-    currentCategoryIdx: 0,
+    curCategoryIdx: 0,
     category: ['', '', ''],
     brand: '',
   },
   size: '',
+  sellerNote: {
+    condition: '',
+    pollution: '',
+    height: 0,
+    bodyShape: '',
+    length: '',
+    fit: '',
+  },
 };

@@ -1,0 +1,19 @@
+.select-wrapper {
+  @include halfWidth();
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  .label {
+    width: fit-content;
+    margin-right: 15px;
+    white-space: nowrap;
+    &:not(:first-child, :last-child) {
+      margin-left: 15px;
+    }
+    &:last-child {
+      margin-left: 15px;
+      margin-right: 0;
+    }
+  }
+}

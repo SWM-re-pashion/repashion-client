@@ -15,6 +15,15 @@ export interface BasicInfo {
   brand: string;
 }
 
+export interface SellerNote {
+  condition: string;
+  pollution: string;
+  height: number;
+  bodyShape: string;
+  length: string;
+  fit: string;
+}
+
 export interface UploadState extends State {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
@@ -22,12 +31,13 @@ export interface UploadState extends State {
   isIncludeDelivery: boolean;
   basicInfo: BasicInfo;
   size: string;
+  sellerNote: SellerNote;
 }
 
 export type UpdateUpload = (
   value: string | number | boolean,
   type: keyof UploadState,
-  subType?: keyof StyleUpload | keyof BasicInfo,
+  subType?: keyof StyleUpload | keyof BasicInfo | keyof SellerNote,
   idx?: number,
 ) => void;
 

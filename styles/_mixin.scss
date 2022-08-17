@@ -83,9 +83,9 @@
   }
 }
 
-@mixin input-border() {
+@mixin input-border($color) {
   box-sizing: border-box;
-  border: 1px solid $gray-280;
+  border: 1px solid $color;
   border-radius: 5px;
 }
 
