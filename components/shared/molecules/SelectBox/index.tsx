@@ -54,20 +54,16 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={classnames($['select-box'], {
         [$['select-box-clicked']]: isClicked,
       })}
       style={{ ...{ width } }}
+      onClick={handleMouseDown}
+      onKeyPress={handleKeyDown}
     >
-      <label
-        role="button"
-        tabIndex={0}
-        ref={labelRef}
-        htmlFor={`${name}-select`}
-        aria-label={name}
-        onClick={handleMouseDown}
-        onKeyPress={handleKeyDown}
-      >
+      <label ref={labelRef} htmlFor={`${name}-select`} aria-label={name}>
         <select
           id={`${name}-select`}
           value={selected}
