@@ -30,6 +30,9 @@ function Uplaod() {
   const size = sizeData(category);
   const review = reviewData(category);
 
+  const height = 170;
+  const bodyShape = 'normal'; // Todo: 서버에서 받은 height, bodyShape 상태 저장하기
+
   return (
     <>
       <PageHeader
@@ -60,6 +63,7 @@ function Uplaod() {
           handleFunc={updateUpload}
         />
         <SellerReview
+          {...{ height, bodyShape }}
           data={review}
           state={states.sellerNote}
           onChange={updateUpload}
