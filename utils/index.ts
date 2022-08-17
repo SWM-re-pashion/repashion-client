@@ -1,6 +1,6 @@
 import { deepClone } from 'utils/deepClone';
 
-import { filterPrice } from './filterPrice';
+import { filterPrice } from './filterValue';
 import { mergeObjInArr } from './mergeObjInArr';
 import {
   productSizeUtil,
