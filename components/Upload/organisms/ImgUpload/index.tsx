@@ -2,6 +2,7 @@ import React, { memo, useCallback, useRef } from 'react';
 
 import { ImgBasicProps } from '#types/index';
 import { UploadState } from '#types/storeType/upload';
+import { useImgUpload } from 'api/upload';
 import ImgCard from 'components/Upload/molecules/ImgCard';
 import ImgUploadBtn from 'components/Upload/molecules/ImgUploadBtn';
 import useDragScroll from 'hooks/useDragScroll';
@@ -22,6 +23,7 @@ function ImgUpload(imgProps: Props) {
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
+  const { mutate } = useImgUpload();
   useDragScroll(uploadRef);
 
   const onUploadClick = useCallback(() => {
@@ -35,7 +37,8 @@ function ImgUpload(imgProps: Props) {
           target: { files },
         } = e;
         if (files) {
-          dispatch([...state, { id: (idRef.current += 1), src: MOCK_IMG }]);
+          mutate(files);
+          // dispatch([...state, { id: (idRef.current += 1), src: MOCK_IMG }]);
         }
       }
     },
