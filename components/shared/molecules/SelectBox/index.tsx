@@ -106,4 +106,5 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
   );
 }
 
-export default memo(SelectBox);
+const typedMemo: <T>(c: T) => T = memo;
+export default typedMemo(SelectBox);
