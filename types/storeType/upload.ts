@@ -24,6 +24,18 @@ export interface SellerNote {
   fit: string;
 }
 
+export interface Measure {
+  [index: string]: number;
+  length: number;
+  shoulderWidth: number;
+  chestSection: number;
+  sleeveLength: number;
+  waistSection: number;
+  thighSection: number;
+  rise: number;
+  bottomSection: number;
+}
+
 export interface UploadState extends State {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
@@ -32,12 +44,17 @@ export interface UploadState extends State {
   basicInfo: BasicInfo;
   size: string;
   sellerNote: SellerNote;
+  measure: Measure;
 }
 
 export type UpdateUpload = (
   value: string | number | boolean,
   type: keyof UploadState,
-  subType?: keyof StyleUpload | keyof BasicInfo | keyof SellerNote,
+  subType?:
+    | keyof StyleUpload
+    | keyof BasicInfo
+    | keyof SellerNote
+    | keyof Measure,
   idx?: number,
 ) => void;
 

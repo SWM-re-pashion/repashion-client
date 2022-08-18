@@ -1,0 +1,7 @@
+.measure-element {
+  @include halfWidth();
+  margin-bottom: 12px;
+  &:last-child {
+    margin: 0;
+  }
+}

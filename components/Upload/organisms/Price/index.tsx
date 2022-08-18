@@ -25,7 +25,7 @@ function Price(priceProps: Props) {
   );
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const num = filterPrice(e.target.value, max).toString();
+      const num = filterPrice(e.target.value, max);
       e.target.value = num;
       handleInput(num, 'price', undefined);
     },
