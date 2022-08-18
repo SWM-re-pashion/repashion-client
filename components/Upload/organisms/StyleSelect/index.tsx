@@ -29,10 +29,10 @@ function StyleSelect(styleProps: Props) {
   const { data, state, onChange } = styleProps;
   const handleInput = useDebounceInput(onChange, 200);
 
-  const handleChange = useCallback(
+  const handleChange = useCallback( // Todo: 최적화
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleInput(e.target.value, 'style', 'material'),
-    [handleInput],
+      onChange(e.target.value, 'style', 'material'),
+    [onChange],
   );
 
   return (
@@ -52,6 +52,7 @@ function StyleSelect(styleProps: Props) {
         <TextInput
           className={$.material}
           controlled={false}
+          value={state.material}
           placeholder="코튼 등"
           onChange={handleChange}
         />

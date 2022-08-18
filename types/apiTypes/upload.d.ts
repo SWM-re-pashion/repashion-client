@@ -1,7 +1,15 @@
 declare namespace res {
-  type Cafeteria = {
-    id: number;
-    content: string;
-    time: number;
+  type ImgUpload = {
+    error: boolean;
+    image: string[];
+    attribute: {
+      style: string;
+      gender: string;
+      mainCategory: string;
+      subCategory: string;
+      material: string;
+      detail: string;
+      print: string;
+    };
   };
 }
