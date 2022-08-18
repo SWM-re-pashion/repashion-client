@@ -1,4 +1,4 @@
-import axios from 'lib/axios';
+import { Axios } from 'lib/axios';
 
 export type OAuthRequest = {
   social: {
@@ -25,7 +25,7 @@ export const postAuthToken = async (token: string): Promise<OAuthResponse> => {
       token,
     },
   };
-  const { data } = await axios.post<OAuthResponse>(
+  const { data } = await Axios.post<OAuthResponse>(
     '/api/kakao/login',
     JSON.stringify(requestData),
   );

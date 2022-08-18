@@ -1,21 +1,20 @@
 import { useMutation } from 'react-query';
 
-import axios from 'lib/axios';
+import { AiAxios } from 'lib/axios';
 
-export const postImgs = async (files: FileList) => {
-  console.log(files);
-  const { data } = await axios.post('/api/product/upload', files);
+export const postImgs = async (files: FormData) => {
+  const { data } = await AiAxios.post('/api/product/uploads', files);
   return data;
 };
 
 export const useImgUpload = () => {
   return useMutation(
-    (files: FileList) => {
+    (files: FormData) => {
       return postImgs(files);
     },
     {
-      onSuccess: () => {
-        console.log('success');
+      onError: (err) => {
+        console.log(err);
       },
     },
   );

@@ -1,5 +1,5 @@
-import axios from 'lib/axios';
-import { InfoState } from 'store/useInfoStore';
+import { InfoState } from '#types/storeType/info';
+import { Axios } from 'lib/axios';
 
 export type PreferenceRequest = {
   styles: number[];
@@ -34,7 +34,7 @@ export const postPreference = async (
   };
   delete requestData.infoUpdate;
 
-  const { data } = await axios.post<PreferenceResponse>(
+  const { data } = await Axios.post<PreferenceResponse>(
     '/api/preference/save',
     JSON.stringify(requestData),
   );

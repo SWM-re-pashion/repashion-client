@@ -1,11 +1,11 @@
 import { DefaultData } from '#types/index';
-import axios from 'lib/axios';
+import { Axios } from 'lib/axios';
 
 export type StyleResponse = {
   colors: DefaultData[];
 };
 
 export const getColors = async (): Promise<StyleResponse> => {
-  const { data } = await axios.get<StyleResponse>('/api/colors');
+  const { data } = await Axios.get<StyleResponse>('/api/colors');
   return data;
 };

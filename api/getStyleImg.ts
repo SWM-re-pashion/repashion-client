@@ -1,10 +1,10 @@
-import axios from 'lib/axios';
+import { Axios } from 'lib/axios';
 
 export type StyleResponse = {
   styles: { id: number; src: string; alt: string }[];
 };
 
 export const getStyleImg = async (): Promise<StyleResponse> => {
-  const { data } = await axios.get<StyleResponse>('/api/styles');
+  const { data } = await Axios.get<StyleResponse>('/api/styles');
   return data;
 };
