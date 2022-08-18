@@ -6,10 +6,12 @@ import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import Basic from 'components/Upload/organisms/Basic';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
+import Measure from 'components/Upload/organisms/Measure';
 import Price from 'components/Upload/organisms/Price';
 import SellerReview from 'components/Upload/organisms/SellerReview';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { useUploadStore } from 'store/useUploadStore';
+import { getMeasureElement } from 'utils/measure';
 
 import { styleData } from './constants';
 import $ from './style.module.scss';
@@ -29,6 +31,7 @@ function Uplaod() {
   const category = mainCategory || 'top';
   const size = sizeData(category);
   const review = reviewData(category);
+  const measureData = getMeasureElement(states.basicInfo.category);
 
   const height = 170;
   const bodyShape = 'normal'; // Todo: 서버에서 받은 height, bodyShape 상태 저장하기
@@ -66,6 +69,11 @@ function Uplaod() {
           {...{ height, bodyShape }}
           data={review}
           state={states.sellerNote}
+          onChange={updateUpload}
+        />
+        <Measure
+          data={measureData}
+          state={states.measure}
           onChange={updateUpload}
         />
       </div>
