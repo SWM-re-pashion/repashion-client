@@ -64,4 +64,14 @@ export const uploadInitialState: UploadState = {
     length: '',
     fit: '',
   },
+  measure: {
+    length: 0,
+    shoulderWidth: 0,
+    chestSection: 0,
+    sleeveLength: 0,
+    waistSection: 0,
+    thighSection: 0,
+    rise: 0,
+    bottomSection: 0,
+  },
 };
