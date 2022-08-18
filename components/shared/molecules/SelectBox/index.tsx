@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
 import { SelectArrow } from '@atoms/icon';
@@ -106,4 +106,4 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
   );
 }
 
-export default SelectBox;
+export default memo(SelectBox);
