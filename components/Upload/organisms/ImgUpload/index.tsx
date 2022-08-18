@@ -1,8 +1,10 @@
 import React, { memo, useCallback, useRef } from 'react';
 
 import { ImgBasicProps } from '#types/index';
-import { UploadState } from '#types/storeType/upload';
+import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import LoadingSpinner from '@atoms/LoadingSpinner';
 import { useImgUpload } from 'api/upload';
+import classnames from 'classnames';
 import ImgCard from 'components/Upload/molecules/ImgCard';
 import ImgUploadBtn from 'components/Upload/molecules/ImgUploadBtn';
 import useDragScroll from 'hooks/useDragScroll';
@@ -10,20 +12,19 @@ import useDragScroll from 'hooks/useDragScroll';
 import $ from './style.module.scss';
 
 type Props = {
-  state: UploadState['imgList'];
+  state: UploadState;
   dispatch: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   remove: (removeId: number) => void;
+  onChange: UpdateUpload;
 };
 
-const MOCK_IMG =
-  'https://images.unsplash.com/photo-1618588507085-c79565432917?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwbmF0dXJlfGVufDB8fDB8fA%3D%3D&w=1000&q=80';
-
 function ImgUpload(imgProps: Props) {
-  const { dispatch, state, remove } = imgProps;
+  const { dispatch, state, remove, onChange } = imgProps;
+  const { imgList } = state;
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
-  const { mutate } = useImgUpload();
+  const { isLoading, mutate } = useImgUpload();
   useDragScroll(uploadRef);
 
   const onUploadClick = useCallback(() => {
@@ -31,30 +32,60 @@ function ImgUpload(imgProps: Props) {
   }, []);
 
   const onUploadImg = useCallback(
+    // Fix: 같은 이미지에 대해 재업로드 불가
     (e: React.ChangeEvent) => {
+      const formData = new FormData();
       if (e.type === 'change' && 'files' in e.target) {
         const {
           target: { files },
         } = e;
         if (files) {
-          mutate(files);
-          // dispatch([...state, { id: (idRef.current += 1), src: MOCK_IMG }]);
+          const filesArr: File[] = Array.from(files);
+          filesArr.forEach((file: File) => {
+            formData.append('files', file);
+          });
+          mutate(formData, {
+            onSuccess: ({ attribute, image }: res.ImgUpload) => {
+              const { style: tag, material } = attribute;
+              const images = image.map((img) => {
+                idRef.current += 1;
+                return {
+                  id: idRef.current,
+                  src: img,
+                };
+              });
+              dispatch(images);
+              onChange(tag, 'style', 'tag');
+              onChange(material, 'style', 'material');
+            },
+          });
         }
       }
     },
-    [state, dispatch],
+    [mutate, dispatch, onChange],
   );
 
   return (
-    <article className={$['img-upload']} ref={uploadRef}>
-      <ImgUploadBtn
-        {...{ inputRef, onUploadClick }}
-        num={state.length}
-        onUpload={onUploadImg}
-      />
-      {state.map(({ id, src }, idx) => (
-        <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
-      ))}
+    <article
+      className={classnames($['img-upload'], {
+        [$['img-upload-loading']]: isLoading,
+      })}
+      ref={uploadRef}
+    >
+      {isLoading ? (
+        <LoadingSpinner width={50} borderWidth={3} color="#876bf6" />
+      ) : (
+        <>
+          <ImgUploadBtn
+            {...{ inputRef, onUploadClick }}
+            num={imgList.length}
+            onUpload={onUploadImg}
+          />
+          {imgList.map(({ id, src }, idx) => (
+            <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
+          ))}
+        </>
+      )}
     </article>
   );
 }
