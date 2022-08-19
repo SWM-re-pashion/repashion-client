@@ -45,6 +45,7 @@ function Basic(basicProps: Props) {
         label="아이템"
         className={$.title}
         controlled={false}
+        value={state.title}
         placeholder="아이템 이름"
         onChange={handleTitleChange}
       />
@@ -71,6 +72,7 @@ function Basic(basicProps: Props) {
         label="브랜드"
         className={$.title}
         controlled={false}
+        value={state.brand}
         placeholder="브랜드 이름"
         onChange={handleBrandChange}
       />

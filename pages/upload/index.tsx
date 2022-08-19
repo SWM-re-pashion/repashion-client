@@ -55,7 +55,11 @@ function Uplaod() {
           state={states.style}
           onChange={updateUpload}
         />
-        <Price delivery={states.isIncludeDelivery} onChange={updateUpload} />
+        <Price
+          delivery={states.isIncludeDelivery}
+          state={states.price}
+          onChange={updateUpload}
+        />
         <Basic
           state={states.basicInfo}
           onChange={updateUpload}
