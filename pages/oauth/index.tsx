@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useEffect } from 'react';
 
-import Spinner from 'components/shared/atoms/Spinner';
+import LoadingSpinner from '@atoms/LoadingSpinner';
 import Layout from 'components/shared/templates/Layout';
 import usePostAuthToken from 'hooks/usePostAuthToken';
 import { NextPageWithLayout } from 'pages/_app';
@@ -20,7 +20,7 @@ const Oauth: NextPageWithLayout = () => {
 
   return (
     <div className={$['oauth-loading']}>
-      <Spinner width={50} borderWidth={3} color="#876bf6" />
+      <LoadingSpinner width={50} borderWidth={3} color="#876bf6" />
     </div>
   );
 };

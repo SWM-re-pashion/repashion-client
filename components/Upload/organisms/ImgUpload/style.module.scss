@@ -4,4 +4,7 @@
   display: flex;
   align-items: flex-end;
   margin-bottom: 40px;
+  &-loading {
+    align-items: center;
+  }
 }

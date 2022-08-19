@@ -25,7 +25,7 @@ export interface SellerNote {
 }
 
 export interface Measure {
-  [index: string]: number;
+  [index: string]: number; // Todo: 없애기 TextInput에서 처리하도록
   length: number;
   shoulderWidth: number;
   chestSection: number;

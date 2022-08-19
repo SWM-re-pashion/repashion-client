@@ -45,8 +45,9 @@ function Uplaod() {
       <div className={$.upload}>
         <ImgUpload
           dispatch={imgUpload}
-          state={states.imgList}
+          state={states}
           remove={removeImg}
+          onChange={updateUpload}
         />
         <StyleSelect
           data={styleData}

@@ -30,9 +30,10 @@ function StyleSelect(styleProps: Props) {
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
+    // Todo: 성능 최적화
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleInput(e.target.value, 'style', 'material'),
-    [handleInput],
+      onChange(e.target.value, 'style', 'material'),
+    [onChange],
   );
 
   return (
@@ -51,7 +52,8 @@ function StyleSelect(styleProps: Props) {
       <InfoArticle label="소재" childrenBox>
         <TextInput
           className={$.material}
-          controlled={false}
+          controlled // 성능 최적화
+          value={state.material}
           placeholder="코튼 등"
           onChange={handleChange}
         />
