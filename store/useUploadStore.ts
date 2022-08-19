@@ -29,7 +29,8 @@ export const useUploadStore = create<UploadStoreState>((set) => ({
         type === 'style' ||
         type === 'basicInfo' ||
         type === 'sellerNote' ||
-        type === 'measure';
+        type === 'measure' ||
+        type === 'additionalInfo';
       const isSubTypeColor = subType === 'color';
       const isSubTypeCategory = subType === 'category';
       const isTypeStyle = type === 'style';

@@ -74,4 +74,9 @@ export const uploadInitialState: UploadState = {
     rise: 0,
     bottomSection: 0,
   },
+  additionalInfo: {
+    purchaseTime: '',
+    purchasePlace: '',
+  },
+  opinion: '',
 };

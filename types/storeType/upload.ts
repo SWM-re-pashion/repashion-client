@@ -36,6 +36,12 @@ export interface Measure {
   bottomSection: number;
 }
 
+export interface AdditionalInfo {
+  [index: string]: string; // Todo: 없애기 TextInput에서 처리하도록
+  purchaseTime: string;
+  purchasePlace: string;
+}
+
 export interface UploadState extends State {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
@@ -45,6 +51,8 @@ export interface UploadState extends State {
   size: string;
   sellerNote: SellerNote;
   measure: Measure;
+  additionalInfo: AdditionalInfo;
+  opinion: string;
 }
 
 export type UpdateUpload = (

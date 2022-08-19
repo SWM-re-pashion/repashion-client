@@ -27,4 +27,19 @@ const styleData: btnBox[] = [
     childrenBox: true,
   },
 ];
-export { styleData };
+
+const additionData = [
+  {
+    label: '구매시기',
+    placeholder: '한달 전, 1년 이내 등',
+    type: 'additionalInfo',
+    subType: 'purchaseTime',
+  },
+  {
+    label: '구매처',
+    placeholder: '백화점, 온라인 쇼핑몰 등',
+    type: 'additionalInfo',
+    subType: 'purchasePlace',
+  },
+];
+export { styleData, additionData };

@@ -4,6 +4,7 @@ import BackBtn from '@atoms/BackBtn';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
+import AdditionalInfo from 'components/Upload/organisms/AdditionalInfo';
 import Basic from 'components/Upload/organisms/Basic';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import Measure from 'components/Upload/organisms/Measure';
@@ -13,7 +14,7 @@ import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { useUploadStore } from 'store/useUploadStore';
 import { getMeasureElement } from 'utils/measure';
 
-import { styleData } from './constants';
+import { additionData, styleData } from './constants';
 import $ from './style.module.scss';
 import { reviewData, sizeData } from './utils';
 
@@ -75,6 +76,12 @@ function Uplaod() {
         <Measure
           data={measureData}
           state={states.measure}
+          onChange={updateUpload}
+        />
+        <AdditionalInfo
+          data={additionData}
+          state={[states.additionalInfo, states.opinion]}
+          opinionPlaceholder="추가적인 설명은 구매에 도움이 됩니다.(최대 300자)"
           onChange={updateUpload}
         />
       </div>

@@ -19,7 +19,7 @@ function Measure(priceProps: Props) {
   const { data, state, onChange } = priceProps;
   const handleInput = useDebounceInput(onChange, 200);
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, subType: string) => {
+    (e: React.ChangeEvent<HTMLInputElement>, subType?: string | number) => {
       // Todo 제네릭화
       const value = filterHeight(e.target.value);
       e.target.value = value;
@@ -40,7 +40,7 @@ function Measure(priceProps: Props) {
             controlled={false}
             value={state[code].toString()}
             placeholder="수치 입력"
-            onChange={(e) => handleChange(e, code)}
+            onChange={handleChange}
             className={$['measure-element']}
           />
         );
