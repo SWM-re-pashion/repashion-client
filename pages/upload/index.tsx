@@ -11,6 +11,7 @@ import Measure from 'components/Upload/organisms/Measure';
 import Price from 'components/Upload/organisms/Price';
 import SellerReview from 'components/Upload/organisms/SellerReview';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
+import useMounted from 'hooks/useMounted';
 import { useUploadStore } from 'store/useUploadStore';
 import { getMeasureElement } from 'utils/measure';
 
@@ -18,7 +19,8 @@ import { additionData, styleData } from './constants';
 import $ from './style.module.scss';
 import { reviewData, sizeData } from './utils';
 
-function Uplaod() {
+function Upload() {
+  const isMounted = useMounted();
   const [dialogOpen, setDialogOpen] = useState(false);
   const openDialog = () => setDialogOpen(true);
   const closeDialog = () => setDialogOpen(false);
@@ -37,6 +39,7 @@ function Uplaod() {
   const height = 170;
   const bodyShape = 'normal'; // Todo: 서버에서 받은 height, bodyShape 상태 저장하기
 
+  if (!isMounted) return null;
   return (
     <>
       <PageHeader
@@ -93,8 +96,8 @@ function Uplaod() {
   );
 }
 
-Uplaod.getLayout = function getLayout(page: ReactElement) {
+Upload.getLayout = function getLayout(page: ReactElement) {
   return <Layout noPadding>{page}</Layout>;
 };
 
-export default Uplaod;
+export default Upload;
