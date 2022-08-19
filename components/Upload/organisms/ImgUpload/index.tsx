@@ -32,7 +32,6 @@ function ImgUpload(imgProps: Props) {
   }, []);
 
   const onUploadImg = useCallback(
-    // Fix: 같은 이미지에 대해 재업로드 불가
     (e: React.ChangeEvent) => {
       const formData = new FormData();
       if (e.type === 'change' && 'files' in e.target) {
@@ -41,6 +40,9 @@ function ImgUpload(imgProps: Props) {
         } = e;
         if (files) {
           const filesArr: File[] = Array.from(files);
+          if (filesArr.length > 10) {
+            filesArr.splice(10);
+          } // Todo: 이미지 10개 제한, 팝업 메시지
           filesArr.forEach((file: File) => {
             formData.append('files', file);
           });
@@ -54,6 +56,7 @@ function ImgUpload(imgProps: Props) {
                   src: img,
                 };
               });
+              console.log(attribute);
               dispatch(images);
               onChange(tag, 'style', 'tag');
               onChange(material, 'style', 'material');
