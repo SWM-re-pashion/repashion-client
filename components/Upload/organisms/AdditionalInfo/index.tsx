@@ -16,13 +16,14 @@ type Props = {
     subType: string;
   }[];
   opinionPlaceholder: string;
-  state: [UploadState['additionalInfo'], UploadState['opinion']];
+  opinionState: UploadState['opinion'];
+  additionState: UploadState['additionalInfo'];
   onChange: UpdateUpload;
 };
 
 function AdditionalInfo(additionProps: Props) {
-  const { data: datas, opinionPlaceholder, state, onChange } = additionProps;
-  const [additionalInfo, opinion] = state;
+  const { data: datas, opinionPlaceholder, onChange } = additionProps;
+  const { additionState, opinionState } = additionProps;
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
@@ -49,7 +50,7 @@ function AdditionalInfo(additionProps: Props) {
               key={label}
               className={$.addition}
               controlled={false}
-              value={additionalInfo[subType]}
+              value={additionState[subType]}
               {...{ label, placeholder, subType }}
               onChange={handleChange}
             />
@@ -61,7 +62,7 @@ function AdditionalInfo(additionProps: Props) {
           className={$.textarea}
           color="#e3e1e1"
           placeholder={opinionPlaceholder}
-          value={opinion}
+          value={opinionState}
           onChange={handleOpinionChange}
         />
       </InfoArticle>

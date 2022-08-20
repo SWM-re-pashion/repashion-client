@@ -20,7 +20,7 @@ type Props = {
 
 function Price(priceProps: Props) {
   const { delivery, onChange, state } = priceProps;
-  const handleInput = useDebounceInput<[string, keyof UploadState, undefined]>(
+  const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,
   );
@@ -28,7 +28,7 @@ function Price(priceProps: Props) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const num = filterPrice(e.target.value, max);
       e.target.value = num;
-      handleInput(num, 'price', undefined);
+      handleInput(+num, 'price', undefined);
     },
     [handleInput],
   );
