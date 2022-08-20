@@ -42,7 +42,6 @@ function StyleSelect(styleProps: Props) {
         return (
           <InfoBtnBox
             {...options}
-            datas={options.datas}
             key={options.label}
             compareData={state[options.subType]}
             handleFunc={onChange}

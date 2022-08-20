@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { ReactElement, useEffect } from 'react';
 
 import LoadingSpinner from '@atoms/LoadingSpinner';
+import { usePostAuthToken } from 'api/login';
 import Layout from 'components/shared/templates/Layout';
-import usePostAuthToken from 'hooks/usePostAuthToken';
 import { NextPageWithLayout } from 'pages/_app';
 
 import $ from './style.module.scss';

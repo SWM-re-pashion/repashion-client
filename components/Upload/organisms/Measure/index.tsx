@@ -1,10 +1,9 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
-import useDebounceInput from 'hooks/useDebounceInput';
 import { filterHeight } from 'utils/filterValue';
 
 import $ from './style.module.scss';
@@ -17,15 +16,14 @@ type Props = {
 
 function Measure(priceProps: Props) {
   const { data, state, onChange } = priceProps;
-  const handleInput = useDebounceInput(onChange, 200);
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, subType: string) => {
+    (e: React.ChangeEvent<HTMLInputElement>, subType?: string | number) => {
       // Todo 제네릭화
       const value = filterHeight(e.target.value);
       e.target.value = value;
-      handleInput(+value, 'measure', subType);
+      onChange(+value, 'measure', subType);
     },
-    [handleInput],
+    [onChange],
   );
 
   return (
@@ -37,10 +35,10 @@ function Measure(priceProps: Props) {
             label={name}
             subType={code}
             postLabel="cm"
-            controlled={false}
+            controlled
             value={state[code].toString()}
             placeholder="수치 입력"
-            onChange={(e) => handleChange(e, code)}
+            onChange={handleChange}
             className={$['measure-element']}
           />
         );

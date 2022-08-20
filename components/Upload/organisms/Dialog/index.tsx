@@ -133,7 +133,7 @@ function Dialog(dialogProps: Pick<Props, 'data' | 'onChange' | 'onClose'>) {
   );
 }
 
-export default function DialogWrapper(dialogProps: Props) {
+function DialogWrapper(dialogProps: Props) {
   const { isOpen, onClose, data, onChange } = dialogProps;
   return (
     <Modal id="category-dialog" {...{ isOpen, onClose }}>
@@ -146,3 +146,5 @@ export default function DialogWrapper(dialogProps: Props) {
     </Modal>
   );
 }
+
+export default DialogWrapper;

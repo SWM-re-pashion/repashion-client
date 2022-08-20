@@ -153,9 +153,10 @@ select {
   padding: 0;
 }
 
-input {
-  border: none;
-  outline: none;
+textarea {
+  resize: none;
+  border: 0;
+  outline: 0;
 }
 
 button {

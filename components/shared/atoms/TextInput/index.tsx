@@ -13,11 +13,11 @@ type Props = {
   idx?: number;
   value?: string;
   subType?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>, param?: number | string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>, param?: number | string) => void; // Todo: 제네릭화
 } & StyleProps;
 
 function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
-  // Todo: forwardRef 제네릭 컴포넌트화
+  // Todo: forwardRef 제네릭 컴포넌트화 및 리팩토링
   const { controlled, idx, placeholder, value, onChange } = inputProps;
   const { label, postLabel, style, className, subType } = inputProps;
   const toBeValue = controlled ? value : undefined;

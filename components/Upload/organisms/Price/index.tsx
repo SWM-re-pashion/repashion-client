@@ -13,13 +13,14 @@ import { filterPrice } from 'utils';
 import $ from './style.module.scss';
 
 type Props = {
+  state: UploadState['price'];
   delivery: boolean;
   onChange: UpdateUpload;
 };
 
 function Price(priceProps: Props) {
-  const { delivery, onChange } = priceProps;
-  const handleInput = useDebounceInput<[string, keyof UploadState, undefined]>(
+  const { delivery, onChange, state } = priceProps;
+  const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,
   );
@@ -27,7 +28,7 @@ function Price(priceProps: Props) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const num = filterPrice(e.target.value, max);
       e.target.value = num;
-      handleInput(num, 'price', undefined);
+      handleInput(+num, 'price', undefined);
     },
     [handleInput],
   );
@@ -37,6 +38,7 @@ function Price(priceProps: Props) {
       <div className={$.box}>
         <TextInput
           controlled={false}
+          value={state.toString()}
           placeholder="판매할 가격을 입력해주세요."
           onChange={handleChange}
         />

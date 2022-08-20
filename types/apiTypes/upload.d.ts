@@ -13,3 +13,39 @@ declare namespace res {
     };
   };
 }
+
+declare namespace res {
+  type UploadData = {
+    status: number;
+    data: number;
+  };
+}
+
+declare namespace req {
+  type SellerNote = {
+    condition: string;
+    pollution: string;
+    height: number;
+    bodyShape: string;
+    length: string;
+    fit: string;
+  };
+  type UploadData = {
+    imgList: string[];
+    style: { tag: string; color: string; material: string };
+    price: number;
+    isIncludeDelivery: boolean;
+    basicInfo: {
+      title: string;
+      category: string;
+      brand: string;
+    };
+    size: string;
+    sellerNote: SellerNote;
+    measure: {
+      [key: string]: number;
+    };
+    additionalInfo: { purchaseTime: string; purchasePlace: string };
+    opinion: string;
+  };
+}

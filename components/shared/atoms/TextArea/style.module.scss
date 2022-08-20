@@ -1,0 +1,11 @@
+.textarea {
+  width: 100%;
+  min-height: 160px;
+  @include typography(16);
+  @include input-border($gray-280);
+  padding: 16px 19px;
+  word-break: break-all;
+  &::placeholder {
+    color: $gray-280;
+  }
+}

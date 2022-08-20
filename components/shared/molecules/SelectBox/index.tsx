@@ -6,6 +6,7 @@ import classnames from 'classnames';
 
 import $ from './style.module.scss';
 import useSelect from './useSelect';
+import { getLabelName } from './utils';
 
 type Props<T, U> = {
   options: (string | DefaultData)[];
@@ -22,7 +23,7 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
   const { name, width, type, subType } = selectProps;
   const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
-  const labelName = selected.toString().split('/')[0];
+  const labelName = getLabelName(options, selected);
 
   const handleMouseDown = (
     e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
@@ -81,9 +82,7 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
             const optionName =
               typeof option === 'object' ? option.name : option;
             const optionData =
-              typeof option === 'object'
-                ? `${optionName}/${option.code}`
-                : option;
+              typeof option === 'object' ? option.code : option;
 
             return (
               <li
