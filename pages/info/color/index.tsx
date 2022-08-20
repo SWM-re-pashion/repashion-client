@@ -10,7 +10,7 @@ import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { getColors } from 'api/getColors';
-import usePostPreference from 'hooks/usePostPreference';
+import { usePostPreference } from 'api/preference';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 

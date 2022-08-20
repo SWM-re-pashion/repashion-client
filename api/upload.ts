@@ -12,7 +12,7 @@ export const postImgs = async (files: FormData) => {
 
 export const postProduct = async (
   uploadData: UploadStoreState,
-): Promise<res.uploadData> => {
+): Promise<res.UploadData> => {
   const {
     imgUpload,
     removeImg,
@@ -22,7 +22,7 @@ export const postProduct = async (
     ...rest
   }: UploadStoreState = deepClone(uploadData);
 
-  const reqData: req.uploadData = {
+  const reqData: req.UploadData = {
     ...rest,
     imgList: rest.imgList.map(({ src }) => src),
     basicInfo: {

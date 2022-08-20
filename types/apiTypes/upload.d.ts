@@ -15,14 +15,14 @@ declare namespace res {
 }
 
 declare namespace res {
-  type uploadData = {
+  type UploadData = {
     status: number;
     data: number;
   };
 }
 
 declare namespace req {
-  type sellerNote = {
+  type SellerNote = {
     condition: string;
     pollution: string;
     height: number;
@@ -30,7 +30,7 @@ declare namespace req {
     length: string;
     fit: string;
   };
-  type uploadData = {
+  type UploadData = {
     imgList: string[];
     style: { tag: string; color: string; material: string };
     price: number;
@@ -41,7 +41,7 @@ declare namespace req {
       brand: string;
     };
     size: string;
-    sellerNote: sellerNote;
+    sellerNote: SellerNote;
     measure: {
       [key: string]: number;
     };
