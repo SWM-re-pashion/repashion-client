@@ -10,18 +10,18 @@ export const getJudgeCategory = (kind: string | string[]) => {
 export const getMeasureElement = (category: string | string[]) => {
   let filterCondition: (measure: string) => boolean;
 
-  if (getJudgeCategory(category) === 'skirt') {
+  if (category === 'skirt') {
     filterCondition = (measure: string) =>
       measure === 'length' ||
       measure === 'waistSection' ||
       measure === 'bottomSection';
-  } else if (getJudgeCategory(category) === 'onepiece') {
+  } else if (category === 'onepiece') {
     filterCondition = (measure: string) =>
       measure === 'length' ||
       measure === 'shoulderWidth' ||
       measure === 'chestSection' ||
       measure === 'sleeveLength';
-  } else if (getJudgeCategory(category) === 'bottom') {
+  } else if (category === 'bottom') {
     filterCondition = (measure: string) =>
       measure === 'length' ||
       measure === 'waistSection' ||

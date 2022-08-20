@@ -1,6 +1,6 @@
 import { ImgBasicProps } from '#types/index';
 import { UploadStoreState } from '#types/storeType/upload';
-import { updateInfo } from 'utils';
+import { deepClone, updateInfo } from 'utils';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -24,6 +24,24 @@ export const useUploadStore = create(
             ...state,
             imgList: [...state.imgList.filter(({ id }) => id !== removeId)],
           };
+        });
+      },
+      clearMeasure: () => {
+        set((state) => {
+          const clone = deepClone(state.measure);
+          Object.keys(clone).forEach((key) => {
+            clone[key] = 0; // Todo: immer로 리팩토링
+          });
+          return {
+            ...state,
+            measure: clone,
+          };
+        });
+      },
+      clearUpload: () => {
+        set(() => {
+          const clone = deepClone(uploadInitialState);
+          return clone;
         });
       },
       updateUpload: (value, type, subType, idx) => {
