@@ -69,5 +69,7 @@ export type UpdateUpload = (
 export interface UploadStoreState extends UploadState {
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;
+  clearMeasure: () => void;
+  clearUpload: () => void;
   updateUpload: UpdateUpload;
 }

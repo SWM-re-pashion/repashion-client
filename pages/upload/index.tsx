@@ -1,9 +1,13 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
+import ButtonFooter from '@atoms/ButtonFooter';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
+import { useProductUpload } from 'api/upload';
 import AdditionalInfo from 'components/Upload/organisms/AdditionalInfo';
 import Basic from 'components/Upload/organisms/Basic';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
@@ -11,33 +15,63 @@ import Measure from 'components/Upload/organisms/Measure';
 import Price from 'components/Upload/organisms/Price';
 import SellerReview from 'components/Upload/organisms/SellerReview';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
-import useMounted from 'hooks/useMounted';
+import { useMounted, useDidMountEffect } from 'hooks';
 import { useUploadStore } from 'store/useUploadStore';
-import { getMeasureElement } from 'utils/measure';
+import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 
 import { additionData, styleData } from './constants';
 import $ from './style.module.scss';
 import { reviewData, sizeData } from './utils';
 
 function Upload() {
-  const isMounted = useMounted();
+  const router = useRouter();
+  const states = useUploadStore((state) => state);
+  const categories = states.basicInfo.category;
+  const [_, mainCategoryState] = categories;
+  const strCategory = arrToString(categories);
+  const mainCategory = mainCategoryState || 'top';
+  const size = sizeData(mainCategory);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const openDialog = () => setDialogOpen(true);
-  const closeDialog = () => setDialogOpen(false);
+  const [judgeMeasure, setJudgeMeasure] = useState(
+    getJudgeCategory(strCategory),
+  );
+  const isMounted = useMounted();
+  const { mutate } = useProductUpload();
+  const openDialog = useCallback(() => setDialogOpen(true), []);
+  const closeDialog = useCallback(() => setDialogOpen(false), []);
   const imgUpload = useUploadStore(useCallback((state) => state.imgUpload, []));
   const removeImg = useUploadStore(useCallback((state) => state.removeImg, []));
+  const clearMeasure = useUploadStore(
+    useCallback((state) => state.clearMeasure, []),
+  );
   const updateUpload = useUploadStore(
     useCallback((state) => state.updateUpload, []),
   );
-  const states = useUploadStore((state) => state);
-  const mainCategory = states.basicInfo.category[1];
-  const category = mainCategory || 'top';
-  const size = sizeData(category);
-  const review = reviewData(category);
-  const measureData = getMeasureElement(states.basicInfo.category);
+  const review = useMemo(() => reviewData(mainCategory), [mainCategory]);
+  const measureData = useMemo(
+    () => getMeasureElement(judgeMeasure),
+    [judgeMeasure],
+  );
 
   const height = 170;
   const bodyShape = 'normal'; // Todo: 서버에서 받은 height, bodyShape 상태 저장하기
+
+  const handleSubmit = () => {
+    mutate(states, {
+      onSuccess: ({ data }) => {
+        states.clearUpload();
+        router.push(`/shop/${data}`);
+      },
+    });
+  };
+
+  useEffect(() => {
+    setJudgeMeasure(getJudgeCategory(strCategory));
+  }, [strCategory]);
+
+  useDidMountEffect(() => {
+    clearMeasure();
+  }, [clearMeasure, judgeMeasure]); // Fix: restrictMode로 인해 실행됨.
 
   if (!isMounted) return null;
   return (
@@ -87,17 +121,29 @@ function Upload() {
         />
         <AdditionalInfo
           data={additionData}
-          state={[states.additionalInfo, states.opinion]}
+          additionState={states.additionalInfo}
+          opinionState={states.opinion}
           opinionPlaceholder="추가적인 설명은 구매에 도움이 됩니다.(최대 300자)"
           onChange={updateUpload}
         />
       </div>
+      <ButtonFooter
+        background="white"
+        style={{ padding: '0 21px 30px' }}
+        onClick={handleSubmit}
+      >
+        올리기
+      </ButtonFooter>
     </>
   );
 }
 
 Upload.getLayout = function getLayout(page: ReactElement) {
-  return <Layout noPadding>{page}</Layout>;
+  return (
+    <Layout noPadding decreaseHeight={80}>
+      {page}
+    </Layout>
+  );
 };
 
 export default Upload;
