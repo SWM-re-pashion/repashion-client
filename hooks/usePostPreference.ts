@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 
 import { useMutation, UseMutationResult } from 'react-query';
 
+import { InfoState } from '#types/storeType/info';
 import { postPreference, PreferenceResponse } from 'api/postPreference';
 import { AxiosError } from 'axios';
-import { InfoState } from 'store/useInfoStore';
 
 export default function usePostPreference(): UseMutationResult<
   PreferenceResponse,
