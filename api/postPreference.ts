@@ -1,5 +1,6 @@
 import { InfoState } from '#types/storeType/info';
 import { Axios } from 'lib/axios';
+import { arrToString } from 'utils';
 
 export type PreferenceRequest = {
   styles: number[];
@@ -17,7 +18,6 @@ export type PreferenceResponse = {
   style: string;
 };
 
-const arrToString = (arr: string[]) => arr.join('/');
 const removeBlank = (str: string) => str.replace(/ /g, '');
 
 export const postPreference = async (
