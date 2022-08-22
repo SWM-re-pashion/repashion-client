@@ -12,7 +12,7 @@ import useDragScroll from 'hooks/useDragScroll';
 import $ from './style.module.scss';
 
 type Props = {
-  imgList: ImgProps[];
+  imgList: (ImgProps | string)[];
 } & StyleProps;
 
 export default function ImgSlide({ className, style, imgList }: Props) {
@@ -67,11 +67,17 @@ export default function ImgSlide({ className, style, imgList }: Props) {
           onMouseDown={(e: React.MouseEvent) => onMouseTouchDown(e.clientX)}
           onMouseUp={(e: React.MouseEvent) => onMouseTouchUp(e.clientX)}
         >
-          {imgList.map(({ src, alt }) => (
-            <li key={src + alt} className={$.slide}>
-              <Image {...{ src, alt }} layout="fill" priority />
-            </li>
-          ))}
+          {imgList.map((img, idx) => {
+            const key =
+              (typeof img !== 'string' ? img.src + img.alt : img) + idx;
+            const src = typeof img !== 'string' ? img.src : img;
+            const alt = typeof img !== 'string' ? img.alt : `이미지${idx + 1}`;
+            return (
+              <li key={key} className={$.slide}>
+                <Image {...{ src, alt }} layout="fill" priority />
+              </li>
+            );
+          })}
         </ul>
       </article>
 
