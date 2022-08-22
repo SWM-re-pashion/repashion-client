@@ -1,7 +1,7 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
-import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import { Measure, UpdateUpload, UploadState } from '#types/storeType/upload';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import { filterHeight } from 'utils/filterValue';
@@ -14,11 +14,10 @@ type Props = {
   onChange: UpdateUpload;
 };
 
-function Measure(priceProps: Props) {
+function MeasureInfo(priceProps: Props) {
   const { data, state, onChange } = priceProps;
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, subType?: string | number) => {
-      // Todo 제네릭화
+    (e: React.ChangeEvent<HTMLInputElement>, subType?: keyof Measure) => {
       const value = filterHeight(e.target.value);
       e.target.value = value;
       onChange(+value, 'measure', subType);
@@ -47,4 +46,4 @@ function Measure(priceProps: Props) {
   );
 }
 
-export default memo(Measure);
+export default memo(MeasureInfo);

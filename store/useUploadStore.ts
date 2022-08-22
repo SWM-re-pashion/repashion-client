@@ -1,8 +1,9 @@
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
+
 import { ImgBasicProps } from '#types/index';
 import { UploadStoreState } from '#types/storeType/upload';
 import { deepClone, updateInfo } from 'utils';
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
 
 import { uploadInitialState } from './constants';
 

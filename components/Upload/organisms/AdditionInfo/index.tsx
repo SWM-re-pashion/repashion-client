@@ -1,6 +1,10 @@
 import { memo, useCallback } from 'react';
 
-import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import {
+  AdditionalInfo,
+  UpdateUpload,
+  UploadState,
+} from '#types/storeType/upload';
 import TextArea from '@atoms/TextArea';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
@@ -12,8 +16,8 @@ type Props = {
   data: {
     placeholder: string;
     label: string;
-    type: string;
-    subType: string;
+    type: keyof UploadState;
+    subType: keyof AdditionalInfo;
   }[];
   opinionPlaceholder: string;
   opinionState: UploadState['opinion'];
@@ -21,16 +25,15 @@ type Props = {
   onChange: UpdateUpload;
 };
 
-function AdditionalInfo(additionProps: Props) {
+function AdditionInfo(additionProps: Props) {
   const { data: datas, opinionPlaceholder, onChange } = additionProps;
   const { additionState, opinionState } = additionProps;
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
-    // Todo: 리팩토링
     (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      subType?: string | number,
+      subType?: keyof AdditionalInfo,
     ) => handleInput(e.target.value, 'additionalInfo', subType),
     [handleInput],
   );
@@ -70,4 +73,4 @@ function AdditionalInfo(additionProps: Props) {
   );
 }
 
-export default memo(AdditionalInfo);
+export default memo(AdditionInfo);

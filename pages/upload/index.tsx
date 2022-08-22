@@ -8,10 +8,10 @@ import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { useProductUpload } from 'api/upload';
-import AdditionalInfo from 'components/Upload/organisms/AdditionalInfo';
+import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
 import Basic from 'components/Upload/organisms/Basic';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
-import Measure from 'components/Upload/organisms/Measure';
+import MeasureInfo from 'components/Upload/organisms/MeasureInfo';
 import Price from 'components/Upload/organisms/Price';
 import SellerReview from 'components/Upload/organisms/SellerReview';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
@@ -114,12 +114,12 @@ function Upload() {
           state={states.sellerNote}
           onChange={updateUpload}
         />
-        <Measure
+        <MeasureInfo
           data={measureData}
           state={states.measure}
           onChange={updateUpload}
         />
-        <AdditionalInfo
+        <AdditionInfo
           data={additionData}
           additionState={states.additionalInfo}
           opinionState={states.opinion}
