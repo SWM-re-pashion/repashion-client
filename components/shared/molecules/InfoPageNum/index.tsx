@@ -1,7 +1,8 @@
 import { memo } from 'react';
 
-import BorderBox from '@atoms/BorderBox';
 import classnames from 'classnames';
+
+import BorderBox from '@atoms/BorderBox';
 import { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';

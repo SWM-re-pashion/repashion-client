@@ -1,8 +1,9 @@
 import { memo } from 'react';
 
+import classnames from 'classnames';
+
 import type { StyleProps } from '#types/props';
 import { Check } from '@atoms/icon';
-import classnames from 'classnames';
 
 import $ from './style.module.scss';
 

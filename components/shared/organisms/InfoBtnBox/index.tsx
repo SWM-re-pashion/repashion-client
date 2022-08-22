@@ -1,8 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import { memo, useRef } from 'react';
 
-import { DefaultData } from '#types/index';
 import classnames from 'classnames';
+
+import { DefaultData } from '#types/index';
 import useDragScroll from 'hooks/useDragScroll';
 import { StyleProps } from 'types/props';
 

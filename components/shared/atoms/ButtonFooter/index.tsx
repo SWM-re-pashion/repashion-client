@@ -1,5 +1,6 @@
-import Button from '@atoms/Button';
 import classnames from 'classnames';
+
+import Button from '@atoms/Button';
 import type { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';

@@ -1,8 +1,9 @@
 import { memo, useRef } from 'react';
 
+import classnames from 'classnames';
+
 import { DefaultData } from '#types/index';
 import { SelectArrow } from '@atoms/icon';
-import classnames from 'classnames';
 
 import $ from './style.module.scss';
 import useSelect from './useSelect';

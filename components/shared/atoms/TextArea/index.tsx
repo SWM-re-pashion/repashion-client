@@ -1,6 +1,7 @@
 import { memo, useCallback, useRef, ChangeEvent } from 'react';
 
 import classNames from 'classnames';
+
 import type { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';

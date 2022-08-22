@@ -1,6 +1,7 @@
+import classnames from 'classnames';
+
 import { StyleProps } from '#types/props';
 import { Strong } from '@atoms/icon';
-import classnames from 'classnames';
 
 import $ from './style.module.scss';
 

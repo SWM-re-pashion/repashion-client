@@ -1,6 +1,7 @@
+import classnames from 'classnames';
+
 import Button from '@atoms/Button';
 import { RadioInner } from '@atoms/icon';
-import classnames from 'classnames';
 
 import $ from './style.module.scss';
 

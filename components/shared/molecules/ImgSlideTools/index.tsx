@@ -1,8 +1,9 @@
 import { memo } from 'react';
 
+import classnames from 'classnames';
+
 import BackBtn from '@atoms/BackBtn';
 import { More } from '@atoms/icon';
-import classnames from 'classnames';
 
 import $ from './style.module.scss';
 

@@ -1,7 +1,8 @@
+import classnames from 'classnames';
+
 import Description from '@atoms/Description';
 import Required from '@atoms/Required';
 import Title from '@atoms/Title';
-import classnames from 'classnames';
 import { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';

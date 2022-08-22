@@ -1,7 +1,8 @@
 import Image from 'next/image';
 
-import { ImgProps } from '#types/index';
 import classnames from 'classnames';
+
+import { ImgProps } from '#types/index';
 import type { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';
