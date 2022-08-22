@@ -1,7 +1,6 @@
 import { UserInfo } from '#types/info';
-import { State } from 'zustand';
 
-export interface InfoState extends State {
+export interface InfoState {
   styles: number[];
   gender: string;
   height: string;

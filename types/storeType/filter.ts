@@ -1,7 +1,6 @@
 import { ClothesCategory, FilterInfo } from '#types/info';
-import { State } from 'zustand';
 
-export interface FilterState extends State {
+export interface FilterState {
   styles: string[];
   colors: {
     top: string[];

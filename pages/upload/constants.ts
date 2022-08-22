@@ -1,12 +1,21 @@
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
-import { StyleUpload, UploadState } from '#types/storeType/upload';
+import {
+  StyleUpload,
+  UploadState,
+  AdditionalInfo,
+} from '#types/storeType/upload';
 import { colors } from '@constants/index';
 import { styles } from '@constants/style';
 
 type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
   datas: (string | DefaultData)[];
   subType: keyof StyleUpload;
+};
+
+type btnBox2 = btnTemplateBox<keyof UploadState, keyof AdditionalInfo> & {
+  placeholder: string;
+  subType: keyof AdditionalInfo;
 };
 
 const styleData: btnBox[] = [
@@ -28,7 +37,7 @@ const styleData: btnBox[] = [
   },
 ];
 
-const additionData = [
+const additionData: btnBox2[] = [
   {
     label: '구매시기',
     placeholder: '한달 전, 1년 이내 등',

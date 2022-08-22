@@ -1,24 +1,23 @@
-import { ChangeEvent, forwardRef, LegacyRef, memo } from 'react';
+import { ChangeEvent, forwardRef, memo, Ref } from 'react';
 
 import classnames from 'classnames';
+
 import { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';
 
-type Props = {
+type Props<T> = {
   controlled: boolean;
   placeholder: string;
   label?: string;
   postLabel?: string;
-  idx?: number;
   value?: string;
-  subType?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>, param?: number | string) => void; // Todo: 제네릭화
+  subType?: T;
+  onChange: (e: ChangeEvent<HTMLInputElement>, param?: T) => void;
 } & StyleProps;
 
-function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
-  // Todo: forwardRef 제네릭 컴포넌트화 및 리팩토링
-  const { controlled, idx, placeholder, value, onChange } = inputProps;
+function TextInput<T>(inputProps: Props<T>, ref: Ref<HTMLInputElement> | null) {
+  const { controlled, placeholder, value, onChange } = inputProps;
   const { label, postLabel, style, className, subType } = inputProps;
   const toBeValue = controlled ? value : undefined;
   const toBeDeafultValue = !controlled ? value : undefined;
@@ -38,7 +37,6 @@ function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
         value={toBeValue}
         className={$.input}
         onChange={(e) => {
-          if (typeof idx === 'number') onChange(e, idx);
           if (subType) onChange(e, subType);
           else onChange(e);
         }}
@@ -53,6 +51,6 @@ function TextInput(inputProps: Props, ref: LegacyRef<HTMLInputElement> | null) {
 }
 
 const TextInputWithRef = forwardRef(TextInput);
-
-TextInputWithRef.displayName = 'TextInput';
-export default memo(TextInputWithRef);
+export default memo(TextInputWithRef) as <T>(
+  props: Props<T> & { ref?: Ref<HTMLInputElement> },
+) => JSX.Element;

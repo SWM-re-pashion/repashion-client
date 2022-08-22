@@ -1,5 +1,3 @@
-import { State } from 'zustand';
-
 import { ImgBasicProps } from '..';
 
 export interface StyleUpload {
@@ -37,12 +35,11 @@ export interface Measure {
 }
 
 export interface AdditionalInfo {
-  [index: string]: string; // Todo: 없애기 TextInput에서 처리하도록
   purchaseTime: string;
   purchasePlace: string;
 }
 
-export interface UploadState extends State {
+export interface UploadState {
   imgList: { id: number; src: string }[];
   style: StyleUpload;
   price: number;
@@ -62,7 +59,8 @@ export type UpdateUpload = (
     | keyof StyleUpload
     | keyof BasicInfo
     | keyof SellerNote
-    | keyof Measure,
+    | keyof Measure
+    | keyof AdditionalInfo,
   idx?: number,
 ) => void;
 
