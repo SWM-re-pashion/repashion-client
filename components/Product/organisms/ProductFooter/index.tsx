@@ -25,13 +25,13 @@ export default function ProductFooter({
     {
       Icon: Views,
       color: '#936DFF',
-      colorText: `${views}명`,
+      colorText: `${views || 0}명`,
       text: '이 보았어요・',
     },
     {
       Icon: SmallHeart,
       color: '#FF9635',
-      colorText: `${like}명`,
+      colorText: `${like || 0}명`,
       text: '이 관심있어요',
     },
     {

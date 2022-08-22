@@ -29,7 +29,6 @@ function Dialog(dialogProps: Pick<Props, 'data' | 'onChange' | 'onClose'>) {
   const [gender] = category;
   const [curCategory, setCurCategory] = useState(categoryData);
   const mainCategory = filteredCategory(gender, categoryData);
-
   const isIncludeCurValue = curCategoryChildren(curCategory).includes(
     category[curCategoryIdx],
   );
