@@ -16,8 +16,3 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             ./deploy.sh
-      - name: add env
-        env:
-          API_URL: ${{ secrets.API_URL }}
-          AI_API_URL: ${{ secrets.AI_API_URL }}
-          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}

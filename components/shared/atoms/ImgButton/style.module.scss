@@ -1,9 +1,11 @@
 .img-btn {
-  @include btn-footer();
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 31px 30px;
+  margin-bottom: 8px;
+  &:last-child {
+    margin-bottom: 30px;
+  }
   .btn {
     max-width: 962px;
     @include mobile() {

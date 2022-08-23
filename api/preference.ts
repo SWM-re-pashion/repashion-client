@@ -40,7 +40,7 @@ export function usePostPreference(): UseMutationResult<
   return useMutation(postPreference, {
     onSuccess: (data) => {
       console.log(data);
-      router.push('/');
+      router.push('/upload');
     },
     onError: (error) => {
       console.log(error);
