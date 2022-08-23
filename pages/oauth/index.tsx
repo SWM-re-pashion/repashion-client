@@ -15,7 +15,9 @@ const Oauth: NextPageWithLayout = () => {
   const { mutate } = usePostAuthToken();
 
   useEffect(() => {
-    if (query.code && typeof query.code === 'string') mutate(query.code);
+    if (query.code && typeof query.code === 'string') {
+      mutate(query.code);
+    }
   }, [mutate, query]);
 
   return (

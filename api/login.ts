@@ -6,15 +6,9 @@ import { AxiosError } from 'axios';
 import { Axios } from 'lib/axios';
 
 export const postAuthToken = async (token: string): Promise<res.OAuth> => {
-  const requestData: res.OAuth = {
-    social: {
-      id: 'kakao',
-      token,
-    },
-  };
   const { data } = await Axios.post<res.OAuth>(
-    '/api/kakao/login',
-    JSON.stringify(requestData),
+    '/api/oauth/login',
+    JSON.stringify({ authCode: token }),
   );
 
   return data;
