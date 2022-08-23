@@ -1,8 +1,7 @@
 import { FormEvent, memo, useEffect, useRef } from 'react';
 
-import classnames from 'classnames';
-
 import { RangeBtn } from '@atoms/icon';
+import classnames from 'classnames';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import $ from './style.module.scss';

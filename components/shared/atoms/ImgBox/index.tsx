@@ -2,9 +2,8 @@ import Image from 'next/image';
 
 import { memo, useRef } from 'react';
 
-import classnames from 'classnames';
-
 import { Check } from '@atoms/icon';
+import classnames from 'classnames';
 import { UserInfo } from 'types/info';
 import { DefaultProps } from 'types/props';
 

@@ -6,6 +6,9 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
+    "check-types": "tsc",
+    "check-format": "prettier --check .",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "lint": "next lint"
   },
   "dependencies": {

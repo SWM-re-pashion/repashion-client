@@ -1,10 +1,9 @@
-import classnames from 'classnames';
-
 import { ProductFooterInfo } from '#types/product';
 import Button from '@atoms/Button';
 import { ClickHeart, SmallHeart, Time, Views } from '@atoms/icon';
 import IconText from '@atoms/IconText';
 import Span from '@atoms/Span';
+import classnames from 'classnames';
 import useTimeForToday from 'hooks/useTimeForToday';
 import type { DefaultProps } from 'types/props';
 

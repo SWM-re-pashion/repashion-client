@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-
 import { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';

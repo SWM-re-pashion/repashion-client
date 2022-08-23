@@ -1,9 +1,8 @@
 import { memo } from 'react';
 
-import classnames from 'classnames';
-
 import Span from '@atoms/Span';
 import RadioBtn from '@molecules/RadioBtn';
+import classnames from 'classnames';
 
 import $ from './style.module.scss';
 

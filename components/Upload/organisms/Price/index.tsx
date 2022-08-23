@@ -1,12 +1,11 @@
 import { memo, useCallback } from 'react';
 
-import classnames from 'classnames';
-
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import RadioBtn from '@molecules/RadioBtn';
+import classnames from 'classnames';
 import { max } from 'components/Shop/Organisms/FilterModal/constants';
 import useDebounceInput from 'hooks/useDebounceInput';
 import { filterPrice } from 'utils';
@@ -21,6 +20,7 @@ type Props = {
 
 function Price(priceProps: Props) {
   const { delivery, onChange, state } = priceProps;
+
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,

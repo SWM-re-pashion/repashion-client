@@ -20,8 +20,8 @@ import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 
 import { additionData, styleData } from '../../constants/upload/constants';
-import $ from './style.module.scss';
 import { reviewData, sizeData } from '../../constants/upload/utils';
+import $ from './style.module.scss';
 
 function Upload() {
   const router = useRouter();

@@ -3,11 +3,10 @@ import { useRouter } from 'next/router';
 
 import { ReactElement } from 'react';
 
-import classnames from 'classnames';
-
 import ButtonFooter from '@atoms/ButtonFooter';
 import { Ellipse, Star, Rectangle, Polygon } from '@atoms/icon';
 import Layout from '@templates/Layout';
+import classnames from 'classnames';
 
 import $ from '../styles/index.module.scss';
 import { NextPageWithLayout } from './_app';

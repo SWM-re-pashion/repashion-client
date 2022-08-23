@@ -2,12 +2,11 @@ import Image from 'next/image';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import classnames from 'classnames';
-
 import { ImgProps } from '#types/index';
 import type { StyleProps } from '#types/props';
 import ImgSlideTools from '@molecules/ImgSlideTools';
 import InfoPageNum from '@molecules/InfoPageNum';
+import classnames from 'classnames';
 import useDragScroll from 'hooks/useDragScroll';
 
 import $ from './style.module.scss';

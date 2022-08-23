@@ -1,7 +1,6 @@
 import { ChangeEvent, forwardRef, memo, Ref } from 'react';
 
 import classnames from 'classnames';
-
 import { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';
