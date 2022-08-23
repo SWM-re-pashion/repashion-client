@@ -10,7 +10,7 @@ import ImgBox from '@atoms/ImgBox';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import Layout from '@templates/Layout';
-import { getStyleImgs, useStyleImgs } from 'api/getStyleImg';
+import { getStyleImgs, useStyleImgs } from 'api/getStyleImgs';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
