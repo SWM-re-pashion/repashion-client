@@ -1,6 +1,8 @@
 import { btnTemplateBox, ColorUserInfo } from '#types/info';
 
-const colorBtnProps: btnTemplateBox<keyof ColorUserInfo, undefined>[] = [
+type btnBox = btnTemplateBox<keyof ColorUserInfo, undefined>;
+
+const colorBtnProps: btnBox[] = [
   {
     label: '상의 컬러',
     type: 'topColors',

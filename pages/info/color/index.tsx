@@ -2,14 +2,14 @@
 import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
-import { getColors } from 'api/getColors';
+import { getStaticData, useStaticData } from 'api/getStaticData';
 import { usePostPreference } from 'api/preference';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
@@ -19,7 +19,9 @@ import { colorBtnProps } from '../../../constants/colorInfo/constants';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('colors', getColors);
+  await queryClient.prefetchQuery(['staticData', 'color'], () =>
+    getStaticData('color'),
+  );
 
   return {
     props: {
@@ -31,9 +33,11 @@ export async function getStaticProps() {
 export const ColorInfo: NextPageWithLayout = () => {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
-  const { isLoading, isError, data, error } = useQuery('colors', getColors);
+  const { isLoading, isError, data, error } =
+    useStaticData<res.KindStaticData>('color');
   const { mutate } = usePostPreference();
   const router = useRouter();
+  const colorData = [data?.data.top, data?.data.bottom];
 
   useEffect(() => {
     const { bodyShape, height, gender } = state;
@@ -53,16 +57,21 @@ export const ColorInfo: NextPageWithLayout = () => {
 
       {!isLoading &&
         data &&
-        data.colors &&
-        colorBtnProps.map((options) => (
-          <InfoBtnBox
-            {...options}
-            key={options.label}
-            datas={data.colors}
-            compareData={state[options.type]}
-            handleFunc={handleClick}
-          />
-        ))}
+        colorData &&
+        colorBtnProps.map((options, idx) => {
+          const eachData = colorData[idx];
+          if (eachData)
+            return (
+              <InfoBtnBox
+                {...options}
+                key={options.label}
+                datas={eachData}
+                compareData={state[options.type]}
+                handleFunc={handleClick}
+              />
+            );
+          return null;
+        })}
 
       <ButtonFooter onClick={handleSubmit}>입력완료</ButtonFooter>
     </>

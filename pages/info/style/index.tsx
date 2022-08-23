@@ -3,14 +3,14 @@
 import { useRouter } from 'next/router';
 
 import { ReactElement, useState, useCallback } from 'react';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import ImgBox from '@atoms/ImgBox';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import Layout from '@templates/Layout';
-import { getStyleImg } from 'api/getStyleImg';
+import { getStyleImgs, useStyleImgs } from 'api/getStyleImgs';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
@@ -19,7 +19,7 @@ import $ from './style.module.scss';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('styles', getStyleImg);
+  await queryClient.prefetchQuery('styles', getStyleImgs);
 
   return {
     props: {
@@ -35,7 +35,9 @@ export const StyleInfo: NextPageWithLayout = () => {
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const [errorMsg, setErrorMsg] = useState('');
   const router = useRouter();
-  const { isLoading, isError, data } = useQuery('styles', getStyleImg);
+  const { isLoading, isError, data } = useStyleImgs();
+  const styleImgs = data?.data;
+
   const handleSubmit = () => {
     if (state.styles.length < 2) {
       setErrorMsg('이미지를 2개 이상 선택해주세요.');
@@ -57,9 +59,9 @@ export const StyleInfo: NextPageWithLayout = () => {
       </InfoHeader>
 
       <section className={$['style-info']}>
-        {data &&
-          data?.styles.length !== 0 &&
-          data.styles.map(({ id, src, alt }) => (
+        {styleImgs &&
+          styleImgs?.styles.length !== 0 &&
+          styleImgs.styles.map(({ id, src, alt }) => (
             <ImgBox
               {...{ id, src, alt }}
               key={src + id}
@@ -73,10 +75,12 @@ export const StyleInfo: NextPageWithLayout = () => {
           skeletonImgBox.map((_, idx) => (
             <ImgBox key={`skeleton-${idx}`} isLoading />
           ))}
-        {(isError || data?.styles.length === 0) && <p>오류가 발생했습니다.</p>}
+        {(isError || styleImgs?.styles.length === 0) && (
+          <p>오류가 발생했습니다.</p>
+        )}
       </section>
 
-      {!isError && data?.styles.length !== 0 ? (
+      {!isError && styleImgs?.styles.length !== 0 ? (
         <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
           다음
         </ButtonFooter>

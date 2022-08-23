@@ -22,11 +22,11 @@ export const postPreference = async (
     bottomColors: removeBlank(arrToString(bottomColors)),
   };
   delete requestData.infoUpdate;
-
   const { data } = await Axios.post<res.Preference>(
-    '/api/preference/save',
+    '/api/preference',
     JSON.stringify(requestData),
   );
+
   return data;
 };
 

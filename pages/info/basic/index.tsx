@@ -8,6 +8,7 @@ import {
   ChangeEvent,
   useRef,
 } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import Span from '@atoms/Span';
@@ -17,11 +18,33 @@ import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
+import { getStaticData, useStaticData } from 'api/getStaticData';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
+import { filterHeight } from 'utils/filterValue';
 
 import { basicBtnProps } from '../../../constants/basicInfo/constants';
 import $ from './style.module.scss';
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['staticData', 'color'], () =>
+    getStaticData('color'),
+  );
+  await queryClient.prefetchQuery(['staticData', 'bodyShape'], () =>
+    getStaticData('bodyShape'),
+  );
+  await queryClient.prefetchQuery(['staticData', 'size'], () =>
+    getStaticData('size'),
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
 
 export const BasicInfo: NextPageWithLayout = () => {
   const state = useInfoStore((stat) => stat);
@@ -29,11 +52,26 @@ export const BasicInfo: NextPageWithLayout = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const updateInfo = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const router = useRouter();
+  const {
+    isLoading: genderIsLoading,
+    isError: genderIsError,
+    data: genderData,
+  } = useStaticData<res.StaticData>('gender');
+  const {
+    isLoading: bodyIsLoading,
+    isError: bodyIsError,
+    data: bodyData,
+  } = useStaticData<res.StaticData>('bodyShape');
+  const {
+    isLoading: sizeIsLoading,
+    isError: sizeIsError,
+    data: sizeData,
+  } = useStaticData<res.KindStaticData>('size');
+  const restData = [bodyData?.data, sizeData?.data.top, sizeData?.data.bottom];
 
   const heightChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    e.target.value = value.replace(/[^0-9]/g, '');
-    if (value.length > 3) e.target.value = value.substring(0, 3);
+    const value = filterHeight(e.target.value);
+    e.target.value = value;
   };
 
   const verifyHeight = (value: string) => {
@@ -48,7 +86,7 @@ export const BasicInfo: NextPageWithLayout = () => {
       inputRef.current.focus();
     } else {
       if (inputRef.current && updateInfo)
-        updateInfo(inputRef.current.value, 'height');
+        updateInfo(+inputRef.current.value, 'height');
       setErrorMsg('');
       router.push('/info/color');
     }
@@ -69,12 +107,14 @@ export const BasicInfo: NextPageWithLayout = () => {
         성별, 키, 체형 및 사이즈를 알려주세요.
         <br /> 사이즈는 복수 선택도 가능해요.
       </InfoHeader>
-
-      <InfoBtnBox
-        {...basicBtnProps[0]}
-        compareData={state[basicBtnProps[0].type]}
-        handleFunc={updateInfo}
-      />
+      {genderData && genderData?.data && (
+        <InfoBtnBox
+          {...basicBtnProps[0]}
+          datas={genderData.data}
+          compareData={state[basicBtnProps[0].type]}
+          handleFunc={updateInfo}
+        />
+      )}
 
       <InfoArticle label="키" required>
         <div className={$['height-input']}>
@@ -82,21 +122,29 @@ export const BasicInfo: NextPageWithLayout = () => {
             controlled={false}
             placeholder="130 ~ 200 범위의 키를 입력해주세요."
             onChange={handleHeightChange}
-            value={state.height}
+            value={state.height.toString()}
             ref={inputRef}
           />
           <Span className={$['height-cm']}>cm</Span>
         </div>
       </InfoArticle>
 
-      {basicBtnProps.slice(1).map((options) => (
-        <InfoBtnBox
-          {...options}
-          key={options.label}
-          compareData={state[options.type]}
-          handleFunc={updateInfo}
-        />
-      ))}
+      {bodyData &&
+        sizeData &&
+        basicBtnProps.slice(1).map((options, idx) => {
+          const eachData = restData[idx];
+          if (eachData)
+            return (
+              <InfoBtnBox
+                {...options}
+                datas={eachData}
+                key={options.label}
+                compareData={state[options.type]}
+                handleFunc={updateInfo}
+              />
+            );
+          return null;
+        })}
 
       <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
         다음

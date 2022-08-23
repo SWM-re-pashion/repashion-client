@@ -123,7 +123,7 @@ function Upload() {
           data={additionData}
           additionState={states.additionalInfo}
           opinionState={states.opinion}
-          opinionPlaceholder="추가적인 설명은 구매에 도움이 됩니다.(최대 300자)"
+          opinionPlaceholder="판매자님의 설명은 구매에 도움이 됩니다.(최대 300자)"
           onChange={updateUpload}
         />
       </div>
