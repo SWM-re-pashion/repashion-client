@@ -3,6 +3,15 @@
 const path = require('path');
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/login',
+        permanent: true,
+      },
+    ];
+  },
   reactStrictMode: true,
   swcMinify: true,
   presets: [['next/babel']],
@@ -18,10 +27,10 @@ const nextConfig = {
       '@import "styles/main.scss"; @import "styles/_mixin.scss"; @import "styles/_typography.scss"; @import "styles/_grid.scss";',
   },
   env: {
-    KAKAO_KEY: process.env.KAKAO_KEY,
     API_URL: process.env.API_URL,
     AI_API_URL: process.env.AI_API_URL,
-    REST_API_KEY: process.env.REST_API_KEY,
+    KAKAO_OAUTH_URL: process.env.KAKAO_OAUTH_URL,
+    GOOGLE_OAUTH_URL: process.env.GOOGLE_OAUTH_URL,
   },
   images: {
     domains: [
