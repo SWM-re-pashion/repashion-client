@@ -4,7 +4,7 @@ import { UploadState } from '#types/storeType/upload';
 export const infoInitialState = {
   styles: [],
   gender: '',
-  height: '',
+  height: 0,
   bodyShape: '',
   topSize: [],
   bottomSize: [],
