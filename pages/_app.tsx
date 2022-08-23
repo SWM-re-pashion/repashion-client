@@ -54,6 +54,8 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           content="initial-scale=1, maximum-scale=1, width=device-width, 
       shrink-to-fit=no, user-scalable=yes, viewport-fit=cover"
         />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <title>re:Fashion</title>
       </Head>
       <Hydrate state={pageProps.dehydratedState}>
