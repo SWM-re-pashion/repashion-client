@@ -33,7 +33,7 @@ export default function PageLayout({
     <main
       className={$.layout}
       style={{
-        maxHeight: `calc(100vh - ${
+        maxHeight: `calc(var(--vh, 1vh) * 100 - ${
           headerHeight + footerHeight + decreaseHeight
         }px)`,
         marginTop: `${headerHeight}px`,
