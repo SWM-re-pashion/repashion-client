@@ -4,7 +4,14 @@ const path = require('path');
 
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   presets: [['next/babel']],
+  typescript: {
+    ignoreBuildErrors: true, // Todo: 없애기
+  },
+  eslint: {
+    ignoreDuringBuilds: true, // Todo: 없애기
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData:

@@ -14,7 +14,7 @@ import { usePostPreference } from 'api/preference';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
-import { colorBtnProps } from './constants';
+import { colorBtnProps } from '../../../constants/colorInfo/constants';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();

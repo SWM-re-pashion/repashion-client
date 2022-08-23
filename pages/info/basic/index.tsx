@@ -20,7 +20,7 @@ import Layout from '@templates/Layout';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
-import { basicBtnProps } from './constants';
+import { basicBtnProps } from '../../../constants/basicInfo/constants';
 import $ from './style.module.scss';
 
 export const BasicInfo: NextPageWithLayout = () => {

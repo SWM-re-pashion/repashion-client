@@ -19,9 +19,9 @@ import { useMounted, useDidMountEffect } from 'hooks';
 import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 
-import { additionData, styleData } from './constants';
+import { additionData, styleData } from '../../constants/upload/constants';
 import $ from './style.module.scss';
-import { reviewData, sizeData } from './utils';
+import { reviewData, sizeData } from '../../constants/upload/utils';
 
 function Upload() {
   const router = useRouter();
