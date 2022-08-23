@@ -36,7 +36,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient}>
       <Head>
         <meta charSet="utf-8" />
-        <meta name="description" content="중고 의류 마켓 refashion" />
+        <meta name="description" content="중고 의류 마켓 re:Fashion" />
         <meta
           name="viewport"
           content="initial-scale=1, maximum-scale=1, width=device-width, 

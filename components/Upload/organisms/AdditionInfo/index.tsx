@@ -60,7 +60,7 @@ function AdditionInfo(additionProps: Props) {
           );
         })}
       </InfoArticle>
-      <InfoArticle label="추가 설명">
+      <InfoArticle label="판매자의 한마디">
         <TextArea
           className={$.textarea}
           color="#e3e1e1"

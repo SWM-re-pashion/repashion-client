@@ -21,7 +21,7 @@ const OnBoarding: NextPageWithLayout = () => {
       <Star className={classnames($.icon, $.star)} />
       <Polygon className={classnames($.icon, $.polygon)} />
       <Rectangle className={classnames($.icon, $.rectangle)} />
-      <h1 className={$.title}>refashion</h1>
+      <h1 className={$.title}>re:Fashion</h1>
       <span className={$.decription}>
         recommend individual outfit from secondhand
       </span>

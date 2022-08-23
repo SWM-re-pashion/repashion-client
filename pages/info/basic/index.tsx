@@ -21,6 +21,7 @@ import Layout from '@templates/Layout';
 import { getStaticData, useStaticData } from 'api/getStaticData';
 import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
+import { filterHeight } from 'utils/filterValue';
 
 import { basicBtnProps } from '../../../constants/basicInfo/constants';
 import $ from './style.module.scss';
@@ -69,9 +70,8 @@ export const BasicInfo: NextPageWithLayout = () => {
   const restData = [bodyData?.data, sizeData?.data.top, sizeData?.data.bottom];
 
   const heightChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    e.target.value = value.replace(/[^0-9]/g, '');
-    if (value.length > 3) e.target.value = value.substring(0, 3);
+    const value = filterHeight(e.target.value);
+    e.target.value = value;
   };
 
   const verifyHeight = (value: string) => {
