@@ -4,6 +4,7 @@ import useDragScroll from './useDragScroll';
 import useMounted from './useMounted';
 import useThrottleInput from './useThrottleInput';
 import useTimeForToday from './useTimeForToday';
+import useWindowResize from './useWindowResize';
 
 export {
   useDebounceInput,
@@ -12,4 +13,5 @@ export {
   useMounted,
   useThrottleInput,
   useTimeForToday,
+  useWindowResize,
 };

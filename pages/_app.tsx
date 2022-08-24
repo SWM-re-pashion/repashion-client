@@ -6,7 +6,7 @@ import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-import { useMounted } from 'hooks';
+import { useMounted, useWindowResize } from 'hooks';
 
 import '../styles/globals.scss';
 
@@ -20,6 +20,7 @@ type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const isMount = useMounted();
+  const [_, height] = useWindowResize();
   const [queryClient] = React.useState(
     () =>
       new QueryClient({
@@ -43,6 +44,10 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     if (isMount) setScreenSize();
   }, [isMount]);
+
+  useEffect(() => {
+    if (isMount) setScreenSize();
+  }, [height]);
 
   return (
     <QueryClientProvider client={queryClient}>

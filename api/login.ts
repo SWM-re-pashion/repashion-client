@@ -28,7 +28,8 @@ export function usePostAuthToken(): UseMutationResult<
       router.push('/info/style');
     },
     onError: (error) => {
-      router.back();
+      // router.back();
+      console.log(error);
     },
   });
 }
