@@ -62,6 +62,8 @@
     padding: calc($height / 2) calc($width / 2);
     appearance: none;
     -webkit-appearance: none;
+    background-color: transparent;
+    box-shadow: none;
     cursor: pointer;
   }
   &::-moz-range-thumb {
@@ -71,6 +73,8 @@
     padding: calc($height / 2) calc($width / 2);
     appearance: none;
     -moz-appearance: none;
+    background-color: transparent;
+    box-shadow: none;
     cursor: pointer;
   }
   &::-ms-thumb {
@@ -79,6 +83,8 @@
     height: $height;
     padding: calc($height / 2) calc($width / 2);
     appearance: none;
+    background-color: transparent;
+    box-shadow: none;
     cursor: pointer;
   }
 }

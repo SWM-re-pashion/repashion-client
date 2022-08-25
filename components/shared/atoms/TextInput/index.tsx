@@ -36,7 +36,7 @@ function TextInput<T>(inputProps: Props<T>, ref: Ref<HTMLInputElement> | null) {
         value={toBeValue}
         className={$.input}
         onChange={(e) => {
-          if (subType) onChange(e, subType);
+          if (subType !== undefined) onChange(e, subType);
           else onChange(e);
         }}
       />

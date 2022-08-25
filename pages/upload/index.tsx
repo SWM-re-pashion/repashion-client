@@ -59,8 +59,8 @@ function Upload() {
   const handleSubmit = () => {
     mutate(states, {
       onSuccess: ({ data }) => {
-        states.clearUpload();
         router.push(`/shop/${data}`);
+        states.clearUpload();
       },
     });
   };
