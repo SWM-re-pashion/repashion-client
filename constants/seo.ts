@@ -1,4 +1,4 @@
-export const data = {
+export const seoData = {
   title: 're:Fashion',
   creator: 're-pashion',
   url: 'https://refashion.link/login',

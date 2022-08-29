@@ -1,17 +1,17 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/function-component-definition */
 import { useRouter } from 'next/router';
 
 import { ReactElement, useState, useCallback } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
+import HeadMeta from '@atoms/HeadMeta';
 import ImgBox from '@atoms/ImgBox';
+import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import Layout from '@templates/Layout';
 import { getStyleImgs, useStyleImgs } from 'api/getStyleImgs';
-import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
 import $ from './style.module.scss';
@@ -30,7 +30,7 @@ export async function getStaticProps() {
 
 const skeletonImgBox = Array.from({ length: 20 });
 
-export const StyleInfo: NextPageWithLayout = () => {
+export function StyleInfo() {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const [errorMsg, setErrorMsg] = useState('');
@@ -51,6 +51,11 @@ export const StyleInfo: NextPageWithLayout = () => {
 
   return (
     <>
+      <HeadMeta
+        title="re:Fashion | 추천을 위한 선호 스타일 이미지 선택"
+        url={`${seoData.url}/info/style`}
+      />
+
       <InfoPageNum>1/3</InfoPageNum>
 
       <InfoHeader title="style" style={{ marginBottom: '17px' }} required>
@@ -89,7 +94,7 @@ export const StyleInfo: NextPageWithLayout = () => {
       )}
     </>
   );
-};
+}
 
 StyleInfo.getLayout = function getLayout(page: ReactElement) {
   return <Layout decreaseHeight={80}>{page}</Layout>;

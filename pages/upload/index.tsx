@@ -4,6 +4,7 @@ import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
+import HeadMeta from '@atoms/HeadMeta';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
@@ -15,6 +16,7 @@ import MeasureInfo from 'components/Upload/organisms/MeasureInfo';
 import Price from 'components/Upload/organisms/Price';
 import SellerReview from 'components/Upload/organisms/SellerReview';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
+import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
 import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
@@ -76,6 +78,11 @@ function Upload() {
   if (!isMounted) return null;
   return (
     <>
+      <HeadMeta
+        title="re:Fashion | 상품 등록하기"
+        url={`${seoData.url}/upload`}
+      />
+
       <PageHeader
         title="상품등록"
         left={<BackBtn color="#000" className={$.back} />}

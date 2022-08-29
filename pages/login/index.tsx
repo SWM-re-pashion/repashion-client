@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import { useRouter } from 'next/router';
 
 import { ReactElement } from 'react';
@@ -9,12 +8,11 @@ import FooterWrapper from '@molecules/FooterWrapper';
 import { SocialLoginBtn } from '@molecules/SocialLoginBtn';
 import Layout from '@templates/Layout';
 import classnames from 'classnames';
-import { data } from 'constants/seo';
+import { seoData } from 'constants/seo';
 
-import { NextPageWithLayout } from '../_app';
 import $ from './style.module.scss';
 
-const Login: NextPageWithLayout = () => {
+function Login() {
   const router = useRouter();
 
   const loginWithKakao = () => {
@@ -27,13 +25,8 @@ const Login: NextPageWithLayout = () => {
 
   return (
     <>
-      <HeadMeta
-        title={data.title}
-        image={data.images.logo}
-        description={data.description}
-        url={data.url}
-        creator={data.creator}
-      />
+      <HeadMeta title="re:Fashion | 회원 로그인" url={`${seoData.url}/login`} />
+
       <section className={$['on-boarding']}>
         <Ellipse className={classnames($.icon, $.ellipse)} />
         <Star className={classnames($.icon, $.star)} />
@@ -77,7 +70,7 @@ const Login: NextPageWithLayout = () => {
       </section>
     </>
   );
-};
+}
 
 Login.getLayout = function getLayout(page: ReactElement) {
   return <Layout noPadding>{page}</Layout>;

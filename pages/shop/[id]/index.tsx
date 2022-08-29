@@ -2,6 +2,8 @@ import { GetStaticPropsContext } from 'next';
 
 import { dehydrate, QueryClient } from 'react-query';
 
+import HeadMeta from '@atoms/HeadMeta';
+import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
 import ImgSlide from '@organisms/ImgSlide';
 import Layout from '@templates/Layout';
@@ -39,25 +41,34 @@ function ShopDetail({ id }: { id: string }) {
     const { opinion, price, isIncludeDelivery, updatedAt, like, views } =
       detailData;
     return (
-      <Layout noPadding decreaseHeight={100}>
-        <ImgSlide imgList={sellerInfo.image} />
-        <Profile profile={sellerInfo} />
-        <section className={$['shop-detail-info']}>
-          <ProductBasic basic={basic} />
-          <ProductNotice sellerNotice={sellerNotice} />
-          {measure.length && (
-            <ProductSize size={measure} kind={basic.classification} />
-          )}
-          {opinion && (
-            <SellerComment opinion={opinion} src={sellerInfo.profileImg} />
-          )}
-          <ProductFooter
-            footer={{ ...{ price, isIncludeDelivery, updatedAt, like, views } }}
-          >
-            연락하기
-          </ProductFooter>
-        </section>
-      </Layout>
+      <>
+        <HeadMeta
+          title="re:Fashion | 상품 상세보기"
+          url={`${seoData.url}/shop/${id}`}
+        />
+
+        <Layout noPadding decreaseHeight={100}>
+          <ImgSlide imgList={sellerInfo.image} />
+          <Profile profile={sellerInfo} />
+          <section className={$['shop-detail-info']}>
+            <ProductBasic basic={basic} />
+            <ProductNotice sellerNotice={sellerNotice} />
+            {measure.length && (
+              <ProductSize size={measure} kind={basic.classification} />
+            )}
+            {opinion && (
+              <SellerComment opinion={opinion} src={sellerInfo.profileImg} />
+            )}
+            <ProductFooter
+              footer={{
+                ...{ price, isIncludeDelivery, updatedAt, like, views },
+              }}
+            >
+              연락하기
+            </ProductFooter>
+          </section>
+        </Layout>
+      </>
     );
   }
   return <NotFound />; // TODO: 데이터 fetching 실패했을 때, 로딩, 에러

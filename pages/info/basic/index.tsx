@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import { useRouter } from 'next/router';
 
 import {
@@ -11,15 +10,16 @@ import {
 import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
+import HeadMeta from '@atoms/HeadMeta';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
+import { seoData } from '@constants/seo';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { getStaticData, useStaticData } from 'api/getStaticData';
-import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 import { filterHeight } from 'utils/filterValue';
 
@@ -46,7 +46,7 @@ export async function getStaticProps() {
   };
 }
 
-export const BasicInfo: NextPageWithLayout = () => {
+export function BasicInfo() {
   const state = useInfoStore((stat) => stat);
   const [errorMsg, setErrorMsg] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -102,6 +102,11 @@ export const BasicInfo: NextPageWithLayout = () => {
 
   return (
     <>
+      <HeadMeta
+        title="re:Fashion | 추천을 위한 기본 정보 입력"
+        url={`${seoData.url}/info/basic`}
+      />
+
       <InfoPageNum>2/3</InfoPageNum>
       <InfoHeader title="basic">
         성별, 키, 체형 및 사이즈를 알려주세요.
@@ -151,7 +156,7 @@ export const BasicInfo: NextPageWithLayout = () => {
       </ButtonFooter>
     </>
   );
-};
+}
 
 BasicInfo.getLayout = function getLayout(page: ReactElement) {
   return <Layout decreaseHeight={80}>{page}</Layout>;
