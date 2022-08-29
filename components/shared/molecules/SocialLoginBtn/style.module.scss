@@ -1,0 +1,15 @@
+.social-login {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  &-text {
+    margin: 0 auto;
+    padding: 0 6px;
+    font-size: 19px;
+  }
+}
+
+.has-btn-padding {
+  padding: 0 6px;
+}
