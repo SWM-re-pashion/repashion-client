@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 
 import { ReactElement } from 'react';
 
-import { Ellipse, Polygon, Rectangle, Star } from '@atoms/icon';
-import ImgButton from '@atoms/ImgButton';
+import { Ellipse, Google, Kakao, Polygon, Rectangle, Star } from '@atoms/icon';
+import FooterWrapper from '@molecules/FooterWrapper';
+import { SocialLoginBtn } from '@molecules/SocialLoginBtn';
 import Layout from '@templates/Layout';
 import classnames from 'classnames';
 
@@ -33,22 +34,36 @@ const Login: NextPageWithLayout = () => {
         recommend individual outfit from secondhand
       </span>
 
-      <footer className={$.footer}>
-        <ImgButton
-          src="/images/kakao_large_narrow.png"
-          alt="카카오 로그인"
-          width={191}
-          height={46}
+      <FooterWrapper>
+        <SocialLoginBtn
+          className={$['login-btn']}
+          Logo={<Kakao style={{ padding: '6px' }} />}
           onClick={loginWithKakao}
+          text="카카오 로그인"
+          backgroundColor="#fee500"
+          borderRadius="12px"
+          hasBtnPadding
         />
-        <ImgButton
-          src="/images/google_dark_normal.png"
-          alt="구글 로그인"
-          width={197}
-          height={47.5}
+        <SocialLoginBtn
+          className={classnames($['login-btn'], $['google-login'])}
+          Logo={<Google style={{ padding: '6px' }} />}
           onClick={loginWithGoogle}
+          text="Google 계정으로 로그인"
+          backgroundColor="#ffffff"
+          borderRadius="12px"
+          fontWeight={700}
+          hasBtnPadding
         />
-      </footer>
+        {/* <SocialLoginBtn
+          className={$['login-btn']}
+          src="/images/apple_login_btn.png"
+          alt="애플 로그인"
+          onClick={loginWithKakao}
+          text="Apple로 로그인"
+          backgroundColor="#ffffff"
+          borderRadius="12px"
+        /> */}
+      </FooterWrapper>
     </section>
   );
 };
