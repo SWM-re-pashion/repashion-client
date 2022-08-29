@@ -31,8 +31,9 @@ function ButtonSelect<T, U>(btnProps: Props<T, U>) {
         [$['clicked-color']]: isSelected && (color || noCheckColor),
       })}
       style={{ ...style }}
-      onClick={() => {
+      onClick={(e) => {
         if (type && onClick) {
+          e.stopPropagation();
           if (subType) onClick(data, type, subType);
           else onClick(data, type);
         }

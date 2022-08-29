@@ -39,11 +39,23 @@
   .decription {
     z-index: 1;
     font-weight: 600;
-    @include typography(13);
+    @include typography(16);
+    text-align: center;
+    @include mobile() {
+      @include typography(13);
+    }
   }
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
+.login-btn {
+  margin-bottom: 10px;
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.google-login {
+  color: $google-login-label;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }

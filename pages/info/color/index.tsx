@@ -1,17 +1,17 @@
-/* eslint-disable react/function-component-definition */
 import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
+import HeadMeta from '@atoms/HeadMeta';
+import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { getStaticData, useStaticData } from 'api/getStaticData';
 import { usePostPreference } from 'api/preference';
-import { NextPageWithLayout } from 'pages/_app';
 import { useInfoStore } from 'store/useInfoStore';
 
 import { colorBtnProps } from '../../../constants/colorInfo/constants';
@@ -30,7 +30,7 @@ export async function getStaticProps() {
   };
 }
 
-export const ColorInfo: NextPageWithLayout = () => {
+export function ColorInfo() {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const { isLoading, isError, data, error } =
@@ -48,6 +48,11 @@ export const ColorInfo: NextPageWithLayout = () => {
 
   return (
     <>
+      <HeadMeta
+        title="re:Fashion | 추천을 위한 선호 색상 입력"
+        url={`${seoData.url}/info/color`}
+      />
+
       <InfoPageNum>3/3</InfoPageNum>
 
       <InfoHeader title="color">
@@ -76,7 +81,7 @@ export const ColorInfo: NextPageWithLayout = () => {
       <ButtonFooter onClick={handleSubmit}>입력완료</ButtonFooter>
     </>
   );
-};
+}
 
 ColorInfo.getLayout = function getLayout(page: ReactElement) {
   return <Layout decreaseHeight={80}>{page}</Layout>;

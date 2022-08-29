@@ -1,0 +1,27 @@
+.footer {
+  @include btn-footer();
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1024px;
+  width: 100%;
+
+  &-wrapper {
+    padding: 0 31px 30px;
+    width: 100%;
+  }
+
+  .error-msg {
+    position: absolute;
+    top: 50px;
+    margin: 5px auto 0;
+    font-weight: 700;
+    @include typography(16);
+    @include mobile() {
+      @include typography(14);
+    }
+    color: $third;
+  }
+}

@@ -1,0 +1,27 @@
+.not-found {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .img-box {
+    width: 400px;
+    height: 220px;
+    user-select: none;
+    img {
+      -webkit-user-drag: none;
+    }
+    @include mobile() {
+      width: 200px;
+      height: 110px;
+    }
+  }
+  .go-back {
+    @include typography(18);
+    @include mobile() {
+      @include typography(12);
+    }
+    color: $third;
+    font-weight: 600;
+  }
+}

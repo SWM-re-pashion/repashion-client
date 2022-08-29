@@ -1,17 +1,18 @@
-/* eslint-disable react/function-component-definition */
 import { useRouter } from 'next/router';
 
 import { ReactElement } from 'react';
 
-import { Ellipse, Polygon, Rectangle, Star } from '@atoms/icon';
-import ImgButton from '@atoms/ImgButton';
+import HeadMeta from '@atoms/HeadMeta';
+import { Ellipse, Google, Kakao, Polygon, Rectangle, Star } from '@atoms/icon';
+import FooterWrapper from '@molecules/FooterWrapper';
+import { SocialLoginBtn } from '@molecules/SocialLoginBtn';
 import Layout from '@templates/Layout';
 import classnames from 'classnames';
+import { seoData } from 'constants/seo';
 
-import { NextPageWithLayout } from '../_app';
 import $ from './style.module.scss';
 
-const Login: NextPageWithLayout = () => {
+function Login() {
   const router = useRouter();
 
   const loginWithKakao = () => {
@@ -23,35 +24,53 @@ const Login: NextPageWithLayout = () => {
   };
 
   return (
-    <section className={$['on-boarding']}>
-      <Ellipse className={classnames($.icon, $.ellipse)} />
-      <Star className={classnames($.icon, $.star)} />
-      <Polygon className={classnames($.icon, $.polygon)} />
-      <Rectangle className={classnames($.icon, $.rectangle)} />
-      <h1 className={$.title}>re:Fashion</h1>
-      <span className={$.decription}>
-        recommend individual outfit from secondhand
-      </span>
+    <>
+      <HeadMeta title="re:Fashion | 회원 로그인" url={`${seoData.url}/login`} />
 
-      <footer className={$.footer}>
-        <ImgButton
-          src="/images/kakao_large_narrow.png"
-          alt="카카오 로그인"
-          width={191}
-          height={46}
+      <section className={$['on-boarding']}>
+        <Ellipse className={classnames($.icon, $.ellipse)} />
+        <Star className={classnames($.icon, $.star)} />
+        <Polygon className={classnames($.icon, $.polygon)} />
+        <Rectangle className={classnames($.icon, $.rectangle)} />
+        <h1 className={$.title}>re:Fashion</h1>
+        <span className={$.decription}>
+          recommend individual outfit from secondhand
+        </span>
+
+        <FooterWrapper>
+          <SocialLoginBtn
+            className={$['login-btn']}
+            Logo={<Kakao style={{ padding: '6px' }} />}
+            onClick={loginWithKakao}
+            text="카카오 로그인"
+            backgroundColor="#fee500"
+            borderRadius="12px"
+            hasBtnPadding
+          />
+          <SocialLoginBtn
+            className={classnames($['login-btn'], $['google-login'])}
+            Logo={<Google style={{ padding: '6px' }} />}
+            onClick={loginWithGoogle}
+            text="Google 계정으로 로그인"
+            backgroundColor="#ffffff"
+            borderRadius="12px"
+            fontWeight={700}
+            hasBtnPadding
+          />
+          {/* <SocialLoginBtn
+          className={$['login-btn']}
+          src="/images/apple_login_btn.png"
+          alt="애플 로그인"
           onClick={loginWithKakao}
-        />
-        <ImgButton
-          src="/images/google_dark_normal.png"
-          alt="구글 로그인"
-          width={197}
-          height={47.5}
-          onClick={loginWithGoogle}
-        />
-      </footer>
-    </section>
+          text="Apple로 로그인"
+          backgroundColor="#ffffff"
+          borderRadius="12px"
+        /> */}
+        </FooterWrapper>
+      </section>
+    </>
   );
-};
+}
 
 Login.getLayout = function getLayout(page: ReactElement) {
   return <Layout noPadding>{page}</Layout>;

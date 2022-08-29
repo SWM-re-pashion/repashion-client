@@ -4,7 +4,9 @@ import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
 import { Ellipse } from './Ellipse';
 import { Filter } from './Filter';
+import { Google } from './Google';
 import { ImgClose } from './ImgClose';
+import { Kakao } from './Kakao';
 import { More } from './More';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
@@ -46,4 +48,6 @@ export {
   ImgClose,
   RadioInner,
   SelectArrow,
+  Google,
+  Kakao,
 };

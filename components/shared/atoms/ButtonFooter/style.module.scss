@@ -1,33 +1,8 @@
-.btn-footer {
-  @include btn-footer();
-  left: 50%;
-  transform: translateX(-50%);
+.btn-box {
+  height: 50px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 1024px;
-  width: 100%;
-
-  .btn-box {
-    padding: 0 31px 30px;
+  .btn {
     width: 100%;
-    height: 50px;
-    display: flex;
-    .btn {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .error-msg {
-    position: absolute;
-    top: 50px;
-    margin: 5px auto 0;
-    font-weight: 700;
-    @include typography(16);
-    @include mobile() {
-      @include typography(14);
-    }
-    color: $third;
+    height: 100%;
   }
 }

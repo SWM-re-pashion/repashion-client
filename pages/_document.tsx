@@ -1,11 +1,55 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document';
 import Script from 'next/script';
 
+import { seoData } from 'constants/seo';
+
 export default class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
+
   render() {
     return (
       <Html lang="ko">
         <Head>
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href={seoData.favicons.appleTouchIcon}
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href={seoData.favicons[32]}
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href={seoData.favicons[16]}
+          />
+          <link rel="manifest" href={seoData.favicons.manifest} />
+          <link rel="shortcut icon" href={seoData.favicons.shortcut} />
+          <link
+            rel="mask-icon"
+            href={seoData.favicons.maskIcon}
+            color="#5bbad5"
+          />
+          <meta name="msapplication-TileColor" content="#da532c" />
+          <meta
+            name="msapplication-TileImage"
+            content={seoData.favicons.msTile}
+          />
+          <meta name="theme-color" content="#ffffff" />
+
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
@@ -26,10 +70,10 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <Script
+          {/* <Script
             src="https://developers.kakao.com/sdk/js/kakao.js"
             strategy="afterInteractive"
-          />
+          /> */}
         </body>
       </Html>
     );
