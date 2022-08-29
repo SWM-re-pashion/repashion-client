@@ -1,7 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
 export default function useDragScroll(dragRef: RefObject<HTMLElement>) {
-  const ref = dragRef.current;
   let isDown = false;
   let startX: number;
   let startScrollLeft: number;
@@ -12,6 +11,7 @@ export default function useDragScroll(dragRef: RefObject<HTMLElement>) {
   };
 
   const mouseTouchDown = (e: MouseEvent | TouchEvent) => {
+    const ref = dragRef.current;
     if (ref) {
       isDown = true;
       startX = getPageX(e) - ref.offsetLeft;
@@ -27,6 +27,7 @@ export default function useDragScroll(dragRef: RefObject<HTMLElement>) {
   const mouseTouchMove = (e: MouseEvent | TouchEvent) => {
     if (!isDown) return;
     if (e.cancelable) e.preventDefault();
+    const ref = dragRef.current;
 
     if (ref) {
       const currentX = getPageX(e) - ref.offsetLeft;
@@ -36,6 +37,7 @@ export default function useDragScroll(dragRef: RefObject<HTMLElement>) {
   };
 
   useEffect(() => {
+    const ref = dragRef.current;
     if (ref) {
       ref.addEventListener('mousedown', mouseTouchDown);
       ref.addEventListener('mouseleave', mouseTouchLeave);
