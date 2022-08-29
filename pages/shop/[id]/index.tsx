@@ -1,11 +1,11 @@
 import { GetStaticPropsContext } from 'next';
 
-import { ReactElement } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 import Profile from '@molecules/Profile';
 import ImgSlide from '@organisms/ImgSlide';
 import Layout from '@templates/Layout';
+import NotFound from '@templates/NotFound';
 import { getProductDetail, useProdutDetail } from 'api/product';
 import SellerComment from 'components/Product/molecules/SellerComment';
 import ProductBasic from 'components/Product/organisms/ProductBasic';
@@ -39,7 +39,7 @@ function ShopDetail({ id }: { id: string }) {
     const { opinion, price, isIncludeDelivery, updatedAt, like, views } =
       detailData;
     return (
-      <>
+      <Layout noPadding decreaseHeight={100}>
         <ImgSlide imgList={sellerInfo.image} />
         <Profile profile={sellerInfo} />
         <section className={$['shop-detail-info']}>
@@ -57,18 +57,10 @@ function ShopDetail({ id }: { id: string }) {
             연락하기
           </ProductFooter>
         </section>
-      </>
+      </Layout>
     );
   }
-  return null; // Todo: 404페이지 보여줘야함. 데이터 fetching 실패했을 때, 로딩, 에러
+  return <NotFound />; // TODO: 데이터 fetching 실패했을 때, 로딩, 에러
 }
-
-ShopDetail.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout noPadding decreaseHeight={100}>
-      {page}
-    </Layout>
-  );
-};
 
 export default ShopDetail;
