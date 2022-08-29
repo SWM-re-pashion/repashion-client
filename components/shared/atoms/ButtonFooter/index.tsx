@@ -1,4 +1,5 @@
 import Button from '@atoms/Button';
+import FooterWrapper from '@molecules/FooterWrapper';
 import classnames from 'classnames';
 import type { DefaultProps } from 'types/props';
 
@@ -16,23 +17,21 @@ export default function ButtonFooter(footerProps: Props) {
   const { className, style, LeftBtn, children } = footerProps;
   const { btnColor, background, onClick, msg } = footerProps;
   return (
-    <footer className={classnames($['btn-footer'], className)}>
-      <div
-        className={$['btn-box']}
-        style={{ ...style, backgroundColor: background }}
+    <FooterWrapper
+      className={classnames($['btn-footer'], className)}
+      wrapperClassName={$['btn-box']}
+      style={{ ...style, backgroundColor: background }}
+      {...{ msg }}
+    >
+      {LeftBtn}
+      <Button
+        background={btnColor}
+        errorMsg={msg}
+        onClick={onClick}
+        className={$.btn}
       >
-        {LeftBtn}
-        <Button
-          background={btnColor}
-          errorMsg={msg}
-          onClick={onClick}
-          className={$.btn}
-        >
-          {children}
-        </Button>
-      </div>
-
-      {msg && <span className={$['error-msg']}>{msg}</span>}
-    </footer>
+        {children}
+      </Button>
+    </FooterWrapper>
   );
 }
