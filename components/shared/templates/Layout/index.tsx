@@ -21,25 +21,15 @@ export default function PageLayout({
 }: Props) {
   const footerHeight = isNeedFooter ? 55 : 0;
 
-  useEffect(() => {
-    window.document.body.style.overflow = 'hidden';
-
-    return () => {
-      window.document.body.style.overflow = 'visible';
-    };
-  }, []);
-
   return (
-    <main
-      className={$.layout}
-      style={{
-        maxHeight: `calc(var(--vh, 1vh) * 100 - ${
-          headerHeight + footerHeight + decreaseHeight
-        }px)`,
-        marginTop: `${headerHeight}px`,
-      }}
-    >
-      <div className={classnames($.body, { [$['no-padding']]: noPadding })}>
+    <main className={$.layout}>
+      <div
+        className={classnames($.body, { [$['no-padding']]: noPadding })}
+        style={{
+          marginTop: `${headerHeight}px`,
+          paddingBottom: `${30 + decreaseHeight}px`,
+        }}
+      >
         {children}
       </div>
     </main>

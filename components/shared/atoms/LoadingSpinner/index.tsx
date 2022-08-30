@@ -16,6 +16,7 @@ export default function LoadingSpinner({ width, borderWidth, color }: Props) {
           borderWidth: `${borderWidth}px`,
           borderTopColor: color,
           borderBottomColor: color,
+          borderRightColor: color,
         }}
         className={$.spinner}
       />

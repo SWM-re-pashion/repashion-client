@@ -2,12 +2,8 @@ import { useRouter } from 'next/router';
 
 import { ReactElement } from 'react';
 
-import HeadMeta from '@atoms/HeadMeta';
-
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
-import { Ellipse, Star, Rectangle, Polygon } from '@atoms/icon';
-import { seoData } from '@constants/seo';
 import Layout from '@templates/Layout';
 
 import $ from '../styles/index.module.scss';

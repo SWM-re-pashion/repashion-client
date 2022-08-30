@@ -20,7 +20,7 @@ export default function ButtonFooter(footerProps: Props) {
     <FooterWrapper
       className={classnames($['btn-footer'], className)}
       wrapperClassName={$['btn-box']}
-      style={{ ...style, backgroundColor: background }}
+      style={{ ...style, backgroundColor: background || '#fff' }}
       {...{ msg }}
     >
       {LeftBtn}
