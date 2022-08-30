@@ -1,12 +1,10 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { ReactElement } from 'react';
-
 import HeadMeta from '@atoms/HeadMeta';
-import { Ellipse, Google, Kakao, Polygon, Rectangle, Star } from '@atoms/icon';
+import { Google, Kakao } from '@atoms/icon';
 import FooterWrapper from '@molecules/FooterWrapper';
 import { SocialLoginBtn } from '@molecules/SocialLoginBtn';
-import Layout from '@templates/Layout';
 import classnames from 'classnames';
 import { seoData } from 'constants/seo';
 
@@ -27,15 +25,16 @@ function Login() {
     <>
       <HeadMeta title="re:Fashion | 회원 로그인" url={`${seoData.url}/login`} />
 
-      <section className={$['on-boarding']}>
-        <Ellipse className={classnames($.icon, $.ellipse)} />
-        <Star className={classnames($.icon, $.star)} />
-        <Polygon className={classnames($.icon, $.polygon)} />
-        <Rectangle className={classnames($.icon, $.rectangle)} />
+      <section className={$.login}>
+        <Image
+          src="/images/desktop-login.png"
+          alt="로그인 화면 이미지"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+        />
         <h1 className={$.title}>re:Fashion</h1>
-        <span className={$.decription}>
-          recommend individual outfit from secondhand
-        </span>
+        {/* <span className={$.decription}>세컨핸드 의류에 새 생명을</span> */}
 
         <FooterWrapper>
           <SocialLoginBtn
@@ -71,9 +70,5 @@ function Login() {
     </>
   );
 }
-
-Login.getLayout = function getLayout(page: ReactElement) {
-  return <Layout noPadding>{page}</Layout>;
-};
 
 export default Login;

@@ -1,6 +1,5 @@
-.on-boarding {
+.login {
   position: relative;
-  overflow: hidden;
   min-height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
@@ -10,39 +9,25 @@
   font-family: 'Montserrat Alternates', sans-serif;
   color: $white;
 
-  .icon {
-    position: absolute;
-  }
-  .ellipse {
-    top: 70px;
-    left: -85px;
-  }
-  .star {
-    top: 33.91px;
-    right: 41px;
-  }
-  .polygon {
-    bottom: 197px;
-    right: -373px;
-  }
-  .rectangle {
-    bottom: -318.67px;
-    left: -101px;
-  }
-
   .title {
     z-index: 1;
     margin-bottom: 1px;
     font-weight: 700;
-    @include typography(25);
+    font-size: 40px;
+    line-height: 50px;
+    letter-spacing: 0.02em;
+    @include mobile() {
+      font-size: 30px;
+      line-height: 45px;
+    }
   }
   .decription {
     z-index: 1;
-    font-weight: 600;
-    @include typography(16);
+    font-weight: 700;
+    @include typography(20);
     text-align: center;
     @include mobile() {
-      @include typography(13);
+      @include typography(14);
     }
   }
 }

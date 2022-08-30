@@ -1,6 +1,5 @@
 .on-boarding {
   position: relative;
-  overflow: hidden;
   min-height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
@@ -9,26 +8,6 @@
   background-color: $black-600;
   font-family: 'Montserrat Alternates', sans-serif;
   color: $white;
-
-  .icon {
-    position: absolute;
-  }
-  .ellipse {
-    top: 70px;
-    left: -85px;
-  }
-  .star {
-    top: 33.91px;
-    right: 41px;
-  }
-  .polygon {
-    bottom: 197px;
-    right: -373px;
-  }
-  .rectangle {
-    bottom: -318.67px;
-    left: -101px;
-  }
 
   .title {
     z-index: 1;

@@ -1,5 +1,5 @@
 .not-found {
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,9 +8,6 @@
     width: 400px;
     height: 220px;
     user-select: none;
-    img {
-      -webkit-user-drag: none;
-    }
     @include mobile() {
       width: 200px;
       height: 110px;
