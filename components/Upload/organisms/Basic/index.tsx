@@ -13,13 +13,15 @@ import $ from './style.module.scss';
 type Props = {
   dialogOpen: boolean;
   state: UploadState['basicInfo'];
+  categoryData: res.CategoryTree | undefined;
   onChange: UpdateUpload;
   openDialog: () => void;
   closeDialog: () => void;
 };
 
 function Basic(basicProps: Props) {
-  const { dialogOpen, state, openDialog, onChange, closeDialog } = basicProps;
+  const { dialogOpen, state, openDialog, onChange, closeDialog, categoryData } =
+    basicProps;
   const [gender, main, sub] = state.category;
   const categoryBtnText =
     gender && main && sub
@@ -62,7 +64,8 @@ function Basic(basicProps: Props) {
         <SelectArrow className={$.icon} />
       </Button>
       <Dialog
-        data={state}
+        data={categoryData}
+        state={state}
         isOpen={dialogOpen}
         onClose={closeDialog}
         onChange={onChange}

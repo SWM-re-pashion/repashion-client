@@ -1,4 +1,4 @@
-export const categoryData: data.CategoryTree = {
+export const categoryData: res.CategoryTree['data'] = {
   name: '성별',
   code: 'gender',
   children: [

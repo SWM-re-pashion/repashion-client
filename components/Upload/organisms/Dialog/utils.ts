@@ -1,11 +1,14 @@
 import { deepClone, mergeObjInArr } from 'utils';
 
 export const findChildren = (
-  category: data.CategoryTree['children'],
+  category: res.CategoryTree['data']['children'],
   code: string,
 ) => category.find((children) => children.code === code)?.children || [];
 
-export const filteredCategory = (code: string, category: data.CategoryTree) => {
+export const filteredCategory = (
+  code: string,
+  category: res.CategoryTree['data'],
+) => {
   const commonData = findChildren(category.children, 'common');
   if (code === 'common' || !code) return commonData;
   const genderData = findChildren(category.children, code);
@@ -22,5 +25,5 @@ export const categoryProps = (idx: number) => {
   return { name: '', code: '' };
 };
 
-export const curCategoryChildren = (category: data.CategoryTreeChildren) =>
+export const curCategoryChildren = (category: res.CategoryTreeChildren) =>
   category.children?.map(({ name, code }) => code) || [];
