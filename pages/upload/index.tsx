@@ -40,7 +40,8 @@ export async function getStaticProps() {
 
 function Upload() {
   const router = useRouter();
-  const { data: categoryData } = useCategoryTree();
+  const { data: categoriesData } = useCategoryTree();
+  const categoryData = categoriesData?.data;
   const states = useUploadStore((state) => state);
   const categories = states.basicInfo.category;
   const [_, mainCategoryState] = categories;
@@ -120,9 +121,8 @@ function Upload() {
         />
         <Basic
           state={states.basicInfo}
-          categoryData={categoryData}
           onChange={updateUpload}
-          {...{ dialogOpen, openDialog, closeDialog }}
+          {...{ dialogOpen, openDialog, closeDialog, categoryData }}
         />
         <InfoBtnBox
           {...size}

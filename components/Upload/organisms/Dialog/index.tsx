@@ -6,7 +6,6 @@ import ButtonFooter from '@atoms/ButtonFooter';
 import Span from '@atoms/Span';
 import RadioSelect from '@molecules/RadioSelect';
 import { Modal } from '@templates/Modal';
-import { useMainCategoryTree, useSubCategory } from 'api/getCategoryData';
 
 import $ from './style.module.scss';
 import { curCategoryChildren } from './utils';
@@ -14,21 +13,18 @@ import { curCategoryChildren } from './utils';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  data: res.CategoryTree | undefined;
+  genderCategory: res.CategoryTree['data'] | undefined;
+  mainCategory: res.CategoryTree['data'] | undefined;
+  subCategory: res.CategoryTree['data'] | undefined;
   state: BasicInfo;
   onChange: UpdateUpload;
 };
 
-function Dialog(
-  dialogProps: Pick<Props, 'data' | 'state' | 'onChange' | 'onClose'>,
-) {
-  const { data, state, onChange, onClose } = dialogProps;
+function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
+  const { state, onChange, onClose } = dialogProps;
+  const { genderCategory, mainCategory, subCategory } = dialogProps;
   const { category, curCategoryIdx } = state;
-  const [gender] = category;
-  const genderCategory = data?.data;
-  const [curCategory, setCurCategory] = useState(data?.data);
-  const mainCategory = useMainCategoryTree(gender);
-  const subCategory = useSubCategory(gender, category[1]);
+  const [curCategory, setCurCategory] = useState(genderCategory);
   const isIncludeCurValue = curCategory
     ? curCategoryChildren(curCategory).includes(category[curCategoryIdx])
     : false;
@@ -123,14 +119,24 @@ function Dialog(
 }
 
 function DialogWrapper(dialogProps: Props) {
-  const { isOpen, onClose, data, state, onChange } = dialogProps;
+  const { isOpen, onClose, state, onChange } = dialogProps;
+  const { genderCategory, mainCategory, subCategory } = dialogProps;
   return (
     <Modal id="category-dialog" {...{ isOpen, onClose }}>
       <div
         className={$['category-dialog']}
         aria-describedby="카테고리 다이얼로그"
       >
-        <Dialog {...{ data, state, onChange, onClose }} />
+        <Dialog
+          {...{
+            state,
+            onChange,
+            onClose,
+            genderCategory,
+            mainCategory,
+            subCategory,
+          }}
+        />
       </div>
     </Modal>
   );

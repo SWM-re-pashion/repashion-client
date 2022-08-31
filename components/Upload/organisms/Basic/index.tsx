@@ -5,27 +5,36 @@ import Button from '@atoms/Button';
 import { SelectArrow } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
+import { useMainCategoryTree, useSubCategory } from 'api/getCategoryData';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import Dialog from '../Dialog';
+import { findKorValue } from '../Dialog/utils';
 import $ from './style.module.scss';
 
 type Props = {
   dialogOpen: boolean;
   state: UploadState['basicInfo'];
-  categoryData: res.CategoryTree | undefined;
+  categoryData: res.CategoryTree['data'] | undefined;
   onChange: UpdateUpload;
   openDialog: () => void;
   closeDialog: () => void;
 };
 
 function Basic(basicProps: Props) {
-  const { dialogOpen, state, openDialog, onChange, closeDialog, categoryData } =
-    basicProps;
+  const { dialogOpen, openDialog, onChange, closeDialog } = basicProps;
+  const { state, categoryData: genderCategory } = basicProps;
   const [gender, main, sub] = state.category;
+  const mainCategory = useMainCategoryTree(gender);
+  const subCategory = useSubCategory(gender, main);
+
+  const korGender = findKorValue(genderCategory?.children, gender);
+  const korMain = findKorValue(mainCategory?.children, main);
+  const korSub = findKorValue(subCategory?.children, sub);
+
   const categoryBtnText =
     gender && main && sub
-      ? `${gender} | ${main} | ${sub}`.toString()
+      ? `${korGender} | ${korMain} | ${korSub}`.toString()
       : '카테고리 선택';
   const handleInput = useDebounceInput(onChange, 200);
 
@@ -64,7 +73,7 @@ function Basic(basicProps: Props) {
         <SelectArrow className={$.icon} />
       </Button>
       <Dialog
-        data={categoryData}
+        {...{ genderCategory, mainCategory, subCategory }}
         state={state}
         isOpen={dialogOpen}
         onClose={closeDialog}

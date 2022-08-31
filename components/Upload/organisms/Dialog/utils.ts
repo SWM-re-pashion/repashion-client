@@ -5,6 +5,11 @@ export const findChildren = (
   code: string,
 ) => category.find((children) => children.code === code)?.children || [];
 
+export const findKorValue = (
+  category: res.CategoryTree['data']['children'] | undefined,
+  code: string,
+) => category?.find((children) => children.code === code)?.name || '';
+
 export const filteredCategory = (
   code: string,
   category: res.CategoryTree['data'],
