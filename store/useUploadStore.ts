@@ -73,6 +73,8 @@ export const useUploadStore = create(
               typeof value === 'string' &&
               idx !== undefined
             ) {
+              if (state[type][subType][idx] === value) return state;
+
               let clone: [string, string, string] = [...state[type][subType]];
 
               if (idx === 1) clone = [clone[0], value, ''];
