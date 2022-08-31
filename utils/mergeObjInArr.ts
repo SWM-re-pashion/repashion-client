@@ -1,6 +1,10 @@
-export const mergeObjInArr = <T, K extends keyof T>(
-  arr1: Array<T> | undefined,
-  arr2: Array<T> | undefined,
+type Info = {
+  [key: string]: Array<Info> | string;
+};
+
+export const mergeObjInArr = <K extends keyof Info>(
+  arr1: Array<Info> | undefined,
+  arr2: Array<Info> | undefined,
   comparekey: K,
   keyToMerge: K,
 ) => {
@@ -17,7 +21,7 @@ export const mergeObjInArr = <T, K extends keyof T>(
       ) {
         map.set(item[comparekey], {
           ...getItem,
-          [keyToMerge]: [...getItem[keyToMerge], ...item[keyToMerge]],
+          [keyToMerge]: getItem[keyToMerge].concat(item[keyToMerge]),
         });
       } else {
         map.set(item[comparekey], item);
