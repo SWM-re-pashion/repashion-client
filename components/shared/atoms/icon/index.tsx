@@ -11,6 +11,7 @@ import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
 import { RadioInner } from './RadioInner';
 import { RangeBtn } from './RangeBtn';
+import { Search } from './Search';
 import { SelectArrow } from './SelectArrow';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
@@ -42,4 +43,5 @@ export {
   SelectArrow,
   Google,
   Kakao,
+  Search,
 };
