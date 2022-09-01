@@ -30,3 +30,7 @@
 .font-10 {
   @include typography(10);
 }
+
+.strong-font-family {
+  font-family: 'Montserrat Alternates', sans-serif;
+}
