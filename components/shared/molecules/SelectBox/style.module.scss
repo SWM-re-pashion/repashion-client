@@ -22,10 +22,26 @@
   }
 }
 
+.gender-box {
+  border: none;
+  font-weight: 700;
+  button {
+    .gender-text {
+      border-radius: 2px;
+      padding: 1px 4px 2px;
+      background-color: $black-600;
+      color: $white;
+    }
+    .arrow {
+      width: 24px;
+      height: 12px;
+    }
+  }
+}
+
 .select-wrapper {
   z-index: 10;
   position: absolute;
-  top: 56px;
   left: 0;
   width: 100%;
   @include input-border($black-600);
@@ -41,15 +57,37 @@
     &:last-child {
       border: 0;
     }
+    &-clicked {
+      background-color: $clicked-background;
+      font-weight: 600;
+    }
+  }
+
+  .select-hover {
     &:hover,
     &:focus {
       background-color: $clicked-background;
       font-weight: 600;
     }
-    &-clicked {
-      background-color: $clicked-background;
-      font-weight: 600;
+  }
+
+  .gender-item-clicked {
+    color: $primary;
+    font-weight: 700;
+  }
+
+  .gender-hover {
+    &:hover,
+    &:focus {
+      color: $primary;
     }
+  }
+}
+
+.check-icon {
+  margin-left: auto;
+  path {
+    stroke: $primary;
   }
 }
 
