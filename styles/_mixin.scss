@@ -1,3 +1,9 @@
+@mixin minMobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+
 @mixin mobile {
   @media (max-width: #{$tablet - 1px}) {
     @content;

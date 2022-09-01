@@ -25,7 +25,7 @@ function Basic(basicProps: Props) {
   const { dialogOpen, openDialog, onChange, closeDialog } = basicProps;
   const { state, categoryData: genderCategory } = basicProps;
   const [gender, main, sub] = state.category;
-  const mainCategory = useMainCategoryTree(gender);
+  const mainCategory = useMainCategoryTree(gender); // TODO: 2번 렌더링
   const subCategory = useSubCategory(gender, main);
 
   const korGender = findKorValue(genderCategory?.children, gender);

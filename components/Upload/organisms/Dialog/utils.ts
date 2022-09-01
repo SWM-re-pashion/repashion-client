@@ -32,3 +32,9 @@ export const categoryProps = (idx: number) => {
 
 export const curCategoryChildren = (category: res.CategoryTreeChildren) =>
   category.children?.map(({ name, code }) => code) || [];
+
+export const categoryNameCodeArr = (category: res.CategoryTreeChildren) =>
+  category.children?.map(({ name, code }) => ({
+    name,
+    code,
+  })) || [];
