@@ -24,9 +24,9 @@ export default function PageLayout(layoutProps: Props) {
       <div
         className={classnames($.body, { [$['no-padding']]: noPadding })}
         style={{
-          padding,
           marginTop: `${headerHeight}px`,
-          paddingBottom: `${padding ? 30 : 0 + decreaseHeight}px`,
+          paddingBottom: `${padding ? 0 : 30 + decreaseHeight}px`,
+          padding,
         }}
       >
         {children}

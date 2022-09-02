@@ -23,7 +23,7 @@ type Props = {
 
 function FilterModal() {
   const { query } = useRouter();
-  const category = (query.category as string) || 'all';
+  const category = (query.main as string) || 'top';
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
 
   const states = useFilterStore((state) => state);

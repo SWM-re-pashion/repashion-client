@@ -1,6 +1,6 @@
 import { memo, useRef } from 'react';
 
-import { DefaultData } from '#types/index';
+import { DefaultData, QueryChange } from '#types/index';
 import { Check, SelectArrow } from '@atoms/icon';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
@@ -12,22 +12,25 @@ import { getLabelName } from './utils';
 type Props<T, U> = {
   options: (string | DefaultData)[];
   selected: string | number;
-  onChange: (value: string, type: T, subType: U) => void;
+  onChange?: (value: string, type: T, subType: U) => void;
+  onQueryChange?: QueryChange;
   name: string;
   type?: T;
   subType?: U;
   width?: string;
   height?: string;
   isGender?: boolean;
+  fontWeight?: number;
+  fontSize?: number;
 };
 
 function SelectBox<T, U>(selectProps: Props<T, U>) {
-  const { options, selected, onChange, isGender } = selectProps;
-  const { name, width, height, type, subType } = selectProps;
+  const { options, selected, onChange, onQueryChange, isGender } = selectProps;
+  const { name, width, height, type, subType, fontWeight, fontSize } =
+    selectProps;
   const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
   const labelName = getLabelName(options, selected);
-
   const isGenderSelected = (optionName: string) =>
     isGender && labelName === optionName;
   const isSelected = (optionName: string) =>
@@ -45,10 +48,11 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     option?: string,
   ) => {
     if (type && subType) {
-      if (option) {
+      if (option && onChange) {
         onChange(option, type, subType);
       }
     }
+    if (option && onQueryChange) onQueryChange(name, option);
     setIsClicked(false);
   };
 
@@ -70,6 +74,8 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
         onClick={handleMouseDown}
       >
         <Span
+          fontSize={fontSize || 16}
+          fontWeight={fontWeight || 400}
           className={classnames({
             [$['gender-text']]: isGender,
           })}
@@ -107,6 +113,7 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
                 key={optionName}
                 style={{ ...{ height } }}
                 className={classnames($['select-item'], {
+                  [$['select-item-gender']]: isGender,
                   [$['select-item-clicked']]: isSelected(optionName),
                   [$['select-hover']]: !isGender,
                   [$['gender-item-clicked']]: isGenderSelected(optionName),
@@ -115,7 +122,8 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
                 onClick={(e) => handleSelectItem(e, optionData)}
                 onKeyPress={(e) => handleSelectItem(e, optionData)}
               >
-                {optionName}
+                <span style={{ fontSize }}>{optionName}</span>
+
                 {isGenderSelected(optionName) && (
                   <Check className={$['check-icon']} />
                 )}

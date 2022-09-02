@@ -1,3 +1,6 @@
+import { memo } from 'react';
+
+import { QueryChange } from '#types/index';
 import classnames from 'classnames';
 import type { DefaultProps } from 'types/props';
 
@@ -11,17 +14,25 @@ type Props = {
   background?: string;
   borderRadius?: string;
   onClick?: () => void;
+  queryName?: string;
+  queryCode?: string;
+  onQueryClick?: QueryChange;
   errorMsg?: string;
 } & DefaultProps;
 
-export default function Button(btnProps: Props) {
-  const { color, fontWeight, borderRadius } = btnProps;
+function Button(btnProps: Props) {
+  const { color, fontWeight, borderRadius, queryName, queryCode } = btnProps;
   const { label, iconBtn, background, onClick, errorMsg } = btnProps;
-  const { className, style, children } = btnProps;
+  const { className, style, children, onQueryClick } = btnProps;
+
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={() => {
+        if (onClick) onClick();
+        if (onQueryClick && queryName && label && queryCode)
+          onQueryClick(queryName, queryCode);
+      }}
       style={{
         ...style,
         color,
@@ -41,3 +52,5 @@ export default function Button(btnProps: Props) {
     </button>
   );
 }
+
+export default memo(Button);

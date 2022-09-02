@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 
-import { DefaultData } from '#types/index';
+import { DefaultData, QueryChange } from '#types/index';
 import Button from '@atoms/Button';
 import classnames from 'classnames';
 import { useDragScroll } from 'hooks';
@@ -10,11 +10,13 @@ import $ from './style.module.scss';
 type Props = {
   data: DefaultData[];
   selectedMenu: string;
+  onClick: QueryChange;
   isMain: boolean;
 };
 
-function CategoryBox({ data, selectedMenu, isMain }: Props) {
+function CategoryBox({ data, selectedMenu, isMain, onClick }: Props) {
   const btnBoxRef = useRef<HTMLDivElement>(null);
+  const queryName = isMain ? 'main' : 'sub';
   useDragScroll(btnBoxRef);
 
   return (
@@ -33,7 +35,10 @@ function CategoryBox({ data, selectedMenu, isMain }: Props) {
 
         return (
           <Button
+            {...{ onQueryClick: onClick, queryName }}
             key={name}
+            label={`${name} 선택 버튼`}
+            queryCode={code}
             background={isMainSelected ? '#936DFF' : 'transparent'}
             color={isMainSelected ? '#fff' : subSelectedColor}
             borderRadius="8px"
@@ -47,4 +52,4 @@ function CategoryBox({ data, selectedMenu, isMain }: Props) {
   );
 }
 
-export default CategoryBox;
+export default memo(CategoryBox);

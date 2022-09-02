@@ -1,0 +1,15 @@
+.check-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  @include input-border(3px, $gray-280);
+  .check-icon {
+    path {
+      stroke: $white;
+    }
+    width: 9px;
+    height: 7px;
+  }
+}

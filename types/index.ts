@@ -10,3 +10,5 @@ export type ImgProps = {
 } & ImgBasicProps;
 
 export type DefaultData = { name: string; code: string };
+
+export type QueryChange = (queryName: string, value: string) => void;
