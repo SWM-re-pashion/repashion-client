@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   background-color: $white;
-  @include input-border($gray-280);
+  @include input-border(5px, $gray-280);
   &,
   button {
     @include typography(16);
@@ -28,6 +28,7 @@
   button {
     .gender-text {
       border-radius: 2px;
+      margin-right: 14px;
       padding: 1px 4px 2px;
       background-color: $black-600;
       color: $white;
@@ -35,6 +36,7 @@
     .arrow {
       width: 24px;
       height: 12px;
+      margin: 0;
     }
   }
 }
@@ -44,16 +46,20 @@
   position: absolute;
   left: 0;
   width: 100%;
-  @include input-border($black-600);
+  @include input-border(5px, $black-600);
   background-color: $white;
 
   .select-item {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 50px;
     padding: 0 10px;
     border-bottom: 1px solid $black-600;
     cursor: pointer;
+    &-gender {
+      justify-content: space-between;
+    }
     &:last-child {
       border: 0;
     }

@@ -17,7 +17,7 @@
     height: 50px;
     margin: 0;
     padding: 0 16px;
-    @include input-border($gray-280);
+    @include input-border(5px, $gray-280);
     text-align: left;
     .icon {
       margin: 0 0 0 auto;
