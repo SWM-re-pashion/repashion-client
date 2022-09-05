@@ -7,7 +7,6 @@ import $ from './style.module.scss';
 interface Props {
   padding?: string;
   noPadding?: boolean;
-  isNeedFooter?: boolean;
   children: ReactNode;
   headerHeight?: number;
   decreaseHeight?: number;
@@ -15,22 +14,19 @@ interface Props {
 
 export default function PageLayout(layoutProps: Props) {
   const { padding, noPadding } = layoutProps;
-  const { isNeedFooter, children } = layoutProps;
+  const { children } = layoutProps;
   const { headerHeight = 0, decreaseHeight = 0 } = layoutProps;
-  const footerHeight = isNeedFooter ? 55 : 0;
 
   return (
-    <main className={$.layout}>
-      <div
-        className={classnames($.body, { [$['no-padding']]: noPadding })}
-        style={{
-          marginTop: `${headerHeight}px`,
-          paddingBottom: `${padding ? 0 : 30 + decreaseHeight}px`,
-          padding,
-        }}
-      >
-        {children}
-      </div>
+    <main
+      className={classnames($.layout, { [$['no-padding']]: noPadding })}
+      style={{
+        paddingTop: `${headerHeight}px`,
+        paddingBottom: `${padding ? 0 : 30 + decreaseHeight}px`,
+        padding,
+      }}
+    >
+      {children}
     </main>
   );
 }
