@@ -15,6 +15,7 @@ import {
   useSubCategory,
 } from 'api/getCategoryData';
 import CategoryBox from 'components/Shop/Organisms/CategoryBox';
+import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'components/Shop/Organisms/ShopHeader';
 import SortBox from 'components/Shop/Organisms/SortBox';
 import {
@@ -128,6 +129,8 @@ function Shop() {
         hideSold={soldQuery}
         selectedMenu={sortQuery}
       />
+
+      <ProductItemList />
     </>
   );
 }
