@@ -27,8 +27,8 @@ function CategoryBox({ data, selectedMenu, isMain, onClick }: Props) {
         { [$['sub-box']]: !isMain },
       )}
     >
-      {data.map(({ name, code }) => {
-        const isSelected = selectedMenu === code;
+      {data.map(({ id, name }) => {
+        const isSelected = selectedMenu === id;
         const isMainSelected = isSelected && isMain;
         const isSubSelected = isSelected && !isMain;
         const subSelectedColor = isSubSelected ? '#936DFF' : '#000';
@@ -38,7 +38,7 @@ function CategoryBox({ data, selectedMenu, isMain, onClick }: Props) {
             {...{ onQueryClick: onClick, queryName }}
             key={name}
             label={`${name} 선택 버튼`}
-            queryCode={code}
+            queryCode={id}
             background={isMainSelected ? '#936DFF' : 'transparent'}
             color={isMainSelected ? '#fff' : subSelectedColor}
             borderRadius="8px"

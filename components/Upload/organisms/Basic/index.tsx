@@ -26,7 +26,7 @@ function Basic(basicProps: Props) {
   const { state, categoryData: genderCategory } = basicProps;
   const [gender, main, sub] = state.category;
   const mainCategory = useMainCategoryTree(gender); // TODO: 2번 렌더링
-  const subCategory = useSubCategory(gender, main);
+  const subCategory = useSubCategory(gender, main, 'code');
 
   const korGender = findKorValue(genderCategory?.children, gender);
   const korMain = findKorValue(mainCategory?.children, main);
@@ -34,7 +34,7 @@ function Basic(basicProps: Props) {
 
   const categoryBtnText =
     gender && main && sub
-      ? `${korGender} | ${korMain} | ${korSub}`.toString()
+      ? `${korGender} | ${korMain} | ${korSub}`
       : '카테고리 선택';
   const handleInput = useDebounceInput(onChange, 200);
 

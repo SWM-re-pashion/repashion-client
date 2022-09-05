@@ -8,7 +8,7 @@ import RadioSelect from '@molecules/RadioSelect';
 import { Modal } from '@templates/Modal';
 
 import $ from './style.module.scss';
-import { curCategoryChildren } from './utils';
+import { curCategoryChildrenByProp } from './utils';
 
 type Props = {
   isOpen: boolean;
@@ -26,7 +26,9 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
   const { category, curCategoryIdx } = state;
   const [curCategory, setCurCategory] = useState(genderCategory);
   const isIncludeCurValue = curCategory
-    ? curCategoryChildren(curCategory).includes(category[curCategoryIdx])
+    ? curCategoryChildrenByProp(curCategory, 'code').includes(
+        category[curCategoryIdx],
+      )
     : false;
   const isCurValueExist = !!category[curCategoryIdx] && isIncludeCurValue;
   const isValidPrevBtn = curCategoryIdx !== 0 && category[curCategoryIdx - 1];

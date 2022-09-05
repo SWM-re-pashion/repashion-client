@@ -1,9 +1,16 @@
 import { deepClone, mergeObjInArr } from 'utils';
 
-export const findChildren = (
+export const findCodeByProp = (
   category: res.CategoryTree['data']['children'],
-  code: string,
-) => category.find((children) => children.code === code)?.children || [];
+  value: string,
+  prop: keyof res.CategoryTreeChildren,
+) => category.find((children) => children[prop] === value)?.code || '';
+
+export const findChildrenByProp = (
+  category: res.CategoryTree['data']['children'],
+  value: string,
+  prop: keyof res.CategoryTreeChildren,
+) => category.find((children) => children[prop] === value)?.children || [];
 
 export const findKorValue = (
   category: res.CategoryTree['data']['children'] | undefined,
@@ -14,22 +21,25 @@ export const filteredCategory = (
   code: string,
   category: res.CategoryTree['data'],
 ) => {
-  const commonData = findChildren(category.children, 'common');
+  const commonData = findChildrenByProp(category.children, 'common', 'code');
   if (code === 'common' || !code) return commonData;
-  const genderData = findChildren(category.children, code);
+  const genderData = findChildrenByProp(category.children, code, 'code');
   const mergedCategory = deepClone(
     mergeObjInArr(commonData, genderData, 'name', 'children'),
   );
   return mergedCategory;
 };
 
-export const curCategoryChildren = (category: res.CategoryTreeChildren) =>
-  category.children?.map(({ name, code }) => code) || [];
+export const curCategoryChildrenByProp = (
+  category: res.CategoryTreeChildren,
+  prop: keyof Omit<res.CategoryTreeChildren, 'children'>,
+) => category.children?.map((child) => child[prop]) || [];
 
-export const categoryNameCodeArr = (category: res.CategoryTreeChildren) => {
-  const result = category.children?.map(({ name, code }) => ({
+export const categoryIdNameCodeArr = (category: res.CategoryTreeChildren) => {
+  const result = category.children?.map(({ id, name, code }) => ({
+    id,
     name,
     code,
   }));
-  return result?.length ? result : [{ name: '', code: '' }];
+  return result?.length ? result : [{ id: '-1', name: '', code: '' }];
 };

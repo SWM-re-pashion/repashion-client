@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
@@ -17,8 +18,9 @@ import CategoryBox from 'components/Shop/Organisms/CategoryBox';
 import ShopHeader from 'components/Shop/Organisms/ShopHeader';
 import SortBox from 'components/Shop/Organisms/SortBox';
 import {
-  categoryNameCodeArr,
-  curCategoryChildren,
+  categoryIdNameCodeArr,
+  curCategoryChildrenByProp,
+  findCodeByProp,
 } from 'components/Upload/organisms/Dialog/utils';
 
 import $ from './style.module.scss';
@@ -38,22 +40,30 @@ export async function getServerSideProps() {
 function Shop() {
   const router = useRouter();
   const { gender, main, sub, sort, hideSold } = router.query;
-  const { data } = useCategoryTree();
+  // const { data } = useCategoryTree();
+  const data = useCategoryTree();
 
-  const genderCategory = data?.data;
+  const genderCategory = data;
   const genderSelectMenu =
-    (genderCategory && curCategoryChildren(genderCategory)) || [];
-  const genderQuery = (gender as string) || genderSelectMenu[0];
+    genderCategory && categoryIdNameCodeArr(genderCategory);
+  const genderQuery = (gender as string) || genderSelectMenu[0].id || '0';
+  const genderName = findCodeByProp(genderSelectMenu, genderQuery, 'id');
 
-  const mainCategory = useMainCategoryTree(genderQuery); // TODO: 2번 렌더링됨
-  const mainSelectMenu = categoryNameCodeArr(mainCategory);
-  const isIncludeMain = curCategoryChildren(mainCategory).includes(main as string);
-  const mainQuery = isIncludeMain ? (main as string) : mainSelectMenu[0].code;
+  const mainCategory = useMainCategoryTree(genderName); // TODO: 2번 렌더링됨
+  const mainSelectMenu = categoryIdNameCodeArr(mainCategory);
+  const isIncludeMain = curCategoryChildrenByProp(mainCategory, 'id').includes(
+    main as string,
+  );
+  const mainQuery = isIncludeMain
+    ? (main as string)
+    : mainSelectMenu[0].id || '0';
 
-  const subCategory = useSubCategory(genderQuery, mainQuery);
-  const subSelectMenu = categoryNameCodeArr(subCategory);
-  const isIncludeSub = curCategoryChildren(subCategory).includes(sub as string);
-  const subQuery = isIncludeSub ? (sub as string) : subSelectMenu[0].code;
+  const subCategory = useSubCategory(genderName, mainQuery, 'id');
+  const subSelectMenu = categoryIdNameCodeArr(subCategory);
+  const isIncludeSub = curCategoryChildrenByProp(subCategory, 'id').includes(
+    sub as string,
+  );
+  const subQuery = isIncludeSub ? (sub as string) : subSelectMenu[0].id || '0';
 
   const sortQuery = (sort as string) || sortData[0].code;
   const soldQuery = (hideSold as string) || 'true';
@@ -62,15 +72,27 @@ function Shop() {
   //   if (router.isReady) console.log(gender, main, sub, sort, hideSold);
   // }, [gender, hideSold, main, sort, sub, router.isReady]);
 
-  useEffect(() => {
-    console.log(subSelectMenu);
-  }, [subSelectMenu]);
+  // useEffect(() => {
+  //   console.log(subSelectMenu);
+  // }, [subSelectMenu]);
 
   const onClick = useCallback(
     (queryName: string, value: string) => {
+      let toBeQuery = {};
+      if (queryName === 'gender') {
+        toBeQuery = { gender: value, main: '1' };
+      } else if (queryName === 'main') {
+        if (value === '1')
+          toBeQuery = { gender: router.query.gender, main: value };
+        else toBeQuery = { gender: router.query.gender, main: value, sub: '1' };
+      } else if (queryName === 'sub') {
+        toBeQuery = { sub: value };
+      } else {
+        toBeQuery = { [queryName]: value };
+      }
       router.push(
         {
-          query: { ...router.query, [queryName]: value },
+          query: { ...router.query, ...toBeQuery },
         },
         undefined,
         { shallow: true },

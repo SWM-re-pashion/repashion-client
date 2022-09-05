@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { QueryChange } from '#types/index';
 import { Filter, Search } from '@atoms/icon';
 import Span from '@atoms/Span';
 import SelectBox from '@molecules/SelectBox';
 import FilterModal from 'components/Shop/Organisms/FilterModal';
-import useQueryChange from 'hooks/useQueryChange';
 
 import $ from './style.module.scss';
 
 type Props = {
-  data: string[];
+  data: res.CategoryTreeChildren[];
   selectedMenu: string;
   onClick: QueryChange;
 };
 
-function ShopHeader({ data, selectedMenu, onClick }: Props) {
+function ShopHeader(headerProps: Props) {
+  const { data, selectedMenu, onClick } = headerProps;
   const [filterOpen, setFilterOpen] = useState(false);
 
   const openFilterModal = () => {
@@ -43,6 +43,7 @@ function ShopHeader({ data, selectedMenu, onClick }: Props) {
           height="33px"
           fontWeight={700}
           isGender
+          hasId
         />
         <button
           type="button"
