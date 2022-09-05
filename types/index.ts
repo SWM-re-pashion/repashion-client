@@ -9,6 +9,6 @@ export type ImgProps = {
   height?: number;
 } & ImgBasicProps;
 
-export type DefaultData = { name: string; code: string };
+export type DefaultData = { id?: string; name: string; code: string };
 
 export type QueryChange = (queryName: string, value: string) => void;

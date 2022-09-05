@@ -8,13 +8,13 @@ export default function useWindowResize() {
   useEffect(() => {
     window.addEventListener(
       'resize',
-      throttle(() => detectSize(), 100),
+      throttle(() => detectSize(), 300),
     );
 
     return () =>
       window.removeEventListener(
         'resize',
-        throttle(() => detectSize(), 100),
+        throttle(() => detectSize(), 300),
       );
   }, []);
   return size;

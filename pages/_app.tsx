@@ -43,11 +43,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     if (isMount) setScreenSize();
-  }, [isMount]);
-
-  useEffect(() => {
-    if (isMount) setScreenSize();
-  }, [height]);
+  }, [height, isMount]);
 
   return (
     <QueryClientProvider client={queryClient}>
