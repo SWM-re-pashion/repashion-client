@@ -1,0 +1,30 @@
+.product-item {
+  display: flex;
+  align-items: center;
+  padding: 20px 23px;
+  border-bottom: 1px solid $gray-280;
+  &:last-child {
+    border: none;
+  }
+  .text-box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    .size-like {
+      margin-top: 7px;
+      color: $gray-550;
+      svg {
+        width: 11px;
+        height: 10px;
+        path {
+          stroke: $gray-550;
+        }
+      }
+    }
+    .price {
+      margin-top: 20px;
+      color: $primary;
+      text-align: right;
+    }
+  }
+}
