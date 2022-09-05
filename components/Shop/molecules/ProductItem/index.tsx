@@ -6,7 +6,6 @@ import BasicImg from '@atoms/BasicImg';
 import { SmallHeart } from '@atoms/icon';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
-import { useIntersect } from 'hooks/useIntersect';
 
 import $ from './style.module.scss';
 
@@ -21,12 +20,6 @@ type Props = {
 
 function ProductItem(itemProps: Props) {
   const { id, img, title, size, like, price } = itemProps;
-  const ref = useIntersect(async (entry, observer) => {
-    observer.unobserve(entry.target);
-    // if (hasNextPage && !isFetching) {
-    //   await fetchNextPage();
-    // }
-  });
 
   return (
     <Link href={`/shop/${id}`}>

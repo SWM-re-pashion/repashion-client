@@ -4,7 +4,7 @@ import { memo, useRef, useState } from 'react';
 import { productItemListMocks } from '@mocks/productItemListMocks';
 import classnames from 'classnames';
 import ProductItem from 'components/Shop/molecules/ProductItem';
-import { useIntersect } from 'hooks/useIntersect';
+import { useIntersect } from 'hooks';
 
 import $ from './style.module.scss';
 
