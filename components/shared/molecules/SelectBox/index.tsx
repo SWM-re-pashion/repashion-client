@@ -7,7 +7,7 @@ import classnames from 'classnames';
 
 import $ from './style.module.scss';
 import useSelect from './useSelect';
-import { getLabelName } from './utils';
+import { getLabelNameByProp } from './utils';
 
 type Props<T, U> = {
   options: (string | DefaultData)[];
@@ -22,15 +22,18 @@ type Props<T, U> = {
   isGender?: boolean;
   fontWeight?: number;
   fontSize?: number;
+  hasId?: boolean;
 };
 
 function SelectBox<T, U>(selectProps: Props<T, U>) {
-  const { options, selected, onChange, onQueryChange, isGender } = selectProps;
+  const { options, selected, onChange, onQueryChange, isGender, hasId } =
+    selectProps;
   const { name, width, height, type, subType, fontWeight, fontSize } =
     selectProps;
   const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
-  const labelName = getLabelName(options, selected);
+  const labelProp = hasId ? 'id' : 'code';
+  const labelName = getLabelNameByProp(options, selected, labelProp);
   const isGenderSelected = (optionName: string) =>
     isGender && labelName === optionName;
   const isSelected = (optionName: string) =>
@@ -101,10 +104,11 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
           })}
         >
           {options.map((option) => {
-            const optionName =
-              typeof option === 'object' ? option.name : option;
-            const optionData =
-              typeof option === 'object' ? option.code : option;
+            const isObject = typeof option === 'object';
+            const optionName = isObject ? option.name : option;
+            const optionData = isObject ? option.code : option;
+            const hasIdData = isObject ? option.id : option;
+            const toBeData = hasId ? hasIdData : optionData;
 
             return (
               <li
@@ -119,8 +123,8 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
                   [$['gender-item-clicked']]: isGenderSelected(optionName),
                   [$['gender-hover']]: isGender,
                 })}
-                onClick={(e) => handleSelectItem(e, optionData)}
-                onKeyPress={(e) => handleSelectItem(e, optionData)}
+                onClick={(e) => handleSelectItem(e, toBeData)}
+                onKeyPress={(e) => handleSelectItem(e, toBeData)}
               >
                 <span style={{ fontSize }}>{optionName}</span>
 
