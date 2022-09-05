@@ -1,7 +1,23 @@
-.product-list {
-  @include tablet() {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.product-container {
+  padding-top: 255px;
+  @include mobile() {
+    padding-top: 215px;
   }
-  background-color: $gray-280;
+  .product-list {
+    @include tablet() {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    background-color: $gray-280;
+  }
+  .loading {
+    width: 75px;
+    height: 20px;
+    @include tablet() {
+      width: 150px;
+      height: 40px;
+    }
+    margin: 0 auto;
+    background-color: $white;
+  }
 }

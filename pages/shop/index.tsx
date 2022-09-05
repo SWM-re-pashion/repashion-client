@@ -35,7 +35,14 @@ function Shop() {
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
 
-      <ShopHeader {...{ data, gender, main, sub, sort, hideSold }} />
+      <ShopHeader
+        {...{ data }}
+        gender={gender as string}
+        main={main as string}
+        sub={sub as string}
+        sort={sort as string}
+        hideSold={hideSold as string}
+      />
 
       <ProductItemList />
     </>
@@ -43,11 +50,7 @@ function Shop() {
 }
 
 Shop.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout noPadding headerHeight={235}>
-      {page}
-    </Layout>
-  );
+  return <Layout noPadding>{page}</Layout>;
 };
 
 export default Shop;
