@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 18px 23px;
+  padding: 18px 23px;
   @include typography(14);
   .check-box {
     display: flex;

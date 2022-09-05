@@ -1,8 +1,7 @@
 /* eslint-disable react/no-array-index-key */
-import { memo, useRef, useState } from 'react';
+import { memo, useState } from 'react';
 
 import { productItemListMocks } from '@mocks/productItemListMocks';
-import classnames from 'classnames';
 import ProductItem from 'components/Shop/molecules/ProductItem';
 import { useIntersect } from 'hooks';
 
@@ -11,9 +10,9 @@ import $ from './style.module.scss';
 function ProductItemList() {
   const [itemListMocks, setItemlistMocks] = useState(productItemListMocks);
   const ref = useIntersect((entry, observer) => {
-    // observer.unobserve(entry.target);
-    // setItemlistMocks([...itemListMocks, ...productItemListMocks]);
-    // if (hasNextPage && !isFetching) {
+    observer.unobserve(entry.target);
+    setItemlistMocks([...itemListMocks, ...productItemListMocks]);
+    // if (hasNextPage && !isFetching) { // TODO: api connection
     //   await fetchNextPage();
     // }
   });

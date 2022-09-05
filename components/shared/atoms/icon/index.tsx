@@ -1,4 +1,5 @@
 import { Arrow } from './Arrow';
+import { BasicHeart } from './BasicHeart';
 import { Check } from './Check';
 import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
@@ -44,4 +45,5 @@ export {
   Google,
   Kakao,
   Search,
+  BasicHeart,
 };

@@ -1,10 +1,19 @@
 .product-item {
   display: flex;
   align-items: center;
+  margin-bottom: 1px;
   padding: 20px 23px;
-  border-bottom: 1px solid $gray-280;
-  &:last-child {
-    border: none;
+  background-color: $white;
+  @include laptop() {
+    &:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+    &:nth-last-child(3) {
+      margin-bottom: 0;
+    }
+  }
+  &:nth-last-child(2) {
+    margin-bottom: 0;
   }
   .text-box {
     display: flex;
@@ -13,13 +22,6 @@
     .size-like {
       margin-top: 7px;
       color: $gray-550;
-      svg {
-        width: 11px;
-        height: 10px;
-        path {
-          stroke: $gray-550;
-        }
-      }
     }
     .price {
       margin-top: 20px;
