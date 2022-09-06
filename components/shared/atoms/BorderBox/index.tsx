@@ -3,13 +3,17 @@ import { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';
 
-export default function BorderBox({
-  className,
-  style,
-  children,
-}: DefaultProps) {
+type Props = {
+  borderRadius: string;
+} & DefaultProps;
+
+export default function BorderBox(boxProps: Props) {
+  const { className, style, children, borderRadius } = boxProps;
   return (
-    <div {...{ style }} className={classnames($['border-box'], className)}>
+    <div
+      style={{ ...style, borderRadius }}
+      className={classnames($['border-box'], className)}
+    >
       {children}
     </div>
   );

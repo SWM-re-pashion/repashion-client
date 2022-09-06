@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { memo } from 'react';
 
 import BasicImg from '@atoms/BasicImg';
+import BorderBox from '@atoms/BorderBox';
 import { BasicHeart } from '@atoms/icon';
 import Span from '@atoms/Span';
 
@@ -15,15 +16,24 @@ type Props = {
   size: string;
   like: number;
   price: number;
+  isSoldOut: boolean;
 };
 
 function ProductItem(itemProps: Props) {
-  const { id, img, title, size, like, price } = itemProps;
+  const { id, img, title, size, like, price, isSoldOut } = itemProps;
 
   return (
     <Link href={`/shop/${id}`}>
       <div className={$['product-item']}>
-        <BasicImg width={113} height={113} src={img} alt={title} />
+        <BasicImg width={113} height={113} src={img} alt={title}>
+          {isSoldOut && (
+            <BorderBox borderRadius="5px" className={$['soldout-box']}>
+              <Span fontSize={12} color="#fff">
+                sold out
+              </Span>
+            </BorderBox>
+          )}
+        </BasicImg>
 
         <div className={$['text-box']}>
           <Span>{title}</Span>
