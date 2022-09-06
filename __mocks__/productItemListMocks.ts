@@ -6,6 +6,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: true,
   },
   {
     id: 6,
@@ -46,6 +51,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
   {
     id: 7,
@@ -54,6 +60,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
   {
     id: 8,
@@ -62,6 +69,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: true,
   },
   {
     id: 9,
@@ -70,6 +78,7 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: true,
   },
   {
     id: 10,
@@ -78,5 +87,6 @@ export const productItemListMocks = [
     size: 'XL',
     like: 117,
     price: 20000,
+    isSoldOut: false,
   },
 ];
