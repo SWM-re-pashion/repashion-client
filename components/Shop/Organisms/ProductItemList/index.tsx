@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import { memo, useState } from 'react';
 
+import Loading from '@atoms/Loading';
 import { productItemListMocks } from '@mocks/productItemListMocks';
+import PullToRefresh from '@templates/PullToRefresh';
 import ProductItem from 'components/Shop/molecules/ProductItem';
 import { useIntersect } from 'hooks';
-import Lottie from 'lottie-react';
-import loading from 'public/assets/loading.json';
 
 import $ from './style.module.scss';
 
@@ -21,15 +21,23 @@ function ProductItemList() {
 
   return (
     <section className={$['product-container']}>
-      <Lottie animationData={loading} className={$.loading} />
-      <article className={$['product-list']}>
-        {itemListMocks.map((itemData, idx) => {
-          // TODO: 로딩에 isFetching 조건 추가
-          return <ProductItem key={idx} {...itemData} />; // TODO: key id로 바꾸기
-        })}
-      </article>
-      <div {...{ ref }} />
-      <Lottie animationData={loading} className={$.loading} />
+      <PullToRefresh
+        refreshingContent={<Loading />}
+        onRefresh={() => console.log('refresh')}
+        pullDownThreshold={60}
+        maxPullDownDistance={60}
+      >
+        <>
+          <article className={$['product-list']}>
+            {itemListMocks.map((itemData, idx) => {
+              // TODO: 로딩에 isFetching 조건 추가
+              return <ProductItem key={idx} {...itemData} />; // TODO: key id로 바꾸기
+            })}
+          </article>
+          <div {...{ ref }} />
+          <Loading />
+        </>
+      </PullToRefresh>
     </section>
   );
 }

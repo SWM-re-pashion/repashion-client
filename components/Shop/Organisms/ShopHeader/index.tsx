@@ -21,13 +21,13 @@ type Props = {
   gender: string;
   main: string;
   sub: string;
-  sort: string;
+  order: string;
   hideSold: string;
 };
 
 function ShopHeader(headerProps: Props) {
   const router = useRouter();
-  const { data, gender, main, sub, sort, hideSold } = headerProps;
+  const { data, gender, main, sub, order, hideSold } = headerProps;
 
   const genderSelectMenu = data && categoryIdNameCodeArr(data);
   const genderQuery = (gender as string) || genderSelectMenu[0].id || '0';
@@ -49,7 +49,7 @@ function ShopHeader(headerProps: Props) {
   );
   const subQuery = isIncludeSub ? (sub as string) : subSelectMenu[0].id || '0';
 
-  const sortQuery = (sort as string) || sortData[0].code;
+  const sortQuery = (order as string) || sortData[0].code;
   const soldQuery = (hideSold as string) || 'true';
 
   // useEffect(() => {

@@ -27,7 +27,7 @@ export async function getServerSideProps() {
 
 function Shop() {
   const router = useRouter();
-  const { gender, main, sub, sort, hideSold } = router.query;
+  const { gender, main, sub, order, hideSold } = router.query;
   // const { data } = useCategoryTree();
   const data = useCategoryTree();
 
@@ -40,7 +40,7 @@ function Shop() {
         gender={gender as string}
         main={main as string}
         sub={sub as string}
-        sort={sort as string}
+        order={order as string}
         hideSold={hideSold as string}
       />
 

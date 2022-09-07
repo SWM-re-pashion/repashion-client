@@ -41,7 +41,7 @@ function SortBox({ data, selectedMenu, hideSold, onClick }: Props) {
         {...{ onQueryChange: onClick }}
         options={data}
         selected={selectedMenu}
-        name="sort"
+        name="order"
         width="110px"
         height="24px"
         fontSize={14}
