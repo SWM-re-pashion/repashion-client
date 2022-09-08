@@ -25,7 +25,7 @@ function ProductItemList() {
         refreshingContent={<Loading />}
         onRefresh={() => console.log('refresh')}
         pullDownThreshold={60}
-        maxPullDownDistance={60}
+        maxPullDownDistance={90}
       >
         <>
           <article className={$['product-list']}>

@@ -29,18 +29,16 @@ function PullToRefresh(refreshProps: Props) {
   const isDragging = useRef(false);
   const startY = useRef(0);
   const currentY = useRef(0);
-  // const isCanFetchMore = false; // true이면 fetchMore 로더가 표시됩니다.
 
   const initContainer = (): void => {
     requestAnimationFrame(() => {
-      if (childrenRef.current && containerRef.current) {
+      if (childrenRef.current && childrenRef.current) {
         childrenRef.current.style.overflowX = 'hidden';
         childrenRef.current.style.overflowY = 'auto';
-        containerRef.current.style.transform = 'none';
+        childrenRef.current.style.transform = 'translate(0px, 0px)';
       }
       if (pullDownRef.current) {
         pullDownRef.current.style.opacity = '0';
-        pullDownRef.current.style.display = 'none';
       }
 
       if (isCanRelease.current) isCanRelease.current = false;
@@ -108,10 +106,9 @@ function PullToRefresh(refreshProps: Props) {
       if (yDistanceMoved >= maxPullDownDistance) {
         return;
       }
-      if (pullDownRef.current && containerRef.current) {
+      if (pullDownRef.current && childrenRef.current) {
         pullDownRef.current.style.opacity = (yDistanceMoved / 65).toString();
-        containerRef.current.style.transform = `translate(0px, ${yDistanceMoved}px)`;
-        pullDownRef.current.style.display = 'block';
+        childrenRef.current.style.transform = `translate(0px, ${yDistanceMoved}px)`;
       }
     },
     [maxPullDownDistance, pullDownThreshold],
@@ -137,12 +134,12 @@ function PullToRefresh(refreshProps: Props) {
       return;
     }
 
-    if (containerRef.current) {
-      containerRef.current.style.transform = 'translate(0px, 0px)';
+    if (childrenRef.current) {
+      childrenRef.current.style.transform = `translate(0px, ${pullDownThreshold}px)`;
     }
 
     // onRefresh().then(initContainer).catch(initContainer);
-    navigator.vibrate(200);
+    if (navigator.vibrate) navigator.vibrate(200);
     onRefresh();
     setTimeout(() => {
       initContainer();
@@ -178,19 +175,29 @@ function PullToRefresh(refreshProps: Props) {
       className={className}
       style={{
         backgroundColor,
-        transition: 'transform 0.2s cubic-bezier(0, 0, 0.31, 1)',
+        position: 'relative',
       }}
       ref={containerRef}
     >
       <div
         ref={pullDownRef}
         style={{
-          display: 'none',
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
         }}
       >
         {refreshingContent}
       </div>
-      <div ref={childrenRef}>{children}</div>
+      <div
+        ref={childrenRef}
+        style={{
+          position: 'absolute',
+          transition: 'transform 0.2s cubic-bezier(0, 0, 0.31, 1)',
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

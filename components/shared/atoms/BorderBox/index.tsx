@@ -4,7 +4,7 @@ import { DefaultProps } from 'types/props';
 import $ from './style.module.scss';
 
 type Props = {
-  borderRadius: string;
+  borderRadius?: string;
 } & DefaultProps;
 
 export default function BorderBox(boxProps: Props) {

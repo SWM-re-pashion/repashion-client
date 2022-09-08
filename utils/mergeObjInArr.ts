@@ -1,12 +1,8 @@
-type Info = {
-  [key: string]: Array<Info> | string;
-};
-
-export const mergeObjInArr = <K extends keyof Info>(
-  arr1: Array<Info> | undefined,
-  arr2: Array<Info> | undefined,
-  comparekey: K,
-  keyToMerge: K,
+export const mergeObjInArr = <T>(
+  arr1: Array<T>,
+  arr2: Array<T>,
+  comparekey: keyof T,
+  keyToMerge: keyof T,
 ) => {
   const map = new Map();
   if (arr1) arr1.forEach((item) => map.set(item[comparekey], item));
