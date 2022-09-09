@@ -1,5 +1,7 @@
 import { deepClone, mergeObjInArr } from 'utils';
 
+import { zeroPad } from '../../../../utils/zeroPad';
+
 export const findCodeByProp = (
   category: res.CategoryTree['data']['children'],
   value: string,
@@ -12,10 +14,11 @@ export const findChildrenByProp = (
   prop: keyof res.CategoryTreeChildren,
 ) => category.find((children) => children[prop] === value)?.children || [];
 
-export const findKorValue = (
+export const findNameByProp = (
   category: res.CategoryTree['data']['children'] | undefined,
-  code: string,
-) => category?.find((children) => children.code === code)?.name || '';
+  value: string,
+  prop: keyof res.CategoryTreeChildren,
+) => category?.find((children) => children[prop] === value)?.name || '';
 
 export const filteredCategory = (
   code: string,
@@ -41,5 +44,16 @@ export const categoryIdNameCodeArr = (category: res.CategoryTreeChildren) => {
     name,
     code,
   }));
-  return result?.length ? result : [{ id: '-1', name: '', code: '' }];
+  return result?.length ? result : [];
 };
+
+export const childrenIdGenerated = (
+  parentId: string,
+  categoryChildren: res.CategoryTreeChildren[],
+) =>
+  categoryChildren.map(({ id, name, code, children }) => ({
+    id: id ? parentId + zeroPad(id) : '-1',
+    name,
+    code,
+    children,
+  }));

@@ -3,7 +3,7 @@ export const mergeObjInArr = <T>(
   arr2: Array<T>,
   comparekey: keyof T,
   keyToMerge: keyof T,
-) => {
+): Array<T> => {
   const map = new Map();
   if (arr1) arr1.forEach((item) => map.set(item[comparekey], item));
   if (arr2) {
