@@ -11,36 +11,30 @@ type Props = {
   data: DefaultData[];
   selectedMenu: string;
   onClick: QueryChange;
-  isMain: boolean;
+  isSeletedSub: boolean;
 };
 
-function CategoryBox({ data, selectedMenu, isMain, onClick }: Props) {
+function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
   const btnBoxRef = useRef<HTMLDivElement>(null);
-  const queryName = isMain ? 'main' : 'sub';
   useDragScroll(btnBoxRef);
 
   return (
     <section
       ref={btnBoxRef}
-      className={classnames(
-        { [$['main-box']]: isMain },
-        { [$['sub-box']]: !isMain },
-      )}
+      className={classnames([$['main-box']], { [$['sub-box']]: isSeletedSub })}
     >
       {data.map(({ id, name }) => {
         const isSelected = selectedMenu === id;
-        const isMainSelected = isSelected && isMain;
-        const isSubSelected = isSelected && !isMain;
-        const subSelectedColor = isSubSelected ? '#936DFF' : '#000';
 
         return (
           <Button
-            {...{ onQueryClick: onClick, queryName }}
+            {...{ onQueryClick: onClick }}
+            queryName="category"
             key={name}
             label={`${name} 선택 버튼`}
             queryCode={id}
-            background={isMainSelected ? '#936DFF' : 'transparent'}
-            color={isMainSelected ? '#fff' : subSelectedColor}
+            background={isSelected ? '#936DFF' : 'transparent'}
+            color={isSelected ? '#fff' : '#000'}
             borderRadius="8px"
             className={$.btn}
           >

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { QueryChange } from '#types/index';
+import BackBtn from '@atoms/BackBtn';
 import { Filter, Search } from '@atoms/icon';
 import Span from '@atoms/Span';
 import SelectBox from '@molecules/SelectBox';
@@ -11,11 +12,13 @@ import $ from './style.module.scss';
 type Props = {
   data: res.CategoryTreeChildren[];
   selectedMenu: string;
+  isSeletedSub: boolean;
+  breadCrumb: string;
   onClick: QueryChange;
 };
 
 function HeaderTool(headerProps: Props) {
-  const { data, selectedMenu, onClick } = headerProps;
+  const { data, selectedMenu, onClick, isSeletedSub, breadCrumb } = headerProps;
   const [filterOpen, setFilterOpen] = useState(false);
 
   const openFilterModal = () => {
@@ -25,27 +28,30 @@ function HeaderTool(headerProps: Props) {
 
   return (
     <section className={$['tool-container']}>
+      {isSeletedSub && <BackBtn color="#000" className={$['back-btn']} />}
       <Span
         fontSize={20}
         fontWeight={700}
         isStrongFontFamily
         className={$.logo}
       >
-        re:Fashion
+        {!isSeletedSub ? 're:Fashion' : breadCrumb}
       </Span>
 
       <section className={$['header-tool']}>
-        <SelectBox
-          {...{ onQueryChange: onClick }}
-          options={data}
-          selected={selectedMenu}
-          name="gender"
-          width="100px"
-          height="33px"
-          fontWeight={700}
-          isGender
-          hasId
-        />
+        {!isSeletedSub && (
+          <SelectBox
+            {...{ onQueryChange: onClick }}
+            options={data}
+            selected={selectedMenu}
+            name="category"
+            width="100px"
+            height="33px"
+            fontWeight={700}
+            isGender
+            hasId
+          />
+        )}
 
         <button
           type="button"

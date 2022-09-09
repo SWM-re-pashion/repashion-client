@@ -1,82 +1,41 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { useRouter } from 'next/router';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
-import { sortData } from '@constants/index';
-import { useMainCategoryTree, useSubCategory } from 'api/getCategoryData';
+import { orderData } from '@constants/category';
 import CategoryBox from 'components/Shop/molecules/CategoryBox';
 import HeaderTool from 'components/Shop/molecules/HeaderTool';
 import SortBox from 'components/Shop/molecules/SortBox';
-import {
-  categoryIdNameCodeArr,
-  curCategoryChildrenByProp,
-  findCodeByProp,
-} from 'components/Upload/organisms/Dialog/utils';
 
 import $ from './style.module.scss';
 
 type Props = {
-  data: res.CategoryTree['data'];
-  gender: string;
-  main: string;
-  sub: string;
-  order: string;
-  hideSold: string;
+  genderQuery: string;
+  mainQuery: string;
+  subQuery: string;
+  orderQuery: string;
+  hideSoldQuery: string;
+  genderSelectMenu: res.CategoryTreeChildren[];
+  mainSelectMenu: res.CategoryTreeChildren[];
+  subSelectMenu: res.CategoryTreeChildren[];
+  breadCrumb: string;
 };
 
 function ShopHeader(headerProps: Props) {
   const router = useRouter();
-  const { data, gender, main, sub, order, hideSold } = headerProps;
-
-  const genderSelectMenu = data && categoryIdNameCodeArr(data);
-  const genderQuery = (gender as string) || genderSelectMenu[0].id || '0';
-  const genderName = findCodeByProp(genderSelectMenu, genderQuery, 'id');
-
-  const mainCategory = useMainCategoryTree(genderName); // TODO: 2번 렌더링됨
-  const mainSelectMenu = categoryIdNameCodeArr(mainCategory);
-  const isIncludeMain = curCategoryChildrenByProp(mainCategory, 'id').includes(
-    main as string,
-  );
-  const mainQuery = isIncludeMain
-    ? (main as string)
-    : mainSelectMenu[0].id || '0';
-
-  const subCategory = useSubCategory(genderName, mainQuery, 'id');
-  const subSelectMenu = categoryIdNameCodeArr(subCategory);
-  const isIncludeSub = curCategoryChildrenByProp(subCategory, 'id').includes(
-    sub as string,
-  );
-  const subQuery = isIncludeSub ? (sub as string) : subSelectMenu[0].id || '0';
-
-  const sortQuery = (order as string) || sortData[0].code;
-  const soldQuery = (hideSold as string) || 'true';
-
-  // useEffect(() => {
-  //   if (router.isReady) console.log(gender, main, sub, sort, hideSold);
-  // }, [gender, hideSold, main, sort, sub, router.isReady]);
-
-  // useEffect(() => {
-  //   console.log(subSelectMenu);
-  // }, [subSelectMenu]);
+  const { orderQuery, hideSoldQuery } = headerProps;
+  const { genderSelectMenu, mainSelectMenu, subSelectMenu } = headerProps;
+  const { genderQuery, mainQuery, subQuery, breadCrumb } = headerProps;
+  const isSeletedSub = subQuery !== '-1';
+  const categoryData = isSeletedSub ? subSelectMenu : mainSelectMenu;
+  const selectedMenu = isSeletedSub ? subQuery : mainQuery;
 
   const onClick = useCallback(
     (queryName: string, value: string) => {
-      let toBeQuery = {};
-      if (queryName === 'gender') {
-        toBeQuery = { gender: value, main: '1' };
-      } else if (queryName === 'main') {
-        if (value === '1')
-          toBeQuery = { gender: router.query.gender, main: value };
-        else toBeQuery = { gender: router.query.gender, main: value, sub: '1' };
-      } else if (queryName === 'sub') {
-        toBeQuery = { sub: value };
-      } else {
-        toBeQuery = { [queryName]: value };
-      }
       router.push(
         {
-          query: { ...router.query, ...toBeQuery },
+          query: { ...router.query, [queryName]: value },
         },
         undefined,
         { shallow: true },
@@ -88,27 +47,19 @@ function ShopHeader(headerProps: Props) {
   return (
     <header className={$.header}>
       <HeaderTool
-        {...{ onClick }}
+        {...{ onClick, breadCrumb, isSeletedSub }}
         data={genderSelectMenu}
         selectedMenu={genderQuery}
       />
       <CategoryBox
-        {...{ onClick }}
-        data={mainSelectMenu}
-        selectedMenu={mainQuery}
-        isMain
-      />
-      <CategoryBox
-        {...{ onClick }}
-        data={subSelectMenu}
-        selectedMenu={subQuery}
-        isMain={false}
+        {...{ onClick, isSeletedSub, selectedMenu }}
+        data={categoryData}
       />
       <SortBox
         {...{ onClick }}
-        data={sortData}
-        hideSold={soldQuery}
-        selectedMenu={sortQuery}
+        data={orderData}
+        hideSold={hideSoldQuery}
+        selectedMenu={orderQuery}
       />
     </header>
   );

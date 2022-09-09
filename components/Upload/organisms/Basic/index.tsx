@@ -9,7 +9,7 @@ import { useMainCategoryTree, useSubCategory } from 'api/getCategoryData';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import Dialog from '../Dialog';
-import { findKorValue } from '../Dialog/utils';
+import { findNameByProp } from '../Dialog/utils';
 import $ from './style.module.scss';
 
 type Props = {
@@ -22,15 +22,16 @@ type Props = {
 };
 
 function Basic(basicProps: Props) {
+  // TODO: id로 카테고리 리팩토링
   const { dialogOpen, openDialog, onChange, closeDialog } = basicProps;
   const { state, categoryData: genderCategory } = basicProps;
   const [gender, main, sub] = state.category;
   const mainCategory = useMainCategoryTree(gender); // TODO: 2번 렌더링
-  const subCategory = useSubCategory(gender, main, 'code');
+  const subCategory = useSubCategory(main, 'code');
 
-  const korGender = findKorValue(genderCategory?.children, gender);
-  const korMain = findKorValue(mainCategory?.children, main);
-  const korSub = findKorValue(subCategory?.children, sub);
+  const korGender = findNameByProp(genderCategory?.children, gender, 'code');
+  const korMain = findNameByProp(mainCategory?.children, main, 'code');
+  const korSub = findNameByProp(subCategory?.children, sub, 'code');
 
   const categoryBtnText =
     gender && main && sub

@@ -47,16 +47,10 @@ export const categoryData: res.CategoryTree['data'] = {
       code: 'common',
       children: [
         {
-          id: '1',
-          name: '추천',
-          code: 'recommend',
-        },
-        {
           id: '2',
           name: '상의',
           code: 'top',
           children: [
-            { id: '1', name: '전체', code: 'all' },
             { id: '2', name: '탑', code: 'top' },
             { id: '3', name: '반팔', code: 'short' },
             { id: '4', name: '긴팔', code: 'long' },
@@ -70,7 +64,6 @@ export const categoryData: res.CategoryTree['data'] = {
           name: '하의',
           code: 'bottom',
           children: [
-            { id: '1', name: '전체', code: 'all' },
             { id: '2', name: '청바지', code: 'jeans' },
             { id: '3', name: '팬츠', code: 'pants' },
             { id: '4', name: '조거팬츠', code: 'jogger' },
@@ -81,7 +74,6 @@ export const categoryData: res.CategoryTree['data'] = {
           name: '아우터',
           code: 'outer',
           children: [
-            { id: '1', name: '전체', code: 'all' },
             { id: '2', name: '코트', code: 'coat' },
             { id: '3', name: '재킷', code: 'jacket' },
             { id: '4', name: '점퍼', code: 'jumper' },
