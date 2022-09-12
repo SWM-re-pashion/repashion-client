@@ -193,6 +193,7 @@ function PullToRefresh(refreshProps: Props) {
         ref={childrenRef}
         style={{
           position: 'absolute',
+          width: '100%',
           transition: 'transform 0.2s cubic-bezier(0, 0, 0.31, 1)',
         }}
       >

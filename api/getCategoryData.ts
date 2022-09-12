@@ -1,10 +1,15 @@
 import { useQuery } from 'react-query';
 
+import { allCategory, recommendCategory } from '@constants/category';
+import { categoryData } from '@mocks/categoryData';
 import { Axios } from 'lib/axios';
 
 import {
+  childrenIdGenerated,
   filteredCategory,
-  findChildren,
+  findChildrenByProp,
+  findCodeByProp,
+  findNameByProp,
 } from '../components/Upload/organisms/Dialog/utils';
 
 export const getCategoryData = async (): Promise<res.CategoryTree> => {
@@ -14,27 +19,58 @@ export const getCategoryData = async (): Promise<res.CategoryTree> => {
 
 export const useCategoryTree = () => {
   const response = useQuery('category', () => getCategoryData());
-  return response;
+  // return response;
+  return categoryData;
 };
 
-export const useMainCategoryTree = (gender: string) => {
-  const categoryTree = useCategoryTree()?.data?.data;
+export const useMainCategoryTree = (parentId: string) => {
+  // const categoryTree = useCategoryTree()?.data?.data;
+  const categoryTree = useCategoryTree();
   const mainCategoryProps = { name: '메인 카테고리', code: 'mainCategory' };
-  if (categoryTree)
+  const breadCandidate = findNameByProp(categoryTree.children, parentId, 'id');
+  const genderName = findCodeByProp(categoryTree.children, parentId, 'id');
+  const childrenCandidate = filteredCategory(genderName, categoryTree);
+  const children = [recommendCategory, allCategory, ...childrenCandidate];
+  const generatedIdChildren = childrenIdGenerated(parentId, children);
+
+  if (categoryTree) {
     return {
       ...mainCategoryProps,
-      children: filteredCategory(gender, categoryTree),
+      breadCrumb: `${breadCandidate} > `,
+      parentId,
+      children: generatedIdChildren,
     };
-  return { ...mainCategoryProps, children: [] };
+  }
+  return { ...mainCategoryProps, breadCrumb: '>', parentId, children: [] };
 };
 
-export const useSubCategory = (gender: string, mainCategory: string) => {
-  const mainCategoryTree = useMainCategoryTree(gender).children;
+export const useSubCategory = (
+  parentId: string,
+  prop: keyof res.CategoryTreeChildren,
+) => {
+  const genderId = parentId[0];
+  const slicedId = parentId.slice(1, 4);
+  const { children, breadCrumb } = useMainCategoryTree(genderId);
   const subCategoryProps = { name: '서브 카테고리', code: 'subCategory' };
-  if (mainCategoryTree.length)
+  const isAllOrRecommend = slicedId === '000' || slicedId === '999';
+  const breadCandidate = breadCrumb + findNameByProp(children, parentId, 'id');
+  const childrenFilteredByProp = findChildrenByProp(children, parentId, prop);
+  const childrenCandidate = !isAllOrRecommend
+    ? [allCategory, ...childrenFilteredByProp]
+    : childrenFilteredByProp;
+  const generatedIdChildren = childrenIdGenerated(parentId, childrenCandidate);
+
+  if (children.length)
     return {
       ...subCategoryProps,
-      children: findChildren(mainCategoryTree, mainCategory),
+      breadCrumb: breadCandidate,
+      parentId,
+      children: generatedIdChildren,
     };
-  return { ...subCategoryProps, children: [] };
+  return {
+    ...subCategoryProps,
+    breadCrumb: '>',
+    parentId,
+    children: [],
+  };
 };

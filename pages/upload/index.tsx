@@ -40,8 +40,9 @@ export async function getStaticProps() {
 
 function Upload() {
   const router = useRouter();
-  const { data: categoriesData } = useCategoryTree();
-  const categoryData = categoriesData?.data;
+  // const { data: categoriesData } = useCategoryTree();
+  // const categoryData = categoriesData?.data;
+  const categoryData = useCategoryTree();
   const states = useUploadStore((state) => state);
   const categories = states.basicInfo.category;
   const [_, mainCategoryState] = categories;
