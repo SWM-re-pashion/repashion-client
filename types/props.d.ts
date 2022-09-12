@@ -8,3 +8,10 @@ export type StyleProps = {
 export type DefaultProps = {
   children?: React.ReactNode;
 } & StyleProps;
+
+export type IconProps = {
+  size: number;
+  stroke?: string;
+  style?: React.CSSProperties;
+  className?: string;
+};

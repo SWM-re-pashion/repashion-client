@@ -115,7 +115,12 @@ body,
   position: relative;
   min-height: 100vh;
   min-height: calc(var(--vh, 1vh) * 100);
-  margin: auto;
+}
+
+#__next {
+  overflow-y: auto;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: $white;
 }
 
 body {
@@ -187,4 +192,7 @@ button {
 
 img {
   user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }

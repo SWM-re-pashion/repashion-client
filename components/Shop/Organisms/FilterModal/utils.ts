@@ -62,3 +62,16 @@ export const filterData = (category: string): btnBox[] => {
       throw Error;
   }
 };
+
+export const getCategoryName = (id: string) => {
+  switch (id) {
+    case '2':
+      return 'top';
+    case '3':
+      return 'bottom';
+    case '4':
+      return 'outer';
+    default:
+      throw Error;
+  }
+};

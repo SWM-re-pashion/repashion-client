@@ -1,29 +1,43 @@
 import { memo, useRef } from 'react';
 
-import { DefaultData } from '#types/index';
-import { SelectArrow } from '@atoms/icon';
+import { DefaultData, QueryChange } from '#types/index';
+import { Check, SelectArrow } from '@atoms/icon';
+import Span from '@atoms/Span';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 import useSelect from './useSelect';
-import { getLabelName } from './utils';
+import { getLabelNameByProp } from './utils';
 
 type Props<T, U> = {
   options: (string | DefaultData)[];
   selected: string | number;
-  onChange: (value: string, type: T, subType: U) => void;
+  onChange?: (value: string, type: T, subType: U) => void;
+  onQueryChange?: QueryChange;
   name: string;
   type?: T;
   subType?: U;
   width?: string;
+  height?: string;
+  isGender?: boolean;
+  fontWeight?: number;
+  fontSize?: number;
+  hasId?: boolean;
 };
 
 function SelectBox<T, U>(selectProps: Props<T, U>) {
-  const { options, selected, onChange } = selectProps;
-  const { name, width, type, subType } = selectProps;
+  const { options, selected, onChange, onQueryChange, isGender, hasId } =
+    selectProps;
+  const { name, width, height, type, subType, fontWeight, fontSize } =
+    selectProps;
   const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
-  const labelName = getLabelName(options, selected);
+  const labelProp = hasId ? 'id' : 'code';
+  const labelName = getLabelNameByProp(options, selected, labelProp);
+  const isGenderSelected = (optionName: string) =>
+    isGender && labelName === optionName;
+  const isSelected = (optionName: string) =>
+    !isGender && labelName === optionName;
 
   const handleMouseDown = (
     e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
@@ -37,10 +51,11 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     option?: string,
   ) => {
     if (type && subType) {
-      if (option) {
+      if (option && onChange) {
         onChange(option, type, subType);
       }
     }
+    if (option && onQueryChange) onQueryChange(name, option);
     setIsClicked(false);
   };
 
@@ -48,8 +63,9 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     <div
       className={classnames($['select-box'], {
         [$['select-box-clicked']]: isClicked,
+        [$['gender-box']]: isGender,
       })}
-      style={{ ...{ width } }}
+      style={{ ...{ width, height } }}
     >
       <button
         id={`${name}-select-box`}
@@ -60,7 +76,15 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
         aria-controls={`${name}-select-list`}
         onClick={handleMouseDown}
       >
-        {labelName || '선택'}
+        <Span
+          fontSize={fontSize || 16}
+          fontWeight={fontWeight || 400}
+          className={classnames({
+            [$['gender-text']]: isGender,
+          })}
+        >
+          {labelName || '선택'}
+        </Span>
         <SelectArrow
           className={classnames($.arrow, {
             [$['arrow-clicked']]: isClicked,
@@ -74,28 +98,39 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
           aria-labelledby={`${name}-select-box`}
           role="menu"
           tabIndex={0}
+          style={{ top: height ? `calc(${height} + 6px)` : '56px' }}
           className={classnames($['select-wrapper'], {
             [$['select-wrapper-clicked']]: isClicked,
           })}
         >
           {options.map((option) => {
-            const optionName =
-              typeof option === 'object' ? option.name : option;
-            const optionData =
-              typeof option === 'object' ? option.code : option;
+            const isObject = typeof option === 'object';
+            const optionName = isObject ? option.name : option;
+            const optionData = isObject ? option.code : option;
+            const hasIdData = isObject ? option.id : option;
+            const toBeData = hasId ? hasIdData : optionData;
 
             return (
               <li
                 tabIndex={0}
                 role="menuitem"
                 key={optionName}
+                style={{ ...{ height } }}
                 className={classnames($['select-item'], {
-                  [$['select-item-clicked']]: labelName === optionName,
+                  [$['select-item-gender']]: isGender,
+                  [$['select-item-clicked']]: isSelected(optionName),
+                  [$['select-hover']]: !isGender,
+                  [$['gender-item-clicked']]: isGenderSelected(optionName),
+                  [$['gender-hover']]: isGender,
                 })}
-                onClick={(e) => handleSelectItem(e, optionData)}
-                onKeyPress={(e) => handleSelectItem(e, optionData)}
+                onClick={(e) => handleSelectItem(e, toBeData)}
+                onKeyPress={(e) => handleSelectItem(e, toBeData)}
               >
-                {optionName}
+                <span style={{ fontSize }}>{optionName}</span>
+
+                {isGenderSelected(optionName) && (
+                  <Check className={$['check-icon']} />
+                )}
               </li>
             );
           })}

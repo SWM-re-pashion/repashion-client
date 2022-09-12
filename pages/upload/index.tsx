@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
@@ -8,6 +9,7 @@ import HeadMeta from '@atoms/HeadMeta';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
+import { getCategoryData, useCategoryTree } from 'api/getCategoryData';
 import { useProductUpload } from 'api/upload';
 import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
 import Basic from 'components/Upload/organisms/Basic';
@@ -25,8 +27,22 @@ import { additionData, styleData } from '../../constants/upload/constants';
 import { reviewData, sizeData } from '../../constants/upload/utils';
 import $ from './style.module.scss';
 
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('category', () => getCategoryData());
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
+
 function Upload() {
   const router = useRouter();
+  // const { data: categoriesData } = useCategoryTree();
+  // const categoryData = categoriesData?.data;
+  const categoryData = useCategoryTree();
   const states = useUploadStore((state) => state);
   const categories = states.basicInfo.category;
   const [_, mainCategoryState] = categories;
@@ -107,7 +123,7 @@ function Upload() {
         <Basic
           state={states.basicInfo}
           onChange={updateUpload}
-          {...{ dialogOpen, openDialog, closeDialog }}
+          {...{ dialogOpen, openDialog, closeDialog, categoryData }}
         />
         <InfoBtnBox
           {...size}

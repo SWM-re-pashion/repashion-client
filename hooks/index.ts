@@ -1,6 +1,7 @@
 import useDebounceInput from './useDebounceInput';
 import useDidMountEffect from './useDidMountEffect';
 import useDragScroll from './useDragScroll';
+import useIntersect from './useIntersect';
 import useMounted from './useMounted';
 import useThrottleInput from './useThrottleInput';
 import useTimeForToday from './useTimeForToday';
@@ -14,4 +15,5 @@ export {
   useThrottleInput,
   useTimeForToday,
   useWindowResize,
+  useIntersect,
 };

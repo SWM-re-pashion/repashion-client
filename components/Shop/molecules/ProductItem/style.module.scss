@@ -1,0 +1,45 @@
+.product-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1px;
+  padding: 20px 23px;
+  background-color: $white;
+  cursor: pointer;
+  @include laptop() {
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .soldout-box {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .text-box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    .size-like {
+      margin-top: 7px;
+      color: $gray-550;
+    }
+    .price {
+      margin-top: 20px;
+      color: $primary;
+      text-align: right;
+    }
+  }
+}

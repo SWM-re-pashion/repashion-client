@@ -1,3 +1,9 @@
+@mixin minMobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+
 @mixin mobile {
   @media (max-width: #{$tablet - 1px}) {
     @content;
@@ -89,10 +95,10 @@
   }
 }
 
-@mixin input-border($color) {
+@mixin input-border($border, $color) {
   box-sizing: border-box;
   border: 1px solid $color;
-  border-radius: 5px;
+  border-radius: $border;
 }
 
 @mixin halfWidth() {

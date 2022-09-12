@@ -11,6 +11,7 @@ import {
   productNoticeUtil,
 } from './product';
 import { updateInfo } from './updateInfo';
+import { zeroPad } from './zeroPad';
 
 export {
   updateInfo,
@@ -24,4 +25,5 @@ export {
   arrToString,
   getJudgeCategory,
   getMeasureElement,
+  zeroPad,
 };

@@ -1,9 +1,9 @@
-export const mergeObjInArr = <T, K extends keyof T>(
-  arr1: Array<T> | undefined,
-  arr2: Array<T> | undefined,
-  comparekey: K,
-  keyToMerge: K,
-) => {
+export const mergeObjInArr = <T>(
+  arr1: Array<T>,
+  arr2: Array<T>,
+  comparekey: keyof T,
+  keyToMerge: keyof T,
+): Array<T> => {
   const map = new Map();
   if (arr1) arr1.forEach((item) => map.set(item[comparekey], item));
   if (arr2) {
@@ -17,7 +17,7 @@ export const mergeObjInArr = <T, K extends keyof T>(
       ) {
         map.set(item[comparekey], {
           ...getItem,
-          [keyToMerge]: [...getItem[keyToMerge], ...item[keyToMerge]],
+          [keyToMerge]: getItem[keyToMerge].concat(item[keyToMerge]),
         });
       } else {
         map.set(item[comparekey], item);

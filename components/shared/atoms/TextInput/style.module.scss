@@ -6,7 +6,7 @@
   gap: 10px;
   padding: 0 16px;
   background: $white;
-  @include input-border($gray-280);
+  @include input-border(5px, $gray-280);
   .label {
     @include typography(16);
     color: $black-200;

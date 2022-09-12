@@ -14,7 +14,7 @@ import { filterPrice } from 'utils';
 import PriceInput from '../PriceInput';
 import { max, priceProps } from './constants';
 import $ from './style.module.scss';
-import { filterData } from './utils';
+import { filterData, getCategoryName } from './utils';
 
 type Props = {
   isOpen: boolean;
@@ -23,7 +23,7 @@ type Props = {
 
 function FilterModal() {
   const { query } = useRouter();
-  const category = (query.category as string) || 'all';
+  const category = getCategoryName((query.main as string) || '2'); // TODO: category파싱
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
 
   const states = useFilterStore((state) => state);
