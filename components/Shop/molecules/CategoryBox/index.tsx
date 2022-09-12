@@ -1,9 +1,9 @@
-import { memo, useRef } from 'react';
+import { memo, useRef, useState } from 'react';
 
 import { DefaultData, QueryChange } from '#types/index';
 import Button from '@atoms/Button';
+import { SelectArrow } from '@atoms/icon';
 import classnames from 'classnames';
-import { useDragScroll } from 'hooks';
 
 import $ from './style.module.scss';
 
@@ -15,14 +15,30 @@ type Props = {
 };
 
 function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
+  const [isClicked, setClicked] = useState(false);
   const btnBoxRef = useRef<HTMLDivElement>(null);
-  useDragScroll(btnBoxRef);
+
+  const handleClick = () => setClicked((clicked) => !clicked);
 
   return (
     <section
       ref={btnBoxRef}
-      className={classnames([$['main-box']], { [$['sub-box']]: isSeletedSub })}
+      className={classnames(
+        [$['main-box']],
+        { [$['sub-box']]: isSeletedSub },
+        { [$['box-clicked']]: isClicked },
+      )}
     >
+      <Button
+        iconBtn
+        className={classnames($.arrow, {
+          [$['arrow-clicked']]: isClicked,
+        })}
+        onClick={handleClick}
+      >
+        <SelectArrow />
+      </Button>
+
       {data.map(({ id, name }) => {
         const isSelected = selectedMenu === id;
 
