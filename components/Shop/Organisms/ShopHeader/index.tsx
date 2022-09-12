@@ -1,7 +1,6 @@
-/* eslint-disable no-unsafe-optional-chaining */
 import { useRouter } from 'next/router';
 
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { orderData } from '@constants/category';
 import CategoryBox from 'components/Shop/molecules/CategoryBox';
@@ -65,4 +64,4 @@ function ShopHeader(headerProps: Props) {
   );
 }
 
-export default ShopHeader;
+export default memo(ShopHeader);
