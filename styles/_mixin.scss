@@ -166,3 +166,54 @@
   -moz-animation: loading 1.8s infinite ease-in-out;
   animation: loading 1.8s infinite ease-in-out;
 }
+
+@mixin FadeDown() {
+  @keyframes FadeDown {
+    from {
+      transform: translateY(130%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-webkit-keyframes FadeDown {
+    from {
+      transform: translateY(130%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @-moz-keyframes FadeDown {
+    from {
+      transform: translateY(130%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  animation: FadeDown 0.4s ease-out;
+}
+
+@mixin FadeUp() {
+  @keyframes FadeUp {
+    to {
+      transform: translateY(130%);
+    }
+  }
+
+  @-webkit-keyframes FadeUp {
+    to {
+      transform: translateY(130%);
+    }
+  }
+
+  @-moz-keyframes FadeUp {
+    to {
+      transform: translateY(130%);
+    }
+  }
+  animation: FadeUp 0.4s ease-out;
+}

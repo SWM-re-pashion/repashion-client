@@ -1,4 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
 import { useRouter } from 'next/router';
 
 import { ReactElement, useEffect } from 'react';
@@ -7,6 +6,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import HeadMeta from '@atoms/HeadMeta';
 import { orderData } from '@constants/category';
 import { seoData } from '@constants/seo';
+import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
 import {
   getCategoryData,
@@ -84,6 +84,8 @@ function Shop() {
       />
 
       <ProductItemList />
+
+      <Footer />
     </>
   );
 }
