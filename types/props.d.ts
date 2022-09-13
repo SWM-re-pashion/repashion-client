@@ -10,8 +10,9 @@ export type DefaultProps = {
 } & StyleProps;
 
 export type IconProps = {
-  size: number;
+  size?: number;
   stroke?: string;
+  fill?: string;
   style?: React.CSSProperties;
   className?: string;
 };
