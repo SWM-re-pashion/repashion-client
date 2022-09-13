@@ -170,7 +170,7 @@
 @mixin FadeDown() {
   @keyframes FadeDown {
     from {
-      transform: translateY(100%);
+      transform: translateY(130%);
     }
     to {
       transform: translateY(0%);
@@ -179,7 +179,7 @@
 
   @-webkit-keyframes FadeDown {
     from {
-      transform: translateY(100%);
+      transform: translateY(130%);
     }
     to {
       transform: translateY(0%);
@@ -188,7 +188,7 @@
 
   @-moz-keyframes FadeDown {
     from {
-      transform: translateY(100%);
+      transform: translateY(130%);
     }
     to {
       transform: translateY(0%);
@@ -200,19 +200,19 @@
 @mixin FadeUp() {
   @keyframes FadeUp {
     to {
-      transform: translateY(100%);
+      transform: translateY(130%);
     }
   }
 
   @-webkit-keyframes FadeUp {
     to {
-      transform: translateY(100%);
+      transform: translateY(130%);
     }
   }
 
   @-moz-keyframes FadeUp {
     to {
-      transform: translateY(100%);
+      transform: translateY(130%);
     }
   }
   animation: FadeUp 0.4s ease-out;
