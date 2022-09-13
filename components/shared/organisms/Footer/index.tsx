@@ -1,14 +1,23 @@
 import { useRouter } from 'next/router';
 
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import { Chat, Shop, MyPage, Plus, SearchBlack } from '@atoms/icon';
 import NavigationLink from '@molecules/NavigationLink';
+import classnames from 'classnames';
+import { useScrollDetect } from 'hooks';
 
 import $ from './style.module.scss';
 
 function Footer() {
   const { pathname } = useRouter();
+  const scrollDir = useScrollDetect();
+  const [isDown, setDown] = useState(false);
+
+  useEffect(() => {
+    if (scrollDir === 'down') setDown(true);
+    else setDown(false);
+  }, [scrollDir]);
 
   const routes = [
     {
@@ -45,7 +54,7 @@ function Footer() {
 
   return (
     <footer className={$.footer}>
-      <div className={$['footer-wrapper']}>
+      <div className={classnames($['footer-wrapper'], { [$.down]: isDown })}>
         <div className={$['rest-footer']}>
           {routes.map((route) => {
             const isActive =

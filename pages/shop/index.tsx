@@ -1,4 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
 import { useRouter } from 'next/router';
 
 import { ReactElement, useEffect } from 'react';

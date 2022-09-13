@@ -10,6 +10,7 @@
     display: flex;
     width: 100%;
     margin: 0 23px 14px;
+    @include FadeDown();
   }
 
   .rest-footer {
@@ -21,5 +22,11 @@
     background-color: $white;
     box-shadow: 0px 4px 10px $footer-box-shadow;
     border-radius: 15px;
+  }
+
+  .down {
+    @include FadeUp();
+    visibility: hidden;
+    transition: visibility 0.4s ease-out;
   }
 }
