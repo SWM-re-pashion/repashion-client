@@ -13,11 +13,13 @@ type Props<T> = {
   value?: string;
   subType?: T;
   onChange: (e: ChangeEvent<HTMLInputElement>, param?: T) => void;
+  onBlur?: () => void;
+  onFocus?: () => void;
 } & StyleProps;
 
 function TextInput<T>(inputProps: Props<T>, ref: Ref<HTMLInputElement> | null) {
-  const { controlled, placeholder, value, onChange } = inputProps;
-  const { label, postLabel, style, className, subType } = inputProps;
+  const { controlled, placeholder, value, onChange, onBlur } = inputProps;
+  const { label, postLabel, style, className, subType, onFocus } = inputProps;
   const toBeValue = controlled ? value : undefined;
   const toBeDeafultValue = !controlled ? value : undefined;
 
@@ -29,8 +31,9 @@ function TextInput<T>(inputProps: Props<T>, ref: Ref<HTMLInputElement> | null) {
         </label>
       )}
       <input
+        {...{ placeholder, ref }}
         id={label ? `input-${label}` : undefined}
-        {...{ style, placeholder, ref }}
+        style={{ ...style }}
         type="text"
         defaultValue={toBeDeafultValue}
         value={toBeValue}
@@ -38,6 +41,12 @@ function TextInput<T>(inputProps: Props<T>, ref: Ref<HTMLInputElement> | null) {
         onChange={(e) => {
           if (subType !== undefined) onChange(e, subType);
           else onChange(e);
+        }}
+        onBlur={() => {
+          if (onBlur) onBlur();
+        }}
+        onFocus={() => {
+          if (onFocus) onFocus();
         }}
       />
       {postLabel && (
