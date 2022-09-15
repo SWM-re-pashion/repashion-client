@@ -1,8 +1,15 @@
 .search-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px 23px 0;
+  @include btn-footer(false);
+  @include fixed-template(0px);
+  background-color: $white;
+
+  &-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 23px;
+  }
 
   .search-box {
     width: 100%;

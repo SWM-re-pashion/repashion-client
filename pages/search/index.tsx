@@ -11,7 +11,7 @@ import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 
 import $ from './style.module.scss';
 
-function Search() {
+function SearchPage() {
   const router = useRouter();
   const { search, order, hideSold } = router.query;
 
@@ -26,8 +26,8 @@ function Search() {
   );
 }
 
-Search.getLayout = function getLayout(page: ReactElement) {
+SearchPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout noPadding>{page}</Layout>;
 };
 
-export default Search;
+export default SearchPage;

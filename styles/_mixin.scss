@@ -46,13 +46,25 @@
   max-width: 1024px;
 }
 
-@mixin btn-footer() {
+@mixin btn-footer($isFooter) {
   z-index: 99;
   position: fixed;
-  bottom: 0;
   left: 0;
   right: 0;
+  @if ($isFooter) {
+    bottom: 0;
+  } @else {
+    top: 0;
+  }
   background-color: transparent;
+}
+
+@mixin fixed-template($width) {
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  max-width: calc(1024px - $width);
+  width: 100%;
 }
 
 @mixin input-range($width, $height, $top) {
