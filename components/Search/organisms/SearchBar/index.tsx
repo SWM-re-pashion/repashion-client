@@ -33,20 +33,26 @@ function SearchBar<T>(inputProps: Props<T>, ref: Ref<HTMLInputElement> | null) {
 
   return (
     <header className={$['search-header']}>
-      <BackBtn color="#000" className={$['back-btn']} />
+      <div className={$['search-header-wrapper']}>
+        <BackBtn color="#000" className={$['back-btn']} />
 
-      <div className={classnames($['search-box'], { [$.focus]: isFocus })}>
-        <TextInput
-          {...{ onBlur, onFocus }}
-          ref={inputRef}
-          controlled
-          placeholder="어떤 제품을 찾으세요?"
-          onChange={() => console.log(3)}
-          className={$['search-input']}
-        />
-        <Button iconBtn className={$['search-btn']} label="search-product-btn">
-          <Search fill="#000" size={18} strokeWidth={2} opacity={1} />
-        </Button>
+        <div className={classnames($['search-box'], { [$.focus]: isFocus })}>
+          <TextInput
+            {...{ onBlur, onFocus }}
+            ref={inputRef}
+            controlled
+            placeholder="어떤 제품을 찾으세요?"
+            onChange={() => console.log(3)}
+            className={$['search-input']}
+          />
+          <Button
+            iconBtn
+            className={$['search-btn']}
+            label="search-product-btn"
+          >
+            <Search fill="#000" size={18} strokeWidth={2} opacity={1} />
+          </Button>
+        </div>
       </div>
     </header>
   );

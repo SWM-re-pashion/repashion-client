@@ -9,7 +9,12 @@ import { useIntersect } from 'hooks';
 
 import $ from './style.module.scss';
 
-function ProductItemList() {
+type Props = {
+  paddingTop?: string;
+};
+
+function ProductItemList(listProps: Props) {
+  const { paddingTop } = listProps;
   const [itemListMocks, setItemlistMocks] = useState(productItemListMocks);
   const ref = useIntersect((entry, observer) => {
     observer.unobserve(entry.target);
@@ -20,7 +25,10 @@ function ProductItemList() {
   });
 
   return (
-    <section className={$['product-container']}>
+    <section
+      style={{ paddingTop: paddingTop || '185px' }}
+      className={$['product-container']}
+    >
       <PullToRefresh
         refreshingContent={<Loading />}
         onRefresh={() => console.log('refresh')}

@@ -19,7 +19,7 @@ function SearchPage() {
     <>
       <HeadMeta title="re:Fashion | 상품 검색" url={`${seoData.url}/search`} />
       <SearchBar />
-      <ProductItemList />
+      <ProductItemList paddingTop="60px" />
 
       <Footer />
     </>
