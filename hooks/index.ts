@@ -3,6 +3,7 @@ import useDidMountEffect from './useDidMountEffect';
 import useDragScroll from './useDragScroll';
 import useIntersect from './useIntersect';
 import useMounted from './useMounted';
+import useQueryRouter from './useQueryRouter';
 import useScrollDetect from './useScrollDetect';
 import useThrottleInput from './useThrottleInput';
 import useTimeForToday from './useTimeForToday';
@@ -18,4 +19,5 @@ export {
   useWindowResize,
   useIntersect,
   useScrollDetect,
+  useQueryRouter,
 };
