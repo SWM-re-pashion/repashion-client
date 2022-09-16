@@ -1,6 +1,6 @@
 import { memo, MouseEvent } from 'react';
 
-import { searchState } from '#types/storeType/search';
+import { SearchStoreState } from '#types/storeType/search';
 import { ImgClose } from '@atoms/icon';
 import Span from '@atoms/Span';
 
@@ -8,7 +8,7 @@ import $ from './style.module.scss';
 
 type Props = {
   keyword: string;
-  removeKeyword: searchState['removeKeyword'];
+  removeKeyword: SearchStoreState['removeKeyword'];
   queryFunc: (value: string) => Promise<boolean>;
 };
 

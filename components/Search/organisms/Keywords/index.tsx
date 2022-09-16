@@ -1,15 +1,15 @@
 /* eslint-disable react/no-array-index-key */
 import { memo } from 'react';
 
-import { searchState } from '#types/storeType/search';
+import { SearchStoreState } from '#types/storeType/search';
 import Span from '@atoms/Span';
 import Keyword from 'components/Search/molecules/Keyword';
 
 import $ from './style.module.scss';
 
 type Props = {
-  keywords: searchState['keywords'];
-  removeKeyword: searchState['removeKeyword'];
+  keywords: SearchStoreState['keywords'];
+  removeKeyword: SearchStoreState['removeKeyword'];
   queryFunc: (value: string) => Promise<boolean>;
 };
 

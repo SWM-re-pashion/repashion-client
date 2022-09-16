@@ -1,4 +1,5 @@
 import { FilterState } from '#types/storeType/filter';
+import { SearchState } from '#types/storeType/search';
 import { UploadState } from '#types/storeType/upload';
 
 export const infoInitialState = {
@@ -79,4 +80,9 @@ export const uploadInitialState: UploadState = {
     purchasePlace: '',
   },
   opinion: '',
+};
+
+export const initialSearchState: SearchState = {
+  keywords: [],
+  latestProducts: [],
 };
