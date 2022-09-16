@@ -20,7 +20,11 @@ function Keywords(inputProps: Props) {
     <div className={$['keywords-box']}>
       <Span fontSize={18}>최근 검색어</Span>
 
-      <div className={$['current-keywords']}>
+      <ul
+        className={$['current-keywords']}
+        role="listbox"
+        aria-label="최근 검색어 목록"
+      >
         {keywords.length ? (
           keywords.map((keyword, i) => (
             <Keyword
@@ -31,7 +35,7 @@ function Keywords(inputProps: Props) {
         ) : (
           <Span fontWeight={500}>검색어가 존재하지 않습니다.</Span>
         )}
-      </div>
+      </ul>
     </div>
   );
 }

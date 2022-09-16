@@ -21,14 +21,23 @@ function Keyword(inputProps: Props) {
   };
 
   return (
-    <button type="button" className={$.keyword} onClick={handleClick}>
-      <Span className={$['keyword-text']} fontWeight={500}>
-        {keyword}
-      </Span>
-      <button type="button" onClick={handleRemove}>
-        <ImgClose fill="#936dff" />
-      </button>
-    </button>
+    <li>
+      <div
+        role="button"
+        aria-label={`최근 검색어 ${keyword}`}
+        tabIndex={0}
+        className={$.keyword}
+        onClick={handleClick}
+        onKeyDown={handleClick}
+      >
+        <Span className={$['keyword-text']} fontWeight={500}>
+          {keyword}
+        </Span>
+        <button type="button" onClick={handleRemove}>
+          <ImgClose fill="#936dff" />
+        </button>
+      </div>
+    </li>
   );
 }
 
