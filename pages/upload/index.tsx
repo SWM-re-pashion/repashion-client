@@ -72,7 +72,7 @@ function Upload() {
   );
 
   const height = 170;
-  const bodyShape = 'normal'; // Todo: 서버에서 받은 height, bodyShape 상태 저장하기
+  const bodyShape = 'normal'; // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
 
   const handleSubmit = () => {
     mutate(states, {
