@@ -26,14 +26,14 @@ function SearchPage() {
   );
   const isMounted = useMounted();
   const { word, order, hideSold } = router.query;
-  const searchQuery = word as string;
-  const isExistSearchWord = !!searchQuery;
+  const searchWord = word as string;
+  const isExistSearchWord = !!searchWord;
 
   if (!isMounted) return null;
   return (
     <>
       <HeadMeta title="re:Fashion | 상품 검색" url={`${seoData.url}/search`} />
-      <SearchBar {...{ addKeyword }} />
+      <SearchBar {...{ addKeyword, searchWord }} />
       <section className={$['search-body']}>
         {isExistSearchWord ? (
           <ProductItemList paddingTop="0px" />
