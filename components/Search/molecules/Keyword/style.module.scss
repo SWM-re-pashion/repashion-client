@@ -1,0 +1,21 @@
+.keyword {
+  max-width: 160px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 15px;
+  @include input-border($border-radius, $gray-280);
+
+  &-text {
+    overflow: hidden;
+    margin-right: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include mobile() {
+      @include typography(14);
+    }
+  }
+}
