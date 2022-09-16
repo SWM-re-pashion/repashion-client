@@ -83,7 +83,7 @@ function Shop() {
         }}
       />
 
-      <ProductItemList />
+      <ProductItemList needPullToRefresh />
 
       <Footer />
     </>

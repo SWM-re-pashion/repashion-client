@@ -1,52 +1,57 @@
-/* eslint-disable react/no-array-index-key */
 import { memo, useState } from 'react';
 
 import Loading from '@atoms/Loading';
 import { productItemListMocks } from '@mocks/productItemListMocks';
 import PullToRefresh from '@templates/PullToRefresh';
-import ProductItem from 'components/Shop/molecules/ProductItem';
 import { useIntersect } from 'hooks';
 
-import $ from './style.module.scss';
+import ProductListView from './ProductListView';
+import ProductListWrapperView from './ProductListWrapperView';
 
 type Props = {
   paddingTop?: string;
+  needPullToRefresh?: boolean;
 };
 
 function ProductItemList(listProps: Props) {
-  const { paddingTop } = listProps;
+  const { paddingTop, needPullToRefresh } = listProps;
   const [itemListMocks, setItemlistMocks] = useState(productItemListMocks);
-  const ref = useIntersect((entry, observer) => {
+  const intersectRef = useIntersect((entry, observer) => {
     observer.unobserve(entry.target);
     setItemlistMocks([...itemListMocks, ...productItemListMocks]);
     // if (hasNextPage && !isFetching) { // TODO: api connection
     //   await fetchNextPage();
     // }
   });
+  const refreshingContent = <Loading />;
+  const onRefresh = () => console.log('refresh'); // TODO: api connection
+  const pullDownThreshold = 60;
+  const maxPullDownDistance = 90;
+
+  if (needPullToRefresh) {
+    return (
+      <ProductListWrapperView {...{ paddingTop }}>
+        <PullToRefresh
+          {...{
+            refreshingContent,
+            onRefresh,
+            pullDownThreshold,
+            maxPullDownDistance,
+          }}
+        >
+          <ProductListView
+            {...{ paddingTop, intersectRef }}
+            itemList={itemListMocks}
+          />
+        </PullToRefresh>
+      </ProductListWrapperView>
+    );
+  }
 
   return (
-    <section
-      style={{ paddingTop: paddingTop || '185px' }}
-      className={$['product-container']}
-    >
-      <PullToRefresh
-        refreshingContent={<Loading />}
-        onRefresh={() => console.log('refresh')}
-        pullDownThreshold={60}
-        maxPullDownDistance={90}
-      >
-        <>
-          <article className={$['product-list']}>
-            {itemListMocks.map((itemData, idx) => {
-              // TODO: 로딩에 isFetching 조건 추가
-              return <ProductItem key={idx} {...itemData} />; // TODO: key id로 바꾸기
-            })}
-          </article>
-          <div {...{ ref }} />
-          <Loading />
-        </>
-      </PullToRefresh>
-    </section>
+    <ProductListWrapperView {...{ paddingTop }}>
+      <ProductListView {...{ intersectRef }} itemList={itemListMocks} />
+    </ProductListWrapperView>
   );
 }
 

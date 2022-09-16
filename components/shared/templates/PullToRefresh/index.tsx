@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import { useCallback, useEffect, useRef } from 'react';
 
+import PullToRefreshView from './PullToRefreshView';
 import { DIRECTION, isTreeScrollable } from './utils';
 
 export type Props = {
@@ -171,35 +172,17 @@ function PullToRefresh(refreshProps: Props) {
   ]);
 
   return (
-    <div
-      className={className}
-      style={{
+    <PullToRefreshView
+      {...{
+        containerRef,
+        pullDownRef,
+        childrenRef,
+        children,
+        refreshingContent,
         backgroundColor,
-        position: 'relative',
+        className,
       }}
-      ref={containerRef}
-    >
-      <div
-        ref={pullDownRef}
-        style={{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      >
-        {refreshingContent}
-      </div>
-      <div
-        ref={childrenRef}
-        style={{
-          position: 'absolute',
-          width: '100%',
-          transition: 'transform 0.2s cubic-bezier(0, 0, 0.31, 1)',
-        }}
-      >
-        {children}
-      </div>
-    </div>
+    />
   );
 }
 
