@@ -1,12 +1,11 @@
 import { memo } from 'react';
 
-import { QueryChange } from '#types/index';
 import classnames from 'classnames';
 import type { DefaultProps } from 'types/props';
 
 import $ from './style.module.scss';
 
-type Props = {
+type Props<T> = {
   color?: string;
   fontWeight?: number;
   label?: string;
@@ -14,14 +13,13 @@ type Props = {
   background?: string;
   borderRadius?: string;
   onClick?: () => void;
-  queryName?: string;
-  queryCode?: string;
-  onQueryClick?: QueryChange;
+  onQueryClick?: (value: T) => void;
+  value?: T;
   errorMsg?: string;
 } & DefaultProps;
 
-function Button(btnProps: Props) {
-  const { color, fontWeight, borderRadius, queryName, queryCode } = btnProps;
+function Button<T>(btnProps: Props<T>) {
+  const { color, fontWeight, borderRadius, value } = btnProps;
   const { label, iconBtn, background, onClick, errorMsg } = btnProps;
   const { className, style, children, onQueryClick } = btnProps;
 
@@ -30,8 +28,7 @@ function Button(btnProps: Props) {
       type="button"
       onClick={() => {
         if (onClick) onClick();
-        if (onQueryClick && queryName && label && queryCode)
-          onQueryClick(queryName, queryCode);
+        if (onQueryClick && label && value) onQueryClick(value);
       }}
       style={{
         ...style,
@@ -53,4 +50,5 @@ function Button(btnProps: Props) {
   );
 }
 
-export default memo(Button);
+const typedMemo: <T>(c: T) => T = memo;
+export default typedMemo(Button);

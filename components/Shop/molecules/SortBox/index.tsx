@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { DefaultData, QueryChange } from '#types/index';
+import { DefaultData } from '#types/index';
 import Span from '@atoms/Span';
 import CheckBtn from '@molecules/CheckBtn';
 import SelectBox from '@molecules/SelectBox';
@@ -12,15 +12,17 @@ type Props = {
   data: DefaultData[];
   hideSold: string;
   selectedMenu: string;
-  onClick: QueryChange;
+  onSoldClick: (value: string) => void;
+  onOrderClick: (value: string) => void;
 };
 
-function SortBox({ data, selectedMenu, hideSold, onClick }: Props) {
+function SortBox(boxProps: Props) {
+  const { data, selectedMenu, hideSold, onSoldClick, onOrderClick } = boxProps;
   const btnBoxRef = useRef<HTMLDivElement>(null);
   useDragScroll(btnBoxRef);
 
   const isHideSold = hideSold === 'true';
-  const handleClick = () => onClick('hideSold', (!isHideSold).toString());
+  const handleClick = () => onSoldClick((!isHideSold).toString());
 
   return (
     <section ref={btnBoxRef} className={$['sort-box']}>
@@ -38,7 +40,7 @@ function SortBox({ data, selectedMenu, hideSold, onClick }: Props) {
         </Span>
       </div>
       <SelectBox
-        {...{ onQueryChange: onClick }}
+        {...{ onQueryChange: onOrderClick }}
         options={data}
         selected={selectedMenu}
         name="order"

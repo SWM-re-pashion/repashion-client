@@ -28,7 +28,9 @@ function SearchBar(searchProps: Props) {
   useEffect(() => {
     inputRef.current?.focus();
     onFocus();
-    return () => onFocus();
+    return () => {
+      onFocus();
+    };
   }, []);
 
   useEffect(() => {
@@ -40,12 +42,17 @@ function SearchBar(searchProps: Props) {
     if (e.keyCode === 13 && value) {
       queryFunc(value);
       addKeyword(value);
+      inputRef.current?.blur();
     }
   };
 
   const handleClick = useCallback(() => {
-    queryFunc(inputValue);
-    addKeyword(inputValue);
+    if (inputValue) {
+      queryFunc(inputValue);
+      addKeyword(inputValue);
+    } else {
+      inputRef.current?.focus();
+    }
   }, [addKeyword, inputValue, queryFunc]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
