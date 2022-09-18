@@ -10,7 +10,7 @@ import $ from './style.module.scss';
 type Props = {
   data: DefaultData[];
   selectedMenu: string;
-  onClick: (value: string) => void;
+  onClick: (value?: string) => void;
   isSeletedSub: boolean;
 };
 
@@ -44,7 +44,7 @@ function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
 
         return (
           <Button
-            {...{ onQueryClick: onClick }}
+            {...{ onClick }}
             key={name}
             label={`${name} 선택 버튼`}
             value={id}

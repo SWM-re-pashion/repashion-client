@@ -1,9 +1,8 @@
 import { memo } from 'react';
 
-import classnames from 'classnames';
 import type { DefaultProps } from 'types/props';
 
-import $ from './style.module.scss';
+import ButtonView from './ButtonVIew';
 
 type Props<T> = {
   color?: string;
@@ -12,8 +11,7 @@ type Props<T> = {
   iconBtn?: boolean;
   background?: string;
   borderRadius?: string;
-  onClick?: () => void;
-  onQueryClick?: (value: T) => void;
+  onClick?: (value?: T) => void;
   value?: T;
   errorMsg?: string;
 } & DefaultProps;
@@ -21,32 +19,32 @@ type Props<T> = {
 function Button<T>(btnProps: Props<T>) {
   const { color, fontWeight, borderRadius, value } = btnProps;
   const { label, iconBtn, background, onClick, errorMsg } = btnProps;
-  const { className, style, children, onQueryClick } = btnProps;
+  const { className, style, children } = btnProps;
+  const ariaLabel = label || `${children}`;
+  const customStyle = {
+    ...style,
+    color,
+    fontWeight,
+    backgroundColor: background,
+    borderRadius,
+  };
+  const handleClick = () => {
+    if (onClick) onClick();
+    if (onClick && label && value) onClick(value);
+  };
 
   return (
-    <button
-      type="button"
-      onClick={() => {
-        if (onClick) onClick();
-        if (onQueryClick && label && value) onQueryClick(value);
-      }}
-      style={{
-        ...style,
-        color,
-        fontWeight,
-        backgroundColor: background,
-        borderRadius,
-      }}
-      className={classnames(
-        $.btn,
+    <ButtonView
+      {...{
+        handleClick,
+        customStyle,
         className,
-        { [$['icon-btn']]: iconBtn },
-        { [$.error]: errorMsg },
-      )}
-      aria-label={label || `${children}`}
-    >
-      {children}
-    </button>
+        iconBtn,
+        errorMsg,
+        ariaLabel,
+        children,
+      }}
+    />
   );
 }
 

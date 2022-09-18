@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 function useQueryRouter(queryName: string) {
   const router = useRouter();
   const queryFunc = useCallback(
-    (value: string) =>
+    (value?: string) =>
       router.push(
         {
           query: { ...router.query, [queryName]: value },
