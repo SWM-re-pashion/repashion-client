@@ -26,7 +26,6 @@ export default function useDragScroll(dragRef: RefObject<HTMLElement>) {
   };
   const mouseTouchMove = (e: MouseEvent | TouchEvent) => {
     if (!isDown) return;
-    if (e.cancelable) e.preventDefault();
     const ref = dragRef.current;
 
     if (ref) {
