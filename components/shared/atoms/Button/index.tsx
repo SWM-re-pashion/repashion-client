@@ -29,8 +29,8 @@ function Button<T>(btnProps: Props<T>) {
     borderRadius,
   };
   const handleClick = () => {
-    if (onClick) onClick();
-    if (onClick && label && value) onClick(value);
+    if (onClick && value === undefined) onClick();
+    else if (onClick && label && value) onClick(value);
   };
 
   return (
