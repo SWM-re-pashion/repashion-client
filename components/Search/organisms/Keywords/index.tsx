@@ -10,7 +10,7 @@ import $ from './style.module.scss';
 type Props = {
   keywords: SearchStoreState['keywords'];
   removeKeyword: SearchStoreState['removeKeyword'];
-  queryFunc: (value: string) => Promise<boolean>;
+  queryFunc: (value: string) => void;
 };
 
 function Keywords(inputProps: Props) {

@@ -11,7 +11,7 @@ import $ from './style.module.scss';
 type Props = {
   genderQuery: string;
   mainQuery: string;
-  subQuery: string;
+  subQuery?: string;
   orderQuery: string;
   hideSoldQuery: string;
   genderSelectMenu: res.CategoryTreeChildren[];
@@ -27,7 +27,7 @@ function ShopHeader(headerProps: Props) {
   const { orderQuery, hideSoldQuery } = headerProps;
   const { genderSelectMenu, mainSelectMenu, subSelectMenu } = headerProps;
   const { genderQuery, mainQuery, subQuery, breadCrumb } = headerProps;
-  const isSeletedSub = subQuery !== '-1';
+  const isSeletedSub = !!subQuery;
   const categoryData = isSeletedSub ? subSelectMenu : mainSelectMenu;
   const selectedMenu = isSeletedSub ? subQuery : mainQuery;
 
