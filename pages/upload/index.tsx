@@ -40,9 +40,7 @@ export async function getStaticProps() {
 
 function Upload() {
   const router = useRouter();
-  // const { data: categoriesData } = useCategoryTree();
-  // const categoryData = categoriesData?.data;
-  const categoryData = useCategoryTree();
+  const categoryData = useCategoryTree()?.data;
   const states = useUploadStore((state) => state);
   const categories = states.basicInfo.category;
   const [_, mainCategoryState] = categories;
@@ -91,7 +89,7 @@ function Upload() {
     clearMeasure();
   }, [clearMeasure, judgeMeasure]); // Fix: restrictMode로 인해 실행됨.
 
-  if (!isMounted) return null;
+  if (!isMounted || !categoryData) return null;
   return (
     <>
       <HeadMeta

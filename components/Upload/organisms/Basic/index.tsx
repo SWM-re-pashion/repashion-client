@@ -5,7 +5,7 @@ import Button from '@atoms/Button';
 import { SelectArrow } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
-import { useMainCategoryTree, useSubCategory } from 'api/getCategoryData';
+import { getCategoryTree } from 'api/getCategoryData';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import Dialog from '../Dialog';
@@ -15,19 +15,18 @@ import $ from './style.module.scss';
 type Props = {
   dialogOpen: boolean;
   state: UploadState['basicInfo'];
-  categoryData: res.CategoryTree['data'] | undefined;
+  categoryData: res.CategoryTree['data'];
   onChange: UpdateUpload;
   openDialog: () => void;
   closeDialog: () => void;
 };
 
 function Basic(basicProps: Props) {
-  // TODO: id로 카테고리 리팩토링
   const { dialogOpen, openDialog, onChange, closeDialog } = basicProps;
   const { state, categoryData: genderCategory } = basicProps;
   const [gender, main, sub] = state.category;
-  const mainCategory = useMainCategoryTree(gender); // TODO: 2번 렌더링
-  const subCategory = useSubCategory(main, 'code');
+  const mainCategory = getCategoryTree(genderCategory, gender, 'code'); // TODO: 2번 렌더링
+  const subCategory = getCategoryTree(mainCategory, main, 'code');
 
   const korGender = findNameByProp(genderCategory?.children, gender, 'code');
   const korMain = findNameByProp(mainCategory?.children, main, 'code');
