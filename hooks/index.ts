@@ -5,6 +5,7 @@ import useIntersect from './useIntersect';
 import useMounted from './useMounted';
 import useQueryRouter from './useQueryRouter';
 import useScrollDetect from './useScrollDetect';
+import useSearch from './useSearch';
 import useThrottleInput from './useThrottleInput';
 import useTimeForToday from './useTimeForToday';
 import useWindowResize from './useWindowResize';
@@ -20,4 +21,5 @@ export {
   useIntersect,
   useScrollDetect,
   useQueryRouter,
+  useSearch,
 };
