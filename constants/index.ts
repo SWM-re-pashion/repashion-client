@@ -1,6 +1,7 @@
 import { genders, bodyShapes, topSizes, bottomSizes } from './basic';
 import { orderData, allCategory, recommendCategory } from './category';
 import { colors } from './colors';
+import { statusData } from './status';
 import { fits, lengths, styles } from './style';
 
 export {
@@ -15,4 +16,5 @@ export {
   orderData,
   allCategory,
   recommendCategory,
+  statusData,
 };

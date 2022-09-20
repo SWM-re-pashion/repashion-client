@@ -2,6 +2,7 @@ import { memo, useRef } from 'react';
 
 import { SearchStoreState } from '#types/storeType/search';
 import Span from '@atoms/Span';
+import classnames from 'classnames';
 import ImgCard from 'components/Upload/molecules/ImgCard';
 import { useDragScroll } from 'hooks';
 
@@ -28,7 +29,11 @@ function LatestProducts(inputProps: Props) {
         aria-label="최근 본 상품 목록"
         ref={containerRef}
       >
-        <div className={$['current-products-box']}>
+        <div
+          className={classnames($['current-products-box'], {
+            [$['no-products']]: !products.length,
+          })}
+        >
           {products.length ? (
             products.map(({ id, img }) => (
               <ImgCard

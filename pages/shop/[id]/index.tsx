@@ -1,4 +1,4 @@
-import { GetStaticPropsContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 
 import { useCallback } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
@@ -19,7 +19,9 @@ import { useSearchStore } from 'store/useSearchStore';
 
 import $ from './style.module.scss';
 
-export async function getServerSideProps({ params }: GetStaticPropsContext) {
+export async function getServerSideProps({
+  params,
+}: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
   const id = params?.id;
   const paramId = (typeof id !== 'object' && id) || '0';

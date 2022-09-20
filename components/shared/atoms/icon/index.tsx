@@ -6,7 +6,6 @@ import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
 import { Filter } from './Filter';
 import { Google } from './Google';
-import { Shop } from './Shop';
 import { ImgClose } from './ImgClose';
 import { Kakao } from './Kakao';
 import { More } from './More';
@@ -19,6 +18,8 @@ import { RangeBtn } from './RangeBtn';
 import { Search } from './Search';
 import { SearchBlack } from './SearchBlack';
 import { SelectArrow } from './SelectArrow';
+import { Setting } from './Setting';
+import { Shop } from './Shop';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
 import { Strong } from './Strong';
@@ -56,4 +57,5 @@ export {
   Chat,
   MyPage,
   Plus,
+  Setting,
 };

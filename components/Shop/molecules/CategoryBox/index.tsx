@@ -3,6 +3,7 @@ import { memo, useRef, useState } from 'react';
 import { DefaultData } from '#types/index';
 import Button from '@atoms/Button';
 import { SelectArrow } from '@atoms/icon';
+import MenuBtn from '@molecules/MenuBtn';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
@@ -34,18 +35,7 @@ function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
           const isSelected = selectedMenu === id;
 
           return (
-            <Button
-              {...{ onClick }}
-              key={name}
-              label={`${name} 선택 버튼`}
-              value={id}
-              background={isSelected ? '#936DFF' : 'transparent'}
-              color={isSelected ? '#fff' : '#000'}
-              borderRadius="8px"
-              className={$.btn}
-            >
-              {name}
-            </Button>
+            <MenuBtn value={id} key={name} {...{ name, onClick, isSelected }} />
           );
         })}
       </div>
