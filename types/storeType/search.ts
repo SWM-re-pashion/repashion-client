@@ -9,4 +9,9 @@ export interface SearchState {
 export interface SearchStoreState extends SearchState {
   addKeyword: (value: string) => void;
   removeKeyword: (value: string) => void;
+  addProduct: ({
+    id: number,
+    img: string,
+  }: SearchState['latestProducts'][0]) => void;
+  removeProduct: (value: number) => void;
 }
