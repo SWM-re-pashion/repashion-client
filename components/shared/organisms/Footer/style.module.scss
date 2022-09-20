@@ -1,10 +1,6 @@
 .footer {
-  @include btn-footer();
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  max-width: 1024px;
-  width: 100%;
+  @include btn-footer(true);
+  @include fixed-template(0px);
 
   &-wrapper {
     display: flex;

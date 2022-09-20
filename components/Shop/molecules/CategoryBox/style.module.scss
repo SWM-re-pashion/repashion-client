@@ -1,14 +1,21 @@
 .main-box {
-  position: relative;
-  overflow: hidden;
-  height: 50px;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   padding: 0 12px;
   word-break: keep-all;
-  .btn {
-    margin: 10px 11px;
-    padding: 6px 14px 5px;
+  .category-list {
+    overflow: hidden;
+    height: 50px;
+    flex-wrap: wrap;
+    margin: 0 auto 0 0;
+    .btn {
+      margin: 10px 11px;
+      padding: 6px 14px 5px;
+    }
+    &-clicked {
+      height: auto;
+    }
   }
 }
 
@@ -17,18 +24,12 @@
   word-break: keep-all;
 }
 
-.box-clicked {
-  height: auto;
-}
-
 .arrow {
-  position: absolute;
+  margin: 21px 11px auto auto;
   svg {
     width: 18px;
     height: 9px;
   }
-  top: 22px;
-  right: 23px;
   &-clicked {
     transform: rotate(180deg);
   }

@@ -8,6 +8,7 @@
   border: 1px solid $gray-280;
   border-radius: $border-radius;
   background-color: $black-500;
+  cursor: pointer;
   &:last-child {
     margin: 0;
   }
@@ -21,6 +22,10 @@
     right: -10px;
     cursor: pointer;
   }
+}
+
+.no-margin {
+  margin: 0;
 }
 
 .representative {

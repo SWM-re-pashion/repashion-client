@@ -1,6 +1,6 @@
 import { memo, useRef, useState } from 'react';
 
-import { DefaultData, QueryChange } from '#types/index';
+import { DefaultData } from '#types/index';
 import Button from '@atoms/Button';
 import { SelectArrow } from '@atoms/icon';
 import classnames from 'classnames';
@@ -10,7 +10,7 @@ import $ from './style.module.scss';
 type Props = {
   data: DefaultData[];
   selectedMenu: string;
-  onClick: QueryChange;
+  onClick: (value?: string) => void;
   isSeletedSub: boolean;
 };
 
@@ -23,12 +23,33 @@ function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
   return (
     <section
       ref={btnBoxRef}
-      className={classnames(
-        [$['main-box']],
-        { [$['sub-box']]: isSeletedSub },
-        { [$['box-clicked']]: isClicked },
-      )}
+      className={classnames([$['main-box']], { [$['sub-box']]: isSeletedSub })}
     >
+      <div
+        className={classnames([$['category-list']], {
+          [$['category-list-clicked']]: isClicked,
+        })}
+      >
+        {data.map(({ id, name }) => {
+          const isSelected = selectedMenu === id;
+
+          return (
+            <Button
+              {...{ onClick }}
+              key={name}
+              label={`${name} 선택 버튼`}
+              value={id}
+              background={isSelected ? '#936DFF' : 'transparent'}
+              color={isSelected ? '#fff' : '#000'}
+              borderRadius="8px"
+              className={$.btn}
+            >
+              {name}
+            </Button>
+          );
+        })}
+      </div>
+
       <Button
         iconBtn
         className={classnames($.arrow, {
@@ -38,26 +59,6 @@ function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
       >
         <SelectArrow />
       </Button>
-
-      {data.map(({ id, name }) => {
-        const isSelected = selectedMenu === id;
-
-        return (
-          <Button
-            {...{ onQueryClick: onClick }}
-            queryName="category"
-            key={name}
-            label={`${name} 선택 버튼`}
-            queryCode={id}
-            background={isSelected ? '#936DFF' : 'transparent'}
-            color={isSelected ? '#fff' : '#000'}
-            borderRadius="8px"
-            className={$.btn}
-          >
-            {name}
-          </Button>
-        );
-      })}
     </section>
   );
 }

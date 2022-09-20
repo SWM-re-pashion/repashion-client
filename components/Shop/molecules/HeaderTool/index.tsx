@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { QueryChange } from '#types/index';
 import BackBtn from '@atoms/BackBtn';
 import { Filter, Search } from '@atoms/icon';
 import Span from '@atoms/Span';
@@ -14,7 +13,7 @@ type Props = {
   selectedMenu: string;
   isSeletedSub: boolean;
   breadCrumb: string;
-  onClick: QueryChange;
+  onClick: (value: string) => void;
 };
 
 function HeaderTool(headerProps: Props) {

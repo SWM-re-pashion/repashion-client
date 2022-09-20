@@ -1,6 +1,6 @@
 import { memo, useRef } from 'react';
 
-import { DefaultData, QueryChange } from '#types/index';
+import { DefaultData } from '#types/index';
 import { Check, SelectArrow } from '@atoms/icon';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
@@ -13,7 +13,7 @@ type Props<T, U> = {
   options: (string | DefaultData)[];
   selected: string | number;
   onChange?: (value: string, type: T, subType: U) => void;
-  onQueryChange?: QueryChange;
+  onQueryChange?: (value: string) => void;
   name: string;
   type?: T;
   subType?: U;
@@ -50,12 +50,11 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
     option?: string,
   ) => {
-    if (type && subType) {
-      if (option && onChange) {
-        onChange(option, type, subType);
-      }
+    if (type && subType && option && onChange) {
+      onChange(option, type, subType);
+    } else if (option && onQueryChange) {
+      onQueryChange(option);
     }
-    if (option && onQueryChange) onQueryChange(name, option);
     setIsClicked(false);
   };
 

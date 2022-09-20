@@ -1,5 +1,5 @@
 .product-footer {
-  @include btn-footer();
+  @include btn-footer(true);
   display: flex;
   flex-direction: column;
   align-items: center;

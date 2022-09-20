@@ -42,7 +42,7 @@ function ImgUpload(imgProps: Props) {
           const filesArr: File[] = Array.from(files);
           if (filesArr.length > 10) {
             filesArr.splice(10);
-          } // Todo: 이미지 10개 제한, 팝업 메시지
+          } // TODO: 이미지 10개 제한, 팝업 메시지
           filesArr.forEach((file: File) => {
             formData.append('files', file);
           });
@@ -84,9 +84,14 @@ function ImgUpload(imgProps: Props) {
             num={imgList.length}
             onUpload={onUploadImg}
           />
-          {imgList.map(({ id, src }, idx) => (
-            <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
-          ))}
+          {imgList.map(
+            (
+              { id, src },
+              idx, // TODO: imgList margin-top 주기
+            ) => (
+              <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
+            ),
+          )}
         </>
       )}
     </article>

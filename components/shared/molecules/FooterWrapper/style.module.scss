@@ -1,12 +1,8 @@
 .footer {
-  @include btn-footer();
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
+  @include btn-footer(true);
+  @include fixed-template(0px);
   align-items: center;
   justify-content: center;
-  max-width: 1024px;
-  width: 100%;
 
   &-wrapper {
     padding: 0 31px 30px;

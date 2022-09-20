@@ -1,6 +1,6 @@
 declare namespace res {
   type CategoryTreeChildren = {
-    id?: string;
+    id: string;
     name: string;
     code: string;
     children?: CategoryTreeChildren[];
