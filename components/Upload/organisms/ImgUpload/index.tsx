@@ -84,9 +84,14 @@ function ImgUpload(imgProps: Props) {
             num={imgList.length}
             onUpload={onUploadImg}
           />
-          {imgList.map(({ id, src }, idx) => (
-            <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
-          ))}
+          {imgList.map(
+            (
+              { id, src },
+              idx, // TODO: imgList margin-top 주기
+            ) => (
+              <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
+            ),
+          )}
         </>
       )}
     </article>
