@@ -1,5 +1,6 @@
 import { GetStaticPropsContext } from 'next';
 
+import { useCallback } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
@@ -14,6 +15,7 @@ import ProductBasic from 'components/Product/organisms/ProductBasic';
 import ProductFooter from 'components/Product/organisms/ProductFooter';
 import ProductNotice from 'components/Product/organisms/ProductNotice';
 import ProductSize from 'components/Product/organisms/ProductSize';
+import { useSearchStore } from 'store/useSearchStore';
 
 import $ from './style.module.scss';
 
@@ -33,13 +35,17 @@ export async function getServerSideProps({ params }: GetStaticPropsContext) {
 }
 
 function ShopDetail({ id }: { id: string }) {
-  const { isLoading, isError, data } = useProdutDetail(id);
+  const { data } = useProdutDetail(id);
+  const addProduct = useSearchStore(
+    useCallback((state) => state.addProduct, []),
+  );
   const detailData = data?.data;
 
   if (detailData) {
     const { isMe, sellerInfo, basic, sellerNotice, measure } = detailData;
     const { opinion, price, isIncludeDelivery, updatedAt, like, views } =
       detailData;
+    addProduct({ id: +id, img: sellerInfo.image[0] }); // TODO: 실험해볼 것
     return (
       <>
         <HeadMeta

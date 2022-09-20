@@ -1,0 +1,15 @@
+.products-box {
+  padding: 47px 23px;
+
+  .current-products {
+    overflow: hidden;
+    display: flex;
+    &-box {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+  }
+}
