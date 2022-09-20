@@ -12,7 +12,7 @@ type Props = {
   url?: string;
 } & StyleProps;
 
-export default function BackBtn({ className, color, url }: Props) {
+function BackBtn({ className, color, url }: Props) {
   const router = useRouter();
   const handleClick = useCallback(() => {
     if (url) router.replace(url);
@@ -25,3 +25,4 @@ export default function BackBtn({ className, color, url }: Props) {
     </Button>
   );
 }
+export default BackBtn;

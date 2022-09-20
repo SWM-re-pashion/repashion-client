@@ -21,8 +21,8 @@ function SearchBar(searchProps: Props) {
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
   const queryFunc = useQueryRouter('word');
-  const onBlur = () => setFocus(false);
-  const onFocus = () => setFocus(true);
+  const onBlur = useCallback(() => setFocus(false), []);
+  const onFocus = useCallback(() => setFocus(true), []);
   const url = searchWord ? '/search' : '/shop';
 
   useEffect(() => {
@@ -31,20 +31,23 @@ function SearchBar(searchProps: Props) {
     return () => {
       onFocus();
     };
-  }, []);
+  }, [onFocus]);
 
   useEffect(() => {
     setInputValue(searchWord);
   }, [searchWord]);
 
-  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    if (e.keyCode === 13 && value) {
-      queryFunc(value);
-      addKeyword(value);
-      inputRef.current?.blur();
-    }
-  };
+  const handleEnter = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const { value } = e.currentTarget;
+      if (e.keyCode === 13 && value) {
+        queryFunc(value);
+        addKeyword(value);
+        inputRef.current?.blur();
+      }
+    },
+    [addKeyword, queryFunc],
+  );
 
   const handleClick = useCallback(() => {
     if (inputValue) {
@@ -55,8 +58,10 @@ function SearchBar(searchProps: Props) {
     }
   }, [addKeyword, inputValue, queryFunc]);
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setInputValue(e.target.value);
+  const handleInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value),
+    [],
+  );
 
   return (
     <header className={$['search-header']}>
