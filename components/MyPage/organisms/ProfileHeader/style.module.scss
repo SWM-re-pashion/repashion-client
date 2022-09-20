@@ -1,0 +1,24 @@
+.profile-header {
+  @include btn-footer(false);
+  @include fixed-template(0px);
+  height: 60px;
+  background-color: $white;
+
+  &-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 23px;
+    @include border(border-bottom, 0, $gray-500);
+  }
+
+  .profile-name {
+    position: absolute;
+  }
+
+  .setting-btn {
+    margin: 0 0 0 auto;
+  }
+}
