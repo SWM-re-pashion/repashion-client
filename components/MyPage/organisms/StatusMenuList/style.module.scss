@@ -1,0 +1,15 @@
+.status-menu-list {
+  overflow: hidden;
+  display: flex;
+  margin: 41px 0 4px;
+  .menu-btn {
+    margin-left: 4px;
+    margin-right: 4px;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

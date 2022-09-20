@@ -1,15 +1,35 @@
+import { GetServerSidePropsContext } from 'next';
+
 import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { seoData } from '@constants/seo';
+import { statusData } from '@constants/status';
 import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
+import StatusMenuList from 'components/MyPage/organisms/StatusMenuList';
 import ProfileHeader from 'components/MyPage/organisms/ProfileHeader';
 import UserProfile from 'components/MyPage/organisms/UserProfile';
+import { useQueryRouter, useSearch } from 'hooks';
 
 import $ from './style.module.scss';
 
-function MyPage() {
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+  const { status } = query;
+  const statusQuery = (typeof status !== 'object' && status) || null;
+
+  return {
+    props: {
+      status: statusQuery,
+    },
+  };
+}
+
+function MyPage({ status }: { status: string | null }) {
+  const statusQuery = useSearch('status');
+  const queryStatus = useQueryRouter('status');
+  const selectedMenu = statusQuery || status || statusData[0].code;
+
   return (
     <>
       <HeadMeta
@@ -25,6 +45,12 @@ function MyPage() {
             nickname: 'bruney',
           }}
           totalDealNum={13}
+        />
+
+        <StatusMenuList
+          data={statusData}
+          selectedMenu={selectedMenu}
+          onClick={queryStatus}
         />
       </section>
       <Footer />
