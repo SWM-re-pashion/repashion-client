@@ -10,11 +10,12 @@ import ProductListWrapperView from './ProductListWrapperView';
 
 type Props = {
   paddingTop?: string;
+  paddingBottom?: string;
   needPullToRefresh?: boolean;
 };
 
 function ProductItemList(listProps: Props) {
-  const { paddingTop, needPullToRefresh } = listProps;
+  const { paddingTop, paddingBottom, needPullToRefresh } = listProps;
   const [itemListMocks, setItemlistMocks] = useState(productItemListMocks);
   const intersectRef = useIntersect((entry, observer) => {
     observer.unobserve(entry.target);
@@ -30,7 +31,7 @@ function ProductItemList(listProps: Props) {
 
   if (needPullToRefresh) {
     return (
-      <ProductListWrapperView {...{ paddingTop }}>
+      <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
         <PullToRefresh
           {...{
             refreshingContent,
@@ -39,17 +40,14 @@ function ProductItemList(listProps: Props) {
             maxPullDownDistance,
           }}
         >
-          <ProductListView
-            {...{ paddingTop, intersectRef }}
-            itemList={itemListMocks}
-          />
+          <ProductListView {...{ intersectRef }} itemList={itemListMocks} />
         </PullToRefresh>
       </ProductListWrapperView>
     );
   }
 
   return (
-    <ProductListWrapperView {...{ paddingTop }}>
+    <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
       <ProductListView {...{ intersectRef }} itemList={itemListMocks} />
     </ProductListWrapperView>
   );

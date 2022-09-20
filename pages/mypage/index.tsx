@@ -7,9 +7,10 @@ import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
 import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
-import StatusMenuList from 'components/MyPage/organisms/StatusMenuList';
 import ProfileHeader from 'components/MyPage/organisms/ProfileHeader';
+import StatusMenuList from 'components/MyPage/organisms/StatusMenuList';
 import UserProfile from 'components/MyPage/organisms/UserProfile';
+import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 import { useQueryRouter, useSearch } from 'hooks';
 
 import $ from './style.module.scss';
@@ -53,6 +54,9 @@ function MyPage({ status }: { status: string | null }) {
           onClick={queryStatus}
         />
       </section>
+
+      <ProductItemList paddingTop="0" paddingBottom="80px" />
+
       <Footer />
     </>
   );

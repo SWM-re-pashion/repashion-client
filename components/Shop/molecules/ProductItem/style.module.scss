@@ -1,20 +1,21 @@
 .product-item {
   display: flex;
   align-items: center;
-  margin-bottom: 1px;
+  border-bottom: 1px solid $gray-280;
   padding: 20px 23px;
   background-color: $white;
   cursor: pointer;
+
   @include laptop() {
     &:last-child {
-      margin-bottom: 0;
+      border-bottom: 0;
     }
     &:nth-last-child(2) {
-      margin-bottom: 0;
+      border-bottom: 0;
     }
   }
   &:last-child {
-    margin-bottom: 0;
+    border-bottom: 0;
   }
 
   .soldout-box {
@@ -32,6 +33,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 16px;
+
     .size-like {
       margin-top: 7px;
       color: $gray-550;

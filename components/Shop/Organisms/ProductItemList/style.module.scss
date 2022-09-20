@@ -1,4 +1,5 @@
 .product-container {
+  padding-top: 185px;
   @include minMobile() {
     padding-top: 219px;
   }
@@ -7,6 +8,5 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
-    background-color: $gray-280;
   }
 }
