@@ -43,7 +43,12 @@ function SearchPage() {
   if (!isMounted) return null;
   return (
     <>
-      <HeadMeta title="re:Fashion | 상품 검색" url={`${seoData.url}/search`} />
+      <HeadMeta
+        title={`re:Fashion | ${
+          searchWord ? `${searchWord} 상품 검색 결과` : '상품 검색'
+        }`}
+        url={`${seoData.url}/search`}
+      />
       <SearchBar {...{ addKeyword, searchWord }} />
       <section className={$['search-body']}>
         {isExistSearchWord ? (
