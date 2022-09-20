@@ -6,7 +6,7 @@
   justify-content: center;
   height: 100%;
   padding: 0 15px;
-  @include input-border($border-radius, $gray-280);
+  @include border(border, $border-radius, $gray-280);
   cursor: pointer;
 
   &-text {

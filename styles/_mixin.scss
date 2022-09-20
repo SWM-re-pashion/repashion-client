@@ -107,9 +107,9 @@
   }
 }
 
-@mixin input-border($border, $color) {
+@mixin border($prop, $border, $color) {
   box-sizing: border-box;
-  border: 1px solid $color;
+  #{$prop}: 1px solid $color;
   border-radius: $border;
 }
 

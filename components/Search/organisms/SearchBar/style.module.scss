@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     padding: 0 0 0 20px;
-    @include input-border(10px, transparent);
+    @include border(border, 10px, transparent);
     background-color: $search-background;
   }
 
@@ -43,11 +43,11 @@
   }
 
   .focus {
-    @include input-border(10px, $black-600);
+    @include border(border, 10px, $black-600);
     background-color: $white;
 
     .search-input {
-      @include input-border(0px, $black-600);
+      @include border(border, 0px, $black-600);
       border-left: 0;
       border-right: 0;
       input {

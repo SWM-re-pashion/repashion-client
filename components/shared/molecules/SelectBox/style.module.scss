@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   background-color: $white;
-  @include input-border(5px, $gray-280);
+  @include border(border, 5px, $gray-280);
   &,
   button {
     @include typography(16);
@@ -46,7 +46,7 @@
   position: absolute;
   left: 0;
   width: 100%;
-  @include input-border(5px, $black-600);
+  @include border(border, 5px, $black-600);
   background-color: $white;
 
   .select-item {
