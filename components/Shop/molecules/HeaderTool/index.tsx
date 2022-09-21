@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { useState } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
@@ -52,13 +54,11 @@ function HeaderTool(headerProps: Props) {
           />
         )}
 
-        <button
-          type="button"
-          onClick={openFilterModal}
-          className={$['btn-search']}
-        >
-          <Search />
-        </button>
+        <Link href="/search">
+          <button type="button" className={$['btn-search']}>
+            <Search />
+          </button>
+        </Link>
 
         <button type="button" onClick={openFilterModal} className={$.btn}>
           <Filter />
