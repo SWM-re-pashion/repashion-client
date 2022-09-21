@@ -4,8 +4,10 @@ on:
     branches: [dev]
 jobs:
   build:
-    name: Build
+    name: Deploy(Production)
     runs-on: ubuntu-latest
+    environment: production
+
     steps:
       - name: executing remote ssh commands using key
         uses: appleboy/ssh-action@master
