@@ -11,9 +11,8 @@ import PageTemplate from '@templates/PageTemplate';
 import ProfileImgUpload from 'components/MyPage/organisms/ProfileImgUpload';
 import { useDebounceInput } from 'hooks';
 
-import $ from './style.module.scss';
-
 function UserPage() {
+  // TODO: 닉네임 중복체크
   const inputRef = useRef<HTMLInputElement>(null);
   const [nickname, setNickName] = useState('');
   const email = 'appleapple123@gmail.com';
