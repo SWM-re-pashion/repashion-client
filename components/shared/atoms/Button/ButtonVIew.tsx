@@ -6,7 +6,7 @@ import type { DefaultProps } from 'types/props';
 import $ from './style.module.scss';
 
 type Props = {
-  handleClick: () => void;
+  handleClick?: () => void;
   customStyle: CSSProperties;
   className?: string;
   iconBtn?: boolean;
@@ -18,6 +18,7 @@ type Props = {
 function ButtonView(btnProps: Props) {
   const { iconBtn, errorMsg, ariaLabel, children } = btnProps;
   const { handleClick, customStyle, className } = btnProps;
+
   return (
     <button
       type="button"

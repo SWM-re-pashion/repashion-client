@@ -1,0 +1,19 @@
+.setting-menu {
+  height: 55px;
+  display: flex;
+  align-items: center;
+  padding: 0 23.5px;
+  cursor: pointer;
+
+  @include border(border-top, 0, $gray-280);
+  &:first-child {
+    border: 0;
+  }
+  &:last-child {
+    @include border(border-bottom, 0, $gray-280);
+  }
+
+  &-text {
+    margin: 0 auto 0 0;
+  }
+}
