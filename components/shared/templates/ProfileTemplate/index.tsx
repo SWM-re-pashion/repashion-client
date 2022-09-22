@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Setting } from '@atoms/icon';
 import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
-import PageTemplate from '@templates/PageTemplate';
+import PageTemplate from '@templates/PageTemplate/PageTemplate';
 import StatusMenuList from 'components/MyPage/organisms/StatusMenuList';
 import UserProfile from 'components/MyPage/organisms/UserProfile';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';
@@ -46,6 +46,7 @@ function ProfileTemplate({ status, isMe, profile, isNeedFooter }: Props) {
       }
       outsideChildren={<ProductItemList paddingTop="0" paddingBottom="80px" />}
       isNeedFooter={isNeedFooter}
+      paddingTop="84px"
       sidePadding="23px"
     >
       <UserProfile profile={profile} totalDealNum={13} />

@@ -4,8 +4,6 @@ import HeadMeta from '@atoms/HeadMeta';
 import PageHeader from '@molecules/PageHeader';
 import Footer from '@organisms/Footer';
 
-import $ from './style.module.scss';
-
 type Props = {
   metaTitle: string;
   metaUrl: string;
@@ -15,20 +13,26 @@ type Props = {
   right?: ReactNode;
   children?: ReactNode;
   outsideChildren?: ReactNode;
+  paddingTop?: string;
   sidePadding?: string;
+  paddingBottom?: string;
 };
 
 function PageTemplate(templateProps: Props) {
   const { metaTitle, metaUrl, title, left, right } = templateProps;
-  const { children, outsideChildren, isNeedFooter, sidePadding } =
-    templateProps;
+  const { children, outsideChildren, isNeedFooter } = templateProps;
+  const { paddingTop, sidePadding, paddingBottom } = templateProps;
   return (
     <>
       <HeadMeta title={metaTitle} url={metaUrl} />
       <PageHeader {...{ title, left, right }} />
       <section
-        className={$['page-body']}
-        style={{ paddingLeft: sidePadding, paddingRight: sidePadding }}
+        style={{
+          paddingTop: paddingTop || '60px',
+          paddingBottom: paddingBottom || '0',
+          paddingLeft: sidePadding,
+          paddingRight: sidePadding,
+        }}
       >
         {children}
       </section>
