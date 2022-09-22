@@ -16,6 +16,7 @@ function Setting() {
     {
       text: '계정 설정',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
+      onClick: () => router.push('/mypage/setting/user'),
     },
     {
       text: '개인 맞춤정보 관리',
