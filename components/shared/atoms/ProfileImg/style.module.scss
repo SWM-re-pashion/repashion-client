@@ -1,6 +1,7 @@
 .profile-img {
   width: 44px;
   height: 44px;
+  display: flex;
   @include border(border, 50%, $gray-280);
   @include mobile() {
     width: 36px;
