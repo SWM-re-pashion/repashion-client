@@ -36,7 +36,7 @@ function Button<T>(btnProps: Props<T>) {
   return (
     <ButtonView
       {...{
-        handleClick,
+        handleClick: onClick ? handleClick : undefined,
         customStyle,
         className,
         iconBtn,
