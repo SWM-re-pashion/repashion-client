@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Setting } from '@atoms/icon';
 import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
-import PageTemplate from '@templates/PageTemplate/PageTemplate';
+import PageTemplate from '@templates/PageTemplate';
 import StatusMenuList from 'components/MyPage/organisms/StatusMenuList';
 import UserProfile from 'components/MyPage/organisms/UserProfile';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';

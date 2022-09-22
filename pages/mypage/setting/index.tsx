@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { ReactElement } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
@@ -7,10 +9,9 @@ import { seoData } from '@constants/seo';
 import Layout from '@templates/Layout';
 import PageTemplate from '@templates/PageTemplate';
 import SettingMenu from 'components/MyPage/molecules/SettingMenu';
-import { useParamRouter } from 'hooks';
 
 function Setting() {
-  const paramRouter = useParamRouter();
+  const router = useRouter();
   const settingData = [
     {
       text: '계정 설정',
@@ -19,7 +20,7 @@ function Setting() {
     {
       text: '개인 맞춤정보 관리',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
-      onClick: () => paramRouter('/info/style'),
+      onClick: () => router.push('/info/style'),
     },
     {
       text: '오픈소스 라이브러리',
