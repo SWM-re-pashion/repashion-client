@@ -7,16 +7,17 @@ type Props = {
   accept: string;
   onChange: (e: React.ChangeEvent) => void;
   none?: boolean;
+  isMultiple: boolean;
 };
 
 const InputFile = forwardRef(
   (imgProps: Props, ref: LegacyRef<HTMLInputElement> | null) => {
-    const { id, accept, onChange, none } = imgProps;
+    const { id, accept, onChange, none, isMultiple } = imgProps;
     return (
       <input
         {...{ id, ref, accept, onChange }}
         type="file"
-        multiple
+        multiple={isMultiple}
         className={none ? $.none : ''}
       />
     );

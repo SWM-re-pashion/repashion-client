@@ -17,7 +17,7 @@ export default function ProfileImg({
   return (
     <span
       className={classnames($['profile-img'], className)}
-      style={{ ...style }}
+      style={{ ...style, width: `${width}px`, height: `${height}px` }}
     >
       <Image {...{ src, alt, width, height }} />
     </span>
