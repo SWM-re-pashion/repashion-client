@@ -4,6 +4,8 @@ import { bottomSizes } from '@constants/basic';
 import { colors, topSizes } from '@constants/index';
 import { fits, lengths, styles } from '@constants/style';
 
+import { FilterType } from '../../../../types/storeType/filter';
+
 type btnBox = btnTemplateBox<keyof FilterInfo, keyof ClothesCategory> & {
   datas: (string | DefaultData)[];
 };
@@ -17,15 +19,13 @@ const commonProps: btnBox[] = [
   },
 ];
 
-export const filterData = (category: string): btnBox[] => {
-  const categoryCondition =
-    category === 'top' || category === 'outer' ? 'top' : 'bottom';
+export const filterData = (category: FilterType): btnBox[] => {
+  const categoryCondition = category === 'top' ? 'top' : 'bottom';
   switch (category) {
     case 'all':
       return [...commonProps];
     case 'top':
     case 'bottom':
-    case 'outer':
       return [
         ...commonProps,
         {
@@ -53,8 +53,7 @@ export const filterData = (category: string): btnBox[] => {
           label: '사이즈',
           type: 'size',
           subType: categoryCondition,
-          datas:
-            category === 'top' || category === 'outer' ? topSizes : bottomSizes,
+          datas: category === 'top' ? topSizes : bottomSizes,
           noCheckColor: true,
         },
       ];
@@ -63,14 +62,17 @@ export const filterData = (category: string): btnBox[] => {
   }
 };
 
-export const getCategoryName = (id: string) => {
-  switch (id) {
-    case '2':
+export const getCategoryName = (category: string): FilterType => {
+  switch (category) {
+    case 'all':
+    case 'recommend':
+      return 'all';
+    case 'top':
+    case 'outer':
+    case 'onepiece':
       return 'top';
-    case '3':
+    case 'bottom':
       return 'bottom';
-    case '4':
-      return 'outer';
     default:
       throw Error;
   }

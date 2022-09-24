@@ -1,5 +1,7 @@
 import { ClothesCategory, FilterInfo } from '#types/info';
 
+export type FilterType = 'top' | 'bottom' | 'all';
+
 export interface FilterState {
   styles: string[];
   colors: {
@@ -30,5 +32,5 @@ export type FilterUpdate = (
 export interface FilterStoreState extends FilterState {
   filterUpdate: FilterUpdate;
   priceUpdate: (value: number, idx: number) => void;
-  clear: (subType: string) => void;
+  clear: (subType: FilterType) => void;
 }

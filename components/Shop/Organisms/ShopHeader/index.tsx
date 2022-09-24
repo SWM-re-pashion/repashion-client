@@ -4,6 +4,7 @@ import { orderData } from '@constants/category';
 import CategoryBox from 'components/Shop/molecules/CategoryBox';
 import HeaderTool from 'components/Shop/molecules/HeaderTool';
 import SortBox from 'components/Shop/molecules/SortBox';
+import { findCodeByProp } from 'components/Upload/organisms/Dialog/utils';
 import { useQueryRouter } from 'hooks';
 
 import $ from './style.module.scss';
@@ -30,11 +31,13 @@ function ShopHeader(headerProps: Props) {
   const isSeletedSub = !!subQuery;
   const categoryData = isSeletedSub ? subSelectMenu : mainSelectMenu;
   const selectedMenu = isSeletedSub ? subQuery : mainQuery;
+  const mainCategory = findCodeByProp(mainSelectMenu, mainQuery, 'id');
 
   return (
     <header className={$.header}>
       <HeaderTool
-        {...{ onClick: queryCategory, breadCrumb, isSeletedSub }}
+        {...{ onClick: queryCategory, breadCrumb }}
+        {...{ isSeletedSub, mainCategory }}
         data={genderSelectMenu}
         selectedMenu={genderQuery}
       />

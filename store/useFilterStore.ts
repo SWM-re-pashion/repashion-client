@@ -1,4 +1,4 @@
-import { FilterStoreState } from '#types/storeType/filter';
+import { FilterStoreState, FilterType } from '#types/storeType/filter';
 import { updateInfo, deepClone } from 'utils';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -17,9 +17,8 @@ export const useFilterStore = create(
         });
       },
 
-      clear: (subType: string) => {
+      clear: (subType: FilterType) => {
         const remain = subType === 'bottom' ? 'top' : 'bottom';
-        const current = subType === 'outer' ? 'top' : subType;
 
         set((state) => {
           if (subType === 'all')
@@ -31,19 +30,19 @@ export const useFilterStore = create(
             ...deepClone(filterCommonState),
             colors: {
               [remain]: [...state.colors[remain]],
-              [current]: [],
+              [subType]: [],
             },
             fit: {
               [remain]: [...state.fit[remain]],
-              [current]: [],
+              [subType]: [],
             },
             length: {
               [remain]: [...state.length[remain]],
-              [current]: [],
+              [subType]: [],
             },
             size: {
               [remain]: [...state.size[remain]],
-              [current]: [],
+              [subType]: [],
             },
           };
         });
