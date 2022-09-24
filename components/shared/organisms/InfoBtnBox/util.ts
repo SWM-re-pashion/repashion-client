@@ -8,5 +8,7 @@ export const columns = (length: number) => {
   if (length <= 12) return [$['column-12']];
   if (length <= 14) return [$['column-13']];
   if (length <= 16) return [$['column-15']];
-  return [$['column-17']];
+  if (length <= 18) return [$['column-17']];
+  if (length <= 20) return [$['column-19']];
+  return [$['column-21']];
 };

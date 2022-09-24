@@ -58,3 +58,19 @@
     grid-template-columns: repeat(9, 1fr);
   }
 }
+
+@mixin column-19() {
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+@mixin column-21() {
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  @include mobile() {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
