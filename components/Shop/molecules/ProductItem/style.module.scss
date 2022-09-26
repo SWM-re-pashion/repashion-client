@@ -6,18 +6,6 @@
   background-color: $white;
   cursor: pointer;
 
-  @include laptop() {
-    &:last-child {
-      border-bottom: 0;
-    }
-    &:nth-last-child(2) {
-      border-bottom: 0;
-    }
-  }
-  &:last-child {
-    border-bottom: 0;
-  }
-
   .soldout-box {
     position: absolute;
     top: 0;
