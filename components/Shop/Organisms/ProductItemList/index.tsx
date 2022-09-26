@@ -29,10 +29,23 @@ function ProductItemList(listProps: Props) {
   const { paddingTop, paddingBottom, needPullToRefresh, queryStringObj } =
     listProps;
   const productList: ProductList = { ...queryStringObj };
-  const { data, hasNextPage, isLoading, isFetching, fetchNextPage, refetch } =
-    useProductItemListQuery(productList);
 
-  const onRefresh = () => refetch({ refetchPage: (_, index) => index === 0 });
+  const {
+    data,
+    hasNextPage,
+    isLoading,
+    isFetching,
+    fetchNextPage,
+    refetch,
+    remove,
+  } = useProductItemListQuery(productList);
+
+  const onRefresh = () => {
+    remove();
+    return refetch({
+      refetchPage: (_, index) => index === 0,
+    });
+  };
 
   const intersectRef = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);

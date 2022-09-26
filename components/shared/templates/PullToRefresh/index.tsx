@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import PullToRefreshView from './PullToRefreshView';
 import { DIRECTION, isTreeScrollable } from './utils';
 
-export type Props = {
+export type Props<T> = {
   isPullable?: boolean;
   canFetchMore?: boolean;
-  onRefresh: () => Promise<any>;
+  onRefresh: () => Promise<T>;
   refreshingContent: JSX.Element | string;
   children: JSX.Element;
   pullDownThreshold?: number;
@@ -16,7 +16,7 @@ export type Props = {
   className?: string;
 };
 
-function PullToRefresh(refreshProps: Props) {
+function PullToRefresh<T>(refreshProps: Props<T>) {
   const { isPullable = true, canFetchMore = false } = refreshProps;
   const { onRefresh } = refreshProps;
   const { refreshingContent, children } = refreshProps;
