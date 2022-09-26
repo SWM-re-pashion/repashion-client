@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { memo } from 'react';
 
 import { StyleProps } from '#types/props';
-import BasicImg from '@atoms/BasicImg';
 import BorderBox from '@atoms/BorderBox';
-import { BasicHeart } from '@atoms/icon';
+import ResponsiveImg from '@atoms/ResponsiveImg';
 import Span from '@atoms/Span';
 import { useTimeForToday } from 'hooks';
 
@@ -20,7 +19,13 @@ function ProductItem(itemProps: Props) {
   return (
     <Link href={`/shop/${id}`}>
       <div className={$['product-item']}>
-        <BasicImg width={113} height={113} src={img} alt={title}>
+        <ResponsiveImg
+          width={200}
+          height={200}
+          src={img}
+          alt={title}
+          className={$['product-img']}
+        >
           {isSoldOut && (
             <BorderBox borderRadius="5px" className={$['soldout-box']}>
               <Span fontSize={12} color="#fff">
@@ -28,17 +33,20 @@ function ProductItem(itemProps: Props) {
               </Span>
             </BorderBox>
           )}
-        </BasicImg>
+        </ResponsiveImg>
 
         <div className={$['text-box']}>
-          <Span className={$.title}>{title}</Span>
-          <Span fontSize={14} className={$['size-like']}>
-            {`size ${size} ・ `}
-            <BasicHeart size={12} stroke="#9e9e9e" />
-            {` ${like}`}
+          <Span fontWeight={600} className={$.title}>
+            {title}
           </Span>
-          <Span className={$.price}>{`${price.toLocaleString()}원`}</Span>
-          <Span fontSize={12} className={$.date}>
+          <Span fontSize={14} fontWeight={600} className={$['size-like']}>
+            {`size ${size} ・ like ${like}`}
+          </Span>
+          <Span
+            fontSize={15}
+            className={$.price}
+          >{`${price.toLocaleString()}원`}</Span>
+          <Span fontSize={12} fontWeight={500} className={$.date}>
             {date}
           </Span>
         </div>
