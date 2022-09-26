@@ -2,25 +2,20 @@ import Link from 'next/link';
 
 import { memo } from 'react';
 
+import { StyleProps } from '#types/props';
 import BasicImg from '@atoms/BasicImg';
 import BorderBox from '@atoms/BorderBox';
 import { BasicHeart } from '@atoms/icon';
 import Span from '@atoms/Span';
+import { useTimeForToday } from 'hooks';
 
 import $ from './style.module.scss';
 
-type Props = {
-  id: number;
-  img: string;
-  title: string;
-  size: string;
-  like: number;
-  price: number;
-  isSoldOut: boolean;
-};
+type Props = res.ProductSummary & StyleProps;
 
 function ProductItem(itemProps: Props) {
-  const { id, img, title, size, like, price, isSoldOut } = itemProps;
+  const { id, img, title, size, like, price, isSoldOut, updatedAt } = itemProps;
+  const date = useTimeForToday(updatedAt);
 
   return (
     <Link href={`/shop/${id}`}>
@@ -36,13 +31,16 @@ function ProductItem(itemProps: Props) {
         </BasicImg>
 
         <div className={$['text-box']}>
-          <Span>{title}</Span>
+          <Span className={$.title}>{title}</Span>
           <Span fontSize={14} className={$['size-like']}>
             {`size ${size} ・ `}
             <BasicHeart size={12} stroke="#9e9e9e" />
             {` ${like}`}
           </Span>
           <Span className={$.price}>{`${price.toLocaleString()}원`}</Span>
+          <Span fontSize={12} className={$.date}>
+            {date}
+          </Span>
         </div>
       </div>
     </Link>

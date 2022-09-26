@@ -30,17 +30,29 @@
   }
 
   .text-box {
+    overflow: hidden;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-left: 16px;
+
+    .title {
+      @include textOverflow();
+    }
 
     .size-like {
       margin-top: 7px;
       color: $gray-550;
     }
+
     .price {
-      margin-top: 20px;
+      margin-top: 10px;
       color: $primary;
+    }
+
+    .date {
+      margin-top: 7px;
+      color: $gray-550;
       text-align: right;
     }
   }
