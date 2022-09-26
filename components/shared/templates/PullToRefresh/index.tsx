@@ -1,13 +1,13 @@
 /* eslint-disable consistent-return */
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import PullToRefreshView from './PullToRefreshView';
 import { DIRECTION, isTreeScrollable } from './utils';
 
-export type Props = {
+export type Props<T> = {
   isPullable?: boolean;
   canFetchMore?: boolean;
-  onRefresh: () => Promise<any>;
+  onRefresh: () => Promise<T>;
   refreshingContent: JSX.Element | string;
   children: JSX.Element;
   pullDownThreshold?: number;
@@ -16,13 +16,14 @@ export type Props = {
   className?: string;
 };
 
-function PullToRefresh(refreshProps: Props) {
+function PullToRefresh<T>(refreshProps: Props<T>) {
   const { isPullable = true, canFetchMore = false } = refreshProps;
   const { onRefresh } = refreshProps;
   const { refreshingContent, children } = refreshProps;
   const { pullDownThreshold = 60, maxPullDownDistance = 95 } = refreshProps;
   const { backgroundColor, className = '' } = refreshProps;
 
+  const [isDisplayRefresh, setDisplayRefresh] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const childrenRef = useRef<HTMLDivElement>(null);
   const pullDownRef = useRef<HTMLDivElement>(null);
@@ -87,21 +88,18 @@ function PullToRefresh(refreshProps: Props) {
       }
       if (currentY.current < startY.current) {
         isDragging.current = false;
+        setDisplayRefresh(false);
         return;
       }
 
       if (e.cancelable) {
         e.preventDefault();
       }
-
+      setDisplayRefresh(true);
       const yDistanceMoved = Math.min(
         currentY.current - startY.current,
         maxPullDownDistance,
       );
-
-      if (yDistanceMoved >= pullDownThreshold) {
-        isDragging.current = true;
-      }
 
       // maxPullDownDistance에 도달하면 애니메이션 종료
       if (yDistanceMoved >= maxPullDownDistance) {
@@ -112,7 +110,7 @@ function PullToRefresh(refreshProps: Props) {
         childrenRef.current.style.transform = `translate(0px, ${yDistanceMoved}px)`;
       }
     },
-    [maxPullDownDistance, pullDownThreshold],
+    [maxPullDownDistance],
   );
 
   const onEnd = useCallback(() => {
@@ -132,6 +130,7 @@ function PullToRefresh(refreshProps: Props) {
     // 충분히 드래그하지 않았다면, 애니메이션 되돌리기
     if (!isCanRelease.current) {
       initContainer();
+      setDisplayRefresh(false);
       return;
     }
 
@@ -139,12 +138,22 @@ function PullToRefresh(refreshProps: Props) {
       childrenRef.current.style.transform = `translate(0px, ${pullDownThreshold}px)`;
     }
 
-    // onRefresh().then(initContainer).catch(initContainer);
+    onRefresh()
+      .then(() => {
+        initContainer();
+        setDisplayRefresh(false);
+      })
+      .catch(() => {
+        initContainer();
+        setDisplayRefresh(false);
+      });
     if (navigator.vibrate) navigator.vibrate(200);
-    onRefresh();
-    setTimeout(() => {
-      initContainer();
-    }, 2000);
+
+    // onRefresh();
+    // setTimeout(() => {
+    //   initContainer();
+    //   setDisplayRefresh(false);
+    // }, 2000);
   }, [maxPullDownDistance, onRefresh, pullDownThreshold]);
 
   useEffect(() => {
@@ -178,7 +187,7 @@ function PullToRefresh(refreshProps: Props) {
         pullDownRef,
         childrenRef,
         children,
-        refreshingContent,
+        refreshingContent: isDisplayRefresh ? refreshingContent : null,
         backgroundColor,
         className,
       }}

@@ -12,14 +12,14 @@ type Props = {
   alt: string;
 } & DefaultProps;
 
-export default function BasicImg(imgProps: Props) {
+export default function ResponsiveImg(imgProps: Props) {
   const { width, height, src, alt, className, style, children } = imgProps;
   return (
     <div
-      style={{ ...style, width, height }}
-      className={classnames($['basic-img'], className)}
+      style={{ ...style }}
+      className={classnames($['responsive-img'], className)}
     >
-      <Image {...{ width, height, src, alt }} layout="fixed" />
+      <Image {...{ width, height, src, alt }} layout="responsive" />
       {children}
     </div>
   );

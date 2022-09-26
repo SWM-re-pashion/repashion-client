@@ -3,7 +3,7 @@ export type Props = {
   pullDownRef: React.RefObject<HTMLDivElement>;
   childrenRef: React.RefObject<HTMLDivElement>;
   children: JSX.Element;
-  refreshingContent: JSX.Element | string;
+  refreshingContent: JSX.Element | string | null;
   backgroundColor?: string;
   className?: string;
 };

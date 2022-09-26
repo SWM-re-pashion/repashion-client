@@ -6,16 +6,22 @@
   background-color: $white;
   cursor: pointer;
 
-  @include laptop() {
-    &:last-child {
-      border-bottom: 0;
-    }
-    &:nth-last-child(2) {
-      border-bottom: 0;
-    }
+  @include tablet() {
+    flex-direction: column;
+    border: 0;
   }
-  &:last-child {
-    border-bottom: 0;
+
+  .product-img {
+    min-width: 113px;
+    max-height: 113px;
+    width: 113px;
+    height: 113px;
+    @include tablet() {
+      min-width: 200px;
+      min-height: 200px;
+      width: 200px;
+      height: 200px;
+    }
   }
 
   .soldout-box {
@@ -30,18 +36,40 @@
   }
 
   .text-box {
+    overflow: hidden;
+    width: 100%;
+    @include tablet() {
+      width: 200px;
+    }
     display: flex;
     flex-direction: column;
-    margin-left: 16px;
+    @include mobile() {
+      margin-left: 16px;
+    }
+
+    .title {
+      @include textOverflow();
+      @include tablet() {
+        margin-top: 7px;
+      }
+    }
 
     .size-like {
       margin-top: 7px;
       color: $gray-550;
     }
+
     .price {
-      margin-top: 20px;
+      margin-top: 7px;
       color: $primary;
-      text-align: right;
+    }
+
+    .date {
+      margin-top: 7px;
+      color: $gray-550;
+      @include mobile() {
+        text-align: right;
+      }
     }
   }
 }
