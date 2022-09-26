@@ -17,7 +17,6 @@ function PullToRefreshView(viewProps: Props) {
       style={{
         backgroundColor,
         position: 'relative',
-        height: '100%',
       }}
       ref={containerRef}
     >
@@ -36,7 +35,6 @@ function PullToRefreshView(viewProps: Props) {
         style={{
           position: 'absolute',
           width: '100%',
-          height: '100%',
           transition: 'transform 0.2s cubic-bezier(0, 0, 0.31, 1)',
         }}
       >

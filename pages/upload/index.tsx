@@ -160,11 +160,7 @@ function Upload() {
 }
 
 Upload.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout noPadding decreaseHeight={80}>
-      {page}
-    </Layout>
-  );
+  return <Layout noPadding>{page}</Layout>;
 };
 
 export default Upload;

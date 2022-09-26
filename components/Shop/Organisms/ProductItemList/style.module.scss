@@ -15,7 +15,10 @@
 
   .no-products {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 185px);
+    @include minMobile() {
+      height: calc(100vh - 219px);
+    }
     display: flex;
     align-items: center;
     justify-content: center;
