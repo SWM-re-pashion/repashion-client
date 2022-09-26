@@ -15,11 +15,13 @@ type Props = {
   selectedMenu: string;
   isSeletedSub: boolean;
   breadCrumb: string;
+  mainCategory: string;
   onClick: (value: string) => void;
 };
 
 function HeaderTool(headerProps: Props) {
-  const { data, selectedMenu, onClick, isSeletedSub, breadCrumb } = headerProps;
+  const { data, selectedMenu, onClick } = headerProps;
+  const { isSeletedSub, breadCrumb, mainCategory } = headerProps;
   const [filterOpen, setFilterOpen] = useState(false);
 
   const openFilterModal = () => {
@@ -63,7 +65,11 @@ function HeaderTool(headerProps: Props) {
         <button type="button" onClick={openFilterModal} className={$.btn}>
           <Filter />
         </button>
-        <FilterModal isOpen={filterOpen} onClose={closeFilterModal} />
+        <FilterModal
+          {...{ mainCategory }}
+          isOpen={filterOpen}
+          onClose={closeFilterModal}
+        />
       </section>
     </section>
   );

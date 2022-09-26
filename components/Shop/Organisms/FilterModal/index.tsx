@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-
 import { useCallback, useRef } from 'react';
 
 import Button from '@atoms/Button';
@@ -18,12 +16,12 @@ import { filterData, getCategoryName } from './utils';
 
 type Props = {
   isOpen: boolean;
+  mainCategory: string;
   onClose: () => void;
 };
 
-function FilterModal() {
-  const { query } = useRouter();
-  const category = getCategoryName((query.main as string) || '2'); // TODO: category파싱
+function FilterModal({ mainCategory }: { mainCategory: string }) {
+  const category = getCategoryName(mainCategory);
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
 
   const states = useFilterStore((state) => state);
@@ -56,7 +54,7 @@ function FilterModal() {
           const compareData: string[] =
             options.type !== 'styles' && options.subType
               ? states[options.type][options.subType]
-              : (states[options.type] as string[]); // Todo: 타입 단언 제거
+              : (states[options.type] as string[]); // TODO: 타입 단언 제거
 
           return (
             <InfoBtnBox
@@ -91,7 +89,8 @@ function FilterModal() {
   );
 }
 
-export default function FilterModalWrapper({ isOpen, onClose }: Props) {
+export default function FilterModalWrapper(wrapperProps: Props) {
+  const { isOpen, onClose, mainCategory } = wrapperProps;
   return (
     <Modal id="filter-modal" {...{ isOpen, onClose }}>
       <PageHeader
@@ -103,7 +102,7 @@ export default function FilterModalWrapper({ isOpen, onClose }: Props) {
         }
       />
       <div className={$['filter-modal']} aria-describedby="필터 페이지">
-        <FilterModal />
+        <FilterModal {...{ mainCategory }} />
       </div>
     </Modal>
   );
