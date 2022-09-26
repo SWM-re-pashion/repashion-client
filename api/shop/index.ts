@@ -1,9 +1,8 @@
-import { Pagination } from '#types/pagination';
 import { Axios } from 'lib/axios';
 
-export const getProductItemList = async (): Promise<
-  Pagination<res.ProductSummary[]>
-> => {
-  const { data } = await Axios.get('/api');
-  return data;
+export const getProductItemList = async (
+  queryString: string,
+): Promise<res.ShopFeed> => {
+  const response = await Axios.get(`/api/shop?${queryString}`);
+  return response.data;
 };
