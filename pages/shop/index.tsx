@@ -19,8 +19,6 @@ import {
 } from 'components/Upload/organisms/Dialog/utils';
 import { useSearch } from 'hooks';
 
-import $ from './style.module.scss';
-
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
 
@@ -66,6 +64,13 @@ function Shop() {
     : undefined;
   const subQuery = isIncludeSub ? category : existingSubMenu;
 
+  const categoryQuery = subQuery || mainQuery;
+  const queryStringObj = {
+    category: categoryQuery,
+    hideSold: hideSoldQuery,
+    order: orderQuery,
+  };
+
   return (
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
@@ -83,7 +88,7 @@ function Shop() {
         }}
       />
 
-      <ProductItemList needPullToRefresh />
+      <ProductItemList needPullToRefresh {...{ queryStringObj }} />
 
       <Footer />
     </>
