@@ -24,5 +24,5 @@ export const timeForToday = (value: string) => {
     return `${Math.floor(betweenTimeDay / 30)}개월전`;
   }
 
-  return value.replace(/-/g, '.').split(' ')[0];
+  return value.replace(/-|:/g, '.').split(' ')[0];
 };

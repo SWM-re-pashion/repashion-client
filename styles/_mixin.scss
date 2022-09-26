@@ -138,6 +138,12 @@
   clip-path: inset(50%);
 }
 
+@mixin textOverflow() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin loading() {
   @-webkit-keyframes loading {
     0% {

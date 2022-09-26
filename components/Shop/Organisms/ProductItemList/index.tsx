@@ -1,33 +1,83 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import Loading from '@atoms/Loading';
-import { productItemListMocks } from '@mocks/productItemListMocks';
 import PullToRefresh from '@templates/PullToRefresh';
 import { useIntersect } from 'hooks';
+import { useProductItemListQuery } from 'hooks/api/shop';
 
+import NoProductView from './NoProductView';
 import ProductListView from './ProductListView';
 import ProductListWrapperView from './ProductListWrapperView';
 
 type Props = {
+  queryStringObj?: {
+    category?: string;
+    order?: string;
+    hideSold?: string;
+  };
   paddingTop?: string;
   paddingBottom?: string;
   needPullToRefresh?: boolean;
 };
 
+type ProductList = Pick<
+  NonNullable<Props['queryStringObj']>,
+  'category' | 'order' | 'hideSold'
+>;
+
 function ProductItemList(listProps: Props) {
-  const { paddingTop, paddingBottom, needPullToRefresh } = listProps;
-  const [itemListMocks, setItemlistMocks] = useState(productItemListMocks);
-  const intersectRef = useIntersect((entry, observer) => {
+  const { paddingTop, paddingBottom, needPullToRefresh, queryStringObj } =
+    listProps;
+  const productList: ProductList = { ...queryStringObj };
+
+  const {
+    data,
+    hasNextPage,
+    isLoading,
+    isFetching,
+    fetchNextPage,
+    refetch,
+    remove,
+  } = useProductItemListQuery(productList);
+
+  const onRefresh = () => {
+    remove();
+    return refetch({
+      refetchPage: (_, index) => index === 0,
+    });
+  };
+
+  const intersectRef = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
-    setItemlistMocks([...itemListMocks, ...productItemListMocks]);
-    // if (hasNextPage && !isFetching) { // TODO: api connection
-    //   await fetchNextPage();
-    // }
+    if (hasNextPage && !isFetching) {
+      await fetchNextPage();
+    }
   });
+
   const refreshingContent = <Loading />;
-  const onRefresh = () => console.log('refresh'); // TODO: api connection
+
   const pullDownThreshold = 60;
   const maxPullDownDistance = 90;
+
+  const items = data?.pages;
+  if (!items) return null;
+
+  const itemList = items?.reduce((acc: res.ProductSummary[], cur) => {
+    acc.push(...cur.items);
+    return acc;
+  }, []);
+
+  const isNoProducts = !!itemList.length;
+
+  const noProducts = (
+    <NoProductView
+      {...{
+        isNoProducts,
+        isLoading,
+        isFetching,
+      }}
+    />
+  );
 
   if (needPullToRefresh) {
     return (
@@ -40,7 +90,10 @@ function ProductItemList(listProps: Props) {
             maxPullDownDistance,
           }}
         >
-          <ProductListView {...{ intersectRef }} itemList={itemListMocks} />
+          <ProductListView
+            {...{ intersectRef, isFetching, noProducts }}
+            itemList={itemList}
+          />
         </PullToRefresh>
       </ProductListWrapperView>
     );
@@ -48,7 +101,10 @@ function ProductItemList(listProps: Props) {
 
   return (
     <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
-      <ProductListView {...{ intersectRef }} itemList={itemListMocks} />
+      <ProductListView
+        {...{ intersectRef, isFetching, noProducts }}
+        itemList={itemList}
+      />
     </ProductListWrapperView>
   );
 }

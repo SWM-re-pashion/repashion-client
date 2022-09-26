@@ -1,12 +1,31 @@
 .product-container {
+  height: 100vh;
+  box-sizing: border-box;
   padding-top: 185px;
   @include minMobile() {
     padding-top: 219px;
   }
+
   .product-list {
+    display: grid;
     @include tablet() {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 33.3%);
     }
+    @include laptop() {
+      grid-template-columns: repeat(4, 25%);
+    }
+  }
+
+  .no-products {
+    width: 100%;
+    height: calc(100vh - 185px);
+    @include minMobile() {
+      height: calc(100vh - 219px);
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: $white;
   }
 }

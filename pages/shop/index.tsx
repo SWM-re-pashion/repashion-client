@@ -1,8 +1,11 @@
+import { GetServerSidePropsContext } from 'next';
+
 import { ReactElement } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { orderData } from '@constants/category';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
@@ -11,6 +14,7 @@ import {
   useCategoryTree,
   getCategoryTree,
 } from 'api/getCategoryData';
+import { getInfiniteProducts } from 'api/shop';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'components/Shop/Organisms/ShopHeader';
 import {
@@ -19,16 +23,30 @@ import {
 } from 'components/Upload/organisms/Dialog/utils';
 import { useSearch } from 'hooks';
 
-import $ from './style.module.scss';
-
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+  const { category, order, hideSold } = query;
   const queryClient = new QueryClient();
 
+  const queryStringObj = {
+    category: category as string,
+    order: order as string,
+    hideSold: hideSold as string,
+  };
+
   await queryClient.prefetchQuery('category', () => getCategoryData());
+  await queryClient.prefetchInfiniteQuery(
+    queryKey.productItemList(queryStringObj),
+    getInfiniteProducts(queryStringObj),
+    {
+      getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
+        return isEndOfPage ? undefined : pageNumber + 1;
+      },
+    },
+  );
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 }
@@ -66,6 +84,13 @@ function Shop() {
     : undefined;
   const subQuery = isIncludeSub ? category : existingSubMenu;
 
+  const categoryQuery = subQuery || mainQuery;
+  const queryStringObj = {
+    category: categoryQuery,
+    hideSold: hideSoldQuery,
+    order: orderQuery,
+  };
+
   return (
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
@@ -83,7 +108,7 @@ function Shop() {
         }}
       />
 
-      <ProductItemList needPullToRefresh />
+      <ProductItemList needPullToRefresh {...{ queryStringObj }} />
 
       <Footer />
     </>
