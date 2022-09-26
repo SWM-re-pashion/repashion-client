@@ -12,7 +12,7 @@ function NoProductView({ isNoProducts, isLoading, isFetching }: Props) {
   return (
     (!isLoading && !isFetching && !isNoProducts && (
       <div className={$['no-products']}>
-        <Span>상품 결과가 없습니다.</Span>
+        <Span fontSize={20}>상품 결과가 없습니다.</Span>
       </div>
     )) ||
     null
