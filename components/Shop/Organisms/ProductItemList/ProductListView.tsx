@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { memo } from 'react';
 
 import Loading from '@atoms/Loading';
@@ -7,23 +6,25 @@ import ProductItem from 'components/Shop/molecules/ProductItem';
 import $ from './style.module.scss';
 
 type Props = {
+  isFetching: boolean;
   intersectRef: React.RefObject<HTMLDivElement>;
   itemList: res.ProductSummary[];
+  noProducts: React.ReactNode;
 };
 
 function ProductListView(viewProps: Props) {
-  const { itemList, intersectRef } = viewProps;
+  const { isFetching, itemList, intersectRef, noProducts } = viewProps;
+
   return (
     <>
       <article className={$['product-list']}>
-        {itemList.map(
-          (item, idx) => (
-            <ProductItem key={idx} {...item} />
-          ), // TODO: key id로 바꾸기, 로딩에 isFetching 조건 추가
-        )}
+        {itemList.map((item) => (
+          <ProductItem key={item.id} {...item} />
+        ))}
       </article>
+      {noProducts}
       <div ref={intersectRef} />
-      <Loading />
+      {isFetching && <Loading />}
     </>
   );
 }

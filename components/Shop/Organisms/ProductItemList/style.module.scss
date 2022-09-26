@@ -3,10 +3,19 @@
   @include minMobile() {
     padding-top: 219px;
   }
+
   .product-list {
     @include tablet() {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+
+  .no-products {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
   }
 }
