@@ -21,6 +21,7 @@ declare namespace res {
     like: number;
     price: number;
     isSoldOut: boolean;
+    updatedAt: string;
   };
 }
 

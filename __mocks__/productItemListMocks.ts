@@ -2,11 +2,13 @@ export const productItemListMocks = [
   {
     id: 1,
     img: 'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
-    title: 'vivien westwood티셔츠 거의 새 것입니다!',
+    title:
+      'vivien westwood티셔츠 거의 새 것입니다!vivien westwood티셔츠 거의 새 것입니다!vivien westwood티셔츠 거의 새 것입니다!vivien westwood티셔츠 거의 새 것입니다!vivien westwood티셔츠 거의 새 것입니다!vivien westwood티셔츠 거의 새 것입니다!',
     size: 'XL',
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 2,
@@ -16,6 +18,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 3,
@@ -25,6 +28,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 4,
@@ -34,6 +38,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 5,
@@ -43,6 +48,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: true,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 6,
@@ -52,6 +58,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 7,
@@ -61,6 +68,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 8,
@@ -70,6 +78,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: true,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 9,
@@ -79,6 +88,7 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: true,
+    updatedAt: '2022-09-25 03:52:54',
   },
   {
     id: 10,
@@ -88,5 +98,6 @@ export const productItemListMocks = [
     like: 117,
     price: 20000,
     isSoldOut: false,
+    updatedAt: '2022-09-25 03:52:54',
   },
 ];
