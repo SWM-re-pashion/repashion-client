@@ -4,7 +4,7 @@ function useSearch(target: string) {
   return useRouter().query[target]?.toString() || null;
 }
 
-function useMultipleSearch(targets: string[]) {
+function useMultipleSearch(targets: readonly string[]) {
   // TODO: add typescript code array to tuple
   const router = useRouter();
   return targets.map((target) => router.query[target]?.toString() || null);

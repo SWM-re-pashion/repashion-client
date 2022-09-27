@@ -55,9 +55,9 @@ export default function FilterModalWrapper(wrapperProps: Props) {
 
   const compareData = useCallback(
     (options: btnBox): string[] => {
-      if (options.type !== 'styles' && options.subType)
+      if (options.type !== 'style' && options.subType)
         return states[options.type][options.subType];
-      if (options.type === 'styles') return states[options.type];
+      if (options.type === 'style') return states[options.type];
       return [];
     },
     [states],

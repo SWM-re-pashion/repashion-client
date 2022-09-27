@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { GetServerSidePropsContext } from 'next';
 
 import { ReactElement } from 'react';
@@ -25,21 +26,22 @@ import {
 import { useMultipleSearch } from 'hooks';
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const { category, order, hideSold } = query;
-  const { styles, price, colors, fit, length, sizes } = query;
+  const { category, order, hide_sold } = query;
+  const { style, price_goe, price_loe, color, fit, length, clothes_size } =
+    query;
   const queryClient = new QueryClient();
 
   const queryStringObj = {
     category: (category as string) || '1',
     order: (order as string) || orderData[0].code,
-    hide_sold: (hideSold as string) || 'true',
-    style: (styles as string) || null,
-    price_goe: (price as string) || null,
-    price_loe: (price as string) || null,
-    color: (colors as string) || null,
+    hide_sold: (hide_sold as string) || 'true',
+    style: (style as string) || null,
+    price_goe: (price_goe as string) || null,
+    price_loe: (price_loe as string) || null,
+    color: (color as string) || null,
     fit: (fit as string) || null,
     length: (length as string) || null,
-    clothes_size: (sizes as string) || null,
+    clothes_size: (clothes_size as string) || null,
   };
 
   await queryClient.prefetchQuery('category', () => getCategoryData());

@@ -25,8 +25,8 @@ export const useFilterStore = create<FilterStoreState>((set) => ({
         };
       return {
         ...deepClone(filterCommonState),
-        colors: {
-          [remain]: [...state.colors[remain]],
+        color: {
+          [remain]: [...state.color[remain]],
           [subType]: [],
         },
         fit: {
@@ -37,8 +37,8 @@ export const useFilterStore = create<FilterStoreState>((set) => ({
           [remain]: [...state.length[remain]],
           [subType]: [],
         },
-        size: {
-          [remain]: [...state.size[remain]],
+        clothesSize: {
+          [remain]: [...state.clothesSize[remain]],
           [subType]: [],
         },
       };
@@ -51,8 +51,8 @@ export const useFilterStore = create<FilterStoreState>((set) => ({
         arr.filter((x) => x !== 'all');
       const isValueAll = typeof value === 'string' && value === 'all';
 
-      if (type === 'styles') {
-        if (type === 'styles' && isValueAll)
+      if (type === 'style') {
+        if (type === 'style' && isValueAll)
           return { ...state, [type]: [value] };
         return {
           ...state,

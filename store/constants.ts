@@ -14,16 +14,16 @@ export const infoInitialState = {
 };
 
 export const filterCommonState: {
-  styles: string[];
+  style: string[];
   price: [number, number];
 } = {
-  styles: [],
+  style: [],
   price: [0, 1000000],
 };
 
 export const filterInitialState: FilterState = {
   ...filterCommonState,
-  colors: {
+  color: {
     top: [],
     bottom: [],
   },
@@ -35,7 +35,7 @@ export const filterInitialState: FilterState = {
     top: [],
     bottom: [],
   },
-  size: {
+  clothesSize: {
     top: [],
     bottom: [],
   },

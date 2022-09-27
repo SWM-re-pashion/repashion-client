@@ -29,7 +29,7 @@ type FilterElement = {
 const commonProps: btnBox[] = [
   {
     label: '스타일',
-    type: 'styles',
+    type: 'style',
     datas: stylesData,
     noCheckColor: true,
   },
@@ -46,7 +46,7 @@ export const filterData = (category: FilterType): btnBox[] => {
         ...commonProps,
         {
           label: '컬러',
-          type: 'colors',
+          type: 'color',
           subType: categoryCondition,
           isColor: true,
           datas: colorsData,
@@ -67,7 +67,7 @@ export const filterData = (category: FilterType): btnBox[] => {
         },
         {
           label: '사이즈',
-          type: 'sizes',
+          type: 'clothesSize',
           subType: categoryCondition,
           datas: category === 'top' ? topSizes : bottomSizes,
           noCheckColor: true,
@@ -98,9 +98,9 @@ export const getFilterElement = (
   category: FilterType,
   states: FilterStoreState,
 ): FilterElement => {
-  const { styles, price, colors, fit, length, sizes } = states;
+  const { style, price, color, fit, length, clothesSize } = states;
   const common = {
-    style: styles.join(','),
+    style: style.join(','),
     price_goe: Math.max(...price).toString(),
     price_loe: Math.min(...price).toString(),
     color: null,
@@ -112,10 +112,10 @@ export const getFilterElement = (
   if (category === 'all') return common;
   return {
     ...common,
-    color: colors[category].join(','),
+    color: color[category].join(','),
     fit: fit[category].join(','),
     length: length[category].join(','),
-    clothes_size: sizes[category].join(','),
+    clothes_size: clothesSize[category].join(','),
   };
 };
 

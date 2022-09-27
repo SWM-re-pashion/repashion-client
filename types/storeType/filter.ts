@@ -3,8 +3,8 @@ import { ClothesCategory } from '#types/info';
 export type FilterType = 'top' | 'bottom' | 'all';
 
 export interface FilterState {
-  styles: string[];
-  colors: {
+  style: string[];
+  color: {
     top: string[];
     bottom: string[];
   };
@@ -16,7 +16,7 @@ export interface FilterState {
     top: string[];
     bottom: string[];
   };
-  size: {
+  clothesSize: {
     top: string[];
     bottom: string[];
   };
