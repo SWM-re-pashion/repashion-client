@@ -10,20 +10,13 @@ import ProductListView from './ProductListView';
 import ProductListWrapperView from './ProductListWrapperView';
 
 type Props = {
-  queryStringObj?: {
-    category?: string;
-    order?: string;
-    hideSold?: string;
-  };
+  queryStringObj?: Omit<req.ShopFeed, 'page' | 'size'>;
   paddingTop?: string;
   paddingBottom?: string;
   needPullToRefresh?: boolean;
 };
 
-type ProductList = Pick<
-  NonNullable<Props['queryStringObj']>,
-  'category' | 'order' | 'hideSold'
->;
+type ProductList = Props['queryStringObj'];
 
 function ProductItemList(listProps: Props) {
   const { paddingTop, paddingBottom, needPullToRefresh, queryStringObj } =

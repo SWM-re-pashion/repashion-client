@@ -5,6 +5,7 @@ import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { orderData } from '@constants/category';
+import { queries } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
@@ -21,16 +22,24 @@ import {
   categoryIdNameCodeArr,
   curCategoryChildrenByProp,
 } from 'components/Upload/organisms/Dialog/utils';
-import { useSearch } from 'hooks';
+import { useMultipleSearch } from 'hooks';
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const { category, order, hideSold } = query;
+  const { styles, price, colors, fit, length, sizes } = query;
   const queryClient = new QueryClient();
 
   const queryStringObj = {
     category: (category as string) || '1',
     order: (order as string) || orderData[0].code,
-    hideSold: (hideSold as string) || 'true',
+    hide_sold: (hideSold as string) || 'true',
+    style: (styles as string) || null,
+    price_goe: (price as string) || null,
+    price_loe: (price as string) || null,
+    color: (colors as string) || null,
+    fit: (fit as string) || null,
+    length: (length as string) || null,
+    clothes_size: (sizes as string) || null,
   };
 
   await queryClient.prefetchQuery('category', () => getCategoryData());
@@ -53,9 +62,19 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 
 function Shop() {
   const data = useCategoryTree()?.data;
-  const category = useSearch('category');
-  const hideSold = useSearch('hideSold');
-  const order = useSearch('order');
+
+  const [
+    category,
+    hideSold,
+    order,
+    style,
+    priceGoe,
+    priceLoe,
+    color,
+    fit,
+    length,
+    clothesSize,
+  ] = useMultipleSearch(queries);
 
   if (!data) return null;
   const orderQuery = order || orderData[0].code;
@@ -85,10 +104,17 @@ function Shop() {
   const subQuery = isIncludeSub ? category : existingSubMenu;
 
   const categoryQuery = subQuery || mainQuery;
-  const queryStringObj = {
+  const queryStringObj: Omit<req.ShopFeed, 'page' | 'size'> = {
     category: categoryQuery,
-    hideSold: hideSoldQuery,
+    hide_sold: hideSoldQuery,
     order: orderQuery,
+    style,
+    price_goe: priceGoe,
+    price_loe: priceLoe,
+    color,
+    fit,
+    length,
+    clothes_size: clothesSize,
   };
 
   return (
