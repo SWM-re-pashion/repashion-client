@@ -3,7 +3,7 @@ import useDidMountEffect from './useDidMountEffect';
 import useDragScroll from './useDragScroll';
 import useIntersect from './useIntersect';
 import useMounted from './useMounted';
-import useQueryRouter from './useQueryRouter';
+import { useQueryRouter, useQueryObjRouter } from './useQueryRouter';
 import useScrollDetect from './useScrollDetect';
 import useSearch from './useSearch';
 import useThrottleInput from './useThrottleInput';
@@ -21,5 +21,6 @@ export {
   useIntersect,
   useScrollDetect,
   useQueryRouter,
+  useQueryObjRouter,
   useSearch,
 };

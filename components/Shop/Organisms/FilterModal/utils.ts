@@ -1,20 +1,35 @@
 import { DefaultData } from '#types/index';
-import { btnTemplateBox, ClothesCategory, FilterInfo } from '#types/info';
+import { btnTemplateBox, ClothesCategory } from '#types/info';
+import {
+  FilterStoreState,
+  FilterType,
+  FilterState,
+} from '#types/storeType/filter';
 import { bottomSizes } from '@constants/basic';
-import { colors, topSizes } from '@constants/index';
-import { fits, lengths, styles } from '@constants/style';
+import { colorsData, topSizes } from '@constants/index';
+import { fitsData, lengthsData, stylesData } from '@constants/style';
 
-import { FilterType } from '../../../../types/storeType/filter';
-
-type btnBox = btnTemplateBox<keyof FilterInfo, keyof ClothesCategory> & {
+export type btnBox = btnTemplateBox<
+  keyof Omit<FilterState, 'price'>,
+  keyof ClothesCategory
+> & {
   datas: (string | DefaultData)[];
+};
+
+type FilterElement = {
+  styles: string;
+  price: string;
+  colors: string | null;
+  fit: string | null;
+  length: string | null;
+  size: string | null;
 };
 
 const commonProps: btnBox[] = [
   {
     label: '스타일',
     type: 'styles',
-    datas: styles,
+    datas: stylesData,
     noCheckColor: true,
   },
 ];
@@ -33,20 +48,20 @@ export const filterData = (category: FilterType): btnBox[] => {
           type: 'colors',
           subType: categoryCondition,
           isColor: true,
-          datas: colors,
+          datas: colorsData,
         },
         {
           label: '핏',
           type: 'fit',
           subType: categoryCondition,
-          datas: fits[categoryCondition],
+          datas: fitsData[categoryCondition],
           noCheckColor: true,
         },
         {
           label: '기장',
           type: 'length',
           subType: categoryCondition,
-          datas: lengths[categoryCondition],
+          datas: lengthsData[categoryCondition],
           noCheckColor: true,
         },
         {
@@ -77,3 +92,35 @@ export const getCategoryName = (category: string): FilterType => {
       throw Error;
   }
 };
+
+export const getFilterElement = (
+  category: FilterType,
+  states: FilterStoreState,
+): FilterElement => {
+  const { styles, price, colors, fit, length, size } = states;
+  const common = {
+    styles: styles.join(','),
+    price: price.join(','),
+    colors: null,
+    fit: null,
+    length: null,
+    size: null,
+  };
+
+  if (category === 'all') return common;
+  return {
+    ...common,
+    colors: colors[category].join(','),
+    fit: fit[category].join(','),
+    length: length[category].join(','),
+    size: size[category].join(','),
+  };
+};
+
+export const getFilteredProducts = (
+  category: FilterType,
+  states: FilterStoreState,
+  router: (queryObj: {
+    [queryName: string]: string | null;
+  }) => Promise<boolean>,
+) => router(getFilterElement(category, states));
