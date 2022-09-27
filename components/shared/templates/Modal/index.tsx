@@ -42,7 +42,7 @@ export function Modal({
     return () => {
       document?.removeEventListener('keydown', onKeyDownESC);
     };
-  }, []);
+  }, [onClose]);
 
   if (!isOpen) return null;
   return (

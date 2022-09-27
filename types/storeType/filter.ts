@@ -1,4 +1,4 @@
-import { ClothesCategory, FilterInfo } from '#types/info';
+import { ClothesCategory } from '#types/info';
 
 export type FilterType = 'top' | 'bottom' | 'all';
 
@@ -25,7 +25,7 @@ export interface FilterState {
 
 export type FilterUpdate = (
   value: string,
-  type: keyof FilterInfo,
+  type: keyof Omit<FilterState, 'price'>,
   subType?: keyof ClothesCategory,
 ) => void;
 

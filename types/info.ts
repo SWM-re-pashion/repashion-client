@@ -28,14 +28,6 @@ export type ClothesCategory = {
   bottom: string[];
 };
 
-export type FilterInfo = {
-  styles: string[];
-  colors: ClothesCategory;
-  fit: ClothesCategory;
-  length: ClothesCategory;
-  size: ClothesCategory;
-};
-
 export type btnTemplateBox<T, U> = {
   label: string;
   type: T;
