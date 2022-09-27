@@ -28,9 +28,9 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 
   const queryStringObj = {
-    category: category as string,
-    order: order as string,
-    hideSold: hideSold as string,
+    category: (category as string) || '1',
+    order: (order as string) || orderData[0].code,
+    hideSold: (hideSold as string) || 'true',
   };
 
   await queryClient.prefetchQuery('category', () => getCategoryData());
