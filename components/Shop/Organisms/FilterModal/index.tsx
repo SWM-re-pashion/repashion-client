@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 
 import { useQueryObjRouter } from 'hooks';
 import { useFilterStore } from 'store/useFilterStore';
-import { filterPrice } from 'utils';
+import { filterMaxPrice, validatePriceRange } from 'utils';
 
 import { max, priceProps } from './constants';
 import FilterModalView from './FilterModalView';
@@ -19,8 +19,8 @@ type Props = {
   onClose: () => void;
 };
 
-export default function FilterModalWrapper(wrapperProps: Props) {
-  const { isOpen, onClose, mainCategory } = wrapperProps;
+export default function FilterModal(filterProps: Props) {
+  const { isOpen, onClose, mainCategory } = filterProps;
   const category = getCategoryName(mainCategory);
   const router = useQueryObjRouter();
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
@@ -37,11 +37,13 @@ export default function FilterModalWrapper(wrapperProps: Props) {
 
   const handlePriceChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, idx?: number) => {
-      const num = filterPrice(e.target.value, max).toString();
+      const { value } = e.target;
+      const validatedNum = validatePriceRange(value, states.price, idx);
+      const num = filterMaxPrice(validatedNum, max).toString();
       e.target.value = num;
       if (typeof idx === 'number') priceUpdate(+num, idx);
     },
-    [priceUpdate],
+    [priceUpdate, states.price],
   );
 
   const clear = () => {

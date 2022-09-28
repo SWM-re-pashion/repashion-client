@@ -8,7 +8,7 @@ import RadioBtn from '@molecules/RadioBtn';
 import classnames from 'classnames';
 import { max } from 'components/Shop/Organisms/FilterModal/constants';
 import useDebounceInput from 'hooks/useDebounceInput';
-import { filterPrice } from 'utils';
+import { filterMaxPrice } from 'utils';
 
 import $ from './style.module.scss';
 
@@ -27,7 +27,7 @@ function Price(priceProps: Props) {
   );
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const num = filterPrice(e.target.value, max);
+      const num = filterMaxPrice(e.target.value, max);
       e.target.value = num;
       handleInput(+num, 'price', undefined);
     },
