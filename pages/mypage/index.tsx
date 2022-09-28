@@ -7,7 +7,7 @@ import ProfileTemplate from '@templates/ProfileTemplate';
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const { status } = query;
-  const statusQuery = (typeof status !== 'object' && status) || null;
+  const statusQuery = (typeof status !== 'object' && status) || '';
 
   return {
     props: {
@@ -16,7 +16,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   };
 }
 
-function MyPage({ status }: { status: string | null }) {
+function MyPage({ status }: { status: string }) {
   return (
     <ProfileTemplate
       {...{ status, isMe: true, isNeedFooter: true }}

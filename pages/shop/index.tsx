@@ -35,13 +35,13 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     category: (category as string) || '1',
     order: (order as string) || orderData[0].code,
     hide_sold: (hide_sold as string) || 'true',
-    style: (style as string) || null,
-    price_goe: (price_goe as string) || null,
-    price_loe: (price_loe as string) || null,
-    color: (color as string) || null,
-    fit: (fit as string) || null,
-    length: (length as string) || null,
-    clothes_size: (clothes_size as string) || null,
+    style: (style as string) || '',
+    price_goe: (price_goe as string) || '',
+    price_loe: (price_loe as string) || '',
+    color: (color as string) || '',
+    fit: (fit as string) || '',
+    length: (length as string) || '',
+    clothes_size: (clothes_size as string) || '',
   };
 
   await queryClient.prefetchQuery('category', () => getCategoryData());
@@ -119,22 +119,22 @@ function Shop() {
     clothes_size: clothesSize,
   };
 
+  const props = {
+    genderQuery,
+    mainQuery,
+    subQuery,
+    orderQuery,
+    hideSoldQuery,
+    genderSelectMenu,
+    mainSelectMenu,
+    subSelectMenu,
+    breadCrumb: `${mainCrumb} > ${subCrumb}`,
+  };
+
   return (
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
-      <ShopHeader
-        {...{
-          genderQuery,
-          mainQuery,
-          subQuery,
-          orderQuery,
-          hideSoldQuery,
-          genderSelectMenu,
-          mainSelectMenu,
-          subSelectMenu,
-          breadCrumb: `${mainCrumb} > ${subCrumb}`,
-        }}
-      />
+      <ShopHeader {...props} />
 
       <ProductItemList needPullToRefresh {...{ queryStringObj }} />
 

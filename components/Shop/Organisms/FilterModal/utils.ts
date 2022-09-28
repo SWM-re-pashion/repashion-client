@@ -20,10 +20,10 @@ type FilterElement = {
   style: string;
   price_goe: string;
   price_loe: string;
-  color: string | null;
-  fit: string | null;
-  length: string | null;
-  clothes_size: string | null;
+  color: string;
+  fit: string;
+  length: string;
+  clothes_size: string;
 };
 
 const commonProps: btnBox[] = [
@@ -103,10 +103,10 @@ export const getFilterElement = (
     style: style.join(','),
     price_goe: Math.max(...price).toString(),
     price_loe: Math.min(...price).toString(),
-    color: null,
-    fit: null,
-    length: null,
-    clothes_size: null,
+    color: '',
+    fit: '',
+    length: '',
+    clothes_size: '',
   };
 
   if (category === 'all') return common;
@@ -122,7 +122,5 @@ export const getFilterElement = (
 export const getFilteredProducts = (
   category: FilterType,
   states: FilterStoreState,
-  router: (queryObj: {
-    [queryName: string]: string | null;
-  }) => Promise<boolean>,
+  router: (queryObj: { [queryName: string]: string }) => Promise<boolean>,
 ) => router(getFilterElement(category, states));

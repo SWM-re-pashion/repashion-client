@@ -12,7 +12,7 @@ import { useQueryRouter, useSearch } from 'hooks';
 import $ from './style.module.scss';
 
 type Props = {
-  status: string | null;
+  status: string;
   isMe: boolean;
   profile: {
     profileImg: string;

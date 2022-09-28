@@ -4,17 +4,17 @@ import { getQueryString } from 'utils';
 const getProductItemList = async (
   queryString: string,
 ): Promise<res.ShopFeed> => {
-  const response = await Axios.get(`/api/shop?${queryString}`); // TODO: api endpoint 수정
+  const response = await Axios.get(`/api/shop/filter?${queryString}`);
   return response.data;
 };
 
 const getInfiniteProducts =
-  (queryStringObj: { [key: string]: string | null }) =>
+  (queryStringObj: { [key: string]: string }) =>
   async ({ pageParam = 0 }) => {
     const queryString = getQueryString({
       ...queryStringObj,
       page: `${pageParam}`,
-      size: '5',
+      size: '50',
     });
 
     const {
