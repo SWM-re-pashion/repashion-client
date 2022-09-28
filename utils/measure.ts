@@ -1,4 +1,4 @@
-import { measures } from '@constants/style';
+import { measuresData } from '@constants/style';
 
 export const getJudgeCategory = (kind: string | string[]) => {
   if (kind.includes('skirt')) return 'skirt';
@@ -36,5 +36,5 @@ export const getMeasureElement = (category: string | string[]) => {
       measure === 'sleeveLength';
   }
 
-  return measures.filter(({ code }) => filterCondition(code));
+  return measuresData.filter(({ code }) => filterCondition(code));
 };

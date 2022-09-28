@@ -30,7 +30,14 @@ declare namespace req {
     page: number;
     size: number;
     category?: string;
-    order?: string;
-    hideSold?: string;
+    order?: string; // TODO: order는 필수값으로 수정할 것
+    hide_sold?: string;
+    style?: string;
+    price_goe?: string;
+    price_loe?: string;
+    color?: string;
+    fit?: string;
+    length?: string;
+    clothes_size?: string;
   };
 }

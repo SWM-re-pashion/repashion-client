@@ -1,7 +1,7 @@
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
 import { bottomSizes, condition, topSizes, bodyShapes } from '@constants/basic';
-import { fits, lengths } from '@constants/style';
+import { fitsData, lengthsData } from '@constants/style';
 
 type btnBox = btnTemplateBox<'size', undefined> & {
   datas: (string | DefaultData)[];
@@ -25,8 +25,10 @@ export const reviewData = (category: string) => {
   return {
     condition,
     pollution: condition,
-    fit: isTop(category) ? allSlice(fits.top) : allSlice(fits.bottom),
+    fit: isTop(category) ? allSlice(fitsData.top) : allSlice(fitsData.bottom),
     bodyShapes,
-    length: isTop(category) ? allSlice(lengths.top) : allSlice(lengths.bottom),
+    length: isTop(category)
+      ? allSlice(lengthsData.top)
+      : allSlice(lengthsData.bottom),
   };
 };

@@ -1,7 +1,7 @@
 import { deepClone } from 'utils/deepClone';
 
 import { arrToString } from './arrToString';
-import { filterPrice } from './filterValue';
+import { filterMaxPrice, validatePriceRange } from './filterValue';
 import getQueryString from './getQueryString';
 import { getJudgeCategory, getMeasureElement } from './measure';
 import { mergeObjInArr } from './mergeObjInArr';
@@ -20,10 +20,11 @@ export {
   productNoticeUtil,
   judgeProductIcon,
   deepClone,
-  filterPrice,
+  filterMaxPrice,
   mergeObjInArr,
   arrToString,
   getJudgeCategory,
   getMeasureElement,
   getQueryString,
+  validatePriceRange,
 };

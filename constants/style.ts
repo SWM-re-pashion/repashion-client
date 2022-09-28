@@ -1,4 +1,4 @@
-const styles = [
+const stylesData = [
   { name: '전체', code: 'all' },
   { name: '트레디셔널', code: 'traditional' },
   { name: '매니시', code: 'manish' },
@@ -23,7 +23,7 @@ const styles = [
   { name: '프레피', code: 'preppy' },
 ];
 
-const fits = {
+const fitsData = {
   top: [
     { name: '전체', code: 'all' },
     { name: '타이트', code: 'tight' },
@@ -40,7 +40,7 @@ const fits = {
   ],
 };
 
-const lengths = {
+const lengthsData = {
   top: [
     { name: '전체', code: 'all' },
     { name: '크롭', code: 'crop' },
@@ -62,7 +62,7 @@ const lengths = {
   ],
 };
 
-const measures = [
+const measuresData = [
   { name: '총장', code: 'length' },
   { name: '어깨너비', code: 'shoulderWidth' },
   { name: '가슴단면', code: 'chestSection' },
@@ -73,4 +73,4 @@ const measures = [
   { name: '밑단단면', code: 'bottomSection' },
 ];
 
-export { styles, fits, lengths, measures };
+export { stylesData, fitsData, lengthsData, measuresData };

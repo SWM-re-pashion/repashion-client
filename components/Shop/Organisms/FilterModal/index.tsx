@@ -1,18 +1,17 @@
 import { useCallback, useRef } from 'react';
 
-import Button from '@atoms/Button';
-import ButtonFooter from '@atoms/ButtonFooter';
-import { Close } from '@atoms/icon';
-import PageHeader from '@molecules/PageHeader';
-import InfoBtnBox from '@organisms/InfoBtnBox';
-import { Modal } from '@templates/Modal';
+import { useQueryObjRouter } from 'hooks';
 import { useFilterStore } from 'store/useFilterStore';
-import { filterPrice } from 'utils';
+import { filterMaxPrice, validatePriceRange } from 'utils';
 
-import PriceInput from '../PriceInput';
 import { max, priceProps } from './constants';
-import $ from './style.module.scss';
-import { filterData, getCategoryName } from './utils';
+import FilterModalView from './FilterModalView';
+import {
+  btnBox,
+  filterData,
+  getCategoryName,
+  getFilteredProducts,
+} from './utils';
 
 type Props = {
   isOpen: boolean;
@@ -20,8 +19,10 @@ type Props = {
   onClose: () => void;
 };
 
-function FilterModal({ mainCategory }: { mainCategory: string }) {
+export default function FilterModal(filterProps: Props) {
+  const { isOpen, onClose, mainCategory } = filterProps;
   const category = getCategoryName(mainCategory);
+  const router = useQueryObjRouter();
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
 
   const states = useFilterStore((state) => state);
@@ -36,74 +37,51 @@ function FilterModal({ mainCategory }: { mainCategory: string }) {
 
   const handlePriceChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, idx?: number) => {
-      const num = filterPrice(e.target.value, max).toString();
+      const { value } = e.target;
+      const validatedNum = validatePriceRange(value, states.price, idx);
+      const num = filterMaxPrice(validatedNum, max).toString();
       e.target.value = num;
       if (typeof idx === 'number') priceUpdate(+num, idx);
     },
-    [priceUpdate],
+    [priceUpdate, states.price],
   );
 
   const clear = () => {
     if (clearState) clearState(category);
   };
 
-  return (
-    <>
-      <div className={$['filter-container']}>
-        {filterData(category).map((options) => {
-          const compareData: string[] =
-            options.type !== 'styles' && options.subType
-              ? states[options.type][options.subType]
-              : (states[options.type] as string[]); // TODO: 타입 단언 제거
+  const setFilter = useCallback(() => {
+    getFilteredProducts(category, states, router);
+    onClose();
+  }, [category, router, states, onClose]);
 
-          return (
-            <InfoBtnBox
-              {...options}
-              key={options.label}
-              compareData={compareData}
-              handleFunc={filterUpdate}
-            />
-          );
-        })}
-        <PriceInput
-          {...priceProps(states.price)}
-          handleChange={handlePriceChange}
-          leftRef={inputLeftRef}
-          rightRef={inputRightRef}
-          update={priceUpdate}
-        />
-      </div>
-
-      <ButtonFooter
-        background="white"
-        LeftBtn={
-          <Button className={$.clear} onClick={clear}>
-            초기화
-          </Button>
-        }
-        style={{ padding: '0 24px 30px' }}
-      >
-        설정완료
-      </ButtonFooter>
-    </>
+  const compareData = useCallback(
+    (options: btnBox): string[] => {
+      if (options.type !== 'style' && options.subType)
+        return states[options.type][options.subType];
+      if (options.type === 'style') return states[options.type];
+      return [];
+    },
+    [states],
   );
-}
 
-export default function FilterModalWrapper(wrapperProps: Props) {
-  const { isOpen, onClose, mainCategory } = wrapperProps;
-  return (
-    <Modal id="filter-modal" {...{ isOpen, onClose }}>
-      <PageHeader
-        title="필터"
-        left={
-          <Button onClick={onClose} label="필터 닫기" iconBtn>
-            <Close />
-          </Button>
-        }
-      />
-      <div className={$['filter-modal']} aria-describedby="필터 페이지">
-        <FilterModal {...{ mainCategory }} />
-      </div>
-    </Modal>
-  );
+  const priceProp = priceProps(states.price);
+  const filterDatas = filterData(category);
+
+  const props = {
+    isOpen,
+    onClose: setFilter,
+    setFilter,
+    filterDatas,
+    priceProp,
+    compareData,
+    filterUpdate,
+    clear,
+    inputLeftRef,
+    inputRightRef,
+    priceUpdate,
+    handlePriceChange,
+  };
+
+  return <FilterModalView {...props} />;
 }

@@ -1,6 +1,6 @@
 import { DefaultData } from '#types/index';
 
-const colors: DefaultData[] = [
+const colorsData: DefaultData[] = [
   { name: 'Black', code: '#000' },
   { name: 'White', code: '#fff' },
   { name: 'Beige', code: '#e4d2c1' },
@@ -21,4 +21,4 @@ const colors: DefaultData[] = [
   { name: 'Purple', code: '#936dff' },
 ];
 
-export { colors };
+export { colorsData };

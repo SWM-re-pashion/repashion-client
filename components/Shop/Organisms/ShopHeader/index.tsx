@@ -24,7 +24,7 @@ type Props = {
 function ShopHeader(headerProps: Props) {
   const queryCategory = useQueryRouter('category');
   const queryOrder = useQueryRouter('order');
-  const queryHideSold = useQueryRouter('hideSold');
+  const queryHideSold = useQueryRouter('hide_sold');
   const { orderQuery, hideSoldQuery } = headerProps;
   const { genderSelectMenu, mainSelectMenu, subSelectMenu } = headerProps;
   const { genderQuery, mainQuery, subQuery, breadCrumb } = headerProps;

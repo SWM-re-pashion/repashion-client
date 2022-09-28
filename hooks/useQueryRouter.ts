@@ -17,4 +17,20 @@ function useQueryRouter(queryName: string) {
   );
   return queryFunc;
 }
-export default useQueryRouter;
+
+function useQueryObjRouter() {
+  const router = useRouter();
+  const queryFunc = useCallback(
+    (queryObj: { [queryName: string]: string | null }) =>
+      router.push(
+        {
+          query: { ...router.query, ...queryObj },
+        },
+        undefined,
+        { shallow: true },
+      ),
+    [router],
+  );
+  return queryFunc;
+}
+export { useQueryRouter, useQueryObjRouter };

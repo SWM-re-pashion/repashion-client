@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { GetServerSidePropsContext } from 'next';
 
 import { ReactElement } from 'react';
@@ -5,6 +6,7 @@ import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { orderData } from '@constants/category';
+import { queries } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
@@ -21,16 +23,25 @@ import {
   categoryIdNameCodeArr,
   curCategoryChildrenByProp,
 } from 'components/Upload/organisms/Dialog/utils';
-import { useSearch } from 'hooks';
+import { useMultipleSearch } from 'hooks';
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const { category, order, hideSold } = query;
+  const { category, order, hide_sold } = query;
+  const { style, price_goe, price_loe, color, fit, length, clothes_size } =
+    query;
   const queryClient = new QueryClient();
 
   const queryStringObj = {
-    category: category as string,
-    order: order as string,
-    hideSold: hideSold as string,
+    category: (category as string) || '1',
+    order: (order as string) || orderData[0].code,
+    hide_sold: (hide_sold as string) || 'true',
+    style: (style as string) || '',
+    price_goe: (price_goe as string) || '',
+    price_loe: (price_loe as string) || '',
+    color: (color as string) || '',
+    fit: (fit as string) || '',
+    length: (length as string) || '',
+    clothes_size: (clothes_size as string) || '',
   };
 
   await queryClient.prefetchQuery('category', () => getCategoryData());
@@ -53,9 +64,19 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 
 function Shop() {
   const data = useCategoryTree()?.data;
-  const category = useSearch('category');
-  const hideSold = useSearch('hideSold');
-  const order = useSearch('order');
+
+  const [
+    category,
+    hideSold,
+    order,
+    style,
+    priceGoe,
+    priceLoe,
+    color,
+    fit,
+    length,
+    clothesSize,
+  ] = useMultipleSearch(queries);
 
   if (!data) return null;
   const orderQuery = order || orderData[0].code;
@@ -85,28 +106,35 @@ function Shop() {
   const subQuery = isIncludeSub ? category : existingSubMenu;
 
   const categoryQuery = subQuery || mainQuery;
-  const queryStringObj = {
+  const queryStringObj: Omit<req.ShopFeed, 'page' | 'size'> = {
     category: categoryQuery,
-    hideSold: hideSoldQuery,
+    hide_sold: hideSoldQuery,
     order: orderQuery,
+    style,
+    price_goe: priceGoe,
+    price_loe: priceLoe,
+    color,
+    fit,
+    length,
+    clothes_size: clothesSize,
+  };
+
+  const props = {
+    genderQuery,
+    mainQuery,
+    subQuery,
+    orderQuery,
+    hideSoldQuery,
+    genderSelectMenu,
+    mainSelectMenu,
+    subSelectMenu,
+    breadCrumb: `${mainCrumb} > ${subCrumb}`,
   };
 
   return (
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
-      <ShopHeader
-        {...{
-          genderQuery,
-          mainQuery,
-          subQuery,
-          orderQuery,
-          hideSoldQuery,
-          genderSelectMenu,
-          mainSelectMenu,
-          subSelectMenu,
-          breadCrumb: `${mainCrumb} > ${subCrumb}`,
-        }}
-      />
+      <ShopHeader {...props} />
 
       <ProductItemList needPullToRefresh {...{ queryStringObj }} />
 

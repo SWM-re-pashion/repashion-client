@@ -5,8 +5,7 @@ import {
   UploadState,
   AdditionalInfo,
 } from '#types/storeType/upload';
-import { colors } from '@constants/index';
-import { styles } from '@constants/style';
+import { colorsData, stylesData } from '@constants/index';
 
 type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
   datas: (string | DefaultData)[];
@@ -23,7 +22,7 @@ const styleData: btnBox[] = [
     label: '스타일 태그 선택 (1개)',
     type: 'style',
     subType: 'tag',
-    datas: styles.slice(1),
+    datas: stylesData.slice(1),
     noCheckColor: true,
     childrenBox: true,
   },
@@ -31,7 +30,7 @@ const styleData: btnBox[] = [
     label: '컬러 선택',
     type: 'style',
     subType: 'color',
-    datas: colors,
+    datas: colorsData,
     isColor: true,
     childrenBox: true,
   },

@@ -1,18 +1,18 @@
 import { genders, bodyShapes, topSizes, bottomSizes } from './basic';
 import { orderData, allCategory, recommendCategory } from './category';
-import { colors } from './colors';
+import { colorsData } from './colors';
 import { statusData } from './status';
-import { fits, lengths, styles } from './style';
+import { fitsData, lengthsData, stylesData } from './style';
 
 export {
-  colors,
+  colorsData,
   genders,
   bodyShapes,
   topSizes,
   bottomSizes,
-  styles,
-  fits,
-  lengths,
+  stylesData,
+  fitsData,
+  lengthsData,
   orderData,
   allCategory,
   recommendCategory,
