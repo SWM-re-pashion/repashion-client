@@ -3,6 +3,9 @@
   display: flex;
   align-items: center;
   margin-bottom: 12px;
+  &:last-of-type {
+    margin: 0;
+  }
 
   .label {
     width: fit-content;

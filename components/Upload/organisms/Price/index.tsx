@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
@@ -16,10 +17,11 @@ type Props = {
   state: UploadState['price'];
   delivery: boolean;
   onChange: UpdateUpload;
+  isPriceValid: boolean;
 };
 
 function Price(priceProps: Props) {
-  const { delivery, onChange, state } = priceProps;
+  const { delivery, onChange, state, isPriceValid } = priceProps;
 
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
@@ -58,6 +60,10 @@ function Price(priceProps: Props) {
           배송비 포함
         </Span>
       </div>
+      <ErrorMsg
+        isValid={isPriceValid}
+        msg="판매 가격과 배송비 포함 여부를 알려주세요."
+      />
     </InfoArticle>
   );
 }

@@ -2,6 +2,7 @@ import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
@@ -24,10 +25,12 @@ type Props = {
   bodyShape: string;
   state: UploadState['sellerNote'];
   onChange: UpdateUpload;
+  isSellerValid: boolean;
 };
 
 function SellerReview(priceProps: Props) {
-  const { data, state, onChange, height, bodyShape } = priceProps;
+  const { data, state, onChange, height, bodyShape, isSellerValid } =
+    priceProps;
   const { condition, pollution, fit, bodyShapes, length } = data;
   const optionsData = [condition, pollution, length, fit];
   const handleInput = useDebounceInput(onChange, 200);
@@ -93,6 +96,8 @@ function SellerReview(priceProps: Props) {
           </div>
         );
       })}
+
+      <ErrorMsg isValid={isSellerValid} msg="상품 후기를 선택해주세요." />
     </InfoArticle>
   );
 }
