@@ -1,0 +1,8 @@
+.error-msg {
+  margin-top: 4px;
+  color: $third;
+  @include typography(14);
+  @include mobile() {
+    @include typography(12);
+  }
+}
