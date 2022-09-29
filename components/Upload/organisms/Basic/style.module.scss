@@ -5,8 +5,8 @@
   .title {
     @include halfWidth();
     margin-bottom: 12px;
-    &:last-child {
-      margin: 12px 0 0 0;
+    &:last-of-type {
+      margin: 0;
     }
   }
 
@@ -15,7 +15,7 @@
     align-items: center;
     @include halfWidth();
     height: 50px;
-    margin: 0;
+    margin: 0 0 12px 0;
     padding: 0 16px;
     @include border(border, 5px, $gray-280);
     text-align: left;
