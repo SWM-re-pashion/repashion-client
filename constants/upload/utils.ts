@@ -3,13 +3,13 @@ import { btnTemplateBox } from '#types/info';
 import { bottomSizes, condition, topSizes, bodyShapes } from '@constants/basic';
 import { fitsData, lengthsData } from '@constants/style';
 
-type btnBox = btnTemplateBox<'size', undefined> & {
+export type sizeBtnBox = btnTemplateBox<'size', undefined> & {
   datas: (string | DefaultData)[];
 };
 
 const isTop = (category: string) => category === 'top' || category === 'outer';
 
-export const sizeData = (category: string): btnBox => {
+export const sizeData = (category: string): sizeBtnBox => {
   return {
     label: '사이즈',
     type: 'size',

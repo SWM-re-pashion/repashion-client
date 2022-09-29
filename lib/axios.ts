@@ -10,6 +10,7 @@ const Axios = axios.create({
 
 const AiAxios = axios.create({
   baseURL: process.env.AI_API_URL,
+  timeout: 3000,
   headers: {
     'Content-type': 'multipart/form-data',
   },
