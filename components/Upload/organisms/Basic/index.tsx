@@ -2,6 +2,7 @@ import { memo, useCallback } from 'react';
 
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import Button from '@atoms/Button';
+import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
@@ -19,11 +20,12 @@ type Props = {
   onChange: UpdateUpload;
   openDialog: () => void;
   closeDialog: () => void;
+  isBasicValid: boolean;
 };
 
 function Basic(basicProps: Props) {
   const { dialogOpen, openDialog, onChange, closeDialog } = basicProps;
-  const { state, categoryData: genderCategory } = basicProps;
+  const { state, categoryData: genderCategory, isBasicValid } = basicProps;
   const [gender, main, sub] = state.category;
   const mainCategory = getCategoryTree(genderCategory, gender, 'code'); // TODO: 2번 렌더링
   const subCategory = getCategoryTree(mainCategory, main, 'code');
@@ -51,7 +53,12 @@ function Basic(basicProps: Props) {
   );
 
   return (
-    <InfoArticle label="아이템 기본 정보" required className={$['basic-info']}>
+    <InfoArticle
+      label="아이템 기본 정보"
+      description="이미지를 올리면 카테고리를 자동으로 채워줘요."
+      required
+      className={$['basic-info']}
+    >
       <TextInput
         label="아이템"
         className={$.title}
@@ -87,6 +94,11 @@ function Basic(basicProps: Props) {
         value={state.brand}
         placeholder="브랜드 이름"
         onChange={handleBrandChange}
+      />
+
+      <ErrorMsg
+        isValid={isBasicValid}
+        msg="아이템 이름, 카테고리, 브랜드를 알려주세요."
       />
     </InfoArticle>
   );

@@ -7,7 +7,6 @@ import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import PageHeader from '@molecules/PageHeader';
-import InfoBtnBox from '@organisms/InfoBtnBox';
 import Layout from '@templates/Layout';
 import { getCategoryData, useCategoryTree } from 'api/getCategoryData';
 import { useProductUpload } from 'api/upload';
@@ -17,11 +16,13 @@ import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import MeasureInfo from 'components/Upload/organisms/MeasureInfo';
 import Price from 'components/Upload/organisms/Price';
 import SellerReview from 'components/Upload/organisms/SellerReview';
+import SizeInfo from 'components/Upload/organisms/SizeInfo';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
 import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
+import { toastError, toastSuccess } from 'utils/toaster';
 
 import { additionData, styleData } from '../../constants/upload/constants';
 import { reviewData, sizeData } from '../../constants/upload/utils';
@@ -42,11 +43,15 @@ function Upload() {
   const router = useRouter();
   const categoryData = useCategoryTree()?.data;
   const states = useUploadStore((state) => state);
-  const categories = states.basicInfo.category;
-  const [_, mainCategoryState] = categories;
-  const strCategory = arrToString(categories);
+  const { price, isIncludeDelivery, sellerNote, style, basicInfo, size } =
+    states;
+  const { color, tag, material } = style;
+  const { title, category, brand } = basicInfo;
+
+  const [_, mainCategoryState] = category;
+  const strCategory = arrToString(category);
   const mainCategory = mainCategoryState || 'top';
-  const size = sizeData(mainCategory);
+  const sizeProps = sizeData(mainCategory);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [judgeMeasure, setJudgeMeasure] = useState(
     getJudgeCategory(strCategory),
@@ -72,13 +77,29 @@ function Upload() {
   const height = 170;
   const bodyShape = 'normal'; // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
 
+  const isImgValid = !!states.imgList.length;
+  const isStyleValid = !!color.length && !!tag && !!material;
+  const isPriceValid = !!price && isIncludeDelivery;
+  const isBasicValid = !!title && !!brand && category.every((x) => !!x);
+  const isSellerValid = Object.values(sellerNote).every((x) => !!x);
+  const isSizeValid = !!size;
+
+  const isPartialValid = isImgValid && isStyleValid && isPriceValid;
+  const isFormValid =
+    isPartialValid && isBasicValid && isSellerValid && isSizeValid;
+
   const handleSubmit = () => {
-    mutate(states, {
-      onSuccess: ({ data }) => {
-        router.push(`/shop/${data}`);
-        states.clearUpload();
-      },
-    });
+    if (isFormValid) {
+      mutate(states, {
+        onSuccess: ({ data }) => {
+          router.push(`/shop/${data}`);
+          states.clearUpload();
+          toastSuccess({ message: '상품 등록에 성공했습니다.' });
+        },
+      });
+    } else {
+      toastError({ message: '필수 정보를 알려주세요.' });
+    }
   };
 
   useEffect(() => {
@@ -87,10 +108,11 @@ function Upload() {
 
   useDidMountEffect(() => {
     clearMeasure();
-  }, [clearMeasure, judgeMeasure]); // Fix: restrictMode로 인해 실행됨.
+  }, [clearMeasure, judgeMeasure]); // FIX: restrictMode로 인해 실행됨.
 
   if (!isMounted || !categoryData) return null;
   return (
+    // TODO: form 태그로 바꾸기
     <>
       <HeadMeta
         title="re:Fashion | 상품 등록하기"
@@ -103,34 +125,38 @@ function Upload() {
       />
       <div className={$.upload}>
         <ImgUpload
+          {...{ isImgValid }}
           dispatch={imgUpload}
-          state={states}
+          state={states.imgList}
           remove={removeImg}
           onChange={updateUpload}
         />
         <StyleSelect
+          {...{ isStyleValid }}
           data={styleData}
-          state={states.style}
+          state={style}
           onChange={updateUpload}
         />
         <Price
-          delivery={states.isIncludeDelivery}
-          state={states.price}
+          {...{ isPriceValid }}
+          delivery={isIncludeDelivery}
+          state={price}
           onChange={updateUpload}
         />
         <Basic
-          state={states.basicInfo}
+          {...{ isBasicValid }}
+          state={basicInfo}
           onChange={updateUpload}
           {...{ dialogOpen, openDialog, closeDialog, categoryData }}
         />
-        <InfoBtnBox
-          {...size}
-          key={size.label}
-          compareData={states[size.type]}
-          handleFunc={updateUpload}
+        <SizeInfo
+          {...{ isSizeValid }}
+          sizeProps={sizeProps}
+          state={size}
+          onChange={updateUpload}
         />
         <SellerReview
-          {...{ height, bodyShape }}
+          {...{ height, bodyShape, isSellerValid }}
           data={review}
           state={states.sellerNote}
           onChange={updateUpload}

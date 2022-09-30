@@ -1,26 +1,22 @@
 import React, { memo, useCallback, useRef } from 'react';
 
 import { ImgBasicProps } from '#types/index';
-import { UpdateUpload, UploadState } from '#types/storeType/upload';
-import LoadingSpinner from '@atoms/LoadingSpinner';
+import { ImgList, UpdateUpload } from '#types/storeType/upload';
 import { useImgUpload } from 'api/upload';
-import classnames from 'classnames';
-import ImgCard from 'components/Upload/molecules/ImgCard';
-import ImgUploadBtn from 'components/Upload/molecules/ImgUploadBtn';
 import useDragScroll from 'hooks/useDragScroll';
 
-import $ from './style.module.scss';
+import ImgUploadView from './ImgUploadView';
 
 type Props = {
-  state: UploadState;
+  state: ImgList[];
   dispatch: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   remove: (removeId: number) => void;
   onChange: UpdateUpload;
+  isImgValid: boolean;
 };
 
 function ImgUpload(imgProps: Props) {
-  const { dispatch, state, remove, onChange } = imgProps;
-  const { imgList } = state;
+  const { dispatch, state, remove, onChange, isImgValid } = imgProps;
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
@@ -68,34 +64,18 @@ function ImgUpload(imgProps: Props) {
     [mutate, dispatch, onChange],
   );
 
-  return (
-    <article
-      className={classnames($['img-upload'], {
-        [$['img-upload-loading']]: isLoading,
-      })}
-      ref={uploadRef}
-    >
-      {isLoading ? (
-        <LoadingSpinner width={50} borderWidth={3} color="#876bf6" />
-      ) : (
-        <>
-          <ImgUploadBtn
-            {...{ inputRef, onUploadClick }}
-            num={imgList.length}
-            onUpload={onUploadImg}
-          />
-          {imgList.map(
-            (
-              { id, src },
-              idx, // TODO: imgList margin-top 주기
-            ) => (
-              <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
-            ),
-          )}
-        </>
-      )}
-    </article>
-  );
+  const props = {
+    isLoading,
+    isImgValid,
+    uploadRef,
+    inputRef,
+    state,
+    onUploadClick,
+    onUploadImg,
+    remove,
+  };
+
+  return <ImgUploadView {...props} />;
 }
 
 export default memo(ImgUpload);

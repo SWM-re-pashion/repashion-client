@@ -1,10 +1,16 @@
+.upload-container {
+  min-height: 116px;
+  margin-bottom: 40px;
+  &-loading {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .img-upload {
   overflow: hidden;
   height: 116px;
   display: flex;
   align-items: flex-end;
-  margin-bottom: 40px;
-  &-loading {
-    align-items: center;
-  }
+  margin: auto 0;
 }

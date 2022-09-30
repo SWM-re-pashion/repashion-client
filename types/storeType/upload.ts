@@ -1,5 +1,9 @@
 import { ImgBasicProps } from '..';
 
+export interface ImgList {
+  id: number;
+  src: string;
+}
 export interface StyleUpload {
   tag: string;
   color: string[];
@@ -40,7 +44,7 @@ export interface AdditionalInfo {
 }
 
 export interface UploadState {
-  imgList: { id: number; src: string }[];
+  imgList: ImgList[];
   style: StyleUpload;
   price: number;
   isIncludeDelivery: boolean;

@@ -22,12 +22,13 @@ type Props<T, U> = {
   handleFunc?: (value: string, type: T, subType?: U) => void;
   required?: boolean;
   childrenBox?: boolean;
+  error?: React.ReactNode;
 } & StyleProps;
 
 function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
   const { className, style, isColor, noCheckColor, childrenBox } = btnBoxProps;
-  const { label, type, datas, subType, compareData, required, handleFunc } =
-    btnBoxProps;
+  const { error, label, type, subType } = btnBoxProps;
+  const { datas, compareData, required, handleFunc } = btnBoxProps;
   const btnBoxRef = useRef<HTMLDivElement>(null);
   useDragScroll(btnBoxRef);
 
@@ -67,6 +68,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
           );
         })}
       </div>
+      {error && error}
     </InfoArticle>
   );
 }

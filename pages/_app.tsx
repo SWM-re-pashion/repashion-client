@@ -6,6 +6,7 @@ import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
+import Toast from '@atoms/Toast';
 import { useMounted, useWindowResize } from 'hooks';
 
 import '../styles/globals.scss';
@@ -58,6 +59,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <Hydrate state={pageProps.dehydratedState}>
         {getLayout(<Component {...pageProps} />)}
+        <Toast />
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
     </QueryClientProvider>
