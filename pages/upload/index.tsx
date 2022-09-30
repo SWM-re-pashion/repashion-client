@@ -53,14 +53,11 @@ function Upload() {
   const strCategory = arrToString(category);
   const mainCategory = mainCategoryState || 'top';
   const sizeProps = sizeData(mainCategory);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [judgeMeasure, setJudgeMeasure] = useState(
     getJudgeCategory(strCategory),
   );
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
-  const openDialog = useCallback(() => setDialogOpen(true), []);
-  const closeDialog = useCallback(() => setDialogOpen(false), []);
   const imgUpload = useUploadStore(useCallback((state) => state.imgUpload, []));
   const removeImg = useUploadStore(useCallback((state) => state.removeImg, []));
   const clearMeasure = useUploadStore(
@@ -147,10 +144,9 @@ function Upload() {
           onChange={updateUpload}
         />
         <Basic
-          {...{ isBasicValid }}
+          {...{ isBasicValid, categoryData }}
           state={basicInfo}
           onChange={updateUpload}
-          {...{ dialogOpen, openDialog, closeDialog, categoryData }}
         />
         <SizeInfo
           {...{ isSizeValid }}
