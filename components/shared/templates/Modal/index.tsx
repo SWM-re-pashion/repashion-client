@@ -8,7 +8,7 @@ import $ from './style.module.scss';
 type Props = {
   id: string;
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 } & DefaultProps;
 
 export function Modal({
@@ -35,7 +35,7 @@ export function Modal({
 
   useEffect(() => {
     function onKeyDownESC(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && onClose) onClose();
     }
     document.addEventListener('keydown', onKeyDownESC);
 

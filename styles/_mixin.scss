@@ -38,11 +38,11 @@
   cursor: pointer;
 }
 
-@mixin modal() {
+@mixin modal($width) {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: calc(100% - #{$width});
   max-width: 1024px;
 }
 

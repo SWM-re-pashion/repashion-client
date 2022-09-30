@@ -10,14 +10,16 @@ import Button from './Button';
 type Props = {
   color?: string;
   url?: string;
+  onClick?: () => void;
 } & StyleProps;
 
-function BackBtn({ className, color, url }: Props) {
+function BackBtn({ className, color, url, onClick }: Props) {
   const router = useRouter();
   const handleClick = useCallback(() => {
+    if (onClick) onClick();
     if (url) router.replace(url);
     else router.back();
-  }, [router, url]);
+  }, [onClick, router, url]);
 
   return (
     <Button onClick={handleClick} iconBtn>

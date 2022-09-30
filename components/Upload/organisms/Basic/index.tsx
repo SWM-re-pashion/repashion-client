@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import Button from '@atoms/Button';
@@ -14,18 +14,20 @@ import { findNameByProp } from '../Dialog/utils';
 import $ from './style.module.scss';
 
 type Props = {
-  dialogOpen: boolean;
   state: UploadState['basicInfo'];
   categoryData: res.CategoryTree['data'];
   onChange: UpdateUpload;
-  openDialog: () => void;
-  closeDialog: () => void;
   isBasicValid: boolean;
 };
 
 function Basic(basicProps: Props) {
-  const { dialogOpen, openDialog, onChange, closeDialog } = basicProps;
-  const { state, categoryData: genderCategory, isBasicValid } = basicProps;
+  const { state, onChange } = basicProps;
+  const { categoryData: genderCategory, isBasicValid } = basicProps;
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const openDialog = useCallback(() => setDialogOpen(true), []);
+  const closeDialog = useCallback(() => setDialogOpen(false), []);
+
   const [gender, main, sub] = state.category;
   const mainCategory = getCategoryTree(genderCategory, gender, 'code'); // TODO: 2번 렌더링
   const subCategory = getCategoryTree(mainCategory, main, 'code');
