@@ -16,7 +16,7 @@ function ContinueWriteModal(modalProps: Props) {
 
   useEffect(() => {
     if (isRemainState) setDialogOpen(true);
-  }, [isRemainState]);
+  }, []);
 
   const handleCancel = useCallback(() => {
     clearUpload();
