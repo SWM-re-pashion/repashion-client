@@ -1,5 +1,5 @@
 .filter-modal {
-  @include modal();
+  @include modal(0);
   height: calc(100% - 60px);
   top: 60px;
 }

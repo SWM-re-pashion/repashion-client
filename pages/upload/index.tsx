@@ -12,6 +12,7 @@ import { getCategoryData, useCategoryTree } from 'api/getCategoryData';
 import { useProductUpload } from 'api/upload';
 import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
 import Basic from 'components/Upload/organisms/Basic';
+import ContinueWriteModal from 'components/Upload/organisms/ContinueWriteModal';
 import ImgUpload from 'components/Upload/organisms/ImgUpload';
 import MeasureInfo from 'components/Upload/organisms/MeasureInfo';
 import Price from 'components/Upload/organisms/Price';
@@ -118,6 +119,8 @@ function Upload() {
         title="re:Fashion | 상품 등록하기"
         url={`${seoData.url}/upload`}
       />
+
+      <ContinueWriteModal isRemainState />
 
       <PageHeader
         title="상품등록"

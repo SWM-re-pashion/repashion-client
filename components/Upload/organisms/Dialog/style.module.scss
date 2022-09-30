@@ -1,5 +1,5 @@
 .category-dialog {
-  @include modal();
+  @include modal(0);
   overflow-y: auto;
   bottom: 0;
   height: 70%;
