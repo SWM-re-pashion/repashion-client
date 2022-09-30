@@ -1,22 +1,22 @@
 import React, { memo, useCallback, useRef } from 'react';
 
-import { ImgBasicProps } from '#types/index';
 import { ImgList, UpdateUpload } from '#types/storeType/upload';
 import { useImgUpload } from 'api/upload';
 import useDragScroll from 'hooks/useDragScroll';
+import { useUploadStore } from 'store/useUploadStore';
 
 import ImgUploadView from './ImgUploadView';
 
 type Props = {
   state: ImgList[];
-  dispatch: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
-  remove: (removeId: number) => void;
   onChange: UpdateUpload;
   isImgValid: boolean;
 };
 
 function ImgUpload(imgProps: Props) {
-  const { dispatch, state, remove, onChange, isImgValid } = imgProps;
+  const { state, onChange, isImgValid } = imgProps;
+  const imgUpload = useUploadStore(useCallback((stat) => stat.imgUpload, []));
+  const removeImg = useUploadStore(useCallback((stat) => stat.removeImg, []));
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
@@ -53,7 +53,7 @@ function ImgUpload(imgProps: Props) {
                 };
               });
               console.log(attribute);
-              dispatch(images);
+              imgUpload(images);
               onChange(tag, 'style', 'tag');
               onChange(material, 'style', 'material');
             },
@@ -61,7 +61,7 @@ function ImgUpload(imgProps: Props) {
         }
       }
     },
-    [mutate, dispatch, onChange],
+    [mutate, imgUpload, onChange],
   );
 
   const props = {
@@ -72,7 +72,7 @@ function ImgUpload(imgProps: Props) {
     state,
     onUploadClick,
     onUploadImg,
-    remove,
+    remove: removeImg,
   };
 
   return <ImgUploadView {...props} />;

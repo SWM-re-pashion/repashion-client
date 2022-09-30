@@ -60,8 +60,6 @@ function Upload() {
   );
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
-  const imgUpload = useUploadStore(useCallback((state) => state.imgUpload, []));
-  const removeImg = useUploadStore(useCallback((state) => state.removeImg, []));
   const clearMeasure = useUploadStore(
     useCallback((state) => state.clearMeasure, []),
   );
@@ -130,9 +128,7 @@ function Upload() {
       <div className={$.upload}>
         <ImgUpload
           {...{ isImgValid }}
-          dispatch={imgUpload}
           state={states.imgList}
-          remove={removeImg}
           onChange={updateUpload}
         />
         <StyleSelect
