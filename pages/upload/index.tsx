@@ -22,6 +22,7 @@ import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
 import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
+import { toastError, toastSuccess } from 'utils/toaster';
 
 import { additionData, styleData } from '../../constants/upload/constants';
 import { reviewData, sizeData } from '../../constants/upload/utils';
@@ -88,13 +89,17 @@ function Upload() {
     isPartialValid && isBasicValid && isSellerValid && isSizeValid;
 
   const handleSubmit = () => {
-    if (isFormValid)
+    if (isFormValid) {
       mutate(states, {
         onSuccess: ({ data }) => {
           router.push(`/shop/${data}`);
           states.clearUpload();
+          toastSuccess({ message: '상품 등록에 성공했습니다.' });
         },
       });
+    } else {
+      toastError({ message: '필수 정보를 알려주세요.' });
+    }
   };
 
   useEffect(() => {
