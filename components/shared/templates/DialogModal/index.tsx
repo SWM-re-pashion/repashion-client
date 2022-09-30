@@ -41,12 +41,14 @@ function DialogModal(dialogProps: Props) {
           <Button
             className={classnames($.btn, $['cancel-btn'])}
             onClick={onCancel}
+            label="취소 버튼"
           >
             {cancelText}
           </Button>
           <Button
             className={classnames($.btn, $['click-btn'])}
             onClick={onClick}
+            label="확인 버튼"
           >
             {clickText}
           </Button>
