@@ -5,8 +5,7 @@ import { ReactElement } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
-import { orderData } from '@constants/category';
-import { queries } from '@constants/queryString';
+import { queries, queryData } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
@@ -24,6 +23,7 @@ import {
   curCategoryChildrenByProp,
 } from 'components/Upload/organisms/Dialog/utils';
 import { useMultipleSearch } from 'hooks';
+import { getQueryStringObj, getQueriesArr } from 'utils';
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const { category, order, hide_sold } = query;
@@ -31,18 +31,19 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     query;
   const queryClient = new QueryClient();
 
-  const queryStringObj = {
-    category: (category as string) || '1',
-    order: (order as string) || orderData[0].code,
-    hide_sold: (hide_sold as string) || 'true',
-    style: (style as string) || '',
-    price_goe: (price_goe as string) || '',
-    price_loe: (price_loe as string) || '',
-    color: (color as string) || '',
-    fit: (fit as string) || '',
-    length: (length as string) || '',
-    clothes_size: (clothes_size as string) || '',
-  };
+  const queryObj = getQueriesArr(queryData, [
+    category,
+    hide_sold,
+    order,
+    style,
+    price_goe,
+    price_loe,
+    color,
+    fit,
+    length,
+    clothes_size,
+  ]);
+  const queryStringObj = getQueryStringObj(queryObj);
 
   await queryClient.prefetchQuery('category', () => getCategoryData());
   await queryClient.prefetchInfiniteQuery(
@@ -57,6 +58,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 
   return {
     props: {
+      queryStringObj,
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
@@ -64,23 +66,10 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 
 function Shop() {
   const data = useCategoryTree()?.data;
-
-  const [
-    category,
-    hideSold,
-    order,
-    style,
-    priceGoe,
-    priceLoe,
-    color,
-    fit,
-    length,
-    clothesSize,
-  ] = useMultipleSearch(queries);
+  const queryObj = useMultipleSearch(queryData, queries);
+  const { category, hide_sold, order } = queryObj;
 
   if (!data) return null;
-  const orderQuery = order || orderData[0].code;
-  const hideSoldQuery = hideSold || 'true';
 
   const gender = category && category[0];
   const main = category && category.slice(0, 4);
@@ -107,24 +96,16 @@ function Shop() {
 
   const categoryQuery = subQuery || mainQuery;
   const queryStringObj: Omit<req.ShopFeed, 'page' | 'size'> = {
+    ...queryObj,
     category: categoryQuery,
-    hide_sold: hideSoldQuery,
-    order: orderQuery,
-    style,
-    price_goe: priceGoe,
-    price_loe: priceLoe,
-    color,
-    fit,
-    length,
-    clothes_size: clothesSize,
   };
 
   const props = {
     genderQuery,
     mainQuery,
     subQuery,
-    orderQuery,
-    hideSoldQuery,
+    orderQuery: order,
+    hideSoldQuery: hide_sold,
     genderSelectMenu,
     mainSelectMenu,
     subSelectMenu,

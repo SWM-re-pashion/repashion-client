@@ -10,3 +10,5 @@ export type ImgProps = {
 } & ImgBasicProps;
 
 export type DefaultData = { id?: string; name: string; code: string };
+
+export type UrlQuery = string | string[] | undefined;
