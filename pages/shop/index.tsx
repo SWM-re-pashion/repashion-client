@@ -29,21 +29,14 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const { category, order, hide_sold } = query;
   const { style, price_goe, price_loe, color, fit, length, clothes_size } =
     query;
-  const queryClient = new QueryClient();
+  const arr1 = [category, order, hide_sold];
+  const arr2 = [style, price_goe, price_loe, color, fit, length, clothes_size];
+  const queryArr = [...arr1, ...arr2];
 
-  const queryObj = getQueriesArr(queryData, [
-    category,
-    hide_sold,
-    order,
-    style,
-    price_goe,
-    price_loe,
-    color,
-    fit,
-    length,
-    clothes_size,
-  ]);
+  const queryObj = getQueriesArr(queryData, queryArr);
   const queryStringObj = getQueryStringObj(queryObj);
+
+  const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery('category', () => getCategoryData());
   await queryClient.prefetchInfiniteQuery(
