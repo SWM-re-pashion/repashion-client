@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import Loading from '@atoms/Loading';
 import PullToRefresh from '@templates/PullToRefresh';
+import ShopSkeleton from '@templates/Skeleton/shop';
 import { useIntersect } from 'hooks';
 import { useProductItemListQuery } from 'hooks/api/shop';
 
@@ -52,6 +53,10 @@ function ProductItemList(listProps: Props) {
   const pullDownThreshold = 60;
   const maxPullDownDistance = 90;
 
+  if (isLoading) {
+    return <ShopSkeleton itemNum={10} />;
+  }
+
   const items = data?.pages;
   if (!items) return null;
 
@@ -71,7 +76,6 @@ function ProductItemList(listProps: Props) {
       }}
     />
   );
-
   if (needPullToRefresh) {
     return (
       <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
