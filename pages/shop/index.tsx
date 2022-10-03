@@ -26,10 +26,10 @@ import { useMultipleSearch } from 'hooks';
 import { getQueryStringObj, getQueriesArr } from 'utils';
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const { category, order, hide_sold } = query;
+  const { category, hide_sold, order } = query;
   const { style, price_goe, price_loe, color, fit, length, clothes_size } =
     query;
-  const arr1 = [category, order, hide_sold];
+  const arr1 = [category, hide_sold, order]; // TODO: obj로 변경
   const arr2 = [style, price_goe, price_loe, color, fit, length, clothes_size];
   const queryArr = [...arr1, ...arr2];
 

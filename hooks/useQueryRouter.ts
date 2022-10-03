@@ -2,18 +2,22 @@ import { useRouter } from 'next/router';
 
 import { useCallback } from 'react';
 
-function useQueryRouter(queryName: string) {
+import { RouterFunc } from '#types/index';
+
+function useQueryRouter(queryName: string, type?: RouterFunc) {
   const router = useRouter();
+  const routerFunc = type === 'REPLACE' ? router.replace : router.push;
+
   const queryFunc = useCallback(
     (value?: string) =>
-      router.push(
+      routerFunc(
         {
           query: { ...router.query, [queryName]: value },
         },
         undefined,
         { shallow: true },
       ),
-    [queryName, router],
+    [queryName, router.query, routerFunc],
   );
   return queryFunc;
 }

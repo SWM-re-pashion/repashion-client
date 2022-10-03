@@ -16,7 +16,10 @@ type Props = {
 function BackBtn({ className, color, url, onClick }: Props) {
   const router = useRouter();
   const handleClick = useCallback(() => {
-    if (onClick) onClick();
+    if (onClick) {
+      onClick();
+      return;
+    }
     if (url) router.replace(url);
     else router.back();
   }, [onClick, router, url]);

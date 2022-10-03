@@ -8,6 +8,7 @@ import { findCodeByProp } from 'components/Upload/organisms/Dialog/utils';
 import { useQueryRouter } from 'hooks';
 
 import $ from './style.module.scss';
+import { isRootCategory } from './utils';
 
 type Props = {
   genderQuery: string;
@@ -22,9 +23,10 @@ type Props = {
 };
 
 function ShopHeader(headerProps: Props) {
-  const queryCategory = useQueryRouter('category');
-  const queryOrder = useQueryRouter('order');
-  const queryHideSold = useQueryRouter('hide_sold');
+  const pushCtgr = useQueryRouter('category');
+  const replaceCtgr = useQueryRouter('category', 'REPLACE');
+  const queryOrder = useQueryRouter('order', 'REPLACE');
+  const queryHideSold = useQueryRouter('hide_sold', 'REPLACE');
   const { orderQuery, hideSoldQuery } = headerProps;
   const { genderSelectMenu, mainSelectMenu, subSelectMenu } = headerProps;
   const { genderQuery, mainQuery, subQuery, breadCrumb } = headerProps;
@@ -32,6 +34,8 @@ function ShopHeader(headerProps: Props) {
   const categoryData = isSeletedSub ? subSelectMenu : mainSelectMenu;
   const selectedMenu = isSeletedSub ? subQuery : mainQuery;
   const mainCategory = findCodeByProp(mainSelectMenu, mainQuery, 'id');
+
+  const queryCategory = isRootCategory(subQuery) ? pushCtgr : replaceCtgr;
 
   return (
     <header className={$.header}>

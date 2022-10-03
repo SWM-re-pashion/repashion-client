@@ -12,3 +12,5 @@ export type ImgProps = {
 export type DefaultData = { id?: string; name: string; code: string };
 
 export type UrlQuery = string | string[] | undefined;
+
+export type RouterFunc = 'REPLACE' | 'PUSH' | 'BACK';
