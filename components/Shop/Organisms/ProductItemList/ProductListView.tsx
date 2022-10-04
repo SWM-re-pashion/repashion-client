@@ -8,7 +8,7 @@ import $ from './style.module.scss';
 type Props = {
   isFetching: boolean;
   intersectRef: React.RefObject<HTMLDivElement>;
-  itemList: res.ProductSummary[];
+  itemList?: res.ProductSummary[];
   noProducts: React.ReactNode;
 };
 
@@ -17,11 +17,13 @@ function ProductListView(viewProps: Props) {
 
   return (
     <>
-      <article className={$['product-list']}>
-        {itemList.map((item) => (
-          <ProductItem key={item.id} {...item} />
-        ))}
-      </article>
+      {itemList && (
+        <article className={$['product-list']}>
+          {itemList.map((item) => (
+            <ProductItem key={item.id} {...item} />
+          ))}
+        </article>
+      )}
       {noProducts}
       <div ref={intersectRef} />
       {isFetching && <Loading />}

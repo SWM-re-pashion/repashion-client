@@ -32,6 +32,7 @@ function ProductItemList(listProps: Props) {
     fetchNextPage,
     refetch,
     remove,
+    isFetched,
   } = useProductItemListQuery(productList);
 
   const onRefresh = () => {
@@ -53,19 +54,14 @@ function ProductItemList(listProps: Props) {
   const pullDownThreshold = 60;
   const maxPullDownDistance = 90;
 
-  if (isLoading) {
-    return <ShopSkeleton itemNum={10} />;
-  }
-
-  const items = data?.pages;
-  if (!items) return null;
+  const items = data?.pages; // TODO: error 캐치 필요
 
   const itemList = items?.reduce((acc: res.ProductSummary[], cur) => {
     acc.push(...cur.items);
     return acc;
   }, []);
 
-  const isNoProducts = !!itemList.length;
+  const isNoProducts = (itemList && !itemList.length) || false;
 
   const noProducts = (
     <NoProductView
@@ -76,6 +72,17 @@ function ProductItemList(listProps: Props) {
       }}
     />
   );
+
+  const commonProducts =
+    !itemList && isLoading ? (
+      <ShopSkeleton itemNum={10} />
+    ) : (
+      <ProductListView
+        {...{ intersectRef, isFetching, noProducts }}
+        itemList={itemList}
+      />
+    );
+
   if (needPullToRefresh) {
     return (
       <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
@@ -87,10 +94,7 @@ function ProductItemList(listProps: Props) {
             maxPullDownDistance,
           }}
         >
-          <ProductListView
-            {...{ intersectRef, isFetching, noProducts }}
-            itemList={itemList}
-          />
+          {commonProducts}
         </PullToRefresh>
       </ProductListWrapperView>
     );
@@ -98,10 +102,7 @@ function ProductItemList(listProps: Props) {
 
   return (
     <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
-      <ProductListView
-        {...{ intersectRef, isFetching, noProducts }}
-        itemList={itemList}
-      />
+      {commonProducts}
     </ProductListWrapperView>
   );
 }

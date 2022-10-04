@@ -46,11 +46,11 @@ function ShopHeader(headerProps: Props) {
         selectedMenu={genderQuery}
       />
       <CategoryBox
-        {...{ onClick: queryCategory, isSeletedSub, selectedMenu }}
+        {...{ onClick: queryCategory, isSeletedSub, selectedMenu }} // TODO: 렌더링 최적화
         data={categoryData}
       />
       <SortBox
-        {...{ onSoldClick: queryHideSold, onOrderClick: queryOrder }}
+        {...{ onSoldClick: queryHideSold, onOrderClick: queryOrder }} // TODO: 렌더링 최적화
         data={orderData}
         hideSold={hideSoldQuery}
         selectedMenu={orderQuery}

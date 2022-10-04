@@ -109,9 +109,8 @@ function Shop() {
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
       <ShopHeader {...props} />
-
-      <ProductItemList needPullToRefresh {...{ queryStringObj }} />
-
+      <ProductItemList needPullToRefresh {...{ queryStringObj }} />{' '}
+      {/** TODO: 렌더링 최적화 */}
       <Footer />
     </>
   );
