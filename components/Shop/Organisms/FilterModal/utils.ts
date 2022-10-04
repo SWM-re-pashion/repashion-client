@@ -101,8 +101,8 @@ export const getFilterElement = (
   const { style, price, color, fit, length, clothesSize } = states;
   const common = {
     style: style.join(','),
-    price_goe: Math.max(...price).toString(),
-    price_loe: Math.min(...price).toString(),
+    price_goe: Math.min(...price).toString(),
+    price_loe: Math.max(...price).toString(),
     color: '',
     fit: '',
     length: '',

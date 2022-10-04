@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import Loading from '@atoms/Loading';
 import PullToRefresh from '@templates/PullToRefresh';
+import ShopSkeleton from '@templates/Skeleton/shop';
 import { useIntersect } from 'hooks';
 import { useProductItemListQuery } from 'hooks/api/shop';
 
@@ -52,15 +53,14 @@ function ProductItemList(listProps: Props) {
   const pullDownThreshold = 60;
   const maxPullDownDistance = 90;
 
-  const items = data?.pages;
-  if (!items) return null;
+  const items = data?.pages; // TODO: error 캐치 필요
 
   const itemList = items?.reduce((acc: res.ProductSummary[], cur) => {
     acc.push(...cur.items);
     return acc;
   }, []);
 
-  const isNoProducts = !!itemList.length;
+  const isNoProducts = (itemList && !itemList.length) || false;
 
   const noProducts = (
     <NoProductView
@@ -71,6 +71,16 @@ function ProductItemList(listProps: Props) {
       }}
     />
   );
+
+  const commonProducts =
+    !itemList && isLoading ? (
+      <ShopSkeleton itemNum={10} />
+    ) : (
+      <ProductListView
+        {...{ intersectRef, isFetching, noProducts }}
+        itemList={itemList}
+      />
+    );
 
   if (needPullToRefresh) {
     return (
@@ -83,10 +93,7 @@ function ProductItemList(listProps: Props) {
             maxPullDownDistance,
           }}
         >
-          <ProductListView
-            {...{ intersectRef, isFetching, noProducts }}
-            itemList={itemList}
-          />
+          {commonProducts}
         </PullToRefresh>
       </ProductListWrapperView>
     );
@@ -94,10 +101,7 @@ function ProductItemList(listProps: Props) {
 
   return (
     <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
-      <ProductListView
-        {...{ intersectRef, isFetching, noProducts }}
-        itemList={itemList}
-      />
+      {commonProducts}
     </ProductListWrapperView>
   );
 }

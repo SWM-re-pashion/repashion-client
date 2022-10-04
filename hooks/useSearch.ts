@@ -1,13 +1,22 @@
 import { useRouter } from 'next/router';
 
+import { getQueryStringObj, getQueriesArr } from 'utils';
+
 function useSearch(target: string) {
   return useRouter().query[target]?.toString() || '';
 }
 
-function useMultipleSearch(targets: readonly string[]) {
-  // TODO: add typescript code array to tuple
+function useMultipleSearch<T extends string>(
+  queryDatas: [T, string?][],
+  targets: readonly string[],
+) {
   const router = useRouter();
-  return targets.map((target) => router.query[target]?.toString() || '');
+  return getQueryStringObj(
+    getQueriesArr<T>(
+      queryDatas,
+      targets.map((target) => router.query[target]),
+    ),
+  );
 }
 
 export { useSearch, useMultipleSearch };

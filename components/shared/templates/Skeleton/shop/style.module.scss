@@ -1,0 +1,31 @@
+.skeleton-product-img {
+  @include loading();
+  border-radius: 10px;
+}
+
+.skeleton-text-box {
+  overflow: hidden;
+
+  .skeleton-title {
+    height: 19px;
+    width: 80%;
+    @include loading();
+  }
+
+  .skeleton-size-like {
+    height: 17px;
+    @include loading();
+  }
+
+  .skeleton-price {
+    width: 50%;
+    height: 19px;
+    @include loading();
+  }
+
+  .skeleton-date {
+    width: 30%;
+    height: 14px;
+    @include loading();
+  }
+}

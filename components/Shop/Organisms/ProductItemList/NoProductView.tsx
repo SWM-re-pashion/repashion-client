@@ -10,7 +10,7 @@ type Props = {
 
 function NoProductView({ isNoProducts, isLoading, isFetching }: Props) {
   return (
-    (!isLoading && !isFetching && !isNoProducts && (
+    (!isLoading && !isFetching && isNoProducts && (
       <div className={$['no-products']}>
         <Span fontWeight={500}>상품 결과가 없습니다.</Span>
       </div>
