@@ -1,0 +1,28 @@
+.error-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  &-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .error-msg {
+      margin-bottom: 31px;
+    }
+    .btn {
+      width: 96px;
+      height: 40px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      background-color: $second;
+      color: $black-600;
+      @include typography(14);
+    }
+    .reset {
+      background-color: $second;
+    }
+  }
+}
