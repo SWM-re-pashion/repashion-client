@@ -1,14 +1,17 @@
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
+import ErrorFallback from '@atoms/ErrorFallback';
+import Loading from '@atoms/Loading';
 import Toast from '@atoms/Toast';
+import AsyncBoundary from '@templates/AsyncBoundary';
 import { useMounted, useWindowResize } from 'hooks';
-
 import '../styles/globals.scss';
 
 export type NextPageWithLayout = NextPage & {
@@ -20,6 +23,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
+  const router = useRouter();
   const isMount = useMounted();
   const [_, height] = useWindowResize();
   const [queryClient] = React.useState(
@@ -47,7 +51,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   }, [height, isMount]);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Head>
         <meta charSet="utf-8" />
         <meta name="description" content="중고 의류 마켓 re:Fashion" />
@@ -57,12 +61,20 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         />
         <title>re:Fashion</title>
       </Head>
-      <Hydrate state={pageProps.dehydratedState}>
-        {getLayout(<Component {...pageProps} />)}
-        <Toast />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </Hydrate>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <AsyncBoundary
+            suspenseFallback={<Loading style={{ height: '100%' }} />}
+            errorFallback={ErrorFallback}
+            keys={[router.asPath]}
+          >
+            {getLayout(<Component {...pageProps} />)}
+            <Toast />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </AsyncBoundary>
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   );
 }
 
