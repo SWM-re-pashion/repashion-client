@@ -7,7 +7,7 @@ import { DIRECTION, isTreeScrollable } from './utils';
 export type Props<T> = {
   isPullable?: boolean;
   canFetchMore?: boolean;
-  onRefresh: () => Promise<T>;
+  onRefresh?: () => Promise<T>;
   refreshingContent: JSX.Element | string;
   children: JSX.Element;
   pullDownThreshold?: number;
@@ -138,22 +138,17 @@ function PullToRefresh<T>(refreshProps: Props<T>) {
       childrenRef.current.style.transform = `translate(0px, ${pullDownThreshold}px)`;
     }
 
-    onRefresh()
-      .then(() => {
-        initContainer();
-        setDisplayRefresh(false);
-      })
-      .catch(() => {
-        initContainer();
-        setDisplayRefresh(false);
-      });
-    if (navigator.vibrate) navigator.vibrate(200);
-
-    // onRefresh();
-    // setTimeout(() => {
-    //   initContainer();
-    //   setDisplayRefresh(false);
-    // }, 2000);
+    if (onRefresh) {
+      onRefresh()
+        .then(() => {
+          initContainer();
+          setDisplayRefresh(false);
+        })
+        .catch(() => {
+          initContainer();
+          setDisplayRefresh(false);
+        });
+    }
   }, [maxPullDownDistance, onRefresh, pullDownThreshold]);
 
   useEffect(() => {
