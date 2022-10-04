@@ -29,5 +29,8 @@ const getInfiniteProducts =
       items,
     };
   };
+export type GetInfiniteProducts = () => ReturnType<
+  ReturnType<typeof getInfiniteProducts>
+>;
 
 export { getInfiniteProducts, getProductItemList };

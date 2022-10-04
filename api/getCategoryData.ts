@@ -13,7 +13,9 @@ export const getCategoryData = async (): Promise<res.CategoryTree> => {
 };
 
 export const useCategoryTree = () => {
-  const response = useQuery('category', () => getCategoryData());
+  const response = useQuery('category', () => getCategoryData(), {
+    suspense: true,
+  });
   return response.data;
 };
 
