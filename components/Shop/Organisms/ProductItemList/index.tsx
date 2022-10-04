@@ -32,7 +32,6 @@ function ProductItemList(listProps: Props) {
     fetchNextPage,
     refetch,
     remove,
-    isFetched,
   } = useProductItemListQuery(productList);
 
   const onRefresh = () => {
