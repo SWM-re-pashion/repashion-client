@@ -2,13 +2,13 @@
 import { GetServerSidePropsContext } from 'next';
 
 import { ReactElement } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { queries, queryData } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import {
   getCategoryData,
@@ -38,7 +38,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('category', () => getCategoryData());
+  await queryClient.prefetchQuery(['category'], () => getCategoryData());
   await queryClient.prefetchInfiniteQuery(
     queryKey.productItemList(queryStringObj),
     getInfiniteProducts(queryStringObj),

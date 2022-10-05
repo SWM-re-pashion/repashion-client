@@ -8,9 +8,8 @@ import type {
   UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
-} from 'react-query';
-import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
-
+} from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 
 export function useCoreQuery<T, U = null>(

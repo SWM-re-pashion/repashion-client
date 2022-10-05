@@ -30,6 +30,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["global.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "global.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.setup.js"
+  ],
   "exclude": ["node_modules"]
 }

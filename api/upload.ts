@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useMutation } from 'react-query';
-
 import { UploadStoreState } from '#types/storeType/upload';
+import { useMutation } from '@tanstack/react-query';
 import { AiAxios, Axios } from 'lib/axios';
 import { deepClone, arrToString } from 'utils';
 

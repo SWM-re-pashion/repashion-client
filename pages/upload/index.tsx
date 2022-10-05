@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
 
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import PageHeader from '@molecules/PageHeader';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getCategoryData, useCategoryTree } from 'api/getCategoryData';
 import { useProductUpload } from 'api/upload';
@@ -32,7 +32,7 @@ import $ from './style.module.scss';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('category', () => getCategoryData());
+  await queryClient.prefetchQuery(['category'], () => getCategoryData());
 
   return {
     props: {

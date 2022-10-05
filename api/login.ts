@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { useMutation, UseMutationResult } from 'react-query';
-
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Axios } from 'lib/axios';
 

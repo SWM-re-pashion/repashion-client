@@ -1,12 +1,12 @@
 import { GetServerSidePropsContext } from 'next';
 
 import { useCallback } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
 import ImgSlide from '@organisms/ImgSlide';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import NotFound from '@templates/NotFound';
 import { getProductDetail, useProdutDetail } from 'api/product';
@@ -26,7 +26,7 @@ export async function getServerSideProps({
   const id = params?.id;
   const paramId = (typeof id !== 'object' && id) || '0';
 
-  await queryClient.prefetchQuery('styles', () => getProductDetail(paramId));
+  await queryClient.prefetchQuery(['styles'], () => getProductDetail(paramId));
 
   return {
     props: {

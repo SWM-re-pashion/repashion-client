@@ -2,7 +2,6 @@
 import { useRouter } from 'next/router';
 
 import { ReactElement, useState, useCallback } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
@@ -10,6 +9,7 @@ import ImgBox from '@atoms/ImgBox';
 import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getStyleImgs, useStyleImgs } from 'api/getStyleImgs';
 import { useInfoStore } from 'store/useInfoStore';
@@ -19,7 +19,7 @@ import $ from './style.module.scss';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('styles', getStyleImgs);
+  await queryClient.prefetchQuery(['styles'], getStyleImgs);
 
   return {
     props: {

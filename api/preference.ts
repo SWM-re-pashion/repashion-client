@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 
-import { useMutation, UseMutationResult } from 'react-query';
-
 import { InfoState } from '#types/storeType/info';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Axios } from 'lib/axios';
 import { arrToString } from 'utils';

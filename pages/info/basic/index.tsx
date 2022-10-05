@@ -7,7 +7,6 @@ import {
   ChangeEvent,
   useRef,
 } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
@@ -18,6 +17,7 @@ import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getStaticData, useStaticData } from 'api/getStaticData';
 import { useInfoStore } from 'store/useInfoStore';
