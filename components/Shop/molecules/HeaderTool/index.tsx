@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
+import Button from '@atoms/Button';
 import { Filter, Search } from '@atoms/icon';
 import Span from '@atoms/Span';
 import SelectBox from '@molecules/SelectBox';
@@ -57,14 +58,23 @@ function HeaderTool(headerProps: Props) {
         )}
 
         <Link href="/search">
-          <button type="button" className={$['btn-search']}>
+          <button
+            type="button"
+            aria-label="상품 검색 버튼"
+            className={$['btn-search']}
+          >
             <Search />
           </button>
         </Link>
 
-        <button type="button" onClick={openFilterModal} className={$.btn}>
+        <Button
+          iconBtn
+          label="상품 필터 버튼"
+          className={$.btn}
+          onClick={openFilterModal}
+        >
           <Filter />
-        </button>
+        </Button>
         <FilterModal
           {...{ mainCategory }}
           isOpen={filterOpen}

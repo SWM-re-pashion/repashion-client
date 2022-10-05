@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import $ from './style.module.scss';
 
 type Props = {
+  label: string;
   route: {
     id: number;
     icon: any;
@@ -16,11 +17,12 @@ type Props = {
   isUpload?: boolean;
 };
 
-function NavigationLink({ route, isActive, isUpload }: Props) {
+function NavigationLink({ label, route, isActive, isUpload }: Props) {
   return (
     <Link href={route.href}>
       <button
         type="button"
+        aria-label={label}
         className={classnames(isUpload ? $.upload : $.link, {
           [$['is-Active']]: isActive,
         })}

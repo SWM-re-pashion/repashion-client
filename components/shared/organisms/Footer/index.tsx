@@ -59,11 +59,21 @@ function Footer() {
           {routes.map((route) => {
             const isActive =
               pathname.includes(route.href) || pathname === route.href;
-            return <NavigationLink key={route.id} {...{ route, isActive }} />;
+            return (
+              <NavigationLink
+                key={route.id}
+                label={`${route.label}버튼`}
+                {...{ route, isActive }}
+              />
+            );
           })}
         </div>
 
-        <NavigationLink {...{ route: uploadRoute }} isUpload />
+        <NavigationLink
+          {...{ route: uploadRoute }}
+          isUpload
+          label="upload 버튼"
+        />
       </div>
     </footer>
   );
