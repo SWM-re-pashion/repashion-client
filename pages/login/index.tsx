@@ -32,6 +32,7 @@ function Login() {
           layout="fill"
           objectFit="cover"
           objectPosition="center"
+          priority
         />
         <h1 className={$.title}>re:Fashion</h1>
         {/* <span className={$.decription}>세컨핸드 의류에 새 생명을</span> */}

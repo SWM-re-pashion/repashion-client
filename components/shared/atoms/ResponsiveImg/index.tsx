@@ -19,7 +19,7 @@ export default function ResponsiveImg(imgProps: Props) {
       style={{ ...style }}
       className={classnames($['responsive-img'], className)}
     >
-      <Image {...{ width, height, src, alt }} layout="responsive" />
+      <Image {...{ width, height, src, alt }} layout="responsive" priority />
       {children}
     </div>
   );

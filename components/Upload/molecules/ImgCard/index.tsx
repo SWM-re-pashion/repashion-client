@@ -35,7 +35,13 @@ function ImgCard(imgProps: Props) {
       onClick={handleClick}
       onKeyDown={handleClick}
     >
-      <Image src={src} alt={`${id}번째 사진`} width="106" height="106" />
+      <Image
+        src={src}
+        alt={`${id}번째 사진`}
+        width="106"
+        height="106"
+        priority
+      />
       <button
         type="button"
         className={$['img-close']}

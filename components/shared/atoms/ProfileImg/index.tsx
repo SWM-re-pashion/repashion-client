@@ -19,7 +19,7 @@ export default function ProfileImg({
       className={classnames($['profile-img'], className)}
       style={{ ...style, width: `${width}px`, height: `${height}px` }}
     >
-      <Image {...{ src, alt, width, height }} />
+      <Image {...{ src, alt, width, height }} priority />
     </span>
   );
 }
