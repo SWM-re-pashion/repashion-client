@@ -5,7 +5,6 @@ import Document, {
   NextScript,
   DocumentContext,
 } from 'next/document';
-import Script from 'next/script';
 
 import { seoData } from 'constants/seo';
 
@@ -50,18 +49,25 @@ export default class MyDocument extends Document {
           />
           <meta name="theme-color" content="#ffffff" />
 
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
+            as="font"
+            href="https://fonts.googleapis.com"
+          />
+          <link
+            rel="preconnect"
+            as="font"
             href="https://fonts.gstatic.com"
             crossOrigin=""
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            as="style"
           />
+
           <link
-            rel="stylesheet"
+            rel="preload"
             as="style"
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.4/dist/web/static/pretendard.css"
             crossOrigin=""
@@ -70,10 +76,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {/* <Script
-            src="https://developers.kakao.com/sdk/js/kakao.js"
-            strategy="afterInteractive"
-          /> */}
         </body>
       </Html>
     );
