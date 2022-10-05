@@ -24,11 +24,11 @@ import { useMounted, useDidMountEffect } from 'hooks';
 import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 import { toastError, toastSuccess } from 'utils/toaster';
+import { judgeValid } from 'utils/upload.utils';
 
 import { additionData, styleData } from '../../constants/upload/constants';
 import { reviewData, sizeData } from '../../constants/upload/utils';
 import $ from './style.module.scss';
-import { judgeValid } from './utils.util';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
