@@ -21,12 +21,7 @@ export const postPreference = async (
     bottomColors: removeBlank(arrToString(bottomColors)),
   };
   delete requestData.infoUpdate;
-  const { data } = await Axios.post<res.Preference>(
-    '/api/preference',
-    JSON.stringify(requestData),
-  );
-
-  return data;
+  return await Axios.post('/api/preference', JSON.stringify(requestData));
 };
 
 export function usePostPreference(): UseMutationResult<

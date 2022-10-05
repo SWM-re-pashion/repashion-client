@@ -5,12 +5,10 @@ import { AxiosError } from 'axios';
 import { Axios } from 'lib/axios';
 
 export const postAuthToken = async (token: string): Promise<res.OAuth> => {
-  const { data } = await Axios.post<res.OAuth>(
+  return await Axios.post(
     '/api/oauth/login',
     JSON.stringify({ authCode: token }),
   );
-
-  return data;
 };
 
 export function usePostAuthToken(): UseMutationResult<

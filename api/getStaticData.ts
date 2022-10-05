@@ -11,8 +11,7 @@ type StaticType =
   | 'bodyShape';
 
 export const getStaticData = async <T>(type: StaticType): Promise<T> => {
-  const { data } = await Axios.get(`/api/static/${type}`);
-  return data;
+  return await Axios.get(`/api/static/${type}`);
 };
 
 export const useStaticData = <T>(type: StaticType) => {

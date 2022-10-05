@@ -7,8 +7,7 @@ import {
 } from '../components/Upload/organisms/Dialog/utils';
 
 export const getCategoryData = async (): Promise<res.CategoryTree> => {
-  const { data } = await Axios.get('/api/category/v3');
-  return data;
+  return await Axios.get('/api/category/v3');
 };
 
 export const useCategoryTree = () => {
