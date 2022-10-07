@@ -4,12 +4,16 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import React, { ReactElement, ReactNode, useEffect } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import ErrorFallback from '@atoms/ErrorFallback';
 import Loading from '@atoms/Loading';
 import Toast from '@atoms/Toast';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import { useMounted, useWindowResize } from 'hooks';
 import '../styles/globals.scss';
@@ -64,7 +68,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <AsyncBoundary
-            suspenseFallback={<Loading style={{ height: '100%' }} />}
+            suspenseFallback={
+              <Loading style={{ height: '100vh', boxSizing: 'border-box' }} />
+            }
             errorFallback={ErrorFallback}
             keys={[router.asPath]}
           >

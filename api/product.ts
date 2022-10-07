@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 
 export const getProductDetail = async (
   id: string,

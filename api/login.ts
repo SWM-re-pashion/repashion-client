@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 
 export const postAuthToken = async (token: string): Promise<res.OAuth> => {
   return await Axios.post(

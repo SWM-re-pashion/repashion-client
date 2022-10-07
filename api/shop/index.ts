@@ -1,4 +1,4 @@
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 import { getQueryString } from 'utils';
 
 const getProductItemList = async (

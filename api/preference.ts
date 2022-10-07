@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { InfoState } from '#types/storeType/info';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 import { arrToString } from 'utils';
 
 const removeBlank = (str: string) => str.replace(/ /g, '');

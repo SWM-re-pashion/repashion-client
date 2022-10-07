@@ -13,7 +13,6 @@ export const useProductItemListQuery = (
       getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
         return isEndOfPage ? undefined : pageNumber + 1;
       },
-      suspense: true,
     },
   );
 };

@@ -46,7 +46,7 @@ const createApiMethod = (_axiosInstance: AxiosInstance, method: Method) => {
       method,
     })
       .then((res) => {
-        return handleResponse(res);
+        return Promise.resolve(handleResponse(res));
       })
       .catch((err) => {
         return Promise.reject(err);
