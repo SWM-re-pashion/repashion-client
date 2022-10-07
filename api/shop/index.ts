@@ -4,7 +4,8 @@ import { getQueryString } from 'utils';
 const getProductItemList = async (
   queryString: string,
 ): Promise<res.ShopFeed> => {
-  return await Axios.get(`/api/shop/filter?${queryString}`);
+  const response = await Axios.get(`/api/shop/filter?${queryString}`);
+  return response;
 };
 
 const getInfiniteProducts =
