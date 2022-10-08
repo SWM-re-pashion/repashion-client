@@ -1,15 +1,27 @@
-import { HTTP_METHOD } from '@constants/api';
+import { ACCESSTOKEN, HTTP_METHOD } from '@constants/api';
 import axios, {
-  AxiosInstance,
+  AxiosError,
   AxiosRequestConfig,
   AxiosResponse,
+  AxiosInstance,
   Method,
 } from 'axios';
+import { getAccessToken, setAccessToken } from 'utils/auth';
+
+import { AuthError, ForbiddenError, NotFoundError } from './error';
+
+export function isAxiosError<ResponseType>(
+  error: unknown,
+): error is AxiosError<ResponseType> {
+  return axios.isAxiosError(error);
+}
 
 const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
   timeout: 3000,
+  // withCredentials: true,
   headers: {
+    'Access-Control-Allow-Origin': '*',
     'Content-type': 'application/json',
   },
 });
@@ -22,11 +34,31 @@ const AiAxios = axios.create({
   },
 });
 
+function AuthErrorInterceptor(err: AxiosError): AxiosError {
+  if (isAxiosError<res.error>(err) && err.response) {
+    const {
+      data: { status },
+    } = err.response;
+    if (status === 404) {
+      throw new NotFoundError(status);
+    }
+    if (status === 403) {
+      throw new ForbiddenError(status);
+    }
+    if (status === 401) {
+      throw new AuthError(status);
+    }
+  }
+
+  return err;
+}
+
 const handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   return {
     ...config,
     headers: {
       ...config.headers,
+      [ACCESSTOKEN]: '',
     },
   };
 };
@@ -49,7 +81,7 @@ const createApiMethod = (_axiosInstance: AxiosInstance, method: Method) => {
         return Promise.resolve(handleResponse(res));
       })
       .catch((err) => {
-        return Promise.reject(err);
+        return Promise.reject(AuthErrorInterceptor(err));
       });
   };
 };

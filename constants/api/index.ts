@@ -5,3 +5,5 @@ export const HTTP_METHOD = {
   PATCH: 'patch',
   DELETE: 'delete',
 } as const;
+
+export const ACCESSTOKEN = 'x-access-token';
