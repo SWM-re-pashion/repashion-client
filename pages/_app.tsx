@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -26,7 +26,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-function App({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
   const isMount = useMounted();
   const [_, height] = useWindowResize();
@@ -84,4 +84,19 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default App;
+MyApp.getInitialProps = async (context: AppContext) => {
+  const { ctx, Component } = context;
+  let pageProps = {};
+  // const cookie = ctx.req ? ctx.req.headers.cookie : '';
+  // console.log(ctx);
+  // if (cookie) {
+  //   Axios.defaults.headers.Cookie = cookie;
+  // }
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+};
+
+export default MyApp;

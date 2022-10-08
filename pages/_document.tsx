@@ -9,8 +9,8 @@ import Document, {
 import { seoData } from 'constants/seo';
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
+  static async getInitialProps(context: DocumentContext) {
+    const initialProps = await Document.getInitialProps(context);
     return { ...initialProps };
   }
 
