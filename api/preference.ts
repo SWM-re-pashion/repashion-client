@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 
 import { InfoState } from '#types/storeType/info';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { Axios } from 'api/core';
 import { AxiosError } from 'axios';
-import { Axios } from 'lib/axios';
 import { arrToString } from 'utils';
 
 const removeBlank = (str: string) => str.replace(/ /g, '');
@@ -21,12 +21,11 @@ export const postPreference = async (
     bottomColors: removeBlank(arrToString(bottomColors)),
   };
   delete requestData.infoUpdate;
-  const { data } = await Axios.post<res.Preference>(
+  const response = await Axios.post(
     '/api/preference',
     JSON.stringify(requestData),
   );
-
-  return data;
+  return response;
 };
 
 export function usePostPreference(): UseMutationResult<

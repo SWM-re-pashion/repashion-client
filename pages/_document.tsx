@@ -9,8 +9,8 @@ import Document, {
 import { seoData } from 'constants/seo';
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
+  static async getInitialProps(context: DocumentContext) {
+    const initialProps = await Document.getInitialProps(context);
     return { ...initialProps };
   }
 
@@ -62,11 +62,11 @@ export default class MyDocument extends Document {
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap"
-            rel="preload stylesheet"
+            rel="stylesheet"
             as="style"
           />
           <link
-            rel="preload"
+            rel="stylesheet"
             as="style"
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.4/dist/web/static/pretendard.css"
             crossOrigin=""

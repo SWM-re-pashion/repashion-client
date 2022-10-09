@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { UploadStoreState } from '#types/storeType/upload';
 import { useMutation } from '@tanstack/react-query';
-import { AiAxios, Axios } from 'lib/axios';
+import { AiAxios, Axios } from 'api/core';
 import { deepClone, arrToString } from 'utils';
 
 export const postImgs = async (files: FormData) => {

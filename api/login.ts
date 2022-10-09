@@ -1,16 +1,15 @@
 import { useRouter } from 'next/router';
 
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { Axios } from 'api/core';
 import { AxiosError } from 'axios';
-import { Axios } from 'lib/axios';
 
 export const postAuthToken = async (token: string): Promise<res.OAuth> => {
-  const { data } = await Axios.post<res.OAuth>(
+  const response = Axios.post(
     '/api/oauth/login',
     JSON.stringify({ authCode: token }),
   );
-
-  return data;
+  return response;
 };
 
 export function usePostAuthToken(): UseMutationResult<

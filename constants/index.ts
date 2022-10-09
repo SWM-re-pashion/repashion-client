@@ -1,3 +1,4 @@
+import { HTTP_METHOD } from './api/index';
 import { genders, bodyShapes, topSizes, bottomSizes } from './basic';
 import { orderData, allCategory, recommendCategory } from './category';
 import { colorsData } from './colors';
@@ -17,4 +18,5 @@ export {
   allCategory,
   recommendCategory,
   statusData,
+  HTTP_METHOD,
 };

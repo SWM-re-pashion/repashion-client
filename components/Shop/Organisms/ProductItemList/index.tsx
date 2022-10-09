@@ -1,15 +1,13 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback } from 'react';
 
-import ErrorFallback from '@atoms/ErrorFallback';
 import Loading from '@atoms/Loading';
-import AsyncBoundary from '@templates/AsyncBoundary';
 import PullToRefresh from '@templates/PullToRefresh';
 import ShopSkeleton from '@templates/Skeleton/shop';
-import { useMounted } from 'hooks';
+import { useIntersect } from 'hooks';
+import { useProductItemListQuery } from 'hooks/api/shop';
 
-import ProductItemListMain, {
-  ProductItemListRefresh,
-} from './ProductItemListMain';
+import NoProductView from './NoProductView';
+import ProductListView from './ProductListView';
 import ProductListWrapperView from './ProductListWrapperView';
 
 type Props = {
@@ -19,44 +17,78 @@ type Props = {
   needPullToRefresh?: boolean;
 };
 
+type ProductList = Props['queryStringObj'];
+
 function ProductItemList(listProps: Props) {
   const { paddingTop, paddingBottom, needPullToRefresh, queryStringObj } =
     listProps;
-  const productListRef = useRef<ProductItemListRefresh>(null);
-  const [isPossiblePullToRefresh, setPossiblePullToRefresh] = useState(false);
-  const isMounted = useMounted();
 
-  useEffect(() => {
-    if (isMounted) setPossiblePullToRefresh(true);
-  }, [isMounted]);
+  const productList: ProductList = { ...queryStringObj };
 
-  const handleRefresh = productListRef.current?.onRefresh;
+  const {
+    data,
+    hasNextPage,
+    isLoading,
+    isFetching,
+    fetchNextPage,
+    refetch,
+    remove,
+  } = useProductItemListQuery(productList);
+
+  const onRefresh = useCallback(() => {
+    remove();
+    return refetch({
+      refetchPage: (_, index) => index === 0,
+    });
+  }, [refetch, remove]);
+
+  const intersectRef = useIntersect(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && !isFetching) {
+      await fetchNextPage();
+    }
+  });
+
+  const items = data?.pages;
+
+  const itemList = items?.reduce((acc: res.ProductSummary[], cur) => {
+    acc.push(...cur.items);
+    return acc;
+  }, []);
+
+  const isNoProducts = (itemList && !itemList.length) || false;
+
+  const noProducts = (
+    <NoProductView
+      {...{
+        isNoProducts,
+        isLoading,
+        isFetching,
+      }}
+    />
+  );
 
   const refreshingContent = <Loading />;
 
   const pullDownThreshold = 60;
   const maxPullDownDistance = 90;
 
-  const commonProducts = (
-    <AsyncBoundary
-      suspenseFallback={<ShopSkeleton itemNum={12} />}
-      errorFallback={ErrorFallback}
-    >
-      {needPullToRefresh ? (
-        <ProductItemListMain ref={productListRef} {...{ queryStringObj }} />
-      ) : (
-        <ProductItemListMain {...{ queryStringObj }} />
-      )}
-    </AsyncBoundary>
+  const commonProducts = isLoading ? (
+    <ShopSkeleton itemNum={12} />
+  ) : (
+    <ProductListView
+      {...{ intersectRef, isFetching, noProducts }}
+      itemList={itemList}
+    />
   );
 
-  if (needPullToRefresh && isPossiblePullToRefresh) {
+  if (needPullToRefresh) {
     return (
       <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
         <PullToRefresh
           {...{
             refreshingContent,
-            onRefresh: handleRefresh,
+            onRefresh,
             pullDownThreshold,
             maxPullDownDistance,
           }}

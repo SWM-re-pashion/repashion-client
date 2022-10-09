@@ -1,13 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 
 export const getProductDetail = async (
   id: string,
 ): Promise<res.ProductDetail> => {
-  const { data } = await Axios.get<res.ProductDetail>(
-    `/api/product/detail/${id}`,
-  );
-  return data;
+  const response = await Axios.get(`/api/product/detail/${id}`);
+  return response;
 };
 
 export function useProdutDetail(id: string) {

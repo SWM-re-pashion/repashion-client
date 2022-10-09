@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 
 import {
   findChildrenByProp,
@@ -7,8 +7,8 @@ import {
 } from '../components/Upload/organisms/Dialog/utils';
 
 export const getCategoryData = async (): Promise<res.CategoryTree> => {
-  const { data } = await Axios.get('/api/category/v3');
-  return data;
+  const response = await Axios.get('/api/category/v3');
+  return response;
 };
 
 export const useCategoryTree = () => {

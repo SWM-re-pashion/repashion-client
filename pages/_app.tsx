@@ -1,15 +1,19 @@
 import { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import React, { ReactElement, ReactNode, useEffect } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import ErrorFallback from '@atoms/ErrorFallback';
 import Loading from '@atoms/Loading';
 import Toast from '@atoms/Toast';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import { useMounted, useWindowResize } from 'hooks';
 import '../styles/globals.scss';
@@ -22,7 +26,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-function App({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
   const isMount = useMounted();
   const [_, height] = useWindowResize();
@@ -64,7 +68,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <AsyncBoundary
-            suspenseFallback={<Loading style={{ height: '100%' }} />}
+            suspenseFallback={
+              <Loading style={{ height: '100vh', boxSizing: 'border-box' }} />
+            }
             errorFallback={ErrorFallback}
             keys={[router.asPath]}
           >
@@ -78,4 +84,19 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default App;
+MyApp.getInitialProps = async (context: AppContext) => {
+  const { ctx, Component } = context;
+  let pageProps = {};
+  // const cookie = ctx.req ? ctx.req.headers.cookie : '';
+  // console.log(ctx);
+  // if (cookie) {
+  //   Axios.defaults.headers.Cookie = cookie;
+  // }
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+};
+
+export default MyApp;

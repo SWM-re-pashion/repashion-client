@@ -10,6 +10,7 @@ import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
+import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import {
   getCategoryData,
   useCategoryTree,
@@ -25,37 +26,37 @@ import {
 import { useMultipleSearch } from 'hooks';
 import { getQueryStringObj, getQueriesArr } from 'utils';
 
-export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const { category, hide_sold, order } = query;
-  const { style, price_goe, price_loe, color, fit, length, clothes_size } =
-    query;
-  const arr1 = [category, hide_sold, order]; // TODO: obj로 변경
-  const arr2 = [style, price_goe, price_loe, color, fit, length, clothes_size];
-  const queryArr = [...arr1, ...arr2];
+export const getServerSideProps = withGetServerSideProps(
+  async ({ query }: GetServerSidePropsContext) => {
+    const { category, hide_sold, order, style } = query;
+    const { price_goe, price_loe, color, fit, length, clothes_size } = query;
+    const arr1 = [category, hide_sold, order, style]; // TODO: obj로 변경
+    const arr2 = [price_goe, price_loe, color, fit, length, clothes_size];
+    const queryArr = [...arr1, ...arr2];
 
-  const queryObj = getQueriesArr(queryData, queryArr);
-  const queryStringObj = getQueryStringObj(queryObj);
+    const queryObj = getQueriesArr(queryData, queryArr);
+    const queryStringObj = getQueryStringObj(queryObj);
 
-  const queryClient = new QueryClient();
+    const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['category'], () => getCategoryData());
-  await queryClient.prefetchInfiniteQuery(
-    queryKey.productItemList(queryStringObj),
-    getInfiniteProducts(queryStringObj),
-    {
-      getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
-        return isEndOfPage ? undefined : pageNumber + 1;
+    await queryClient.fetchQuery(['category'], () => getCategoryData());
+    await queryClient.fetchInfiniteQuery(
+      queryKey.productItemList(queryStringObj),
+      getInfiniteProducts(queryStringObj),
+      {
+        getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
+          return isEndOfPage ? undefined : pageNumber + 1;
+        },
       },
-    },
-  );
+    );
 
-  return {
-    props: {
-      queryStringObj,
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-}
+    return {
+      props: {
+        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      },
+    };
+  },
+);
 
 function Shop() {
   const data = useCategoryTree()?.data;

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 
 export const getStyleImgs = async (): Promise<res.StyleImgs> => {
-  const { data } = await Axios.get<res.StyleImgs>('/api/style-image');
-  return data;
+  const response = await Axios.get('/api/style-image');
+  return response;
 };
 
 export const useStyleImgs = () => {

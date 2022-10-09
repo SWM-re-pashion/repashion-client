@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Axios } from 'lib/axios';
+import { Axios } from 'api/core';
 
 type StaticType =
   | 'color'
@@ -11,8 +11,8 @@ type StaticType =
   | 'bodyShape';
 
 export const getStaticData = async <T>(type: StaticType): Promise<T> => {
-  const { data } = await Axios.get(`/api/static/${type}`);
-  return data;
+  const response = await Axios.get(`/api/static/${type}`);
+  return response;
 };
 
 export const useStaticData = <T>(type: StaticType) => {
