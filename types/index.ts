@@ -9,7 +9,12 @@ export type ImgProps = {
   height?: number;
 } & ImgBasicProps;
 
-export type DefaultData = { id?: string; name: string; code: string };
+export type DefaultData = {
+  id?: string;
+  onClick?: () => void;
+  name: string;
+  code: string;
+};
 
 export type UrlQuery = string | string[] | undefined;
 

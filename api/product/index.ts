@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import { Axios } from 'api/core';
 
 export const getProductDetail = async (
@@ -8,7 +7,7 @@ export const getProductDetail = async (
   return response;
 };
 
-export function useProdutDetail(id: string) {
-  const response = useQuery(['product', id], () => getProductDetail(id));
+export const deleteProductDetail = async (id: string) => {
+  const response = await Axios.delete(`/api/product/delete/${id}`);
   return response;
-}
+};

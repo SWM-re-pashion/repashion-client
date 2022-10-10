@@ -44,4 +44,10 @@ declare namespace res {
       views: number;
     };
   };
+  type ProductDeleteError = {
+    message: string;
+    status: number;
+    errors: string[];
+    code: string;
+  };
 }
