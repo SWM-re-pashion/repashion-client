@@ -50,4 +50,5 @@ declare namespace res {
     errors: string[];
     code: string;
   };
+  type ProductStatus = 'soldout' | 'sale' | 'reserve';
 }

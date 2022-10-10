@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { memo } from 'react';
 
 import { StyleProps } from '#types/props';
-import BorderBox from '@atoms/BorderBox';
 import ResponsiveImg from '@atoms/ResponsiveImg';
 import Span from '@atoms/Span';
 import { useTimeForToday } from 'hooks';
 
+import SoldoutBox from '../SoldoutBox';
 import $ from './style.module.scss';
 
 type Props = res.ProductSummary & StyleProps;
@@ -26,13 +26,7 @@ function ProductItem(itemProps: Props) {
           alt={title}
           className={$['product-img']}
         >
-          {isSoldOut && (
-            <BorderBox borderRadius="5px" className={$['soldout-box']}>
-              <Span fontSize={12} color="#fff">
-                sold out
-              </Span>
-            </BorderBox>
-          )}
+          <SoldoutBox {...{ isSoldOut }} />
         </ResponsiveImg>
 
         <div className={$['text-box']}>

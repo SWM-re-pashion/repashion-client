@@ -9,11 +9,12 @@ import { toastError } from 'utils/toaster';
 type Props = {
   id: string;
   isMe: boolean;
+  status: res.ProductStatus;
   imgList: (ImgProps | string)[];
 };
 
 function ProductImgSlide(slideProps: Props) {
-  const { id, isMe, imgList } = slideProps;
+  const { id, isMe, imgList, status } = slideProps;
   const { mutate } = useDeleteProduct(id);
   const deleteProduct = useCallback(() => mutate(id), [id, mutate]);
   const updateDate = useCallback(
@@ -40,7 +41,7 @@ function ProductImgSlide(slideProps: Props) {
   const options = isMe ? myMoreMenu : notMyMoreMenu;
 
   return (
-    <ImgSlide imgList={imgList}>
+    <ImgSlide {...{ status }} imgList={imgList}>
       <ImgSlideTools options={options} />
     </ImgSlide>
   );

@@ -48,7 +48,8 @@ function ShopDetail({ id }: { id: string }) {
     const { isMe, sellerInfo, basic, sellerNotice, measure } = detailData;
     const { opinion, price, isIncludeDelivery, updatedAt, like, views } =
       detailData;
-    addProduct({ id: +id, img: sellerInfo.image[0] }); // TODO: 실험해볼 것
+    const status = 'soldout'; // TODO: 백엔드와 협의
+    addProduct({ id: +id, img: sellerInfo.image[0] });
     return (
       <>
         <HeadMeta
@@ -57,7 +58,9 @@ function ShopDetail({ id }: { id: string }) {
         />
 
         <Layout noPadding className={$['shop-detail-layout']}>
-          <ProductImgSlide {...{ id, isMe, imgList: sellerInfo.image }} />
+          <ProductImgSlide
+            {...{ id, isMe, status, imgList: sellerInfo.image }}
+          />
           <Profile profile={sellerInfo} />
           <section className={$['shop-detail-info']}>
             <ProductBasic basic={basic} />
