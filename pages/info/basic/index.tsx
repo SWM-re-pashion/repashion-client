@@ -159,7 +159,7 @@ export function BasicInfo() {
 }
 
 BasicInfo.getLayout = function getLayout(page: ReactElement) {
-  return <Layout decreaseHeight={80}>{page}</Layout>;
+  return <Layout className={$['basic-info-layout']}>{page}</Layout>;
 };
 
 export default BasicInfo;

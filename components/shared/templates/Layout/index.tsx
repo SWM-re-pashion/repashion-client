@@ -1,26 +1,24 @@
 import { ReactNode } from 'react';
 
+import { StyleProps } from '#types/props';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
-interface Props {
+type Props = {
   noPadding?: boolean;
   children: ReactNode;
-  decreaseHeight?: number;
-}
+} & StyleProps;
 
 export default function PageLayout(layoutProps: Props) {
   const { noPadding } = layoutProps;
-  const { children } = layoutProps;
-  const { decreaseHeight = 0 } = layoutProps;
+  const { children, className } = layoutProps;
 
   return (
     <main
-      className={classnames($.layout, { [$['no-padding']]: noPadding })}
-      style={{
-        paddingBottom: `${noPadding ? 0 : 30 + decreaseHeight}px`,
-      }}
+      className={classnames($.layout, className, {
+        [$['no-padding']]: noPadding,
+      })}
     >
       {children}
     </main>

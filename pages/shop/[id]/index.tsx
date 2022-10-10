@@ -9,6 +9,7 @@ import ImgSlide from '@organisms/ImgSlide';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import NotFound from '@templates/NotFound';
+import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { getProductDetail, useProdutDetail } from 'api/product';
 import SellerComment from 'components/Product/molecules/SellerComment';
 import ProductBasic from 'components/Product/organisms/ProductBasic';
@@ -19,22 +20,22 @@ import { useSearchStore } from 'store/useSearchStore';
 
 import $ from './style.module.scss';
 
-export async function getServerSideProps({
-  params,
-}: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const id = params?.id;
-  const paramId = (typeof id !== 'object' && id) || '0';
+export const getServerSideProps = withGetServerSideProps(
+  async ({ params }: GetServerSidePropsContext) => {
+    const queryClient = new QueryClient();
+    const id = params?.id;
+    const paramId = (typeof id !== 'object' && id) || '0';
 
-  await queryClient.prefetchQuery(['styles'], () => getProductDetail(paramId));
+    await queryClient.fetchQuery(['styles'], () => getProductDetail(paramId));
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      id: paramId,
-    },
-  };
-}
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+        id: paramId,
+      },
+    };
+  },
+);
 
 function ShopDetail({ id }: { id: string }) {
   const { data } = useProdutDetail(id);
@@ -55,7 +56,7 @@ function ShopDetail({ id }: { id: string }) {
           url={`${seoData.url}/shop/${id}`}
         />
 
-        <Layout noPadding decreaseHeight={100}>
+        <Layout noPadding className={$['shop-detail-layout']}>
           <ImgSlide imgList={sellerInfo.image} />
           <Profile profile={sellerInfo} />
           <section className={$['shop-detail-info']}>
@@ -79,7 +80,7 @@ function ShopDetail({ id }: { id: string }) {
       </>
     );
   }
-  return <NotFound />; // TODO: 데이터 fetching 실패했을 때, 로딩, 에러
+  return null;
 }
 
 export default ShopDetail;

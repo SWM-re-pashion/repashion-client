@@ -97,7 +97,7 @@ export function StyleInfo() {
 }
 
 StyleInfo.getLayout = function getLayout(page: ReactElement) {
-  return <Layout decreaseHeight={80}>{page}</Layout>;
+  return <Layout className={$['style-info-layout']}>{page}</Layout>;
 };
 
 export default StyleInfo;
