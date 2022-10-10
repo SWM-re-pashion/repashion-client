@@ -5,10 +5,12 @@ import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import { queryKey } from '@constants/react-query';
 import PageHeader from '@molecules/PageHeader';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getCategoryData, useCategoryTree } from 'api/getCategoryData';
+import { getExcludeCategory } from 'api/category';
+import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { useProductUpload } from 'api/upload';
 import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
 import Basic from 'components/Upload/organisms/Basic';
@@ -21,6 +23,7 @@ import SizeInfo from 'components/Upload/organisms/SizeInfo';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
+import { useCategoryTree } from 'hooks/api/category';
 import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 import { toastError, toastSuccess } from 'utils/toaster';
@@ -30,20 +33,22 @@ import { additionData, styleData } from '../../constants/upload/constants';
 import { reviewData, sizeData } from '../../constants/upload/utils';
 import $ from './style.module.scss';
 
-export async function getStaticProps() {
+export const getStaticProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['category'], () => getCategoryData());
+  await queryClient.fetchQuery(queryKey.category(true), () =>
+    getExcludeCategory(),
+  );
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
   };
-}
+});
 
 function Upload() {
   const router = useRouter();
-  const categoryData = useCategoryTree()?.data;
+  const categoryData = useCategoryTree(true)?.data;
   const states = useUploadStore((state) => state);
   const { price, isIncludeDelivery, style, basicInfo, size } = states;
   const { category } = basicInfo;

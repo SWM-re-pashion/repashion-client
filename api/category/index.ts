@@ -1,21 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
 import { Axios } from 'api/core';
-
 import {
   findChildrenByProp,
   findNameByProp,
-} from '../components/Upload/organisms/Dialog/utils';
+} from 'components/Upload/organisms/Dialog/utils';
 
-export const getCategoryData = async (): Promise<res.CategoryTree> => {
+export const getCategory = async (): Promise<res.CategoryTree> => {
   const response = await Axios.get('/api/category/v3');
   return response;
 };
 
-export const useCategoryTree = () => {
-  const response = useQuery(['category'], () => getCategoryData(), {
-    suspense: true,
-  });
-  return response.data;
+export const getExcludeCategory = async (): Promise<res.CategoryTree> => {
+  const response = await Axios.get('/api/category/exclude');
+  return response;
 };
 
 export const getCategoryTree = (

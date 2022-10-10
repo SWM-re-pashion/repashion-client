@@ -6,7 +6,7 @@ import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
-import { getCategoryTree } from 'api/getCategoryData';
+import { getCategoryTree } from 'api/category';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import Dialog from '../Dialog';

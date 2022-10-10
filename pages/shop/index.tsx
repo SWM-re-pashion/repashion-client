@@ -10,12 +10,8 @@ import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
+import { getCategory, getCategoryTree } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
-import {
-  getCategoryData,
-  useCategoryTree,
-  getCategoryTree,
-} from 'api/getCategoryData';
 import { getInfiniteProducts } from 'api/shop';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'components/Shop/Organisms/ShopHeader';
@@ -24,6 +20,7 @@ import {
   curCategoryChildrenByProp,
 } from 'components/Upload/organisms/Dialog/utils';
 import { useMultipleSearch } from 'hooks';
+import { useCategoryTree } from 'hooks/api/category';
 import { getQueryStringObj, getQueriesArr } from 'utils';
 
 export const getServerSideProps = withGetServerSideProps(
@@ -39,7 +36,7 @@ export const getServerSideProps = withGetServerSideProps(
 
     const queryClient = new QueryClient();
 
-    await queryClient.fetchQuery(['category'], () => getCategoryData());
+    await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
     await queryClient.fetchInfiniteQuery(
       queryKey.productItemList(queryStringObj),
       getInfiniteProducts(queryStringObj),
@@ -59,7 +56,7 @@ export const getServerSideProps = withGetServerSideProps(
 );
 
 function Shop() {
-  const data = useCategoryTree()?.data;
+  const data = useCategoryTree(false)?.data;
   const queryObj = useMultipleSearch(queryData, queries);
   const { category, hide_sold, order } = queryObj;
 
