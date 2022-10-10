@@ -1,16 +1,28 @@
 import { memo } from 'react';
 
+import { DefaultData } from '#types/index';
 import BackBtn from '@atoms/BackBtn';
 import { More } from '@atoms/icon';
-import classnames from 'classnames';
+import DropDown from '@molecules/DropDown';
 
 import $ from './style.module.scss';
 
-function ImgSlideTools() {
+type Props = {
+  options: Partial<DefaultData>[];
+};
+
+function ImgSlideTools({ options }: Props) {
   return (
     <div className={$['header-box']}>
       <BackBtn className={$.btn} />
-      <More className={classnames($.btn, $.more)} />
+      <DropDown
+        className={$.more}
+        options={options}
+        name="see-more"
+        right="32px"
+      >
+        <More className={$.btn} />
+      </DropDown>
     </div>
   );
 }

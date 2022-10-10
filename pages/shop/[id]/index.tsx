@@ -5,16 +5,17 @@ import { useCallback } from 'react';
 import HeadMeta from '@atoms/HeadMeta';
 import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
-import ImgSlide from '@organisms/ImgSlide';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
-import { getProductDetail, useProdutDetail } from 'api/product';
+import { getProductDetail } from 'api/product';
 import SellerComment from 'components/Product/molecules/SellerComment';
 import ProductBasic from 'components/Product/organisms/ProductBasic';
 import ProductFooter from 'components/Product/organisms/ProductFooter';
+import ProductImgSlide from 'components/Product/organisms/ProductImgSlide';
 import ProductNotice from 'components/Product/organisms/ProductNotice';
 import ProductSize from 'components/Product/organisms/ProductSize';
+import { useProdutDetail } from 'hooks/api/product';
 import { useSearchStore } from 'store/useSearchStore';
 
 import $ from './style.module.scss';
@@ -56,7 +57,7 @@ function ShopDetail({ id }: { id: string }) {
         />
 
         <Layout noPadding className={$['shop-detail-layout']}>
-          <ImgSlide imgList={sellerInfo.image} />
+          <ProductImgSlide {...{ id, isMe, imgList: sellerInfo.image }} />
           <Profile profile={sellerInfo} />
           <section className={$['shop-detail-info']}>
             <ProductBasic basic={basic} />

@@ -3,8 +3,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ImgProps } from '#types/index';
-import type { StyleProps } from '#types/props';
-import ImgSlideTools from '@molecules/ImgSlideTools';
+import type { DefaultProps } from '#types/props';
 import InfoPageNum from '@molecules/InfoPageNum';
 import classnames from 'classnames';
 import useDragScroll from 'hooks/useDragScroll';
@@ -13,9 +12,10 @@ import $ from './style.module.scss';
 
 type Props = {
   imgList: (ImgProps | string)[];
-} & StyleProps;
+} & DefaultProps;
 
-export default function ImgSlide({ className, style, imgList }: Props) {
+export default function ImgSlide(slideProps: Props) {
+  const { children, className, style, imgList } = slideProps;
   const [imgCurrentNo, setImgCurrentNo] = useState(0);
   const [mouseDownClientX, setMouseDownClientX] = useState(0);
   const [mouseUpClientX, setMouseUpClientX] = useState(0);
@@ -48,7 +48,7 @@ export default function ImgSlide({ className, style, imgList }: Props) {
 
   return (
     <section className={$['slide-box']}>
-      <ImgSlideTools />
+      {children}
 
       <article className={$.slider} ref={dragRef} style={style}>
         <ul

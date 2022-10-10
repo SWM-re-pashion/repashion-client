@@ -9,10 +9,9 @@ import classnames from 'classnames';
 import $ from './style.module.scss';
 
 type Props = {
-  options: (string | DefaultData)[];
+  options: (string | Partial<DefaultData>)[];
   children: React.ReactNode;
   name: string;
-  onClick?: (value: string) => void;
   top?: string;
   right?: string;
   bottom?: string;
@@ -22,7 +21,7 @@ type Props = {
 } & StyleProps;
 
 function DropDown(selectProps: Props) {
-  const { options, onClick, children, className } = selectProps;
+  const { options, children, className } = selectProps;
   const { name, fontWeight, fontSize, top, right, bottom, left } = selectProps;
   const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
@@ -34,10 +33,8 @@ function DropDown(selectProps: Props) {
     setIsClicked((clicked) => !clicked);
   };
 
-  const handleDropdownItem = (option?: string) => {
-    if (option && onClick) {
-      onClick(option);
-    }
+  const handleDropdownItem = (onClick?: () => void) => {
+    if (onClick) onClick();
     setIsClicked(false);
   };
 
@@ -68,7 +65,7 @@ function DropDown(selectProps: Props) {
           {options.map((option) => {
             const isObject = typeof option === 'object';
             const optionName = isObject ? option.name : option;
-            const optionData = isObject ? option.code : option;
+            const optionClick = isObject ? option.onClick : undefined;
 
             return (
               <li
@@ -80,9 +77,9 @@ function DropDown(selectProps: Props) {
                   $['dropdown-menu-hover'],
                 )}
                 onClick={() => {
-                  handleDropdownItem(optionData);
+                  handleDropdownItem(optionClick);
                 }}
-                onKeyPress={() => handleDropdownItem(optionData)}
+                onKeyPress={() => handleDropdownItem(optionClick)}
               >
                 <Span fontSize={fontSize || 12} {...{ fontWeight }}>
                   {optionName}
