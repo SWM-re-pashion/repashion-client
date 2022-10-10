@@ -8,7 +8,6 @@ import Profile from '@molecules/Profile';
 import ImgSlide from '@organisms/ImgSlide';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import NotFound from '@templates/NotFound';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { getProductDetail, useProdutDetail } from 'api/product';
 import SellerComment from 'components/Product/molecules/SellerComment';
