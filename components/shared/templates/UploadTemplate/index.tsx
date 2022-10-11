@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { MeasureType } from '#types/storeType/upload';
+import { MeasureType, UploadStoreState } from '#types/storeType/upload';
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
@@ -23,18 +23,23 @@ import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
 import { useCategoryTree } from 'hooks/api/category';
 import { useProductUpload } from 'hooks/api/upload';
-import { useUploadStore } from 'store/useUploadStore';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 import { toastError, toastSuccess } from 'utils/toaster';
 import { judgeValid, refineUploadData } from 'utils/upload.utils';
 
 import $ from './style.module.scss';
 
-function UploadTemplate() {
+type Props = {
+  states: UploadStoreState;
+};
+
+function UploadTemplate({ states }: Props) {
   const router = useRouter();
   const categoryData = useCategoryTree(false)?.data;
-  const states = useUploadStore((state) => state);
+  const isMounted = useMounted();
+  const { mutate } = useProductUpload();
   const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;
+  const { clearMeasure, updateUpload } = states;
   const { category } = basicInfo;
 
   const judgedState = judgeValid(states);
@@ -44,18 +49,14 @@ function UploadTemplate() {
   const [_, mainCategoryState] = category;
   const strCategory = arrToString(category);
   const mainCategory = mainCategoryState || 'top';
-  const sizeProps = sizeData(mainCategory);
   const [judgeMeasure, setJudgeMeasure] = useState<MeasureType>(
     getJudgeCategory(strCategory),
   );
-  const isMounted = useMounted();
-  const { mutate } = useProductUpload();
-  const clearMeasure = useUploadStore(
-    useCallback((state) => state.clearMeasure, []),
-  );
-  const updateUpload = useUploadStore(
-    useCallback((state) => state.updateUpload, []),
-  );
+
+  const clearMeasures = useCallback(clearMeasure, [clearMeasure]);
+  const update = useCallback(updateUpload, [updateUpload]);
+
+  const sizeProps = useMemo(() => sizeData(mainCategory), [mainCategory]);
   const review = useMemo(() => reviewData(mainCategory), [mainCategory]);
   const measureData = useMemo(
     () => getMeasureElement(judgeMeasure),
@@ -70,7 +71,7 @@ function UploadTemplate() {
       mutate(refineUploadData(states), {
         onSuccess: ({ data }) => {
           router.push(`/shop/${data}`);
-          states.clearUpload();
+          clearMeasures();
           toastSuccess({ message: '상품 등록에 성공했습니다.' });
         },
       });
@@ -79,25 +80,14 @@ function UploadTemplate() {
     }
   };
 
-  const backBtnClick = useCallback(() => {
-    if (isRemainState) toastError({ message: '상품이 임시저장되었습니다.' });
-  }, [isRemainState]);
-
-  useEffect(() => {
-    router.events.on('routeChangeStart', backBtnClick);
-    return () => {
-      router.events.off('routeChangeStart', backBtnClick);
-    };
-  }, [backBtnClick, router.events, router.pathname]);
-
   useEffect(() => {
     setJudgeMeasure(getJudgeCategory(strCategory));
   }, [strCategory]);
 
   useDidMountEffect(() => {
-    clearMeasure();
-    updateUpload(judgeMeasure, 'measureType');
-  }, [clearMeasure, judgeMeasure]); // FIX: restrictMode로 인해 실행됨.
+    clearMeasures();
+    update(judgeMeasure, 'measureType');
+  }, [clearMeasures, judgeMeasure]); // FIX: restrictMode로 인해 실행됨.
 
   if (!isMounted || !categoryData) return null;
   return (
@@ -112,61 +102,59 @@ function UploadTemplate() {
 
       <PageHeader
         title="상품등록"
-        left={
-          <BackBtn color="#000" className={$.back} onClick={backBtnClick} />
-        }
+        left={<BackBtn color="#000" className={$.back} />}
       />
       <div className={$.upload}>
         <ImgUpload
           {...{ isImgValid }}
           state={states.imgList}
-          onChange={updateUpload}
+          onChange={update}
         />
         <StyleSelect
           {...{ isStyleValid }}
           data={styleData}
           state={style}
-          onChange={updateUpload}
+          onChange={update}
         />
         <Contact
           state={contact}
-          onChange={updateUpload}
+          onChange={update}
           isContactValid={isContactValid}
         />
         <Price
           {...{ isPriceValid }}
           delivery={isIncludeDelivery}
           state={price}
-          onChange={updateUpload}
+          onChange={update}
         />
         <Basic
           {...{ isBasicValid, categoryData }}
           state={basicInfo}
-          onChange={updateUpload}
+          onChange={update}
         />
         <SizeInfo
           {...{ isSizeValid }}
           sizeProps={sizeProps}
           state={size}
-          onChange={updateUpload}
+          onChange={update}
         />
         <SellerReview
           {...{ height, bodyShape, isSellerValid }}
           data={review}
           state={states.sellerNote}
-          onChange={updateUpload}
+          onChange={update}
         />
         <MeasureInfo
           data={measureData}
           state={states.measure}
-          onChange={updateUpload}
+          onChange={update}
         />
         <AdditionInfo
           data={additionData}
           additionState={states.additionalInfo}
           opinionState={states.opinion}
           opinionPlaceholder="판매자님의 설명은 구매에 도움이 됩니다.(최대 300자)"
-          onChange={updateUpload}
+          onChange={update}
         />
       </div>
       <ButtonFooter

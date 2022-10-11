@@ -34,6 +34,7 @@ const judgeValid = (states: UploadState) => {
       categorySomeValid ||
       brandValid ||
       sellerSomeValid ||
+      contactValid ||
       sizeValid,
     isFormValid:
       imgListValid &&
@@ -46,6 +47,7 @@ const judgeValid = (states: UploadState) => {
       categoryValid &&
       brandValid &&
       sellerValid &&
+      contactValid &&
       sizeValid,
     isImgValid: imgListValid,
     isStyleValid: colorValid && tagValid && materialValid,

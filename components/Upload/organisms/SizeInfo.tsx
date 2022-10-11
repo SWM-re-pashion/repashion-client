@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { sizeBtnBox } from '@constants/upload/utils';
@@ -22,4 +24,4 @@ function SizeInfo(infoProps: Props) {
   );
 }
 
-export default SizeInfo;
+export default memo(SizeInfo);
