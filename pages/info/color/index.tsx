@@ -4,6 +4,7 @@ import { ReactElement, useCallback, useEffect } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import { colorBtnProps } from '@constants/colorInfo/constants';
 import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
@@ -14,7 +15,7 @@ import { getStaticData, useStaticData } from 'api/getStaticData';
 import { usePostPreference } from 'api/preference';
 import { useInfoStore } from 'store/useInfoStore';
 
-import { colorBtnProps } from '../../../constants/colorInfo/constants';
+import $ from './style.module.scss';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
@@ -84,7 +85,7 @@ export function ColorInfo() {
 }
 
 ColorInfo.getLayout = function getLayout(page: ReactElement) {
-  return <Layout decreaseHeight={80}>{page}</Layout>;
+  return <Layout className={$['color-info-layout']}>{page}</Layout>;
 };
 
 export default ColorInfo;

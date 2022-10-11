@@ -1,26 +1,31 @@
 import Image from 'next/image';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ImgProps } from '#types/index';
-import type { StyleProps } from '#types/props';
-import ImgSlideTools from '@molecules/ImgSlideTools';
+import type { DefaultProps } from '#types/props';
 import InfoPageNum from '@molecules/InfoPageNum';
 import classnames from 'classnames';
+import SoldoutBox from 'components/Shop/molecules/SoldoutBox';
 import useDragScroll from 'hooks/useDragScroll';
 
 import $ from './style.module.scss';
 
 type Props = {
   imgList: (ImgProps | string)[];
-} & StyleProps;
+  status?: res.ProductStatus;
+} & DefaultProps;
 
-export default function ImgSlide({ className, style, imgList }: Props) {
+export default function ImgSlide(slideProps: Props) {
+  const { children, className, style, imgList, status } = slideProps;
   const [imgCurrentNo, setImgCurrentNo] = useState(0);
   const [mouseDownClientX, setMouseDownClientX] = useState(0);
   const [mouseUpClientX, setMouseUpClientX] = useState(0);
   const dragRef = useRef<HTMLDivElement>(null);
   const ref = dragRef.current;
+  const isSoldOut = status === 'soldout';
+  const currentImgNo = imgCurrentNo + 1;
+  const imgListLen = imgList.length;
   useDragScroll(dragRef);
 
   const onChangeImg = useCallback(
@@ -45,27 +50,47 @@ export default function ImgSlide({ className, style, imgList }: Props) {
 
   const onMouseTouchDown = (num: number) => setMouseDownClientX(num);
   const onMouseTouchUp = (num: number) => setMouseUpClientX(num);
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.keyCode === 37) {
+      onChangeImg(imgCurrentNo - 1);
+      return;
+    }
+    if (e.keyCode === 39) onChangeImg(imgCurrentNo + 1);
+  };
 
   return (
     <section className={$['slide-box']}>
-      <ImgSlideTools />
+      {children}
 
-      <article className={$.slider} ref={dragRef} style={style}>
+      <div
+        tabIndex={0}
+        role="slider"
+        aria-valuenow={currentImgNo}
+        aria-valuemin={1}
+        aria-valuemax={imgListLen}
+        aria-roledescription="carousel"
+        aria-label="이미지 슬라이드를 방향키로 움직일 수 있습니다."
+        aria-orientation="horizontal"
+        className={$.slider}
+        ref={dragRef}
+        style={style}
+        onTouchStart={(e: React.TouchEvent) =>
+          onMouseTouchDown(e.changedTouches[0].pageX)
+        }
+        onTouchEnd={(e: React.TouchEvent) =>
+          onMouseTouchUp(e.changedTouches[0].pageX)
+        }
+        onMouseDown={(e: React.MouseEvent) => onMouseTouchDown(e.clientX)}
+        onMouseUp={(e: React.MouseEvent) => onMouseTouchUp(e.clientX)}
+        onKeyDown={onKeyDown}
+      >
         <ul
-          role="presentation"
+          role="region"
           className={classnames($['slide-list'], className)}
           style={{
             transform: `translateX(
                 ${ref && -ref.clientWidth * imgCurrentNo + ref.scrollLeft}px)`,
           }}
-          onTouchStart={(e: React.TouchEvent) =>
-            onMouseTouchDown(e.changedTouches[0].pageX)
-          }
-          onTouchEnd={(e: React.TouchEvent) =>
-            onMouseTouchUp(e.changedTouches[0].pageX)
-          }
-          onMouseDown={(e: React.MouseEvent) => onMouseTouchDown(e.clientX)}
-          onMouseUp={(e: React.MouseEvent) => onMouseTouchUp(e.clientX)}
         >
           {imgList.map((img, idx) => {
             const key =
@@ -73,17 +98,24 @@ export default function ImgSlide({ className, style, imgList }: Props) {
             const src = typeof img !== 'string' ? img.src : img;
             const alt = typeof img !== 'string' ? img.alt : `이미지${idx + 1}`;
             return (
-              <li key={key} className={$.slide}>
+              <li
+                key={key}
+                className={$.slide}
+                aria-roledescription="slide"
+                aria-label={`${imgListLen}개의 이미지 중 ${imgCurrentNo}번째 이미지`}
+              >
                 <Image {...{ src, alt }} layout="fill" priority />
               </li>
             );
           })}
         </ul>
-      </article>
 
-      <InfoPageNum className={$['page-num']}>{`${imgCurrentNo + 1}/${
-        imgList.length
-      }`}</InfoPageNum>
+        <SoldoutBox {...{ isSoldOut }} />
+      </div>
+
+      <InfoPageNum
+        className={$['page-num']}
+      >{`${currentImgNo}/${imgListLen}`}</InfoPageNum>
     </section>
   );
 }

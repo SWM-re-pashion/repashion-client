@@ -5,36 +5,37 @@ import { useCallback } from 'react';
 import HeadMeta from '@atoms/HeadMeta';
 import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
-import ImgSlide from '@organisms/ImgSlide';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import NotFound from '@templates/NotFound';
-import { getProductDetail, useProdutDetail } from 'api/product';
+import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
+import { getProductDetail } from 'api/product';
 import SellerComment from 'components/Product/molecules/SellerComment';
 import ProductBasic from 'components/Product/organisms/ProductBasic';
 import ProductFooter from 'components/Product/organisms/ProductFooter';
+import ProductImgSlide from 'components/Product/organisms/ProductImgSlide';
 import ProductNotice from 'components/Product/organisms/ProductNotice';
 import ProductSize from 'components/Product/organisms/ProductSize';
+import { useProdutDetail } from 'hooks/api/product';
 import { useSearchStore } from 'store/useSearchStore';
 
 import $ from './style.module.scss';
 
-export async function getServerSideProps({
-  params,
-}: GetServerSidePropsContext) {
-  const queryClient = new QueryClient();
-  const id = params?.id;
-  const paramId = (typeof id !== 'object' && id) || '0';
+export const getServerSideProps = withGetServerSideProps(
+  async ({ params }: GetServerSidePropsContext) => {
+    const queryClient = new QueryClient();
+    const id = params?.id;
+    const paramId = (typeof id !== 'object' && id) || '0';
 
-  await queryClient.prefetchQuery(['styles'], () => getProductDetail(paramId));
+    await queryClient.fetchQuery(['styles'], () => getProductDetail(paramId));
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      id: paramId,
-    },
-  };
-}
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+        id: paramId,
+      },
+    };
+  },
+);
 
 function ShopDetail({ id }: { id: string }) {
   const { data } = useProdutDetail(id);
@@ -47,7 +48,8 @@ function ShopDetail({ id }: { id: string }) {
     const { isMe, sellerInfo, basic, sellerNotice, measure } = detailData;
     const { opinion, price, isIncludeDelivery, updatedAt, like, views } =
       detailData;
-    addProduct({ id: +id, img: sellerInfo.image[0] }); // TODO: 실험해볼 것
+    const status = 'soldout'; // TODO: 백엔드와 협의
+    addProduct({ id: +id, img: sellerInfo.image[0] });
     return (
       <>
         <HeadMeta
@@ -55,8 +57,10 @@ function ShopDetail({ id }: { id: string }) {
           url={`${seoData.url}/shop/${id}`}
         />
 
-        <Layout noPadding decreaseHeight={100}>
-          <ImgSlide imgList={sellerInfo.image} />
+        <Layout noPadding className={$['shop-detail-layout']}>
+          <ProductImgSlide
+            {...{ id, isMe, status, imgList: sellerInfo.image }}
+          />
           <Profile profile={sellerInfo} />
           <section className={$['shop-detail-info']}>
             <ProductBasic basic={basic} />
@@ -79,7 +83,7 @@ function ShopDetail({ id }: { id: string }) {
       </>
     );
   }
-  return <NotFound />; // TODO: 데이터 fetching 실패했을 때, 로딩, 에러
+  return null;
 }
 
 export default ShopDetail;

@@ -1,0 +1,32 @@
+.dropdown-btn {
+  position: relative;
+}
+
+.dropdown-menulist {
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  min-width: 100px;
+  @include border(border, 5px, $gray-280);
+  background-color: $white;
+
+  .dropdown-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px;
+    border-bottom: 1px solid $gray-280;
+    white-space: nowrap;
+    cursor: pointer;
+    &:last-child {
+      border: 0;
+    }
+
+    &-hover {
+      &:hover {
+        background-color: $clicked-background;
+        font-weight: 600;
+      }
+    }
+  }
+}

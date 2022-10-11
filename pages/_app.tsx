@@ -26,23 +26,21 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 3 * 60 * 1000,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
   const isMount = useMounted();
   const [_, height] = useWindowResize();
-  const [queryClient] = React.useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 3 * 60 * 1000,
-            refetchOnMount: false,
-            refetchOnReconnect: false,
-            refetchOnWindowFocus: false,
-          },
-        },
-      }),
-  );
   const getLayout = Component.getLayout || ((page) => page);
 
   const setScreenSize = () => {

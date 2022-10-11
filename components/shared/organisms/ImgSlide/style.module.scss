@@ -6,6 +6,7 @@
     background-color: $gray-280;
     transition: height 0.15s ease-in;
     .slide-list {
+      position: relative;
       display: flex;
       transition: all 0.35s ease-in-out;
       .slide {
