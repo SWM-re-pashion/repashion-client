@@ -43,6 +43,7 @@ export const filterInitialState: FilterState = {
 
 export const uploadInitialState: UploadState = {
   imgList: [],
+  contact: '',
   style: {
     tag: '',
     color: [],
@@ -75,6 +76,7 @@ export const uploadInitialState: UploadState = {
     rise: 0,
     bottomSection: 0,
   },
+  measureType: 'top',
   additionalInfo: {
     purchaseTime: '',
     purchasePlace: '',

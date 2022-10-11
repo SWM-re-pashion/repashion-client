@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useRef } from 'react';
 
 import { ImgList, UpdateUpload } from '#types/storeType/upload';
-import { useImgUpload } from 'api/upload';
+import { useImgUpload } from 'hooks/api/upload';
 import useDragScroll from 'hooks/useDragScroll';
 import { useUploadStore } from 'store/useUploadStore';
 

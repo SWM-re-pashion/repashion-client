@@ -1,13 +1,14 @@
+import { MeasureType } from '#types/storeType/upload';
 import { measuresData } from '@constants/style';
 
-export const getJudgeCategory = (kind: string | string[]) => {
+export const getJudgeCategory = (kind: string | string[]): MeasureType => {
   if (kind.includes('skirt')) return 'skirt';
   if (kind.includes('onepiece')) return 'onepiece';
   if (kind.includes('bottom')) return 'bottom';
   return 'top';
 };
 
-export const getMeasureElement = (category: string | string[]) => {
+export const getMeasureElement = (category: MeasureType) => {
   let filterCondition: (measure: string) => boolean;
 
   if (category === 'skirt') {

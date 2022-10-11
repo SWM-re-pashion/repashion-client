@@ -43,8 +43,11 @@ export interface AdditionalInfo {
   purchasePlace: string;
 }
 
+export type MeasureType = 'top' | 'bottom' | 'onepiece' | 'skirt';
+
 export interface UploadState {
   imgList: ImgList[];
+  contact: string;
   style: StyleUpload;
   price: number;
   isIncludeDelivery: boolean;
@@ -52,6 +55,7 @@ export interface UploadState {
   size: string;
   sellerNote: SellerNote;
   measure: Measure;
+  measureType: MeasureType;
   additionalInfo: AdditionalInfo;
   opinion: string;
 }

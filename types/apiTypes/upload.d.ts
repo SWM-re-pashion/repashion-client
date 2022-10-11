@@ -32,6 +32,7 @@ declare namespace req {
   };
   type UploadData = {
     imgList: string[];
+    contact: string;
     style: { tag: string; color: string; material: string };
     price: number;
     isIncludeDelivery: boolean;
@@ -42,6 +43,7 @@ declare namespace req {
     };
     size: string;
     sellerNote: SellerNote;
+    measureType: 'top' | 'bottom' | 'onepiece' | 'skirt';
     measure: {
       [key: string]: number;
     };

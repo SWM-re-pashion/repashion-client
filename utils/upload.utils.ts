@@ -1,8 +1,11 @@
-import { UploadState } from '#types/storeType/upload';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { UploadState, UploadStoreState } from '#types/storeType/upload';
+
+import { arrToString } from './arrToString';
 
 const judgeValid = (states: UploadState) => {
   const { imgList, style, price, isIncludeDelivery, basicInfo } = states;
-  const { size, sellerNote } = states;
+  const { size, sellerNote, contact } = states;
   const { title, category, brand } = basicInfo;
   const imgListValid = !!imgList.length;
   const colorValid = !!style.color.length;
@@ -17,6 +20,7 @@ const judgeValid = (states: UploadState) => {
   const sellerValid = Object.values(sellerNote).every((x) => !!x);
   const sellerSomeValid = Object.values(sellerNote).some((x) => !!x);
   const sizeValid = !!size;
+  const contactValid = !!contact;
 
   return {
     isRemainState:
@@ -49,7 +53,41 @@ const judgeValid = (states: UploadState) => {
     isBasicValid: titleValid && categoryValid && brandValid,
     isSellerValid: sellerValid,
     isSizeValid: sizeValid,
+    isContactValid: contactValid,
   };
 };
 
-export { judgeValid };
+const refineUploadData = (data: UploadStoreState): req.UploadData => {
+  const {
+    imgUpload,
+    removeImg,
+    updateUpload,
+    clearMeasure,
+    clearUpload,
+    ...rest
+  } = data;
+  const { imgList, measure, basicInfo, style } = rest;
+
+  return {
+    ...rest,
+    imgList: imgList.map(({ src }) => src),
+    basicInfo: {
+      ...basicInfo,
+      category: arrToString(basicInfo.category),
+    },
+    style: {
+      ...style,
+      color: arrToString(style.color),
+    },
+    measure: Object.entries(measure).reduce((acc, [key, value]) => {
+      if (value)
+        return {
+          ...acc,
+          [key]: value,
+        };
+      return { ...acc };
+    }, {}),
+  };
+};
+
+export { judgeValid, refineUploadData };
