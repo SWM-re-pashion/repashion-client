@@ -11,3 +11,8 @@ export const deleteProductDetail = async (id: string) => {
   const response = await Axios.delete(`/api/product/delete/${id}`);
   return response;
 };
+
+export const updateProductDetail = async (id: string) => {
+  const response = await Axios.put(`/api/product/${id}`);
+  return response;
+};

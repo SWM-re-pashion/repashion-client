@@ -6,10 +6,12 @@ import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import { queryKey } from '@constants/react-query';
+import { additionData, styleData } from '@constants/upload/constants';
+import { reviewData, sizeData } from '@constants/upload/utils';
 import PageHeader from '@molecules/PageHeader';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getExcludeCategory } from 'api/category';
+import { getCategory } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { useProductUpload } from 'api/upload';
 import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
@@ -29,15 +31,11 @@ import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 import { toastError, toastSuccess } from 'utils/toaster';
 import { judgeValid } from 'utils/upload.utils';
 
-import { additionData, styleData } from '../../constants/upload/constants';
-import { reviewData, sizeData } from '../../constants/upload/utils';
 import $ from './style.module.scss';
 
 export const getStaticProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(queryKey.category(true), () =>
-    getExcludeCategory(),
-  );
+  await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
 
   return {
     props: {
@@ -48,7 +46,7 @@ export const getStaticProps = withGetServerSideProps(async () => {
 
 function Upload() {
   const router = useRouter();
-  const categoryData = useCategoryTree(true)?.data;
+  const categoryData = useCategoryTree(false)?.data;
   const states = useUploadStore((state) => state);
   const { price, isIncludeDelivery, style, basicInfo, size } = states;
   const { category } = basicInfo;
