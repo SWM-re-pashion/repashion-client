@@ -1,0 +1,12 @@
+.basic-info {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    @include halfWidth();
+    margin-bottom: 12px;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
