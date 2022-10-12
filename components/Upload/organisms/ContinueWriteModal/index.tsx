@@ -1,27 +1,25 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 
+import { UploadStoreState } from '#types/storeType/upload';
 import DialogModal from '@templates/DialogModal';
-import { useUploadStore } from 'store/useUploadStore';
 
 type Props = {
   isRemainState: boolean;
+  clear: UploadStoreState['clearUpload'];
 };
 
 function ContinueWriteModal(modalProps: Props) {
-  const { isRemainState } = modalProps;
+  const { isRemainState, clear } = modalProps;
   const [dialogOpen, setDialogOpen] = useState(false);
-  const clearUpload = useUploadStore(
-    useCallback((state) => state.clearUpload, []),
-  );
 
   useEffect(() => {
     if (isRemainState) setDialogOpen(true);
   }, []);
 
   const handleCancel = useCallback(() => {
-    clearUpload();
+    clear();
     setDialogOpen(false);
-  }, [clearUpload]);
+  }, [clear]);
 
   const handleClick = useCallback(() => setDialogOpen(false), []);
 

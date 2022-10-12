@@ -39,7 +39,8 @@ function UploadTemplate({ states }: Props) {
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
   const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;
-  const { clearMeasure, updateUpload } = states;
+  const { clearMeasure, updateUpload, removeImg, imgUpload, clearUpload } =
+    states;
   const { category } = basicInfo;
 
   const judgedState = judgeValid(states);
@@ -53,8 +54,11 @@ function UploadTemplate({ states }: Props) {
     getJudgeCategory(strCategory),
   );
 
+  const clearUploads = useCallback(clearUpload, [clearUpload]);
   const clearMeasures = useCallback(clearMeasure, [clearMeasure]);
   const update = useCallback(updateUpload, [updateUpload]);
+  const imgsUpload = useCallback(imgUpload, [imgUpload]);
+  const removeImgs = useCallback(removeImg, [removeImg]);
 
   const sizeProps = useMemo(() => sizeData(mainCategory), [mainCategory]);
   const review = useMemo(() => reviewData(mainCategory), [mainCategory]);
@@ -98,7 +102,7 @@ function UploadTemplate({ states }: Props) {
         url={`${seoData.url}/upload`}
       />
 
-      <ContinueWriteModal {...{ isRemainState }} />
+      <ContinueWriteModal {...{ isRemainState, clear: clearUploads }} />
 
       <PageHeader
         title="상품등록"
@@ -106,7 +110,7 @@ function UploadTemplate({ states }: Props) {
       />
       <div className={$.upload}>
         <ImgUpload
-          {...{ isImgValid }}
+          {...{ isImgValid, imgUpload: imgsUpload, removeImg: removeImgs }}
           state={states.imgList}
           onChange={update}
         />

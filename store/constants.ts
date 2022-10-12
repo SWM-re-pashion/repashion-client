@@ -42,7 +42,7 @@ export const filterInitialState: FilterState = {
 };
 
 export const uploadInitialState: UploadState = {
-  imgList: [],
+  imgList: [], // TODO: refine
   contact: '',
   style: {
     tag: '',
@@ -54,7 +54,7 @@ export const uploadInitialState: UploadState = {
   basicInfo: {
     title: '',
     curCategoryIdx: 0,
-    category: ['', '', ''],
+    category: ['', '', ''], // TODO: refine
     brand: '',
   },
   size: '',
