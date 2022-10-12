@@ -50,6 +50,7 @@ function ShopDetail({ id }: { id: string }) {
       detailData;
     const status = 'soldout'; // TODO: 백엔드와 협의
     addProduct({ id: +id, img: sellerInfo.image[0] });
+
     return (
       <>
         <HeadMeta
@@ -65,7 +66,7 @@ function ShopDetail({ id }: { id: string }) {
           <section className={$['shop-detail-info']}>
             <ProductBasic basic={basic} />
             <ProductNotice sellerNotice={sellerNotice} />
-            {measure.length && (
+            {measure && (
               <ProductSize size={measure} kind={basic.classification} />
             )}
             {opinion && (

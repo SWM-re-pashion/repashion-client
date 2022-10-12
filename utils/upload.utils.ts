@@ -82,7 +82,7 @@ const refineUploadData = (data: UploadStoreState): req.UploadData => {
       color: arrToString(style.color),
     },
     measure: Object.entries(measure).reduce((acc, [key, value]) => {
-      if (value)
+      if (typeof value === 'number')
         return {
           ...acc,
           [key]: value,

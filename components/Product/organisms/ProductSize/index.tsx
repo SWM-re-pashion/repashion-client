@@ -15,6 +15,7 @@ type Props = {
 export default function ProductSize({ size, kind }: Props) {
   const datas = productSizeUtil(size);
   const ProductKind = judgeProductIcon(kind);
+  const isNumber = (desc?: number) => typeof desc === 'number';
 
   return (
     <BorderBox className={$['product-size']}>
@@ -24,7 +25,7 @@ export default function ProductSize({ size, kind }: Props) {
         <div className={$['size-info']}>
           {datas.map(
             ({ label, desc }, idx) =>
-              desc && (
+              isNumber(desc) && (
                 <ProductCell
                   key={label}
                   label={label}
