@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
-import { MeasureType, UploadStoreState } from '#types/storeType/upload';
+import { UploadStoreState } from '#types/storeType/upload';
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import { additionData, styleData } from '@constants/upload/constants';
 import { reviewData, sizeData } from '@constants/upload/utils';
 import PageHeader from '@molecules/PageHeader';
+import { getBreadcrumb } from 'api/category';
 import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
 import Basic from 'components/Upload/organisms/Basic';
 import Contact from 'components/Upload/organisms/Contact';
@@ -22,7 +23,7 @@ import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
 import { useProductUpload } from 'hooks/api/upload';
-import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
+import { getJudgeCategory, getMeasureElement } from 'utils';
 import { toastError, toastSuccess } from 'utils/toaster';
 import { judgeValid, refineUploadData } from 'utils/upload.utils';
 
@@ -41,17 +42,13 @@ function UploadTemplate({ states, categoryData }: Props) {
   const { clearMeasure, updateUpload, removeImg, imgUpload, clearUpload } =
     states;
   const { category } = basicInfo;
+  const [gender, main, sub] = category;
+  const breadCrumb = getBreadcrumb(categoryData, sub || main || gender) || '';
 
   const judgedState = judgeValid(states);
   const { isImgValid, isBasicValid, isPriceValid } = judgedState;
   const { isSellerValid, isContactValid } = judgedState;
   const { isFormValid, isRemainState, isSizeValid, isStyleValid } = judgedState;
-  const [_, mainCategoryState] = category;
-  const strCategory = arrToString(category);
-  const mainCategory = mainCategoryState || 'top';
-  const [judgeMeasure, setJudgeMeasure] = useState<MeasureType>(
-    getJudgeCategory(strCategory),
-  );
 
   const clearUploads = useCallback(clearUpload, [clearUpload]);
   const clearMeasures = useCallback(clearMeasure, [clearMeasure]);
@@ -59,12 +56,16 @@ function UploadTemplate({ states, categoryData }: Props) {
   const imgsUpload = useCallback(imgUpload, [imgUpload]);
   const removeImgs = useCallback(removeImg, [removeImg]);
 
+  const mainCategory = useMemo(
+    () => getJudgeCategory(breadCrumb),
+    [breadCrumb],
+  );
+  const measureData = useMemo(
+    () => getMeasureElement(mainCategory),
+    [mainCategory],
+  );
   const sizeProps = useMemo(() => sizeData(mainCategory), [mainCategory]);
   const review = useMemo(() => reviewData(mainCategory), [mainCategory]);
-  const measureData = useMemo(
-    () => getMeasureElement(judgeMeasure),
-    [judgeMeasure],
-  );
 
   const height = 170;
   const bodyShape = 'normal'; // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
@@ -83,14 +84,10 @@ function UploadTemplate({ states, categoryData }: Props) {
     }
   };
 
-  useEffect(() => {
-    setJudgeMeasure(getJudgeCategory(strCategory));
-  }, [strCategory]);
-
   useDidMountEffect(() => {
     clearMeasures();
-    update(judgeMeasure, 'measureType');
-  }, [clearMeasures, judgeMeasure]); // FIX: restrictMode로 인해 실행됨.
+    update(mainCategory, 'measureType');
+  }, [clearMeasures, mainCategory]); // FIX: restrictMode로 인해 실행됨.
 
   if (!isMounted || !categoryData) return null;
   return (

@@ -52,7 +52,7 @@ export const getCategoryPartialTree = (
 };
 
 export const getBreadcrumb = (
-  data: res.CategoryTree['data'] | res.CategoryTreeChildren,
+  data: res.CategoryTree['data'] | res.CategoryTreeChildren | undefined,
   categoryId: string,
   breadCrumb?: string,
 ): string | undefined => {
