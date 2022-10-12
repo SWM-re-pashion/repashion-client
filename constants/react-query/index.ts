@@ -8,4 +8,7 @@ export const queryKey = {
   productDetail: (id: string) => {
     return ['product', id];
   },
+  uploadedProduct: (id: string) => {
+    return ['uploadedProduct', id];
+  },
 };

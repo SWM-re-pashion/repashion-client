@@ -1,6 +1,8 @@
+import { queryKey } from '@constants/react-query';
+import { getUploadedProduct } from 'api/product';
 import { postImgs, postProduct } from 'api/upload';
 
-import { useCoreMutation } from '../core';
+import { useCoreMutation, useCoreQuery } from '../core';
 
 export const useImgUpload = () => {
   return useCoreMutation(postImgs, {
@@ -16,4 +18,10 @@ export const useProductUpload = () => {
       console.log(err);
     },
   });
+};
+
+export const useUploadedProduct = (id: string) => {
+  return useCoreQuery(queryKey.uploadedProduct(id), () =>
+    getUploadedProduct(id),
+  );
 };
