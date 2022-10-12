@@ -75,7 +75,7 @@ const refineUploadData = (data: UploadStoreState): req.UploadData => {
     imgList: imgList.map(({ src }) => src),
     basicInfo: {
       ...basicInfo,
-      category: arrToString(basicInfo.category),
+      category: basicInfo.category[basicInfo.category.length - 1],
     },
     style: {
       ...style,
