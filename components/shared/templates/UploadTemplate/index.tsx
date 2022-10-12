@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-
 import { useCallback, useMemo } from 'react';
 
 import { UploadStoreState } from '#types/storeType/upload';
@@ -24,7 +22,7 @@ import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
 import { useProductUpload } from 'hooks/api/upload';
 import { getJudgeCategory, getMeasureElement } from 'utils';
-import { toastError, toastSuccess } from 'utils/toaster';
+import { toastError } from 'utils/toaster';
 import { judgeValid, refineUploadData } from 'utils/upload.utils';
 
 import $ from './style.module.scss';
@@ -35,12 +33,11 @@ type Props = {
 };
 
 function UploadTemplate({ states, categoryData }: Props) {
-  const router = useRouter();
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
   const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;
-  const { clearMeasure, updateUpload, removeImg, imgUpload, clearUpload } =
-    states;
+  const { updateUpload, removeImg } = states;
+  const { imgUpload, clearUpload, initMeasure } = states;
   const { category } = basicInfo;
   const [gender, main, sub] = category;
   const breadCrumb = getBreadcrumb(categoryData, sub || main || gender) || '';
@@ -51,7 +48,7 @@ function UploadTemplate({ states, categoryData }: Props) {
   const { isFormValid, isRemainState, isSizeValid, isStyleValid } = judgedState;
 
   const clearUploads = useCallback(clearUpload, [clearUpload]);
-  const clearMeasures = useCallback(clearMeasure, [clearMeasure]);
+  const initMeasures = useCallback(initMeasure, [initMeasure]);
   const update = useCallback(updateUpload, [updateUpload]);
   const imgsUpload = useCallback(imgUpload, [imgUpload]);
   const removeImgs = useCallback(removeImg, [removeImg]);
@@ -60,34 +57,27 @@ function UploadTemplate({ states, categoryData }: Props) {
     () => getJudgeCategory(breadCrumb),
     [breadCrumb],
   );
-  const measureData = useMemo(
+  const { measureData, measureState } = useMemo(
     () => getMeasureElement(mainCategory),
     [mainCategory],
   );
   const sizeProps = useMemo(() => sizeData(mainCategory), [mainCategory]);
   const review = useMemo(() => reviewData(mainCategory), [mainCategory]);
-
-  const height = 170;
-  const bodyShape = 'normal'; // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
+  // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
 
   const handleSubmit = () => {
     if (isFormValid) {
-      mutate(refineUploadData(states), {
-        onSuccess: ({ data }) => {
-          router.push(`/shop/${data}`);
-          clearMeasures();
-          toastSuccess({ message: '상품 등록에 성공했습니다.' });
-        },
-      });
+      console.log(refineUploadData(states));
+      mutate(refineUploadData(states));
     } else {
       toastError({ message: '필수 정보를 알려주세요.' });
     }
   };
 
   useDidMountEffect(() => {
-    clearMeasures();
+    initMeasures(measureState);
     update(mainCategory, 'measureType');
-  }, [clearMeasures, mainCategory]); // FIX: restrictMode로 인해 실행됨.
+  }, [mainCategory]); // FIX: restrictMode로 인해 실행됨.
 
   if (!isMounted || !categoryData) return null;
   return (
@@ -139,7 +129,7 @@ function UploadTemplate({ states, categoryData }: Props) {
           onChange={update}
         />
         <SellerReview
-          {...{ height, bodyShape, isSellerValid }}
+          {...{ isSellerValid }}
           data={review}
           state={states.sellerNote}
           onChange={update}

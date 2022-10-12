@@ -1,5 +1,5 @@
 import { ImgBasicProps } from '#types/index';
-import { UploadStoreState } from '#types/storeType/upload';
+import { UploadStoreState, Measure } from '#types/storeType/upload';
 import { uploadInitialState } from 'store/constants';
 import { deepClone, updateInfo } from 'utils';
 import { StateCreator } from 'zustand';
@@ -26,6 +26,14 @@ export const createUploadSlice: StateCreator<
       return {
         ...state,
         imgList: [...state.imgList.filter(({ id }) => id !== removeId)],
+      };
+    });
+  },
+  initMeasure: (measures: Measure) => {
+    set((state) => {
+      return {
+        ...state,
+        measure: { ...measures },
       };
     });
   },

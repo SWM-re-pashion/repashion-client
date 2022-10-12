@@ -1,4 +1,4 @@
-import { MeasureType } from '#types/storeType/upload';
+import { Measure, MeasureType } from '#types/storeType/upload';
 import { measuresData } from '@constants/style';
 
 export const getJudgeCategory = (kind: string | string[]): MeasureType => {
@@ -36,6 +36,13 @@ export const getMeasureElement = (category: MeasureType) => {
       measure === 'chestSection' ||
       measure === 'sleeveLength';
   }
+  const measureData = measuresData.filter(({ code }) => filterCondition(code));
+  const measureState: Measure = measureData.reduce((acc, { code }) => {
+    return {
+      ...acc,
+      [code]: 0,
+    };
+  }, {});
 
-  return measuresData.filter(({ code }) => filterCondition(code));
+  return { measureData, measureState };
 };

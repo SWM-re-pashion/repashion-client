@@ -27,15 +27,15 @@ export interface SellerNote {
 }
 
 export interface Measure {
-  [index: string]: number; // Todo: 없애기 TextInput에서 처리하도록
-  length: number;
-  shoulderWidth: number;
-  chestSection: number;
-  sleeveLength: number;
-  waistSection: number;
-  thighSection: number;
-  rise: number;
-  bottomSection: number;
+  [index: string]: number | undefined; // Todo: 없애기 TextInput에서 처리하도록
+  length?: number;
+  shoulderWidth?: number;
+  chestSection?: number;
+  sleeveLength?: number;
+  waistSection?: number;
+  thighSection?: number;
+  rise?: number;
+  bottomSection?: number;
 }
 
 export interface AdditionalInfo {
@@ -75,6 +75,7 @@ export type UpdateUpload = (
 export interface UploadStoreState extends UploadState {
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;
+  initMeasure: (measures: Measure) => void;
   clearMeasure: () => void;
   clearUpload: () => void;
   updateUpload: UpdateUpload;

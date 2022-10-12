@@ -1,5 +1,6 @@
-import { ACCESSTOKEN } from '@constants/api';
 import { getCookie, setCookie, deleteCookie } from 'cookies-next';
+
+import { ACCESSTOKEN } from '@constants/api';
 
 export const setAccessToken = (token: string | null) => {
   setCookie(ACCESSTOKEN, token || '');
