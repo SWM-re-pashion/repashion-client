@@ -21,7 +21,6 @@ import SizeInfo from 'components/Upload/organisms/SizeInfo';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
-import { useCategoryTree } from 'hooks/api/category';
 import { useProductUpload } from 'hooks/api/upload';
 import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
 import { toastError, toastSuccess } from 'utils/toaster';
@@ -31,11 +30,11 @@ import $ from './style.module.scss';
 
 type Props = {
   states: UploadStoreState;
+  categoryData: res.CategoryTree['data'] | undefined;
 };
 
-function UploadTemplate({ states }: Props) {
+function UploadTemplate({ states, categoryData }: Props) {
   const router = useRouter();
-  const categoryData = useCategoryTree(false)?.data;
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
   const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;

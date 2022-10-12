@@ -6,9 +6,14 @@ import { queryKey } from '@constants/react-query';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
-import { getCategory } from 'api/category';
+import {
+  getBreadcrumb,
+  getCategory,
+  getCategoryPartialTree,
+} from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { getUploadedProduct } from 'api/product';
+import { useCategoryTree } from 'hooks/api/category';
 import { useUploadedProduct } from 'hooks/api/upload';
 import { useUploadUpdateStore } from 'store/upload/useUploadUpdateStore';
 import { toastError } from 'utils/toaster';
@@ -32,11 +37,17 @@ export const getServerSideProps = withGetServerSideProps(async ({ params }) => {
 
 function UploadUpdate({ id }: { id: string }) {
   const { data } = useUploadedProduct(id);
-  console.log(data);
+  const categoryData = useCategoryTree(false)?.data;
   const router = useRouter();
   const states = useUploadUpdateStore((state) => state);
+  const categoryId = data?.data.basicInfo.category;
+  if (!categoryData || !categoryId) return null;
 
-  return <UploadTemplate {...{ states }} />;
+  const tree = getCategoryPartialTree(categoryData, categoryId);
+  const breadCrumb = getBreadcrumb(categoryData, categoryId);
+  console.log(tree, breadCrumb);
+
+  return <UploadTemplate {...{ states, categoryData }} />;
 }
 
 UploadUpdate.getLayout = function getLayout(page: ReactElement) {

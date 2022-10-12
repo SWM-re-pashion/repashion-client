@@ -9,7 +9,7 @@ export const getProductDetail = async (
 
 export const getUploadedProduct = async (
   id: string,
-): Promise<res.ProductDetail> => {
+): Promise<res.UploadedProduct> => {
   const response = await Axios.get(`/api/product/${id}`);
   return response;
 };
