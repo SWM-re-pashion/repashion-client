@@ -8,7 +8,7 @@ import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getCategory } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
-import { useUploadStore } from 'store/useUploadStore';
+import { useUploadStore } from 'store/upload/useUploadStore';
 import { toastError } from 'utils/toaster';
 import { judgeValid } from 'utils/upload.utils';
 
@@ -20,6 +20,7 @@ export const getStaticProps = withGetServerSideProps(async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 60 * 60 * 24, // 하루
   };
 });
 
