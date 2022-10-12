@@ -38,37 +38,31 @@ export const getCategoryTree = (
 export const getCategoryPartialTree = (
   data: res.CategoryTree['data'] | res.CategoryTreeChildren,
   categoryId: string,
-):
-  | res.CategoryTree['data']['children']
-  | res.CategoryTreeChildren['children']
-  | null => {
-  if (!data.children) return null;
+): res.CategoryTree['data']['children'] => {
   const candidateTree = data?.children?.find((category) =>
     categoryId.startsWith(category.id),
   );
-
-  if (candidateTree?.children)
-    return getCategoryPartialTree(candidateTree, categoryId);
-
-  return data.children;
+  if (candidateTree?.children) {
+    const category = getCategoryPartialTree(candidateTree, categoryId);
+    if (category.length) return category;
+    return [];
+  }
+  if (!candidateTree) return data.children || [];
+  return [];
 };
 
 export const getBreadcrumb = (
   data: res.CategoryTree['data'] | res.CategoryTreeChildren,
   categoryId: string,
   breadCrumb?: string,
-): string | null => {
-  if (!data.children) return null;
-
+): string | undefined => {
   const candidateTree = data?.children?.find((category) =>
     categoryId.startsWith(category.id),
   );
 
-  const breadcrumb = `${breadCrumb ? `${breadCrumb} > ` : ''}${
-    candidateTree?.name
-  }`;
+  const name = candidateTree?.name;
+  if (!name) return breadCrumb;
+  const breadcrumb = `${breadCrumb ? `${breadCrumb} > ` : ''}${name}`;
 
-  if (candidateTree?.children)
-    return getBreadcrumb(candidateTree, categoryId, breadcrumb);
-  return breadcrumb;
+  return getBreadcrumb(candidateTree, categoryId, breadcrumb);
 };
