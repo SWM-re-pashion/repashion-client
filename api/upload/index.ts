@@ -11,3 +11,21 @@ export const postProduct = async (
   const response = await Axios.post('/api/product', uploadData);
   return response;
 };
+
+export const updateProductDetail = async ({
+  id,
+  body,
+}: {
+  id: string;
+  body: req.UploadData;
+}): Promise<res.UploadData> => {
+  const response = await Axios.put(`/api/product/${id}`, body);
+  return response;
+};
+
+export const getUploadedProduct = async (
+  id: string,
+): Promise<res.UploadedProduct> => {
+  const response = await Axios.get(`/api/product/${id}`);
+  return response;
+};
