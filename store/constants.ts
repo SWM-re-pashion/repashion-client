@@ -42,7 +42,7 @@ export const filterInitialState: FilterState = {
 };
 
 export const uploadInitialState: UploadState = {
-  imgList: [],
+  imgList: [], // TODO: refine
   contact: '',
   style: {
     tag: '',
@@ -54,7 +54,7 @@ export const uploadInitialState: UploadState = {
   basicInfo: {
     title: '',
     curCategoryIdx: 0,
-    category: ['', '', ''],
+    category: ['', '', ''], // TODO: refine
     brand: '',
   },
   size: '',
@@ -71,10 +71,6 @@ export const uploadInitialState: UploadState = {
     shoulderWidth: 0,
     chestSection: 0,
     sleeveLength: 0,
-    waistSection: 0,
-    thighSection: 0,
-    rise: 0,
-    bottomSection: 0,
   },
   measureType: 'top',
   additionalInfo: {

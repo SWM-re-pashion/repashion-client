@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 
 import { BasicInfo, UpdateUpload } from '#types/storeType/upload';
 import Button from '@atoms/Button';
@@ -13,20 +13,17 @@ import { curCategoryChildrenByProp } from './utils';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  genderCategory: res.CategoryTree['data'] | undefined;
-  mainCategory: res.CategoryTree['data'] | undefined;
-  subCategory: res.CategoryTree['data'] | undefined;
+  categoryData: res.CategoryTree['data'];
   state: BasicInfo;
   onChange: UpdateUpload;
 };
 
 function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
   const { state, onChange, onClose } = dialogProps;
-  const { genderCategory, mainCategory, subCategory } = dialogProps;
+  const { categoryData } = dialogProps;
   const { category, curCategoryIdx } = state;
-  const [curCategory, setCurCategory] = useState(genderCategory);
-  const isIncludeCurValue = curCategory
-    ? curCategoryChildrenByProp(curCategory, 'code').includes(
+  const isIncludeCurValue = categoryData
+    ? curCategoryChildrenByProp(categoryData, 'id').includes(
         category[curCategoryIdx],
       )
     : false;
@@ -44,22 +41,12 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
   }, [onChange]);
 
   const prevBtn = (idx: number) => {
-    if (idx === 1) {
-      setCurCategory(genderCategory);
-    } else if (idx === 2) {
-      setCurCategory(mainCategory);
-    } else {
-      return;
-    }
+    if (idx === 0) return;
     onChange(idx - 1, 'basicInfo', 'curCategoryIdx');
   };
 
   const nextBtn = (idx: number) => {
-    if (idx === 0) {
-      setCurCategory(mainCategory);
-    } else if (idx === 1) {
-      setCurCategory(subCategory);
-    } else {
+    if (idx === 2) {
       onClose();
       return;
     }
@@ -71,7 +58,7 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
       <header className={$['dialog-header']}>
         <Span className={$.title}>카테고리 선택</Span>
         <Span fontSize={12} fontWeight={500}>
-          {curCategory?.name}
+          {categoryData?.name}
         </Span>
         <Span color="#6A6A6A" className={$['page-num']}>
           {pageNum}
@@ -80,17 +67,17 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
 
       <div className={$['dialog-body']}>
         <div className={$['radio-group']}>
-          {curCategory?.children.map(({ name, code }) => {
-            const isClicked = category[curCategoryIdx] === code;
+          {categoryData?.children.map(({ id, name }) => {
+            const isClicked = category[curCategoryIdx] === id;
             return (
               <RadioSelect
-                key={code}
+                key={id}
                 isBorder
                 isClicked={isClicked}
                 type="basicInfo"
                 subType="category"
                 idx={curCategoryIdx}
-                {...{ name, code, onSubTypeClick: onChange }}
+                {...{ name, selectedValue: id, onSubTypeClick: onChange }}
               />
             );
           })}
@@ -122,7 +109,7 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
 
 function DialogWrapper(dialogProps: Props) {
   const { isOpen, onClose, state, onChange } = dialogProps;
-  const { genderCategory, mainCategory, subCategory } = dialogProps;
+  const { categoryData } = dialogProps;
   return (
     <Modal id="category-dialog" {...{ isOpen, onClose }}>
       <div
@@ -134,9 +121,7 @@ function DialogWrapper(dialogProps: Props) {
             state,
             onChange,
             onClose,
-            genderCategory,
-            mainCategory,
-            subCategory,
+            categoryData,
           }}
         />
       </div>

@@ -1,26 +1,3 @@
-declare namespace res {
-  type ImgUpload = {
-    error: boolean;
-    image: string[];
-    attribute: {
-      style: string;
-      gender: string;
-      mainCategory: string;
-      subCategory: string;
-      material: string;
-      detail: string;
-      print: string;
-    };
-  };
-}
-
-declare namespace res {
-  type UploadData = {
-    status: number;
-    data: number;
-  };
-}
-
 declare namespace req {
   type SellerNote = {
     condition: string;
@@ -49,5 +26,31 @@ declare namespace req {
     };
     additionalInfo: { purchaseTime: string; purchasePlace: string };
     opinion: string;
+  };
+}
+declare namespace res {
+  type ImgUpload = {
+    error: boolean;
+    image: string[];
+    attribute: {
+      style: string;
+      gender: string;
+      mainCategory: string;
+      subCategory: string;
+      material: string;
+      detail: string;
+      print: string;
+    };
+  };
+}
+
+declare namespace res {
+  type UploadData = {
+    status: number;
+    data: number;
+  };
+  type UploadedProduct = {
+    status: number;
+    data: req.UploadData;
   };
 }

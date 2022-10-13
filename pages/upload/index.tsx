@@ -8,7 +8,8 @@ import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getCategory } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
-import { useUploadStore } from 'store/useUploadStore';
+import { useCategoryTree } from 'hooks/api/category';
+import { useUploadStore } from 'store/upload/useUploadStore';
 import { toastError } from 'utils/toaster';
 import { judgeValid } from 'utils/upload.utils';
 
@@ -20,11 +21,13 @@ export const getStaticProps = withGetServerSideProps(async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 60 * 60 * 24, // 하루
   };
 });
 
 function Upload() {
   const router = useRouter();
+  const categoryData = useCategoryTree(false)?.data;
   const states = useUploadStore((state) => state);
   const { isRemainState } = judgeValid(states);
 
@@ -41,7 +44,9 @@ function Upload() {
     };
   }, [backBtnClick, router.events, router.pathname]);
 
-  return <UploadTemplate {...{ states }} />;
+  return (
+    <UploadTemplate {...{ id: '-1', states, categoryData, isUpdate: false }} />
+  );
 }
 
 Upload.getLayout = function getLayout(page: ReactElement) {

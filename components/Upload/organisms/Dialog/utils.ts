@@ -1,5 +1,3 @@
-import { deepClone, mergeObjInArr } from 'utils';
-
 export const findCodeByProp = (
   category: res.CategoryTree['data']['children'],
   value: string,
@@ -18,19 +16,6 @@ export const findNameByProp = (
   prop: keyof res.CategoryTreeChildren,
 ) => category?.find((children) => children[prop] === value)?.name || '';
 
-// export const filteredCategory = (
-//   code: string,
-//   category: res.CategoryTree['data'],
-// ) => {
-//   const commonData = findChildrenByProp(category.children, 'common', 'code');
-//   if (code === 'common' || !code) return commonData;
-//   const genderData = findChildrenByProp(category.children, code, 'code');
-//   const mergedCategory = deepClone(
-//     mergeObjInArr(commonData, genderData, 'name', 'children'),
-//   );
-//   return mergedCategory;
-// };
-
 export const curCategoryChildrenByProp = (
   category: Omit<res.CategoryTreeChildren, 'id'>,
   prop: keyof Omit<res.CategoryTreeChildren, 'children'>,
@@ -45,4 +30,16 @@ export const categoryIdNameCodeArr = (
     code,
   }));
   return result?.length ? result : [];
+};
+
+export const dialogCategoryProps = (idx: number) => {
+  const candidateName = `${idx === 1 ? '메인' : '서브'} 카테고리`;
+  const name = idx === 0 ? '성별' : candidateName;
+  const candidateCode = `${idx === 1 ? 'main' : 'sub'} category`;
+  const code = idx === 0 ? 'gender' : candidateCode;
+
+  return {
+    name,
+    code,
+  };
 };

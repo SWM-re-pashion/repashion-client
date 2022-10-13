@@ -35,7 +35,7 @@ function MeasureInfo(priceProps: Props) {
             subType={code}
             postLabel="cm"
             controlled
-            value={state[code].toString()}
+            value={state[code]?.toString()}
             placeholder="수치 입력"
             onChange={handleChange}
             className={$['measure-element']}

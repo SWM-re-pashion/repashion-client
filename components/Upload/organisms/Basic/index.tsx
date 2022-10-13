@@ -6,11 +6,11 @@ import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
-import { getCategoryTree } from 'api/category';
+import { getBreadcrumb, getCategoryPartialTree } from 'api/category';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import Dialog from '../Dialog';
-import { findNameByProp } from '../Dialog/utils';
+import { dialogCategoryProps } from '../Dialog/utils';
 import $ from './style.module.scss';
 
 type Props = {
@@ -22,24 +22,26 @@ type Props = {
 
 function Basic(basicProps: Props) {
   const { state, onChange } = basicProps;
-  const { categoryData: genderCategory, isBasicValid } = basicProps;
+  const { category, curCategoryIdx } = state;
+  const { categoryData, isBasicValid } = basicProps;
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const openDialog = useCallback(() => setDialogOpen(true), []);
   const closeDialog = useCallback(() => setDialogOpen(false), []);
 
-  const [gender, main, sub] = state.category;
-  const mainCategory = getCategoryTree(genderCategory, gender, 'code'); // TODO: 2번 렌더링
-  const subCategory = getCategoryTree(mainCategory, main, 'code');
+  const isAllCategorySelected = category.every((x) => !!x);
+  const prevCategoryId = category[curCategoryIdx - 1] || '';
+  const lastCategory = category[category.length - 1];
 
-  const korGender = findNameByProp(genderCategory?.children, gender, 'code');
-  const korMain = findNameByProp(mainCategory?.children, main, 'code');
-  const korSub = findNameByProp(subCategory?.children, sub, 'code');
+  const categories = getCategoryPartialTree(categoryData, prevCategoryId);
+  const breadCrumb = getBreadcrumb(categoryData, lastCategory);
 
-  const categoryBtnText =
-    gender && main && sub
-      ? `${korGender} | ${korMain} | ${korSub}`
-      : '카테고리 선택';
+  const categoryDatas = {
+    ...dialogCategoryProps(curCategoryIdx),
+    children: categories,
+  };
+
+  const categoryBtnText = isAllCategorySelected ? breadCrumb : '카테고리 선택';
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleTitleChange = useCallback(
@@ -82,7 +84,7 @@ function Basic(basicProps: Props) {
         <SelectArrow className={$.icon} />
       </Button>
       <Dialog
-        {...{ genderCategory, mainCategory, subCategory }}
+        {...{ categoryData: categoryDatas }}
         state={state}
         isOpen={dialogOpen}
         onClose={closeDialog}

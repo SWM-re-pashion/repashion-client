@@ -34,3 +34,35 @@ export const getCategoryTree = (
     children,
   };
 };
+
+export const getCategoryPartialTree = (
+  data: res.CategoryTree['data'] | res.CategoryTreeChildren,
+  categoryId: string,
+): res.CategoryTree['data']['children'] => {
+  const candidateTree = data?.children?.find((category) =>
+    categoryId.startsWith(category.id),
+  );
+  if (candidateTree?.children) {
+    const category = getCategoryPartialTree(candidateTree, categoryId);
+    if (category.length) return category;
+    return [];
+  }
+  if (!candidateTree) return data.children || [];
+  return [];
+};
+
+export const getBreadcrumb = (
+  data: res.CategoryTree['data'] | res.CategoryTreeChildren | undefined,
+  categoryId: string,
+  breadCrumb?: string,
+): string | undefined => {
+  const candidateTree = data?.children?.find((category) =>
+    categoryId.startsWith(category.id),
+  );
+
+  const name = candidateTree?.name;
+  if (!name) return breadCrumb;
+  const breadcrumb = `${breadCrumb ? `${breadCrumb} > ` : ''}${name}`;
+
+  return getBreadcrumb(candidateTree, categoryId, breadcrumb);
+};

@@ -21,16 +21,13 @@ type Props = {
     bodyShapes: DefaultData[];
     length: DefaultData[];
   };
-  height: number;
-  bodyShape: string;
   state: UploadState['sellerNote'];
   onChange: UpdateUpload;
   isSellerValid: boolean;
 };
 
 function SellerReview(priceProps: Props) {
-  const { data, state, onChange, height, bodyShape, isSellerValid } =
-    priceProps;
+  const { data, state, onChange, isSellerValid } = priceProps;
   const { condition, pollution, fit, bodyShapes, length } = data;
   const optionsData = [condition, pollution, length, fit];
   const handleInput = useDebounceInput(onChange, 200);
@@ -58,7 +55,7 @@ function SellerReview(priceProps: Props) {
               <TextInput
                 postLabel="cm"
                 controlled={false}
-                value={height.toString()}
+                value={state.height.toString()}
                 placeholder="키 입력"
                 onChange={handleChange}
               />

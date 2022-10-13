@@ -1,22 +1,25 @@
 import React, { memo, useCallback, useRef } from 'react';
 
-import { ImgList, UpdateUpload } from '#types/storeType/upload';
+import {
+  ImgList,
+  UpdateUpload,
+  UploadStoreState,
+} from '#types/storeType/upload';
 import { useImgUpload } from 'hooks/api/upload';
 import useDragScroll from 'hooks/useDragScroll';
-import { useUploadStore } from 'store/useUploadStore';
 
 import ImgUploadView from './ImgUploadView';
 
 type Props = {
   state: ImgList[];
+  imgUpload: UploadStoreState['imgUpload'];
+  removeImg: UploadStoreState['removeImg'];
   onChange: UpdateUpload;
   isImgValid: boolean;
 };
 
 function ImgUpload(imgProps: Props) {
-  const { state, onChange, isImgValid } = imgProps;
-  const imgUpload = useUploadStore(useCallback((stat) => stat.imgUpload, []));
-  const removeImg = useUploadStore(useCallback((stat) => stat.removeImg, []));
+  const { state, onChange, isImgValid, imgUpload, removeImg } = imgProps;
   const idRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);

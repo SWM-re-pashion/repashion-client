@@ -1,14 +1,13 @@
-import { useRouter } from 'next/router';
+import { useCallback, useMemo } from 'react';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-
-import { MeasureType, UploadStoreState } from '#types/storeType/upload';
+import { UploadStoreState } from '#types/storeType/upload';
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import { additionData, styleData } from '@constants/upload/constants';
 import { reviewData, sizeData } from '@constants/upload/utils';
 import PageHeader from '@molecules/PageHeader';
+import { getBreadcrumb } from 'api/category';
 import AdditionInfo from 'components/Upload/organisms/AdditionInfo';
 import Basic from 'components/Upload/organisms/Basic';
 import Contact from 'components/Upload/organisms/Contact';
@@ -21,92 +20,91 @@ import SizeInfo from 'components/Upload/organisms/SizeInfo';
 import StyleSelect from 'components/Upload/organisms/StyleSelect';
 import { seoData } from 'constants/seo';
 import { useMounted, useDidMountEffect } from 'hooks';
-import { useCategoryTree } from 'hooks/api/category';
-import { useProductUpload } from 'hooks/api/upload';
-import { arrToString, getJudgeCategory, getMeasureElement } from 'utils';
-import { toastError, toastSuccess } from 'utils/toaster';
+import { useProductUpload, useUpdateProduct } from 'hooks/api/upload';
+import { getJudgeCategory, getMeasureElement } from 'utils';
+import { toastError } from 'utils/toaster';
 import { judgeValid, refineUploadData } from 'utils/upload.utils';
 
 import $ from './style.module.scss';
 
 type Props = {
+  id: string;
+  isUpdate: boolean;
   states: UploadStoreState;
+  categoryData: res.CategoryTree['data'] | undefined;
 };
 
-function UploadTemplate({ states }: Props) {
-  const router = useRouter();
-  const categoryData = useCategoryTree(false)?.data;
+function UploadTemplate({ id, isUpdate, states, categoryData }: Props) {
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
+  const { mutate: updateMutate } = useUpdateProduct(id);
   const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;
-  const { clearMeasure, updateUpload } = states;
+  const { updateUpload, removeImg } = states;
+  const { imgUpload, clearUpload, initMeasure } = states;
   const { category } = basicInfo;
+  const [gender, main, sub] = category;
+  const breadCrumb = getBreadcrumb(categoryData, sub || main || gender) || '';
 
   const judgedState = judgeValid(states);
   const { isImgValid, isBasicValid, isPriceValid } = judgedState;
   const { isSellerValid, isContactValid } = judgedState;
   const { isFormValid, isRemainState, isSizeValid, isStyleValid } = judgedState;
-  const [_, mainCategoryState] = category;
-  const strCategory = arrToString(category);
-  const mainCategory = mainCategoryState || 'top';
-  const [judgeMeasure, setJudgeMeasure] = useState<MeasureType>(
-    getJudgeCategory(strCategory),
-  );
 
-  const clearMeasures = useCallback(clearMeasure, [clearMeasure]);
+  const clearUploads = useCallback(clearUpload, [clearUpload]);
+  const initMeasures = useCallback(initMeasure, [initMeasure]);
   const update = useCallback(updateUpload, [updateUpload]);
+  const imgsUpload = useCallback(imgUpload, [imgUpload]);
+  const removeImgs = useCallback(removeImg, [removeImg]);
 
+  const mainCategory = useMemo(
+    () => getJudgeCategory(breadCrumb),
+    [breadCrumb],
+  );
+  const { measureData, measureState } = useMemo(
+    () => getMeasureElement(mainCategory),
+    [mainCategory],
+  );
   const sizeProps = useMemo(() => sizeData(mainCategory), [mainCategory]);
   const review = useMemo(() => reviewData(mainCategory), [mainCategory]);
-  const measureData = useMemo(
-    () => getMeasureElement(judgeMeasure),
-    [judgeMeasure],
-  );
-
-  const height = 170;
-  const bodyShape = 'normal'; // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
+  // TODO: 사이즈, 리뷰 데이터 state 초기화
+  // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
 
   const handleSubmit = () => {
     if (isFormValid) {
-      mutate(refineUploadData(states), {
-        onSuccess: ({ data }) => {
-          router.push(`/shop/${data}`);
-          clearMeasures();
-          toastSuccess({ message: '상품 등록에 성공했습니다.' });
-        },
-      });
+      const body = refineUploadData(states);
+      if (isUpdate) updateMutate({ id, body });
+      else mutate(body);
     } else {
       toastError({ message: '필수 정보를 알려주세요.' });
     }
   };
-
-  useEffect(() => {
-    setJudgeMeasure(getJudgeCategory(strCategory));
-  }, [strCategory]);
-
+  console.log(states.measure, states.measureType);
   useDidMountEffect(() => {
-    clearMeasures();
-    update(judgeMeasure, 'measureType');
-  }, [clearMeasures, judgeMeasure]); // FIX: restrictMode로 인해 실행됨.
+    // TODO: 상품 수정 시 measure 값이 바뀌는 이슈
+    initMeasures(measureState);
+    update(mainCategory, 'measureType');
+  }, [mainCategory]); // FIX: restrictMode로 인해 실행됨.
 
   if (!isMounted || !categoryData) return null;
   return (
     // TODO: form 태그로 바꾸기
     <>
       <HeadMeta
-        title="re:Fashion | 상품 등록하기"
+        title={`re:Fashion | 상품 ${isUpdate ? '수정' : '등록'}하기`}
         url={`${seoData.url}/upload`}
       />
 
-      <ContinueWriteModal {...{ isRemainState }} />
+      {!isUpdate && (
+        <ContinueWriteModal {...{ isRemainState, clear: clearUploads }} />
+      )}
 
       <PageHeader
-        title="상품등록"
+        title={`상품${isUpdate ? '수정' : '등록'}`}
         left={<BackBtn color="#000" className={$.back} />}
       />
       <div className={$.upload}>
         <ImgUpload
-          {...{ isImgValid }}
+          {...{ isImgValid, imgUpload: imgsUpload, removeImg: removeImgs }}
           state={states.imgList}
           onChange={update}
         />
@@ -139,7 +137,7 @@ function UploadTemplate({ states }: Props) {
           onChange={update}
         />
         <SellerReview
-          {...{ height, bodyShape, isSellerValid }}
+          {...{ isSellerValid }}
           data={review}
           state={states.sellerNote}
           onChange={update}

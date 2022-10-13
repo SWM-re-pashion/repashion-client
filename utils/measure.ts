@@ -1,10 +1,10 @@
-import { MeasureType } from '#types/storeType/upload';
+import { Measure, MeasureType } from '#types/storeType/upload';
 import { measuresData } from '@constants/style';
 
 export const getJudgeCategory = (kind: string | string[]): MeasureType => {
-  if (kind.includes('skirt')) return 'skirt';
-  if (kind.includes('onepiece')) return 'onepiece';
-  if (kind.includes('bottom')) return 'bottom';
+  if (kind.includes('스커트')) return 'skirt';
+  if (kind.includes('원피스')) return 'onepiece';
+  if (kind.includes('하의')) return 'bottom';
   return 'top';
 };
 
@@ -36,6 +36,13 @@ export const getMeasureElement = (category: MeasureType) => {
       measure === 'chestSection' ||
       measure === 'sleeveLength';
   }
+  const measureData = measuresData.filter(({ code }) => filterCondition(code));
+  const measureState: Measure = measureData.reduce((acc, { code }) => {
+    return {
+      ...acc,
+      [code]: 0,
+    };
+  }, {});
 
-  return measuresData.filter(({ code }) => filterCondition(code));
+  return { measureData, measureState };
 };

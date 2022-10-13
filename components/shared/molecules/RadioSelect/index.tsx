@@ -8,7 +8,7 @@ import $ from './style.module.scss';
 
 type Props<T, U> = {
   name: string;
-  code: string;
+  selectedValue: string;
   isClicked: boolean;
   isBorder?: boolean;
   type?: T;
@@ -20,7 +20,7 @@ type Props<T, U> = {
 };
 
 function RadioSelect<T, U>(radioProps: Props<T, U>) {
-  const { name, code, isBorder, isClicked } = radioProps;
+  const { name, selectedValue, isBorder, isClicked } = radioProps;
   const { onSubTypeClick, onTypeClick, onClick, type, subType, idx } =
     radioProps;
 
@@ -36,8 +36,8 @@ function RadioSelect<T, U>(radioProps: Props<T, U>) {
       className={classnames($['radio-select'], { [$.border]: isBorder })}
       role="button"
       tabIndex={0}
-      onClick={() => handleClick(code)}
-      onKeyDown={() => handleClick(code)}
+      onClick={() => handleClick(selectedValue)}
+      onKeyDown={() => handleClick(selectedValue)}
     >
       <RadioBtn {...{ isClicked }} />
       <Span fontWeight={400} className={$.name}>
