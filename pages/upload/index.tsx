@@ -44,7 +44,9 @@ function Upload() {
     };
   }, [backBtnClick, router.events, router.pathname]);
 
-  return <UploadTemplate {...{ states, categoryData }} />;
+  return (
+    <UploadTemplate {...{ id: '-1', states, categoryData, isUpdate: false }} />
+  );
 }
 
 Upload.getLayout = function getLayout(page: ReactElement) {

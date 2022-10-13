@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { UploadState, UploadStoreState } from '#types/storeType/upload';
+import { uploadInitialState } from 'store/constants';
 
 import { arrToString } from './arrToString';
 
@@ -81,6 +82,7 @@ const refineUploadData = (data: UploadStoreState): req.UploadData => {
       ...style,
       color: arrToString(style.color),
     },
+    measureType: rest.measureType?.toUpperCase() || null,
     measure: Object.entries(measure).reduce((acc, [key, value]) => {
       if (typeof value === 'number')
         return {
@@ -92,4 +94,31 @@ const refineUploadData = (data: UploadStoreState): req.UploadData => {
   };
 };
 
-export { judgeValid, refineUploadData };
+const uploadedDataToState = (
+  data?: res.UploadedProduct,
+): UploadState | undefined => {
+  if (!data) return undefined;
+
+  const { imgList, basicInfo, style } = data.data;
+  const { category } = basicInfo;
+  const gender = category[0];
+  const main = category.slice(0, 4);
+
+  return {
+    ...uploadInitialState,
+    ...data.data,
+    imgList: imgList.map((img, id) => ({ id: id + 1, src: img })),
+    basicInfo: {
+      ...basicInfo,
+      category: [gender, main, category],
+      curCategoryIdx: 0,
+    },
+    style: {
+      ...style,
+      color: style.color.split('/'),
+    },
+    measureType: data.data.measureType?.toLowerCase() || null,
+  };
+};
+
+export { judgeValid, refineUploadData, uploadedDataToState };
