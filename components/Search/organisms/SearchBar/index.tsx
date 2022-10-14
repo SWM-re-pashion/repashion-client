@@ -20,7 +20,7 @@ function SearchBar(searchProps: Props) {
   const [isFocus, setFocus] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const queryFunc = useQueryRouter('word');
+  const queryFunc = useQueryRouter('value');
   const onBlur = useCallback(() => setFocus(false), []);
   const onFocus = useCallback(() => setFocus(true), []);
   const url = searchWord ? '/search' : '/shop';
