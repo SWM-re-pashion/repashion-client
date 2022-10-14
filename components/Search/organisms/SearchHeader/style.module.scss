@@ -1,0 +1,7 @@
+.search-header {
+  @include btn-footer(false);
+  @include fixed-template(0px);
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+}

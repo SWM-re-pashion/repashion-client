@@ -62,36 +62,34 @@ function SearchBar(searchProps: Props) {
   );
 
   return (
-    <header className={$['search-header']}>
-      <div className={$['search-header-wrapper']}>
-        <BackBtn color="#000" className={$['back-btn']} />
+    <div className={$['search-header-wrapper']}>
+      <BackBtn color="#000" className={$['back-btn']} />
 
-        <div
-          role="search"
-          aria-label="상품 검색하기"
-          className={classnames($['search-box'], { [$.focus]: isFocus })}
+      <div
+        role="search"
+        aria-label="상품 검색하기"
+        className={classnames($['search-box'], { [$.focus]: isFocus })}
+      >
+        <TextInput
+          {...{ onBlur, onFocus }}
+          ref={inputRef}
+          value={inputValue}
+          controlled
+          placeholder="어떤 제품을 찾으세요?"
+          onChange={handleInput}
+          onKeyDown={handleEnter}
+          className={$['search-input']}
+        />
+        <Button
+          iconBtn
+          className={$['search-btn']}
+          label="search-product-btn"
+          onClick={handleClick}
         >
-          <TextInput
-            {...{ onBlur, onFocus }}
-            ref={inputRef}
-            value={inputValue}
-            controlled
-            placeholder="어떤 제품을 찾으세요?"
-            onChange={handleInput}
-            onKeyDown={handleEnter}
-            className={$['search-input']}
-          />
-          <Button
-            iconBtn
-            className={$['search-btn']}
-            label="search-product-btn"
-            onClick={handleClick}
-          >
-            <Search fill="#000" size={18} strokeWidth={2} opacity={1} />
-          </Button>
-        </div>
+          <Search fill="#000" size={18} strokeWidth={2} opacity={1} />
+        </Button>
       </div>
-    </header>
+    </div>
   );
 }
 

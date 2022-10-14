@@ -1,58 +1,51 @@
-.search-header {
-  @include btn-footer(false);
-  @include fixed-template(0px);
-  background-color: $white;
+.search-header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 23px;
+}
 
-  &-wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 23px;
-  }
+.search-box {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 20px;
+  @include border(border, 10px, transparent);
+  background-color: $search-background;
+}
 
-  .search-box {
-    width: 100%;
+.search-input {
+  padding: 0;
+  border: none;
+
+  input {
     height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0 0 0 20px;
-    @include border(border, 10px, transparent);
     background-color: $search-background;
-  }
-
-  .search-input {
-    padding: 0;
-    border: none;
-
-    input {
-      height: 50px;
-      background-color: $search-background;
-      &::placeholder {
-        color: $gray-550;
-      }
+    &::placeholder {
+      color: $gray-550;
     }
   }
+}
 
-  .search-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 50px;
-  }
+.search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 50px;
+}
 
-  .focus {
-    @include border(border, 10px, $black-600);
-    background-color: $white;
+.focus {
+  @include border(border, 10px, $black-600);
+  background-color: $white;
 
-    .search-input {
-      @include border(border, 0px, $black-600);
-      border-left: 0;
-      border-right: 0;
-      input {
-        background-color: transparent;
-      }
+  .search-input {
+    @include border(border, 0px, $black-600);
+    border-left: 0;
+    border-right: 0;
+    input {
+      background-color: transparent;
     }
   }
 }
