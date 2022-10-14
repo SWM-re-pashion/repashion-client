@@ -27,15 +27,17 @@ export const getServerSideProps = withGetServerSideProps(
     const queryStringObj = getQueryStringObj(queryObj);
     const queryClient = new QueryClient();
 
-    await queryClient.fetchInfiniteQuery(
-      queryKey.searchingItemList(queryStringObj),
-      getInfiniteProducts({ queryStringObj, apiFunc: getSearchingItemList }),
-      {
-        getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
-          return isEndOfPage ? undefined : pageNumber + 1;
+    if (value) {
+      await queryClient.fetchInfiniteQuery(
+        queryKey.searchingItemList(queryStringObj),
+        getInfiniteProducts({ queryStringObj, apiFunc: getSearchingItemList }),
+        {
+          getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
+            return isEndOfPage ? undefined : pageNumber + 1;
+          },
         },
-      },
-    );
+      );
+    }
 
     return {
       props: {

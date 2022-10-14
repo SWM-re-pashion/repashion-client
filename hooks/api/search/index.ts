@@ -17,6 +17,7 @@ export const useSearchingItemListQuery = (
       getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
         return isEndOfPage ? undefined : pageNumber + 1;
       },
+      enabled: !!requestParams.value,
     },
   );
 };
