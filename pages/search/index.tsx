@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
 
-import { ReactElement, useCallback } from 'react';
+import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { searchQueries, searchQueryData } from '@constants/queryString';
@@ -14,15 +13,10 @@ import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { getSearchingItemList } from 'api/search';
 import { getInfiniteProducts } from 'api/shop';
-import Keywords from 'components/Search/organisms/Keywords';
-import LatestProducts from 'components/Search/organisms/LatestProducts';
-import SearchBar from 'components/Search/organisms/SearchBar';
-import ProductItemList from 'components/Shop/Organisms/ProductItemList';
-import { useMounted, useMultipleSearch, useQueryRouter } from 'hooks';
-import { useSearchStore } from 'store/useSearchStore';
+import SearchBody from 'components/Search/organisms/SearchBody';
+import SearchHeader from 'components/Search/organisms/SearchHeader';
+import { useMounted, useMultipleSearch } from 'hooks';
 import { getQueriesArr, getQueryStringObj } from 'utils';
-
-import $ from './style.module.scss';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ query }: GetServerSidePropsContext) => {
@@ -52,29 +46,10 @@ export const getServerSideProps = withGetServerSideProps(
 );
 
 function SearchPage() {
-  const router = useRouter();
-  const queryFunc = useQueryRouter('value');
-  const replaceQueryFunc = useQueryRouter('value', 'REPLACE');
-  const queryObj = useMultipleSearch(searchQueryData, searchQueries);
-  const { value, hide_sold, order } = queryObj;
-  const { keywords, latestProducts } = useSearchStore((state) => state);
-  const addKeyword = useSearchStore(
-    useCallback((state) => state.addKeyword, []),
-  );
-  const removeKeyword = useSearchStore(
-    useCallback((state) => state.removeKeyword, []),
-  );
-  const removeProduct = useSearchStore(
-    useCallback((state) => state.removeProduct, []),
-  );
-  const moveProduct = useCallback(
-    (id: number) => router.push(`/shop/${id}`),
-    [router],
-  );
+  const queryStringObj = useMultipleSearch(searchQueryData, searchQueries);
+  const { value, hide_sold, order } = queryStringObj;
 
-  const searchQuery = value ? replaceQueryFunc : queryFunc;
   const isMounted = useMounted();
-  const isExistSearchWord = !!value;
 
   if (!isMounted) return null;
   return (
@@ -85,25 +60,14 @@ function SearchPage() {
         }`}
         url={`${seoData.url}/search`}
       />
-      <SearchBar
-        {...{ addKeyword, searchWord: value, queryFunc: searchQuery }}
+      <SearchHeader
+        {...{
+          searchWord: value,
+          hideSoldQuery: hide_sold,
+          orderQuery: order,
+        }}
       />
-      <section className={$['search-body']}>
-        {isExistSearchWord ? (
-          <ProductItemList
-            paddingTop="0px"
-            isSearch
-            {...{ queryStringObj: queryObj }}
-          />
-        ) : (
-          <>
-            <Keywords {...{ keywords, removeKeyword, queryFunc }} />
-            <LatestProducts
-              {...{ products: latestProducts, removeProduct, moveProduct }}
-            />
-          </>
-        )}
-      </section>
+      <SearchBody {...{ value, queryStringObj }} />
       <Footer />
     </>
   );
