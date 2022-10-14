@@ -54,6 +54,7 @@ export const getServerSideProps = withGetServerSideProps(
 function SearchPage() {
   const router = useRouter();
   const queryFunc = useQueryRouter('value');
+  const replaceQueryFunc = useQueryRouter('value', 'REPLACE');
   const queryObj = useMultipleSearch(searchQueryData, searchQueries);
   const { value, hide_sold, order } = queryObj;
   const { keywords, latestProducts } = useSearchStore((state) => state);
@@ -71,6 +72,7 @@ function SearchPage() {
     [router],
   );
 
+  const searchQuery = value ? replaceQueryFunc : queryFunc;
   const isMounted = useMounted();
   const isExistSearchWord = !!value;
 
@@ -83,7 +85,9 @@ function SearchPage() {
         }`}
         url={`${seoData.url}/search`}
       />
-      <SearchBar {...{ addKeyword, searchWord: value }} />
+      <SearchBar
+        {...{ addKeyword, searchWord: value, queryFunc: searchQuery }}
+      />
       <section className={$['search-body']}>
         {isExistSearchWord ? (
           <ProductItemList

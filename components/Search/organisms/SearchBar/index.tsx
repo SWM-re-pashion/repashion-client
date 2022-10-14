@@ -5,7 +5,6 @@ import Button from '@atoms/Button';
 import { Search } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import classnames from 'classnames';
-import { useQueryRouter } from 'hooks';
 import { StyleProps } from 'types/props';
 
 import $ from './style.module.scss';
@@ -13,17 +12,16 @@ import $ from './style.module.scss';
 type Props = {
   addKeyword: (value: string) => void;
   searchWord: string;
+  queryFunc: (value?: string | undefined) => Promise<boolean>;
 } & StyleProps;
 
 function SearchBar(searchProps: Props) {
-  const { addKeyword, searchWord } = searchProps;
+  const { addKeyword, searchWord, queryFunc } = searchProps;
   const [isFocus, setFocus] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const queryFunc = useQueryRouter('value');
   const onBlur = useCallback(() => setFocus(false), []);
   const onFocus = useCallback(() => setFocus(true), []);
-  const url = searchWord ? '/search' : '/shop';
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -66,7 +64,7 @@ function SearchBar(searchProps: Props) {
   return (
     <header className={$['search-header']}>
       <div className={$['search-header-wrapper']}>
-        <BackBtn {...{ url }} color="#000" className={$['back-btn']} />
+        <BackBtn color="#000" className={$['back-btn']} />
 
         <div
           role="search"
