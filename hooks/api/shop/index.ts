@@ -1,5 +1,5 @@
 import { queryKey } from '@constants/react-query';
-import { getInfiniteProducts } from 'api/shop';
+import { getInfiniteProducts, getProductItemList } from 'api/shop';
 
 import { useCoreInfiniteQuery } from '../core';
 
@@ -8,7 +8,10 @@ export const useProductItemListQuery = (
 ) => {
   return useCoreInfiniteQuery(
     queryKey.productItemList(requestParams),
-    getInfiniteProducts(requestParams),
+    getInfiniteProducts({
+      queryStringObj: requestParams,
+      apiFunc: getProductItemList,
+    }),
     {
       getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
         return isEndOfPage ? undefined : pageNumber + 1;

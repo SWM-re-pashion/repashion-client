@@ -4,12 +4,19 @@ import { getQueryString } from 'utils';
 const getProductItemList = async (
   queryString: string,
 ): Promise<res.ShopFeed> => {
-  const response = await Axios.get(`/api/shop/filter?${queryString}`);
+  const response = await Axios.get(
+    `/api/shop/filter?${decodeURIComponent(queryString)}`,
+  );
   return response;
 };
 
+type GetInfiniteParams = {
+  queryStringObj: { [key: string]: string };
+  apiFunc: (queryString: string) => Promise<res.ShopFeed>;
+};
+
 const getInfiniteProducts =
-  (queryStringObj: { [key: string]: string }) =>
+  ({ queryStringObj, apiFunc }: GetInfiniteParams) =>
   async ({ pageParam = 0 }) => {
     const queryString = getQueryString({
       ...queryStringObj,
@@ -19,7 +26,7 @@ const getInfiniteProducts =
 
     const {
       data: { pagination, items },
-    } = await getProductItemList(queryString);
+    } = await apiFunc(queryString);
 
     return {
       pagination: {

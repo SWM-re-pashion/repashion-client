@@ -4,6 +4,7 @@ import Loading from '@atoms/Loading';
 import PullToRefresh from '@templates/PullToRefresh';
 import ShopSkeleton from '@templates/Skeleton/shop';
 import { useIntersect } from 'hooks';
+import { useSearchingItemListQuery } from 'hooks/api/search';
 import { useProductItemListQuery } from 'hooks/api/shop';
 
 import NoProductView from './NoProductView';
@@ -11,6 +12,7 @@ import ProductListView from './ProductListView';
 import ProductListWrapperView from './ProductListWrapperView';
 
 type Props = {
+  isSearch?: boolean;
   queryStringObj?: Omit<req.ShopFeed, 'page' | 'size'>;
   paddingTop?: string;
   paddingBottom?: string;
@@ -19,11 +21,17 @@ type Props = {
 
 type ProductList = Props['queryStringObj'];
 
+const useProductItemQuery = (isSearch?: boolean) => {
+  if (isSearch) return useSearchingItemListQuery;
+  return useProductItemListQuery;
+};
+
 function ProductItemList(listProps: Props) {
-  const { paddingTop, paddingBottom, needPullToRefresh, queryStringObj } =
-    listProps;
+  const { isSearch, paddingTop, paddingBottom } = listProps;
+  const { needPullToRefresh, queryStringObj } = listProps;
 
   const productList: ProductList = { ...queryStringObj };
+  const useProductItem = useProductItemQuery(isSearch);
 
   const {
     data,
@@ -33,7 +41,7 @@ function ProductItemList(listProps: Props) {
     fetchNextPage,
     refetch,
     remove,
-  } = useProductItemListQuery(productList);
+  } = useProductItem(productList);
 
   const onRefresh = useCallback(() => {
     remove();
