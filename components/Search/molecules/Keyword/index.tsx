@@ -33,8 +33,8 @@ function Keyword(inputProps: Props) {
         <Span className={$['keyword-text']} fontWeight={500}>
           {keyword}
         </Span>
-        <button type="button" onClick={handleRemove}>
-          <ImgClose fill="#936dff" />
+        <button type="button" onClick={handleRemove} className={$['close-btn']}>
+          <ImgClose fill="#936dff" size={15} />
         </button>
       </div>
     </li>

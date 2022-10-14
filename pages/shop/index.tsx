@@ -12,7 +12,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getCategory, getCategoryTree } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
-import { getInfiniteProducts } from 'api/shop';
+import { getInfiniteProducts, getProductItemList } from 'api/shop';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'components/Shop/Organisms/ShopHeader';
 import {
@@ -39,7 +39,7 @@ export const getServerSideProps = withGetServerSideProps(
     await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
     await queryClient.fetchInfiniteQuery(
       queryKey.productItemList(queryStringObj),
-      getInfiniteProducts(queryStringObj),
+      getInfiniteProducts({ queryStringObj, apiFunc: getProductItemList }),
       {
         getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
           return isEndOfPage ? undefined : pageNumber + 1;

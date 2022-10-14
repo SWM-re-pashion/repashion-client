@@ -11,4 +11,7 @@ export const queryKey = {
   uploadedProduct: (id: string) => {
     return ['uploadedProduct', id];
   },
+  searchingItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
+    return ['searchingProductItemList', { ...requestParams }];
+  },
 };

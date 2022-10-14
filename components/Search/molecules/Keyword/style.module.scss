@@ -6,6 +6,9 @@
   justify-content: center;
   height: 100%;
   padding: 0 15px;
+  @include mobile() {
+    padding: 0 10px;
+  }
   @include border(border, $border-radius, $gray-280);
   cursor: pointer;
 
@@ -18,5 +21,8 @@
     @include mobile() {
       @include typography(14);
     }
+  }
+  .close-btn {
+    display: flex;
   }
 }

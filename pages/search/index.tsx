@@ -1,67 +1,75 @@
-import { useRouter } from 'next/router';
+/* eslint-disable camelcase */
+import { GetServerSidePropsContext } from 'next';
 
-import { ReactElement, useCallback } from 'react';
+import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
+import { searchQueries, searchQueryData } from '@constants/queryString';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import Keywords from 'components/Search/organisms/Keywords';
-import LatestProducts from 'components/Search/organisms/LatestProducts';
-import SearchBar from 'components/Search/organisms/SearchBar';
-import ProductItemList from 'components/Shop/Organisms/ProductItemList';
-import { useMounted, useQueryRouter, useSearch } from 'hooks';
-import { useSearchStore } from 'store/useSearchStore';
+import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
+import { getSearchingItemList } from 'api/search';
+import { getInfiniteProducts } from 'api/shop';
+import SearchBody from 'components/Search/organisms/SearchBody';
+import SearchHeader from 'components/Search/organisms/SearchHeader';
+import { useMounted, useMultipleSearch } from 'hooks';
+import { getQueriesArr, getQueryStringObj } from 'utils';
 
-import $ from './style.module.scss';
+export const getServerSideProps = withGetServerSideProps(
+  async ({ query }: GetServerSidePropsContext) => {
+    const { value, hide_sold, order } = query;
+    const queryArr = [value, hide_sold, order];
+
+    const queryObj = getQueriesArr(searchQueryData, queryArr);
+    const queryStringObj = getQueryStringObj(queryObj);
+    const queryClient = new QueryClient();
+
+    if (value) {
+      await queryClient.fetchInfiniteQuery(
+        queryKey.searchingItemList(queryStringObj),
+        getInfiniteProducts({ queryStringObj, apiFunc: getSearchingItemList }),
+        {
+          getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
+            return isEndOfPage ? undefined : pageNumber + 1;
+          },
+        },
+      );
+    }
+
+    return {
+      props: {
+        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      },
+    };
+  },
+);
 
 function SearchPage() {
-  const router = useRouter();
-  const queryFunc = useQueryRouter('word');
-  const { keywords, latestProducts } = useSearchStore((state) => state);
-  const addKeyword = useSearchStore(
-    useCallback((state) => state.addKeyword, []),
-  );
-  const removeKeyword = useSearchStore(
-    useCallback((state) => state.removeKeyword, []),
-  );
-  const removeProduct = useSearchStore(
-    useCallback((state) => state.removeProduct, []),
-  );
-  const moveProduct = useCallback(
-    (id: number) => router.push(`/shop/${id}`),
-    [router],
-  );
+  const queryStringObj = useMultipleSearch(searchQueryData, searchQueries);
+  const { value, hide_sold, order } = queryStringObj;
 
   const isMounted = useMounted();
-  const word = useSearch('word');
-  const order = useSearch('order');
-  const hideSold = useSearch('hideSold');
-  const searchWord = word as string;
-  const isExistSearchWord = !!searchWord;
 
   if (!isMounted) return null;
   return (
     <>
       <HeadMeta
         title={`re:Fashion | ${
-          searchWord ? `${searchWord} 상품 검색 결과` : '상품 검색'
+          value ? `${value} 상품 검색 결과` : '상품 검색'
         }`}
         url={`${seoData.url}/search`}
       />
-      <SearchBar {...{ addKeyword, searchWord }} />
-      <section className={$['search-body']}>
-        {isExistSearchWord ? (
-          <ProductItemList paddingTop="0px" />
-        ) : (
-          <>
-            <Keywords {...{ keywords, removeKeyword, queryFunc }} />
-            <LatestProducts
-              {...{ products: latestProducts, removeProduct, moveProduct }}
-            />
-          </>
-        )}
-      </section>
+      <SearchHeader
+        {...{
+          searchWord: value,
+          hideSoldQuery: hide_sold,
+          orderQuery: order,
+        }}
+      />
+      <SearchBody {...{ value, queryStringObj }} />
       <Footer />
     </>
   );
