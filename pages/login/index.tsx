@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { Google, Kakao } from '@atoms/icon';
+import { GOOGLE_OAUTH_URL, KAKAO_OAUTH_URL } from '@constants/api';
 import FooterWrapper from '@molecules/FooterWrapper';
 import { SocialLoginBtn } from '@molecules/SocialLoginBtn';
 import classnames from 'classnames';
@@ -14,11 +15,11 @@ function Login() {
   const router = useRouter();
 
   const loginWithKakao = () => {
-    router.push(`${process.env.KAKAO_OAUTH_URL}`);
+    router.push(KAKAO_OAUTH_URL);
   };
 
   const loginWithGoogle = () => {
-    router.push(`${process.env.GOOGLE_OAUTH_URL}`);
+    router.push(GOOGLE_OAUTH_URL);
   };
 
   return (
