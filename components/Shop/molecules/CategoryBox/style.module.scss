@@ -13,7 +13,7 @@
     transition: max-height 0.25s ease-out;
 
     &-clicked {
-      max-height: 100vh;
+      max-height: calc(var(--vh, 1vh) * 100);
       transition: max-height 1.5s ease-out;
     }
   }

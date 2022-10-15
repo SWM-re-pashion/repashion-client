@@ -67,7 +67,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <Hydrate state={pageProps.dehydratedState}>
           <AsyncBoundary
             suspenseFallback={
-              <Loading style={{ height: '100vh', boxSizing: 'border-box' }} />
+              <Loading
+                style={{
+                  height: 'calc(var(--vh, 1vh) * 100)',
+                  boxSizing: 'border-box',
+                }}
+              />
             }
             errorFallback={ErrorFallback}
             keys={[router.asPath]}
