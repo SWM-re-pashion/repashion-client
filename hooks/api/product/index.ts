@@ -21,7 +21,7 @@ export function useDeleteProduct(id: string) {
       toastSuccess({ message: '상품을 삭제했습니다.' });
     },
     onError: (err) => {
-      if (isAxiosError<res.ProductDeleteError>(err) && !!err.response) {
+      if (isAxiosError<res.error>(err) && !!err.response) {
         const { message } = err.response.data;
         toastError({ message });
       }

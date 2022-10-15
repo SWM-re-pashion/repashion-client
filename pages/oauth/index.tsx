@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useEffect } from 'react';
 
-import LoadingSpinner from '@atoms/LoadingSpinner';
-import { usePostAuthToken } from 'api/login';
+import Loading from '@atoms/Loading';
 import Layout from 'components/shared/templates/Layout';
+import { usePostAuthToken } from 'hooks/api/login';
 
 import $ from './style.module.scss';
 
@@ -20,7 +20,7 @@ function Oauth() {
 
   return (
     <div className={$['oauth-loading']}>
-      <LoadingSpinner width={50} borderWidth={3} color="#876bf6" />
+      <Loading />
     </div>
   );
 }
