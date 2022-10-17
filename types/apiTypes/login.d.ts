@@ -6,6 +6,10 @@ declare namespace res {
       refreshToken: string;
     };
   };
+  type reissue = {
+    status: number;
+    data: string;
+  };
 }
 
 declare namespace req {
