@@ -11,11 +11,11 @@ type Props = {
     profileImg: string;
     nickname: string;
   };
-  totalDealNum: number;
+  totalCount: number;
 } & StyleProps;
 
 function UserProfile(headerProps: Props) {
-  const { profile, totalDealNum } = headerProps;
+  const { profile, totalCount } = headerProps;
   return (
     <div className={$['profile-container']}>
       <div className={$['profile-info']}>
@@ -26,7 +26,7 @@ function UserProfile(headerProps: Props) {
         <Span fontSize={14} fontWeight={400}>
           총 거래수
         </Span>
-        <Span fontSize={20}>{totalDealNum}회</Span>
+        <Span fontSize={20}>{totalCount}회</Span>
       </div>
     </div>
   );

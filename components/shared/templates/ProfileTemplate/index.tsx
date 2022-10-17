@@ -18,10 +18,12 @@ type Props = {
     profileImg: string;
     nickname: string;
   };
+  totalCount: number;
   isNeedFooter: boolean;
 };
 
-function ProfileTemplate({ status, isMe, profile, isNeedFooter }: Props) {
+function ProfileTemplate(profileProps: Props) {
+  const { status, isMe, profile, isNeedFooter, totalCount } = profileProps;
   const statusQuery = useSearch('status');
   const queryStatus = useQueryRouter('status');
   const replaceStatus = useQueryRouter('status', 'REPLACE');
@@ -55,7 +57,7 @@ function ProfileTemplate({ status, isMe, profile, isNeedFooter }: Props) {
       paddingTop="84px"
       sidePadding="23px"
     >
-      <UserProfile profile={profile} totalDealNum={13} />
+      <UserProfile profile={profile} totalCount={totalCount} />
 
       <StatusMenuList
         data={statusData}

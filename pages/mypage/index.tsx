@@ -33,8 +33,8 @@ function MyPage({ status }: { status: string }) {
     <ProfileTemplate
       {...{ status, isMe: true, isNeedFooter: true }}
       profile={{
-        profileImage: profile?.profileImage,
-        name: profile?.name,
+        profileImg: profile?.profileImage,
+        nickname: profile?.name,
       }}
       totalCount={profile?.totalCount}
     />
