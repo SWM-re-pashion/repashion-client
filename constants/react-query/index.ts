@@ -14,4 +14,5 @@ export const queryKey = {
   searchingItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
     return ['searchingProductItemList', { ...requestParams }];
   },
+  myInfo: ['myInfo'],
 };

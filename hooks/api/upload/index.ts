@@ -31,7 +31,7 @@ export const useProductUpload = () => {
       toastSuccess({ message: '상품 등록에 성공했습니다.' });
     },
     onError: (err) => {
-      if (isAxiosError<res.ProductDeleteError>(err) && !!err.response) {
+      if (isAxiosError<res.error>(err) && !!err.response) {
         const { message } = err.response.data;
         toastError({ message });
       }
@@ -48,7 +48,7 @@ export function useUpdateProduct(id: string) {
       toastSuccess({ message: '상품을 수정했습니다.' });
     },
     onError: (err) => {
-      if (isAxiosError<res.ProductDeleteError>(err) && !!err.response) {
+      if (isAxiosError<res.error>(err) && !!err.response) {
         const { message } = err.response.data;
         toastError({ message });
       }

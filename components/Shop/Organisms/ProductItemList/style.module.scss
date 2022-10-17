@@ -1,5 +1,5 @@
 .product-container {
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   box-sizing: border-box;
   padding-top: 185px;
   @include minMobile() {
@@ -18,9 +18,9 @@
 
   .no-products {
     width: 100%;
-    height: calc(100vh - 185px);
+    height: calc(var(--vh, 1vh) * 100 - 185px);
     @include minMobile() {
-      height: calc(100vh - 219px);
+      height: calc(var(--vh, 1vh) * 100 - 219px);
     }
     display: flex;
     align-items: center;

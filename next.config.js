@@ -16,10 +16,10 @@ const nextConfig = {
   swcMinify: true,
   presets: [['next/babel']],
   typescript: {
-    ignoreBuildErrors: true, // Todo: 없애기
+    ignoreBuildErrors: true, // TODO: 없애기
   },
   eslint: {
-    ignoreDuringBuilds: true, // Todo: 없애기
+    ignoreDuringBuilds: true, // TODO: 없애기
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
@@ -29,8 +29,11 @@ const nextConfig = {
   env: {
     API_URL: process.env.API_URL,
     AI_API_URL: process.env.AI_API_URL,
-    KAKAO_OAUTH_URL: process.env.KAKAO_OAUTH_URL,
-    GOOGLE_OAUTH_URL: process.env.GOOGLE_OAUTH_URL,
+    OAUTH_URL: process.env.OAUTH_URL,
+    OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
+    OAUTH_REDIRECT_URI: process.env.OAUTH_REDIRECT_URI,
+    OAUTH_STATE: process.env.OAUTH_STATE,
+    OAUTH_SCOPE: process.env.OAUTH_SCOPE,
   },
   images: {
     domains: [

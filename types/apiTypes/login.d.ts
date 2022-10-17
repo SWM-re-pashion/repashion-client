@@ -1,21 +1,15 @@
 declare namespace res {
   type OAuth = {
-    social: {
-      id: string;
-      token: string;
+    status: number;
+    data: {
+      accesToken: string;
+      refreshToken: string;
     };
   };
 }
 
 declare namespace req {
   type OAuth = {
-    user: {
-      ageRange: string;
-      email: string;
-      nickName: string;
-      profileImage: string;
-      thumbnailImage: string;
-    };
-    status: 'string';
+    authCode: string;
   };
 }
