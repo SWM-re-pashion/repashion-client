@@ -5,7 +5,7 @@ import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { queries, queryData } from '@constants/queryString';
-import { queryKey } from '@constants/react-query';
+import { queryKey, DAYTIME } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -46,6 +46,8 @@ export const getServerSideProps = withGetServerSideProps(
         getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
           return isEndOfPage ? undefined : pageNumber + 1;
         },
+        cacheTime: DAYTIME,
+        staleTime: DAYTIME,
       },
     );
 
