@@ -10,11 +10,7 @@ import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import {
-  getBreadcrumb,
-  getCategory,
-  getCategoryPartialTree,
-} from 'api/category';
+import { getBreadcrumb, getCategory, getCategoryTree } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { getInfiniteProducts, getProductItemList } from 'api/shop';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';
@@ -72,7 +68,7 @@ function Shop() {
   const genderQuery = gender || existingGender;
 
   const id = judgeCategoryId(category);
-  const selectData = getCategoryPartialTree(data, id);
+  const selectData = getCategoryTree(data, id);
   const breadCrumb = getBreadcrumb(data, id) || '';
   const isInclude = categoryPropArr(selectData, 'id').includes(category);
   const categoryQuery = isInclude ? category : selectData[0].id;
