@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 
-import { ACCESSTOKEN } from '@constants/api';
 import { postAuthToken } from 'api/login';
-import { setCookie } from 'cookies-next';
+import { setAccessToken } from 'utils/auth';
 import { toastError } from 'utils/toaster';
 
 import { useCoreMutation } from '../core';
@@ -12,9 +11,9 @@ export const usePostAuthToken = () => {
 
   return useCoreMutation(postAuthToken, {
     onSuccess: (data) => {
-      const { accesToken } = data.data;
-      setCookie(ACCESSTOKEN, accesToken);
-      router.push('/info/basic');
+      const { accessToken } = data.data;
+      setAccessToken(accessToken);
+      router.push('/shop');
     },
     onError: (error) => {
       // router.back();

@@ -1,4 +1,9 @@
-import { ACCESSTOKEN, HTTP_METHOD } from '@constants/api';
+import {
+  ACCESSTOKEN,
+  ACCESSTOKEN_EXPIRED,
+  HTTP_METHOD,
+  TOKEN_REFRESH,
+} from '@constants/api';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -19,9 +24,7 @@ export function isAxiosError<ResponseType>(
 export const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
   timeout: 3000,
-  withCredentials: true,
   headers: {
-    'Access-Control-Allow-Origin': '*',
     'Content-type': 'application/json',
     [ACCESSTOKEN]: getAccessToken(),
   },
@@ -43,9 +46,9 @@ function AuthErrorInterceptor(err: AxiosError): AxiosError {
     if (status === 404) {
       throw new NotFoundError(status);
     }
-    if (status === 403 && code === 'TOKEN_EXPIRED') {
+    if (status === 403 && code === ACCESSTOKEN_EXPIRED) {
       axios
-        .get<res.reissue>('api/auth/reissue')
+        .get<res.reissue>(TOKEN_REFRESH)
         .then((data) => {
           const { data: token } = data.data;
           setAccessToken(token);
@@ -74,7 +77,6 @@ const handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
     ...config,
     headers: {
       ...config.headers,
-      [ACCESSTOKEN]: '',
     },
   };
 };
