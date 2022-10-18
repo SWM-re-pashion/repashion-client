@@ -16,6 +16,11 @@ export const findNameByProp = (
   prop: keyof res.CategoryTreeChildren,
 ) => category?.find((children) => children[prop] === value)?.name || '';
 
+export const categoryPropArr = (
+  category: res.CategoryTreeChildren[],
+  prop: keyof Omit<res.CategoryTreeChildren, 'children'>,
+) => category.map((sibling) => sibling[prop]) || [];
+
 export const curCategoryChildrenByProp = (
   category: Omit<res.CategoryTreeChildren, 'id'>,
   prop: keyof Omit<res.CategoryTreeChildren, 'children'>,

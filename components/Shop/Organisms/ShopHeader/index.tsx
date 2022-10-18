@@ -4,21 +4,18 @@ import { orderData } from '@constants/category';
 import CategoryBox from 'components/Shop/molecules/CategoryBox';
 import HeaderTool from 'components/Shop/molecules/HeaderTool';
 import SortBox from 'components/Shop/molecules/SortBox';
-import { findCodeByProp } from 'components/Upload/organisms/Dialog/utils';
 import { useQueryRouter } from 'hooks';
+import { isRootCategory, judgeMainCategory } from 'utils/shop.utils';
 
 import $ from './style.module.scss';
-import { isRootCategory } from './utils';
 
 type Props = {
   genderQuery: string;
-  mainQuery: string;
-  subQuery?: string;
+  categoryQuery: string;
   orderQuery: string;
   hideSoldQuery: string;
   genderSelectMenu: res.CategoryTreeChildren[];
-  mainSelectMenu: res.CategoryTreeChildren[];
-  subSelectMenu: res.CategoryTreeChildren[];
+  selectData: res.CategoryTreeChildren[];
   breadCrumb: string;
 };
 
@@ -27,27 +24,26 @@ function ShopHeader(headerProps: Props) {
   const replaceCtgr = useQueryRouter('category', 'REPLACE');
   const queryOrder = useQueryRouter('order', 'REPLACE');
   const queryHideSold = useQueryRouter('hide_sold', 'REPLACE');
-  const { orderQuery, hideSoldQuery } = headerProps;
-  const { genderSelectMenu, mainSelectMenu, subSelectMenu } = headerProps;
-  const { genderQuery, mainQuery, subQuery, breadCrumb } = headerProps;
-  const isSeletedSub = !!subQuery;
-  const categoryData = isSeletedSub ? subSelectMenu : mainSelectMenu;
-  const selectedMenu = isSeletedSub ? subQuery : mainQuery;
-  const mainCategory = findCodeByProp(mainSelectMenu, mainQuery, 'id');
+  const { categoryQuery, orderQuery, hideSoldQuery } = headerProps;
+  const { genderSelectMenu, selectData } = headerProps;
+  const { genderQuery, breadCrumb } = headerProps;
+  const isSelectedSub = categoryQuery.length === 7;
+  const selectedMenu = categoryQuery;
+  const mainCategory = judgeMainCategory(breadCrumb);
 
-  const queryCategory = isRootCategory(subQuery) ? pushCtgr : replaceCtgr;
+  const queryCategory = isRootCategory(categoryQuery) ? pushCtgr : replaceCtgr;
 
   return (
     <header className={$.header}>
       <HeaderTool
         {...{ onClick: queryCategory, breadCrumb }}
-        {...{ isSeletedSub, mainCategory }}
+        {...{ isSelectedSub, mainCategory }}
         data={genderSelectMenu}
         selectedMenu={genderQuery}
       />
       <CategoryBox
-        {...{ onClick: queryCategory, isSeletedSub, selectedMenu }} // TODO: 렌더링 최적화
-        data={categoryData}
+        {...{ onClick: queryCategory, isSelectedSub, selectedMenu }} // TODO: 렌더링 최적화
+        data={selectData}
       />
       <SortBox
         {...{ onSoldClick: queryHideSold, onOrderClick: queryOrder }} // TODO: 렌더링 최적화

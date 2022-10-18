@@ -16,5 +16,5 @@ export const logout = () => {
 };
 
 export const getSSRAccessToken = (ctx: NextPageContext) => {
-  return getCookie(ACCESSTOKEN, ctx);
+  return getCookie(ACCESSTOKEN, ctx)?.toString() || '';
 };
