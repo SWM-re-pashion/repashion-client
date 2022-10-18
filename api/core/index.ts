@@ -16,19 +16,20 @@ export function isAxiosError<ResponseType>(
   return axios.isAxiosError(error);
 }
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
   timeout: 3000,
-  // withCredentials: true,
+  withCredentials: true,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-type': 'application/json',
+    [ACCESSTOKEN]: getAccessToken(),
   },
 });
 
 const AiAxios = axios.create({
   baseURL: process.env.AI_API_URL,
-  timeout: 3000,
+  timeout: 10000,
   headers: {
     'Content-type': 'multipart/form-data',
   },
@@ -37,10 +38,22 @@ const AiAxios = axios.create({
 function AuthErrorInterceptor(err: AxiosError): AxiosError {
   if (isAxiosError<res.error>(err) && err.response) {
     const {
-      data: { status, message },
+      data: { status, message, code },
     } = err.response;
     if (status === 404) {
       throw new NotFoundError(status);
+    }
+    if (status === 403 && code === 'TOKEN_EXPIRED') {
+      axios
+        .get<res.reissue>('api/auth/reissue')
+        .then((data) => {
+          const { data: token } = data.data;
+          setAccessToken(token);
+          axiosInstance.defaults.headers[ACCESSTOKEN] = token;
+        })
+        .catch(() => {
+          throw new ForbiddenError(status);
+        });
     }
     if (status === 403) {
       throw new ForbiddenError(status);

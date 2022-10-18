@@ -15,8 +15,11 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AsyncBoundary from '@templates/AsyncBoundary';
+import { axiosInstance } from 'api/core';
 import { useMounted, useWindowResize } from 'hooks';
 import '../styles/globals.scss';
+
+import { getSSRAccessToken } from 'utils/auth';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -90,8 +93,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 MyApp.getInitialProps = async (context: AppContext) => {
   const { ctx, Component } = context;
   let pageProps = {};
-  // const cookie = ctx.req ? ctx.req.headers.cookie : '';
-  // console.log(ctx);
+  const cookie = getSSRAccessToken(ctx);
+  console.log(cookie);
+  console.log(axiosInstance.defaults.headers);
   // if (cookie) {
   //   Axios.defaults.headers.Cookie = cookie;
   // }
