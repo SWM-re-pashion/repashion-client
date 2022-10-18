@@ -78,22 +78,6 @@ export const filterData = (category: FilterType): btnBox[] => {
   }
 };
 
-export const getCategoryName = (category: string): FilterType => {
-  switch (category) {
-    case 'all':
-    case 'recommend':
-      return 'all';
-    case 'top':
-    case 'outer':
-    case 'onepiece':
-      return 'top';
-    case 'bottom':
-      return 'bottom';
-    default:
-      throw Error;
-  }
-};
-
 export const getFilterElement = (
   category: FilterType,
   states: FilterStoreState,

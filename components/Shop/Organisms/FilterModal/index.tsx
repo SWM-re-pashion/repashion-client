@@ -1,27 +1,22 @@
 import { useCallback, useRef } from 'react';
 
+import { FilterType } from '#types/storeType/filter';
 import { useQueryObjRouter } from 'hooks';
 import { useFilterStore } from 'store/useFilterStore';
 import { filterMaxPrice, validatePriceRange } from 'utils';
 
 import { max, priceProps } from './constants';
 import FilterModalView from './FilterModalView';
-import {
-  btnBox,
-  filterData,
-  getCategoryName,
-  getFilteredProducts,
-} from './utils';
+import { btnBox, filterData, getFilteredProducts } from './utils';
 
 type Props = {
   isOpen: boolean;
-  mainCategory: string;
+  mainCategory: FilterType;
   onClose: () => void;
 };
 
 export default function FilterModal(filterProps: Props) {
   const { isOpen, onClose, mainCategory } = filterProps;
-  const category = getCategoryName(mainCategory);
   const router = useQueryObjRouter();
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
 
@@ -47,13 +42,13 @@ export default function FilterModal(filterProps: Props) {
   );
 
   const clear = () => {
-    if (clearState) clearState(category);
+    if (clearState) clearState(mainCategory);
   };
 
   const setFilter = useCallback(() => {
-    getFilteredProducts(category, states, router);
+    getFilteredProducts(mainCategory, states, router);
     onClose();
-  }, [category, router, states, onClose]);
+  }, [mainCategory, router, states, onClose]);
 
   const compareData = useCallback(
     (options: btnBox): string[] => {
@@ -66,7 +61,7 @@ export default function FilterModal(filterProps: Props) {
   );
 
   const priceProp = priceProps(states.price);
-  const filterDatas = filterData(category);
+  const filterDatas = filterData(mainCategory);
 
   const props = {
     isOpen,
