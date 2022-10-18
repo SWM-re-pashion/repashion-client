@@ -88,8 +88,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 MyApp.getInitialProps = async (context: AppContext) => {
   const { ctx, Component } = context;
   let pageProps = {};
+  const cookie = ctx.req?.headers.cookie || '';
   const token = getSSRAccessToken(ctx);
   axiosInstance.defaults.headers[ACCESSTOKEN] = token;
+  axiosInstance.defaults.headers.Cookie = cookie;
+
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }

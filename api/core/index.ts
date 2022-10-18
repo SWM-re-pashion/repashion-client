@@ -24,6 +24,7 @@ export function isAxiosError<ResponseType>(
 export const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
   timeout: 3000,
+  withCredentials: true,
   headers: {
     'Content-type': 'application/json',
     [ACCESSTOKEN]: getAccessToken(),
@@ -47,7 +48,7 @@ function AuthErrorInterceptor(err: AxiosError): AxiosError {
       throw new NotFoundError(status);
     }
     if (status === 403 && code === ACCESSTOKEN_EXPIRED) {
-      axios
+      axiosInstance
         .get<res.reissue>(TOKEN_REFRESH)
         .then((data) => {
           const { data: token } = data.data;
