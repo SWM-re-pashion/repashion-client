@@ -1,4 +1,12 @@
 /* eslint-disable max-classes-per-file */
+import axios, { AxiosError } from 'axios';
+
+export function isAxiosError<ResponseType>(
+  error: unknown,
+): error is AxiosError<ResponseType> {
+  return axios.isAxiosError(error);
+}
+
 export class ApiError extends Error {
   status: number;
 
