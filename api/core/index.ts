@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   ACCESSTOKEN,
   ACCESSTOKEN_EXPIRED,
@@ -13,13 +14,8 @@ import axios, {
 } from 'axios';
 import { getAccessToken, setAccessToken } from 'utils/auth';
 
-import { AuthError, ForbiddenError, NotFoundError } from './error';
-
-export function isAxiosError<ResponseType>(
-  error: unknown,
-): error is AxiosError<ResponseType> {
-  return axios.isAxiosError(error);
-}
+import { ForbiddenError, isAxiosError } from './error';
+import ErrorInterceptor from './errorInterceptor';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
@@ -39,40 +35,6 @@ const AiAxios = axios.create({
   },
 });
 
-function AuthErrorInterceptor(err: AxiosError): AxiosError {
-  if (isAxiosError<res.error>(err) && err.response) {
-    const {
-      data: { status, message, code },
-    } = err.response;
-    if (status === 404) {
-      throw new NotFoundError(status);
-    }
-    if (status === 403 && code === ACCESSTOKEN_EXPIRED) {
-      axiosInstance
-        .get<res.reissue>(TOKEN_REFRESH)
-        .then((data) => {
-          const { data: token } = data.data;
-          setAccessToken(token);
-          axiosInstance.defaults.headers[ACCESSTOKEN] = token;
-        })
-        .catch(() => {
-          throw new ForbiddenError(status);
-        });
-    }
-    if (status === 403) {
-      throw new ForbiddenError(status);
-    }
-    if (status === 401) {
-      throw new AuthError(status);
-    }
-    if (status === 400 && message === '해당 상품이 존재하지 않습니다') {
-      throw new NotFoundError(status);
-    }
-  }
-
-  return err;
-}
-
 const handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   return {
     ...config,
@@ -84,6 +46,20 @@ const handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
 
 const handleResponse = <T>(response: AxiosResponse<T>) => {
   return response.data;
+};
+
+export const refreshAccessToken = async (err: AxiosError) => {
+  try {
+    const response = await axiosInstance.get<res.reissue>(TOKEN_REFRESH);
+    const { data: token } = response.data;
+    if (err.config.headers) err.config.headers[ACCESSTOKEN] = token;
+    setAccessToken(token);
+    axiosInstance.defaults.headers[ACCESSTOKEN] = token;
+    const res = await axiosInstance.request(err.config);
+    return Promise.resolve(handleResponse(res));
+  } catch (error) {
+    throw new ForbiddenError(403);
+  }
 };
 
 const createApiMethod = (_axiosInstance: AxiosInstance, method: Method) => {
@@ -100,7 +76,13 @@ const createApiMethod = (_axiosInstance: AxiosInstance, method: Method) => {
         return Promise.resolve(handleResponse(res));
       })
       .catch((err) => {
-        return Promise.reject(AuthErrorInterceptor(err));
+        if (isAxiosError<res.error>(err) && err.response) {
+          const { status, code } = err.response.data;
+          if (status === 403 && code === ACCESSTOKEN_EXPIRED) {
+            return refreshAccessToken(err);
+          }
+        }
+        return Promise.reject(ErrorInterceptor(err));
       });
   };
 };
