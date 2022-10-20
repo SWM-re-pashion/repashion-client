@@ -51,10 +51,14 @@ const handleResponse = <T>(response: AxiosResponse<T>) => {
 export const refreshAccessToken = async (err: AxiosError) => {
   try {
     const response = await axiosInstance.get<res.reissue>(TOKEN_REFRESH);
-    const { data: token } = response.data;
-    if (err.config.headers) err.config.headers[ACCESSTOKEN] = token;
-    setAccessToken(token);
-    axiosInstance.defaults.headers[ACCESSTOKEN] = token;
+    const {
+      data: { accessToken },
+    } = response.data;
+    if (err.config.headers) {
+      err.config.headers[ACCESSTOKEN] = accessToken;
+    }
+    setAccessToken(accessToken);
+    axiosInstance.defaults.headers[ACCESSTOKEN] = accessToken;
     const res = await axiosInstance.request(err.config);
     return Promise.resolve(handleResponse(res));
   } catch (error) {

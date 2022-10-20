@@ -13,8 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     Object.entries(returnedHeaders).forEach(([key, value]) => {
       res.setHeader(key, value as string);
     });
-    const refreshToken = returnedHeaders['set-cookie'] || '';
-    res.setHeader('Set-Cookie', refreshToken[0]);
     res.send(data);
   } catch (err) {
     if (isAxiosError<res.error>(err) && err.response) {
