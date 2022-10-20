@@ -8,7 +8,9 @@ declare namespace res {
   };
   type reissue = {
     status: number;
-    data: string;
+    data: {
+      accessToken: string;
+    };
   };
 }
 

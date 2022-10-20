@@ -1,5 +1,9 @@
 import { UrlQuery } from '#types/index';
 
+function getPropFromQuery(query: string, target: string) {
+  return new URLSearchParams(query).get(target);
+}
+
 function getQueryString(queryObj: { [key: string]: string }) {
   return new URLSearchParams(queryObj).toString();
 }
@@ -22,4 +26,4 @@ function getQueriesArr<T>(
   ]);
 }
 
-export { getQueryString, getQueryStringObj, getQueriesArr };
+export { getQueryString, getQueryStringObj, getQueriesArr, getPropFromQuery };

@@ -5,18 +5,21 @@ import { ReactElement, useEffect } from 'react';
 import Loading from '@atoms/Loading';
 import Layout from 'components/shared/templates/Layout';
 import { usePostAuthToken } from 'hooks/api/login';
+import { getPropFromQuery } from 'utils';
 
 import $ from './style.module.scss';
 
 function Oauth() {
-  const { query } = useRouter();
+  const { asPath } = useRouter();
   const { mutate } = usePostAuthToken();
+  const query = asPath.split('#')[1];
+  const token = getPropFromQuery(query, 'access_token');
 
   useEffect(() => {
-    if (query.code && typeof query.code === 'string') {
-      mutate(query.code);
+    if (token && typeof token === 'string') {
+      mutate(token);
     }
-  }, [mutate, query]);
+  }, [mutate, token]);
 
   return (
     <div className={$['oauth-loading']}>
