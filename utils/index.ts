@@ -3,6 +3,7 @@ import { deepClone } from 'utils/deepClone';
 import { arrToString } from './arrToString';
 import { filterMaxPrice, validatePriceRange } from './filterValue';
 import {
+  getPropFromQuery,
   getQueriesArr,
   getQueryString,
   getQueryStringObj,
@@ -33,4 +34,5 @@ export {
   validatePriceRange,
   getQueryStringObj,
   getQueriesArr,
+  getPropFromQuery,
 };
