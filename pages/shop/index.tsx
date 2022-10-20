@@ -5,23 +5,21 @@ import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { queries, queryData } from '@constants/queryString';
-import { queryKey } from '@constants/react-query';
+import { queryKey, DAYTIME } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getCategory, getCategoryTree } from 'api/category';
+import { getBreadcrumb, getCategory, getCategoryTree } from 'api/category';
 import { withGetServerSideProps } from 'api/core/withGetServerSideProps';
 import { getInfiniteProducts, getProductItemList } from 'api/shop';
 import ProductItemList from 'components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'components/Shop/Organisms/ShopHeader';
-import {
-  categoryIdNameCodeArr,
-  curCategoryChildrenByProp,
-} from 'components/Upload/organisms/Dialog/utils';
+import { categoryPropArr } from 'components/Upload/organisms/Dialog/utils';
 import { useMultipleSearch } from 'hooks';
 import { useCategoryTree } from 'hooks/api/category';
 import { getQueryStringObj, getQueriesArr } from 'utils';
+import { judgeCategoryId } from 'utils/shop.utils';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ query }: GetServerSidePropsContext) => {
@@ -44,6 +42,8 @@ export const getServerSideProps = withGetServerSideProps(
         getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
           return isEndOfPage ? undefined : pageNumber + 1;
         },
+        cacheTime: DAYTIME,
+        staleTime: DAYTIME,
       },
     );
 
@@ -62,30 +62,17 @@ function Shop() {
 
   if (!data) return null;
 
-  const gender = category && category[0];
-  const main = category && category.slice(0, 4);
+  const gender = category[0];
   const genderSelectMenu = data.children;
   const existingGender = genderSelectMenu[0].id;
   const genderQuery = gender || existingGender;
 
-  const mainCategory = getCategoryTree(data, genderQuery, 'id');
-  const { curBreadCrumb: mainCrumb } = mainCategory;
-  const mainSelectMenu = categoryIdNameCodeArr(mainCategory);
-  const isIncludeMain =
-    main && curCategoryChildrenByProp(mainCategory, 'id').includes(main);
-  const mainQuery = isIncludeMain ? main : mainSelectMenu[0].id;
+  const id = judgeCategoryId(category);
+  const selectData = getCategoryTree(data, id);
+  const breadCrumb = getBreadcrumb(data, id) || '';
+  const isInclude = categoryPropArr(selectData, 'id').includes(category);
+  const categoryQuery = isInclude ? category : selectData[0].id;
 
-  const subCategory = getCategoryTree(mainCategory, mainQuery, 'id');
-  const { curBreadCrumb: subCrumb } = subCategory;
-  const subSelectMenu = categoryIdNameCodeArr(subCategory);
-  const isIncludeSub =
-    category && curCategoryChildrenByProp(subCategory, 'id').includes(category);
-  const existingSubMenu = subSelectMenu.length
-    ? subSelectMenu[0].id
-    : undefined;
-  const subQuery = isIncludeSub ? category : existingSubMenu;
-
-  const categoryQuery = subQuery || mainQuery;
   const queryStringObj: Omit<req.ShopFeed, 'page' | 'size'> = {
     ...queryObj,
     category: categoryQuery,
@@ -93,14 +80,12 @@ function Shop() {
 
   const props = {
     genderQuery,
-    mainQuery,
-    subQuery,
+    categoryQuery,
     orderQuery: order,
     hideSoldQuery: hide_sold,
     genderSelectMenu,
-    mainSelectMenu,
-    subSelectMenu,
-    breadCrumb: `${mainCrumb} > ${subCrumb}`,
+    selectData,
+    breadCrumb,
   };
 
   return (

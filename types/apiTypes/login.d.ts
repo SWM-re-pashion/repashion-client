@@ -2,8 +2,14 @@ declare namespace res {
   type OAuth = {
     status: number;
     data: {
-      accesToken: string;
+      accessToken: string;
       refreshToken: string;
+    };
+  };
+  type reissue = {
+    status: number;
+    data: {
+      accessToken: string;
     };
   };
 }

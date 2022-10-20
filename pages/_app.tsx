@@ -8,6 +8,7 @@ import React, { ReactElement, ReactNode, useEffect } from 'react';
 import ErrorFallback from '@atoms/ErrorFallback';
 import Loading from '@atoms/Loading';
 import Toast from '@atoms/Toast';
+import { ACCESSTOKEN } from '@constants/api';
 import {
   Hydrate,
   QueryClient,
@@ -15,8 +16,10 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AsyncBoundary from '@templates/AsyncBoundary';
-import { useMounted, useWindowResize } from 'hooks';
 import '../styles/globals.scss';
+import { axiosInstance } from 'api/core';
+import { useMounted, useWindowResize } from 'hooks';
+import { getSSRAccessToken } from 'utils/auth';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -67,12 +70,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <Hydrate state={pageProps.dehydratedState}>
           <AsyncBoundary
             suspenseFallback={
-              <Loading
-                style={{
-                  height: 'calc(var(--vh, 1vh) * 100)',
-                  boxSizing: 'border-box',
-                }}
-              />
+              <Loading style={{ height: '100vh', boxSizing: 'border-box' }} />
             }
             errorFallback={ErrorFallback}
             keys={[router.asPath]}
@@ -90,15 +88,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 MyApp.getInitialProps = async (context: AppContext) => {
   const { ctx, Component } = context;
   let pageProps = {};
-  // const cookie = ctx.req ? ctx.req.headers.cookie : '';
-  // console.log(ctx);
-  // if (cookie) {
-  //   Axios.defaults.headers.Cookie = cookie;
-  // }
+  const cookie = ctx.req?.headers.cookie || '';
+  const token = getSSRAccessToken(ctx);
+  axiosInstance.defaults.headers[ACCESSTOKEN] = token;
+  axiosInstance.defaults.headers.Cookie = cookie;
+
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }
-
   return { pageProps };
 };
 

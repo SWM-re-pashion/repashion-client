@@ -16,3 +16,5 @@ export const queryKey = {
   },
   myInfo: ['myInfo'],
 };
+
+export const DAYTIME = 1000 * 60 * 60 * 24;

@@ -3,7 +3,7 @@ import router from 'next/router';
 import { useCallback } from 'react';
 
 import { queryKey } from '@constants/react-query';
-import { isAxiosError } from 'api/core';
+import { isAxiosError } from 'api/core/error';
 import {
   postImgs,
   postProduct,

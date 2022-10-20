@@ -1,5 +1,5 @@
 import { queryKey } from '@constants/react-query';
-import { isAxiosError } from 'api/core';
+import { isAxiosError } from 'api/core/error';
 import { deleteProductDetail, getProductDetail } from 'api/product';
 import { queryClient } from 'pages/_app';
 import { toastError, toastSuccess } from 'utils/toaster';

@@ -12,10 +12,10 @@ type Props = {
   data: DefaultData[];
   selectedMenu: string;
   onClick: (value?: string) => void;
-  isSeletedSub: boolean;
+  isSelectedSub: boolean;
 };
 
-function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
+function CategoryBox({ data, selectedMenu, isSelectedSub, onClick }: Props) {
   const [isClicked, setClicked] = useState(false);
   const btnBoxRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,7 @@ function CategoryBox({ data, selectedMenu, isSeletedSub, onClick }: Props) {
   return (
     <section
       ref={btnBoxRef}
-      className={classnames([$['main-box']], { [$['sub-box']]: isSeletedSub })}
+      className={classnames([$['main-box']], { [$['sub-box']]: isSelectedSub })}
     >
       <div
         className={classnames([$['category-list']], {

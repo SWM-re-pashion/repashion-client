@@ -6,7 +6,7 @@ import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
 import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
-import { getBreadcrumb, getCategoryPartialTree } from 'api/category';
+import { getBreadcrumb, getCategoryTree } from 'api/category';
 import useDebounceInput from 'hooks/useDebounceInput';
 
 import Dialog from '../Dialog';
@@ -33,7 +33,7 @@ function Basic(basicProps: Props) {
   const prevCategoryId = category[curCategoryIdx - 1] || '';
   const lastCategory = category[category.length - 1];
 
-  const categories = getCategoryPartialTree(categoryData, prevCategoryId);
+  const categories = getCategoryTree(categoryData, prevCategoryId);
   const breadCrumb = getBreadcrumb(categoryData, lastCategory);
 
   const categoryDatas = {

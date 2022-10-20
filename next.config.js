@@ -34,6 +34,7 @@ const nextConfig = {
     OAUTH_REDIRECT_URI: process.env.OAUTH_REDIRECT_URI,
     OAUTH_STATE: process.env.OAUTH_STATE,
     OAUTH_SCOPE: process.env.OAUTH_SCOPE,
+    CLIENT_URL: process.env.CLIENT_URL,
   },
   images: {
     domains: [
