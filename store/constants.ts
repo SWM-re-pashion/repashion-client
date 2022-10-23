@@ -84,3 +84,17 @@ export const initialSearchState: SearchState = {
   keywords: [],
   latestProducts: [],
 };
+
+export type ObjType =
+  | 'style'
+  | 'basicInfo'
+  | 'sellerNote'
+  | 'measure'
+  | 'additionalInfo';
+
+export const isObjectType = (type: keyof UploadState): type is ObjType =>
+  type === 'style' ||
+  type === 'basicInfo' ||
+  type === 'sellerNote' ||
+  type === 'measure' ||
+  type === 'additionalInfo';

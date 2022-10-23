@@ -1,6 +1,6 @@
 import { ImgBasicProps } from '#types/index';
 import { UploadStoreState, Measure } from '#types/storeType/upload';
-import { uploadInitialState } from 'store/constants';
+import { isObjectType, uploadInitialState } from 'store/constants';
 import { deepClone, updateInfo } from 'utils';
 import { StateCreator } from 'zustand';
 
@@ -52,20 +52,28 @@ export const createUploadSlice: StateCreator<
   clearUpload: () => {
     set(uploadInitialState);
   },
+  updateArr: (value, type, subType) => {
+    const isObject = isObjectType(type);
+    set((state) => {
+      if (subType && isObject)
+        return {
+          ...state,
+          [type]: {
+            ...state[type],
+            [subType]: value,
+          },
+        };
+      return { ...state, [type]: value };
+    });
+  },
   updateUpload: (value, type, subType, idx) => {
     set((state) => {
-      const isObjectType =
-        type === 'style' ||
-        type === 'basicInfo' ||
-        type === 'sellerNote' ||
-        type === 'measure' ||
-        type === 'additionalInfo';
       const isSubTypeColor = subType === 'color';
       const isSubTypeCategory = subType === 'category';
       const isTypeStyle = type === 'style';
       const isTypeBasicInfo = type === 'basicInfo';
 
-      if (subType && isObjectType) {
+      if (subType && isObjectType(type)) {
         if (isSubTypeColor && isTypeStyle && typeof value === 'string') {
           return {
             ...state,
