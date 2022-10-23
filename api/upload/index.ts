@@ -1,6 +1,6 @@
 import { AiAxios, Axios } from 'api/core';
 
-export const postImgs = async (files: FormData) => {
+export const postImgs = async (files: FormData): Promise<res.ImgUpload> => {
   const { data } = await AiAxios.post('/api/product/uploads', files);
   return data;
 };
