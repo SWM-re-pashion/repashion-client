@@ -14,10 +14,10 @@ type Props = {
   isVerticalBtn?: boolean;
   title?: string;
   content?: string;
-  clickText: string;
-  cancelText: string;
-  onCancel: () => void;
-  onClick: () => void;
+  clickText?: string;
+  cancelText?: string;
+  onCancel?: () => void;
+  onClick?: () => void;
 };
 
 function DialogModal(dialogProps: Props) {
@@ -38,20 +38,24 @@ function DialogModal(dialogProps: Props) {
             [$['vertical-box']]: isVerticalBtn,
           })}
         >
-          <Button
-            className={classnames($.btn, $['cancel-btn'])}
-            onClick={onCancel}
-            label="취소 버튼"
-          >
-            {cancelText}
-          </Button>
-          <Button
-            className={classnames($.btn, $['click-btn'])}
-            onClick={onClick}
-            label="확인 버튼"
-          >
-            {clickText}
-          </Button>
+          {onCancel && cancelText && (
+            <Button
+              className={classnames($.btn, $['cancel-btn'])}
+              onClick={onCancel}
+              label="취소 버튼"
+            >
+              {cancelText}
+            </Button>
+          )}
+          {onClick && clickText && (
+            <Button
+              className={classnames($.btn, $['click-btn'])}
+              onClick={onClick}
+              label="확인 버튼"
+            >
+              {clickText}
+            </Button>
+          )}
         </div>
       </div>
     </Modal>

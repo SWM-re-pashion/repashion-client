@@ -25,6 +25,7 @@
     margin-bottom: 15px;
     @include typography(14);
     font-weight: 500;
+    white-space: pre-line;
   }
 
   .btn-box {

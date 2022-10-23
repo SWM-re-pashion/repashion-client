@@ -32,7 +32,7 @@ function ImgUploadBtn(imgProps: Props) {
         ref={inputRef}
         id="chooseFile"
         isMultiple
-        accept=".jpg,.jpeg,.png,.webp,.heif,.heic,.bmp"
+        accept="image/*"
         onChange={onUpload}
         none
       />
