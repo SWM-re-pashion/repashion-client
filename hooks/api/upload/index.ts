@@ -17,7 +17,19 @@ import { toastError, toastSuccess } from 'utils/toaster';
 import { useCoreMutation, useCoreQuery } from '../core';
 
 export const useImgUpload = () => {
-  return useCoreMutation(postImgs);
+  return useCoreMutation(postImgs, {
+    onSuccess: (data) => {
+      const { error } = data;
+      if (!error) {
+        toastSuccess({ message: '이미지 업로드, 인식을 성공했습니다.' });
+      } else {
+        toastError({ message: '이미지 인식을 실패했습니다.' });
+      }
+    },
+    onError: () => {
+      toastError({ message: '이미지 업로드를 실패했습니다.' });
+    },
+  });
 };
 
 export const useProductUpload = () => {

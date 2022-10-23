@@ -39,7 +39,7 @@ function UploadTemplate({ id, isUpdate, states, categoryData }: Props) {
   const { mutate } = useProductUpload();
   const { mutate: updateMutate } = useUpdateProduct(id);
   const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;
-  const { updateUpload, removeImg } = states;
+  const { updateArr, updateUpload, removeImg } = states;
   const { imgUpload, clearUpload, initMeasure } = states;
   const { category } = basicInfo;
   const [gender, main, sub] = category;
@@ -53,6 +53,7 @@ function UploadTemplate({ id, isUpdate, states, categoryData }: Props) {
   const clearUploads = useCallback(clearUpload, [clearUpload]);
   const initMeasures = useCallback(initMeasure, [initMeasure]);
   const update = useCallback(updateUpload, [updateUpload]);
+  const updateArray = useCallback(updateArr, [updateArr]);
   const imgsUpload = useCallback(imgUpload, [imgUpload]);
   const removeImgs = useCallback(removeImg, [removeImg]);
 
@@ -78,7 +79,7 @@ function UploadTemplate({ id, isUpdate, states, categoryData }: Props) {
       toastError({ message: '필수 정보를 알려주세요.' });
     }
   };
-  console.log(states.measure, states.measureType);
+
   useDidMountEffect(() => {
     // TODO: 상품 수정 시 measure 값이 바뀌는 이슈
     initMeasures(measureState);
@@ -105,6 +106,7 @@ function UploadTemplate({ id, isUpdate, states, categoryData }: Props) {
       <div className={$.upload}>
         <ImgUpload
           {...{ isImgValid, imgUpload: imgsUpload, removeImg: removeImgs }}
+          {...{ updateArr: updateArray, categoryData }}
           state={states.imgList}
           onChange={update}
         />
