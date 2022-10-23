@@ -60,16 +60,26 @@ export interface UploadState {
   opinion: string;
 }
 
+type StateValue = string | number | boolean;
+
+type SubType =
+  | keyof StyleUpload
+  | keyof BasicInfo
+  | keyof SellerNote
+  | keyof Measure
+  | keyof AdditionalInfo;
+
 export type UpdateUpload = (
-  value: string | number | boolean,
+  value: StateValue,
   type: keyof UploadState,
-  subType?:
-    | keyof StyleUpload
-    | keyof BasicInfo
-    | keyof SellerNote
-    | keyof Measure
-    | keyof AdditionalInfo,
+  subType?: SubType,
   idx?: number,
+) => void;
+
+export type UpdateArr = (
+  value: StateValue[],
+  type: keyof UploadState,
+  subType?: SubType,
 ) => void;
 
 export interface UploadStoreState extends UploadState {
@@ -78,5 +88,6 @@ export interface UploadStoreState extends UploadState {
   initMeasure: (measures: Measure) => void;
   clearMeasure: () => void;
   clearUpload: () => void;
+  updateArr: UpdateArr;
   updateUpload: UpdateUpload;
 }

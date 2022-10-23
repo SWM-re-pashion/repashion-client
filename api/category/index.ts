@@ -41,3 +41,18 @@ export const getBreadcrumb = (
 
   return getBreadcrumb(candidateTree, categoryId, breadcrumb);
 };
+
+export const getCategoryIds = (
+  data: res.CategoryTree['data'] | res.CategoryTreeChildren | undefined,
+  categoryName: string[],
+  categoryIds?: string[],
+): string[] => {
+  const candidateTree = data?.children?.find(
+    (category) => categoryName[0] === category.name,
+  );
+  if (!candidateTree) return categoryIds || ['', '', ''];
+  let candidateIds: string[];
+  if (categoryIds) candidateIds = [...categoryIds, candidateTree.id];
+  else candidateIds = [candidateTree.id];
+  return getCategoryIds(candidateTree, categoryName.slice(1), candidateIds);
+};

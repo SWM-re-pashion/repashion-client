@@ -40,6 +40,7 @@ declare namespace res {
       material: string;
       detail: string;
       print: string;
+      color: string[];
     };
   };
 }

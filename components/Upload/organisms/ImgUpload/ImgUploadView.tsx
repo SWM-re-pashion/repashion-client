@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import ImgCard from 'components/Upload/molecules/ImgCard';
 import ImgUploadBtn from 'components/Upload/molecules/ImgUploadBtn';
 
+import ImgResultModal, { ImgResult } from '../ImgResultModal';
 import $ from './style.module.scss';
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   uploadRef: React.RefObject<HTMLDivElement>;
   inputRef: React.RefObject<HTMLInputElement>;
   state: ImgList[];
+  imgResult: ImgResult;
   onUploadClick: () => void;
   onUploadImg: (e: React.ChangeEvent) => void;
   remove: (removeId: number) => void;
@@ -21,7 +23,7 @@ type Props = {
 };
 
 function ImgUploadView(viewProps: Props) {
-  const { onUploadClick, onUploadImg, remove } = viewProps;
+  const { onUploadClick, onUploadImg, remove, imgResult } = viewProps;
   const { uploadRef, inputRef, isLoading, isImgValid, state } = viewProps;
 
   return (
@@ -50,6 +52,7 @@ function ImgUploadView(viewProps: Props) {
           />
         </>
       )}
+      <ImgResultModal resultType={imgResult} {...{ isLoading }} />
     </article>
   );
 }
