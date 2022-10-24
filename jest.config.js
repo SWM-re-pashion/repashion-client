@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
@@ -10,18 +11,19 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
-    '^@shared/(.*)$': '<rootDir>/components/shared/$1',
-    '^@styles/(.*)$': '<rootDir>/styles/$1',
-    '^#types/(.*)$': '<rootDir>/types/$1',
+    '^@shared/(.*)$': '<rootDir>/src/components/shared/$1',
+    '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^#types/(.*)$': '<rootDir>/src/types/$1',
     '^@mocks/(.*)$': '<rootDir>/__mocks__/$1',
-    '^@constants/(.*)$': '<rootDir>/constants/$1',
-    '^@atoms/(.*)$': '<rootDir>/components/shared/atoms/$1',
-    '^@molecules/(.*)$': '<rootDir>/components/shared/molecules/$1',
-    '^@organisms/(.*)$': '<rootDir>/components/shared/organisms/$1',
-    '^@templates/(.*)$': '<rootDir>/components/shared/templates/$1',
-    '^hooks': '<rootDir>/hooks',
-    '^utils': '<rootDir>/utils',
-    '^lib/(.*)$': '<rootDir>/lib/$1',
+    '^@constants/(.*)$': '<rootDir>/src/constants/$1',
+    '^@atoms/(.*)$': '<rootDir>/src/components/shared/atoms/$1',
+    '^@molecules/(.*)$': '<rootDir>/src/components/shared/molecules/$1',
+    '^@organisms/(.*)$': '<rootDir>/src/components/shared/organisms/$1',
+    '^@templates/(.*)$': '<rootDir>/src/components/shared/templates/$1',
+    '^src/hooks': '<rootDir>/src/hooks',
+    '^src/utils': '<rootDir>/src/utils',
+    '^src/lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^src/api/(.*)$': '<rootDir>/src/api/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
 };

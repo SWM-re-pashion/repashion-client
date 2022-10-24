@@ -2,15 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["./shared/*"],
-      "@styles/*": ["./styles/*"],
-      "#types/*": ["./types/*"],
+      "@styles/*": ["./src/styles/*"],
+      "#types/*": ["./src/types/*"],
       "@mocks/*": ["./__mocks__/*"],
-      "@constants/*": ["./constants/*"],
-      "@atoms/*": ["./components/shared/atoms/*"],
-      "@molecules/*": ["./components/shared/molecules/*"],
-      "@organisms/*": ["./components/shared/organisms/*"],
-      "@templates/*": ["./components/shared/templates/*"]
+      "@constants/*": ["./src/constants/*"],
+      "@atoms/*": ["./src/components/shared/atoms/*"],
+      "@molecules/*": ["./src/components/shared/molecules/*"],
+      "@organisms/*": ["./src/components/shared/organisms/*"],
+      "@templates/*": ["./src/components/shared/templates/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
