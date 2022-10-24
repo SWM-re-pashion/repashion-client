@@ -1,12 +1,6 @@
 import { useRouter } from 'next/router';
 
-import {
-  ReactElement,
-  useCallback,
-  useState,
-  ChangeEvent,
-  useRef,
-} from 'react';
+import { ReactElement, useCallback, ChangeEvent, useRef } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
@@ -23,20 +17,24 @@ import Layout from '@templates/Layout';
 import { getStaticData, useStaticData } from 'src/api/getStaticData';
 import { useInfoStore } from 'src/store/useInfoStore';
 import { filterHeight } from 'src/utils/filterValue';
+import { toastError } from 'src/utils/toaster';
 
 import $ from './style.module.scss';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['staticData', 'color'], () =>
-    getStaticData('color'),
+  await queryClient.prefetchQuery(['staticData', 'Gender'], () =>
+    getStaticData('Gender'),
   );
-  await queryClient.prefetchQuery(['staticData', 'bodyShape'], () =>
-    getStaticData('bodyShape'),
+  await queryClient.prefetchQuery(['staticData', 'Color'], () =>
+    getStaticData('Color'),
   );
-  await queryClient.prefetchQuery(['staticData', 'size'], () =>
-    getStaticData('size'),
+  await queryClient.prefetchQuery(['staticData', 'BodyShape'], () =>
+    getStaticData('BodyShape'),
+  );
+  await queryClient.prefetchQuery(['staticData', 'Size'], () =>
+    getStaticData('Size'),
   );
 
   return {
@@ -48,7 +46,6 @@ export async function getStaticProps() {
 
 export function BasicInfo() {
   const state = useInfoStore((stat) => stat);
-  const [errorMsg, setErrorMsg] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const updateInfo = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const router = useRouter();
@@ -56,17 +53,17 @@ export function BasicInfo() {
     isLoading: genderIsLoading,
     isError: genderIsError,
     data: genderData,
-  } = useStaticData<res.StaticData>('gender');
+  } = useStaticData<res.StaticData>('Gender');
   const {
     isLoading: bodyIsLoading,
     isError: bodyIsError,
     data: bodyData,
-  } = useStaticData<res.StaticData>('bodyShape');
+  } = useStaticData<res.StaticData>('BodyShape');
   const {
     isLoading: sizeIsLoading,
     isError: sizeIsError,
     data: sizeData,
-  } = useStaticData<res.KindStaticData>('size');
+  } = useStaticData<res.KindStaticData>('Size');
   const restData = [bodyData?.data, sizeData?.data.top, sizeData?.data.bottom];
 
   const heightChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,14 +77,13 @@ export function BasicInfo() {
 
   const submitCallback = () => {
     if (!state.gender || !state.bodyShape) {
-      setErrorMsg('필수 항목을 입력해주세요.');
+      toastError({ message: '필수 항목을 입력해주세요.' });
     } else if (inputRef.current && verifyHeight(inputRef.current.value)) {
-      setErrorMsg('130 ~ 200 범위의 키를 입력해주세요.');
+      toastError({ message: '130 ~ 200 범위의 키를 입력해주세요.' });
       inputRef.current.focus();
     } else {
       if (inputRef.current && updateInfo)
         updateInfo(+inputRef.current.value, 'height');
-      setErrorMsg('');
       router.push('/info/color');
     }
   };
@@ -151,9 +147,7 @@ export function BasicInfo() {
           return null;
         })}
 
-      <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
-        다음
-      </ButtonFooter>
+      <ButtonFooter onClick={handleSubmit}>다음</ButtonFooter>
     </>
   );
 }

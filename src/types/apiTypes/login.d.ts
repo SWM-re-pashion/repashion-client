@@ -3,7 +3,7 @@ declare namespace res {
     status: number;
     data: {
       accessToken: string;
-      refreshToken: string;
+      hasPreference: boolean;
     };
   };
   type reissue = {
