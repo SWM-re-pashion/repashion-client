@@ -6,6 +6,7 @@ import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
+import { ISR_WEEK } from '@constants/api';
 import { basicBtnProps } from '@constants/basicInfo/constants';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
@@ -40,6 +41,7 @@ export async function getStaticProps() {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: ISR_WEEK,
   };
 }
 

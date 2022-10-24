@@ -6,12 +6,14 @@ import { ReactElement, useState, useCallback } from 'react';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import ImgBox from '@atoms/ImgBox';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getStyleImgs, useStyleImgs } from 'src/api/getStyleImgs';
+import { getStyleImgs } from 'src/api/preference';
+import { useStyleImgs } from 'src/hooks/api/preference';
 import { useInfoStore } from 'src/store/useInfoStore';
 
 import $ from './style.module.scss';
@@ -19,7 +21,7 @@ import $ from './style.module.scss';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['styles'], getStyleImgs);
+  await queryClient.prefetchQuery(queryKey.styleImgs, getStyleImgs);
 
   return {
     props: {

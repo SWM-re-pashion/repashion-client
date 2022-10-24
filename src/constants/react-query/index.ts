@@ -21,5 +21,5 @@ export const queryKey = {
   },
 };
 
-export const DAYTIME = 1000 * 60 * 60 * 24;
-export const WEEKTIME = 1000 * 60 * 60 * 24 * 7;
+export const QUERY_DAYTIME = 1000 * 60 * 60 * 24;
+export const QUERY_WEEKTIME = 1000 * 60 * 60 * 24 * 7;

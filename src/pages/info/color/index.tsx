@@ -4,6 +4,7 @@ import { ReactElement, useCallback, useEffect } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import { ISR_WEEK } from '@constants/api';
 import { colorBtnProps } from '@constants/colorInfo/constants';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
@@ -31,6 +32,7 @@ export async function getStaticProps() {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: ISR_WEEK,
   };
 }
 
