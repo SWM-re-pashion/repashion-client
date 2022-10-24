@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { isAxiosError } from 'src/api/core/error';
 import axios from 'axios';
+import { isAxiosError } from 'src/api/core/error';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { body } = req;

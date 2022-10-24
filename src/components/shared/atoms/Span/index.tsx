@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import type { DefaultProps } from '#types/props';
+import classNames from 'classnames';
 
 import $ from './style.module.scss';
 import { font } from './utils';

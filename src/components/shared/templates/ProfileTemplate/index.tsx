@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
-import StatusMenuList from 'src/components/MyPage/organisms/StatusMenuList';
-import UserProfile from 'src/components/MyPage/organisms/UserProfile';
 import { Setting } from '@atoms/icon';
 import Span from '@atoms/Span';
-import PageTemplate from '@templates/PageTemplate';
 import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
+import PageTemplate from '@templates/PageTemplate';
+import StatusMenuList from 'src/components/MyPage/organisms/StatusMenuList';
+import UserProfile from 'src/components/MyPage/organisms/UserProfile';
 import { useQueryRouter, useSearch } from 'src/hooks';
 
 import $ from './style.module.scss';

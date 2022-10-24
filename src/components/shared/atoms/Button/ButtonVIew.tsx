@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 
-import classnames from 'classnames';
 import type { DefaultProps } from '#types/props';
+import classnames from 'classnames';
 
 import $ from './style.module.scss';
 

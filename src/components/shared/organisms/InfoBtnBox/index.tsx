@@ -2,9 +2,9 @@
 import { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
+import { StyleProps } from '#types/props';
 import classnames from 'classnames';
 import useDragScroll from 'src/hooks/useDragScroll';
-import { StyleProps } from '#types/props';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
 import InfoArticle from '../../molecules/InfoArticle';

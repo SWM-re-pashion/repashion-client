@@ -1,10 +1,10 @@
 import { memo, useCallback } from 'react';
 
+import { StyleProps } from '#types/props';
 import { orderData } from '@constants/category';
 import SortBox from 'src/components/Shop/molecules/SortBox';
 import { useQueryRouter } from 'src/hooks';
 import { useSearchStore } from 'src/store/useSearchStore';
-import { StyleProps } from '#types/props';
 
 import SearchBar from '../SearchBar';
 import $ from './style.module.scss';

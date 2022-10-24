@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useCallback } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
+import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
@@ -14,7 +15,6 @@ import ProductFooter from 'src/components/Product/organisms/ProductFooter';
 import ProductImgSlide from 'src/components/Product/organisms/ProductImgSlide';
 import ProductNotice from 'src/components/Product/organisms/ProductNotice';
 import ProductSize from 'src/components/Product/organisms/ProductSize';
-import { seoData } from '@constants/seo';
 import { useProdutDetail } from 'src/hooks/api/product';
 import { useSearchStore } from 'src/store/useSearchStore';
 

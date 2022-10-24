@@ -2,8 +2,8 @@ import { memo } from 'react';
 
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
-import InfoBtnBox from '@organisms/InfoBtnBox';
 import { sizeBtnBox } from '@constants/upload/utils';
+import InfoBtnBox from '@organisms/InfoBtnBox';
 
 type Props = {
   sizeProps: sizeBtnBox;

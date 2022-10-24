@@ -1,7 +1,7 @@
 import { forwardRef, memo, Ref } from 'react';
 
-import classnames from 'classnames';
 import { StyleProps } from '#types/props';
+import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
