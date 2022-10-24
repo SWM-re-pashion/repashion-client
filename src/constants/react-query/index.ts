@@ -1,4 +1,7 @@
 export const queryKey = {
+  staticData: (kind: req.StaticType) => {
+    return ['staticData', kind];
+  },
   category: (isExcluded: boolean) => {
     return [isExcluded ? 'excludedCategory' : 'category'];
   },

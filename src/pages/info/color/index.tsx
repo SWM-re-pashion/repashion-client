@@ -5,14 +5,16 @@ import { ReactElement, useCallback, useEffect } from 'react';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import { colorBtnProps } from '@constants/colorInfo/constants';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getStaticData, useStaticData } from 'src/api/getStaticData';
+import { getStaticData } from 'src/api/staticData';
 import { usePostPreference } from 'src/hooks/api/preference';
+import { useStaticData } from 'src/hooks/api/staticData';
 import { useInfoStore } from 'src/store/useInfoStore';
 import { refinePreferenceData } from 'src/utils/preference.utils';
 
@@ -21,7 +23,7 @@ import $ from './style.module.scss';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['staticData', 'Color'], () =>
+  await queryClient.prefetchQuery(queryKey.staticData('Color'), () =>
     getStaticData('Color'),
   );
 

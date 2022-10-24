@@ -7,6 +7,7 @@ import HeadMeta from '@atoms/HeadMeta';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import { basicBtnProps } from '@constants/basicInfo/constants';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
@@ -14,7 +15,8 @@ import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getStaticData, useStaticData } from 'src/api/getStaticData';
+import { getStaticData } from 'src/api/staticData';
+import { useStaticData } from 'src/hooks/api/staticData';
 import { useInfoStore } from 'src/store/useInfoStore';
 import { filterHeight } from 'src/utils/filterValue';
 import { toastError } from 'src/utils/toaster';
@@ -24,16 +26,13 @@ import $ from './style.module.scss';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['staticData', 'Gender'], () =>
+  await queryClient.prefetchQuery(queryKey.staticData('Gender'), () =>
     getStaticData('Gender'),
   );
-  await queryClient.prefetchQuery(['staticData', 'Color'], () =>
-    getStaticData('Color'),
-  );
-  await queryClient.prefetchQuery(['staticData', 'BodyShape'], () =>
+  await queryClient.prefetchQuery(queryKey.staticData('BodyShape'), () =>
     getStaticData('BodyShape'),
   );
-  await queryClient.prefetchQuery(['staticData', 'Size'], () =>
+  await queryClient.prefetchQuery(queryKey.staticData('Size'), () =>
     getStaticData('Size'),
   );
 

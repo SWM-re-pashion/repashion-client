@@ -1,3 +1,14 @@
+declare namespace req {
+  type StaticType =
+    | 'Color'
+    | 'Fit'
+    | 'Gender'
+    | 'Length'
+    | 'Size'
+    | 'Style'
+    | 'BodyShape';
+}
+
 declare namespace res {
   type KindStaticData = {
     staus: number;
