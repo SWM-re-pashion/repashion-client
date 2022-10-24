@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 
+import { queryKey } from '@constants/react-query';
 import { isAxiosError } from 'src/api/core/error';
-import { postPreference } from 'src/api/preference';
+import { getStyleImgs, postPreference } from 'src/api/preference';
 
 import { toastError } from '../../../utils/toaster';
-import { useCoreMutation } from '../core';
+import { useCoreMutation, useCoreQuery } from '../core';
 
 export function usePostPreference() {
   const router = useRouter();
@@ -19,4 +20,16 @@ export function usePostPreference() {
       }
     },
   });
+}
+
+export function useStyleImgs() {
+  const response = useCoreQuery(queryKey.styleImgs, getStyleImgs, {
+    onError: (error) => {
+      if (isAxiosError<res.error>(error) && error.response) {
+        const { message } = error.response.data;
+        toastError({ message });
+      }
+    },
+  });
+  return response;
 }

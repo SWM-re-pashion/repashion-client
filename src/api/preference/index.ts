@@ -6,3 +6,8 @@ export const postPreference = async (
   const response = await Axios.post('/api/preference', JSON.stringify(state));
   return response;
 };
+
+export const getStyleImgs = async (): Promise<res.StyleImgs> => {
+  const response = await Axios.get('/api/style-image');
+  return response;
+};

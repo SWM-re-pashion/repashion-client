@@ -1,4 +1,6 @@
 export const queryKey = {
+  myInfo: ['myInfo'],
+  styleImgs: ['styleImgs'],
   staticData: (kind: req.StaticType) => {
     return ['staticData', kind];
   },
@@ -17,7 +19,7 @@ export const queryKey = {
   searchingItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
     return ['searchingProductItemList', { ...requestParams }];
   },
-  myInfo: ['myInfo'],
 };
 
 export const DAYTIME = 1000 * 60 * 60 * 24;
+export const WEEKTIME = 1000 * 60 * 60 * 24 * 7;

@@ -21,7 +21,7 @@ function Setting() {
     {
       text: '개인 맞춤정보 관리',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
-      onClick: () => router.push('/info/style'),
+      onClick: () => router.push('/info/basic'),
     },
     {
       text: '오픈소스 라이브러리',
