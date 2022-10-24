@@ -1,10 +1,14 @@
 import { useCallback, useMemo } from 'react';
 
-import { getBreadcrumb } from 'src/api/category';
+import { UploadStoreState } from '#types/storeType/upload';
 import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import { seoData } from '@constants/seo';
+import { additionData, styleData } from '@constants/upload/constants';
+import { reviewData, sizeData } from '@constants/upload/utils';
 import PageHeader from '@molecules/PageHeader';
+import { getBreadcrumb } from 'src/api/category';
 import AdditionInfo from 'src/components/Upload/organisms/AdditionInfo';
 import Basic from 'src/components/Upload/organisms/Basic';
 import Contact from 'src/components/Upload/organisms/Contact';
@@ -15,12 +19,8 @@ import Price from 'src/components/Upload/organisms/Price';
 import SellerReview from 'src/components/Upload/organisms/SellerReview';
 import SizeInfo from 'src/components/Upload/organisms/SizeInfo';
 import StyleSelect from 'src/components/Upload/organisms/StyleSelect';
-import { seoData } from '@constants/seo';
-import { additionData, styleData } from '@constants/upload/constants';
-import { reviewData, sizeData } from '@constants/upload/utils';
 import { useMounted, useDidMountEffect } from 'src/hooks';
 import { useProductUpload, useUpdateProduct } from 'src/hooks/api/upload';
-import { UploadStoreState } from '#types/storeType/upload';
 import { getJudgeCategory, getMeasureElement } from 'src/utils';
 import { toastError } from 'src/utils/toaster';
 import { judgeValid, refineUploadData } from 'src/utils/upload.utils';

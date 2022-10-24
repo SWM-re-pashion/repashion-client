@@ -1,7 +1,7 @@
 export const seoData = {
   title: 're:Fashion',
   creator: 're-pashion',
-  url: 'https://refashion.link/shop',
+  url: 'https://refashion.link',
   description: '세컨핸드 의류에 새 생명을, re:Fashion',
   images: {
     logo: 'logo/refashion-logo.png',

@@ -1,12 +1,9 @@
 import { NextPage } from 'next';
 import { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import React, { ReactElement, ReactNode, useEffect } from 'react';
 
-import ErrorFallback from '@atoms/ErrorFallback';
-import Loading from '@atoms/Loading';
 import Toast from '@atoms/Toast';
 import { ACCESSTOKEN } from '@constants/api';
 import {
@@ -15,7 +12,6 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import AsyncBoundary from '@templates/AsyncBoundary';
 import '../styles/globals.scss';
 import { axiosInstance } from 'src/api/core';
 import { useMounted, useWindowResize } from 'src/hooks';
@@ -41,7 +37,6 @@ export const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const router = useRouter();
   const isMount = useMounted();
   const [_, height] = useWindowResize();
   const getLayout = Component.getLayout || ((page) => page);
@@ -68,17 +63,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <AsyncBoundary
-            suspenseFallback={
-              <Loading style={{ height: '100vh', boxSizing: 'border-box' }} />
-            }
-            errorFallback={ErrorFallback}
-            keys={[router.asPath]}
-          >
-            {getLayout(<Component {...pageProps} />)}
-            <Toast />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </AsyncBoundary>
+          {getLayout(<Component {...pageProps} />)}
+          <Toast />
+          <ReactQueryDevtools initialIsOpen={false} />
         </Hydrate>
       </QueryClientProvider>
     </>
