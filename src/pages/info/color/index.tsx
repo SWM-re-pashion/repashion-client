@@ -12,16 +12,17 @@ import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getStaticData, useStaticData } from 'src/api/getStaticData';
-import { usePostPreference } from 'src/api/preference';
+import { usePostPreference } from 'src/hooks/api/preference';
 import { useInfoStore } from 'src/store/useInfoStore';
+import { refinePreferenceData } from 'src/utils/preference.utils';
 
 import $ from './style.module.scss';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['staticData', 'color'], () =>
-    getStaticData('color'),
+  await queryClient.prefetchQuery(['staticData', 'Color'], () =>
+    getStaticData('Color'),
   );
 
   return {
@@ -35,7 +36,7 @@ export function ColorInfo() {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const { isLoading, isError, data, error } =
-    useStaticData<res.KindStaticData>('color');
+    useStaticData<res.KindStaticData>('Color');
   const { mutate } = usePostPreference();
   const router = useRouter();
   const colorData = [data?.data.top, data?.data.bottom];
@@ -45,7 +46,7 @@ export function ColorInfo() {
     if (!(bodyShape && height && gender)) router.push('/info/basic');
   }, []);
 
-  const handleSubmit = () => mutate(state);
+  const handleSubmit = () => mutate(refinePreferenceData(state));
 
   return (
     <>

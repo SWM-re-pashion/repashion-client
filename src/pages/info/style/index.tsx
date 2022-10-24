@@ -31,6 +31,7 @@ export async function getStaticProps() {
 const skeletonImgBox = Array.from({ length: 20 });
 
 export function StyleInfo() {
+  // TODO: 서비스 고도화 전까지 styles 데이터 주석
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const [errorMsg, setErrorMsg] = useState('');
@@ -38,14 +39,14 @@ export function StyleInfo() {
   const { isLoading, isError, data } = useStyleImgs();
   const styleImgs = data?.data;
 
-  const handleSubmit = () => {
-    if (state.styles.length < 2) {
-      setErrorMsg('이미지를 2개 이상 선택해주세요.');
-    } else {
-      setErrorMsg('');
-      router.push('/info/basic');
-    }
-  };
+  // const handleSubmit = () => {
+  //   if (state.styles.length < 2) {
+  //     setErrorMsg('이미지를 2개 이상 선택해주세요.');
+  //   } else {
+  //     setErrorMsg('');
+  //     router.push('/info/basic');
+  //   }
+  // };
 
   const handleErrorSubmit = () => router.push('/info/basic');
 
@@ -71,7 +72,7 @@ export function StyleInfo() {
               {...{ id, src, alt }}
               key={src + id}
               isNeedClick
-              isSelected={state.styles.includes(id)}
+              // isSelected={state.styles.includes(id)}
               onClick={handleClick}
             />
           ))}
@@ -86,7 +87,10 @@ export function StyleInfo() {
       </section>
 
       {!isError && styleImgs?.styles.length !== 0 ? (
-        <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
+        <ButtonFooter
+          // onClick={handleSubmit}
+          msg={errorMsg}
+        >
           다음
         </ButtonFooter>
       ) : (
