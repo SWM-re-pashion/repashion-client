@@ -2290,6 +2290,7 @@ __metadata:
     jest-environment-jsdom: ^29.1.2
     lottie-react: ^2.3.1
     next: 12.2.0
+    next-compose-plugins: ^2.2.1
     prettier: ^2.7.1
     react: 18.2.0
     react-dom: 18.2.0
@@ -5163,6 +5164,13 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: b8ffeb1e262eff7968fc90a2b6767b04cfd9842582a9d0ece0af7049537266e7b2506dfb1d107a32f06dd849ab2aea834d5830f7f4d0e5cb7d36e1ae55d021d9
+  languageName: node
+  linkType: hard
+
+"next-compose-plugins@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "next-compose-plugins@npm:2.2.1"
+  checksum: 771762fda2b12b81daf10431cbb494816cff96be02b44009692c6c0eefbacd62cbf51ddb93af8d3380ec00254c6a95d64d10f744d4b9ddadefc21efee7dc69fc
   languageName: node
   linkType: hard
 

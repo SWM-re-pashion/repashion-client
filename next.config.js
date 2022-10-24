@@ -2,6 +2,20 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
 
+const withPlugins = require('next-compose-plugins');
+
+const { withSentryConfig } = require('@sentry/nextjs');
+
+const moduleExports = {
+  sentry: {
+    hideSourseMaps: true,
+  },
+};
+
+const sentryWebpackPluginOptions = {
+  silent: true,
+};
+
 const nextConfig = {
   async redirects() {
     return [
@@ -35,6 +49,7 @@ const nextConfig = {
     OAUTH_STATE: process.env.OAUTH_STATE,
     OAUTH_SCOPE: process.env.OAUTH_SCOPE,
     CLIENT_URL: process.env.CLIENT_URL,
+    SENTRY_DSN: process.env.SENTRY_DSN,
   },
   images: {
     domains: [
@@ -46,4 +61,8 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withSentryConfig(
+  withPlugins([nextConfig]),
+  moduleExports,
+  sentryWebpackPluginOptions,
+);
