@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { queryKey } from '@constants/react-query';
 import { isAxiosError } from 'src/api/core/error';
 import { getStyleImgs, postPreference } from 'src/api/preference';
+import { toastSuccess, toastError } from 'src/utils/toaster';
 
-import { toastError } from '../../../utils/toaster';
 import { useCoreMutation, useCoreQuery } from '../core';
 
 export function usePostPreference() {
@@ -12,6 +12,7 @@ export function usePostPreference() {
 
   return useCoreMutation(postPreference, {
     onSuccess: () => {
+      toastSuccess({ message: '정보를 성공적으로 입력했습니다.' });
       router.push('/shop');
     },
     onError: (error) => {

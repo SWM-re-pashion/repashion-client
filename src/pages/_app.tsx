@@ -61,10 +61,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
         <title>re:Fashion</title>
       </Head>
+      <Toast />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           {getLayout(<Component {...pageProps} />)}
-          <Toast />
           <ReactQueryDevtools initialIsOpen={false} />
         </Hydrate>
       </QueryClientProvider>
@@ -77,8 +77,11 @@ MyApp.getInitialProps = async (context: AppContext) => {
   let pageProps = {};
   const cookie = ctx.req?.headers.cookie || '';
   const token = getSSRAccessToken(ctx);
+  axiosInstance.defaults.headers.Cookie = '';
   axiosInstance.defaults.headers[ACCESSTOKEN] = token;
-  axiosInstance.defaults.headers.Cookie = cookie;
+  if (ctx.req && cookie) {
+    axiosInstance.defaults.headers.Cookie = cookie;
+  }
 
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
