@@ -12,9 +12,10 @@ export const usePostAuthToken = () => {
   return useCoreMutation(postAuthToken, {
     onSuccess: (data) => {
       toastSuccess({ message: '로그인되었습니다.' });
-      const { accessToken } = data.data;
+      const { accessToken, hasPreference } = data.data;
       setAccessToken(accessToken);
-      router.push('/shop');
+      if (hasPreference) router.push('/shop');
+      else router.push('/info/basic');
     },
     onError: () => {
       router.back();

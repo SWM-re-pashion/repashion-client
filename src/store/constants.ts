@@ -3,7 +3,7 @@ import { SearchState } from '#types/storeType/search';
 import { UploadState } from '#types/storeType/upload';
 
 export const infoInitialState = {
-  styles: [],
+  // styles: [],
   gender: '',
   height: 0,
   bodyShape: '',

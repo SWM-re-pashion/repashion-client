@@ -6,12 +6,14 @@ import { ReactElement, useState, useCallback } from 'react';
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import ImgBox from '@atoms/ImgBox';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getStyleImgs, useStyleImgs } from 'src/api/getStyleImgs';
+import { getStyleImgs } from 'src/api/preference';
+import { useStyleImgs } from 'src/hooks/api/preference';
 import { useInfoStore } from 'src/store/useInfoStore';
 
 import $ from './style.module.scss';
@@ -19,7 +21,7 @@ import $ from './style.module.scss';
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['styles'], getStyleImgs);
+  await queryClient.prefetchQuery(queryKey.styleImgs, getStyleImgs);
 
   return {
     props: {
@@ -31,6 +33,7 @@ export async function getStaticProps() {
 const skeletonImgBox = Array.from({ length: 20 });
 
 export function StyleInfo() {
+  // TODO: 서비스 고도화 전까지 styles 데이터 주석
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const [errorMsg, setErrorMsg] = useState('');
@@ -38,14 +41,14 @@ export function StyleInfo() {
   const { isLoading, isError, data } = useStyleImgs();
   const styleImgs = data?.data;
 
-  const handleSubmit = () => {
-    if (state.styles.length < 2) {
-      setErrorMsg('이미지를 2개 이상 선택해주세요.');
-    } else {
-      setErrorMsg('');
-      router.push('/info/basic');
-    }
-  };
+  // const handleSubmit = () => {
+  //   if (state.styles.length < 2) {
+  //     setErrorMsg('이미지를 2개 이상 선택해주세요.');
+  //   } else {
+  //     setErrorMsg('');
+  //     router.push('/info/basic');
+  //   }
+  // };
 
   const handleErrorSubmit = () => router.push('/info/basic');
 
@@ -71,7 +74,7 @@ export function StyleInfo() {
               {...{ id, src, alt }}
               key={src + id}
               isNeedClick
-              isSelected={state.styles.includes(id)}
+              // isSelected={state.styles.includes(id)}
               onClick={handleClick}
             />
           ))}
@@ -86,7 +89,10 @@ export function StyleInfo() {
       </section>
 
       {!isError && styleImgs?.styles.length !== 0 ? (
-        <ButtonFooter onClick={handleSubmit} msg={errorMsg}>
+        <ButtonFooter
+          // onClick={handleSubmit}
+          msg={errorMsg}
+        >
           다음
         </ButtonFooter>
       ) : (

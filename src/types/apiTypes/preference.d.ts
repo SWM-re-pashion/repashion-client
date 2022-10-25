@@ -13,13 +13,14 @@ declare namespace res {
 
 declare namespace req {
   type Preference = {
-    styles: number[];
+    // TODO: 서비스 고도화 전까지 styles 데이터 주석
+    // styles: number[];
     gender: string;
     height: number;
     bodyShape: string;
-    topSize: string[];
-    bottomSize: string[];
-    topColor: string[];
-    bottomColor: string[];
+    topSize: string;
+    bottomSize: string;
+    topColors: string;
+    bottomColors: string;
   };
 }

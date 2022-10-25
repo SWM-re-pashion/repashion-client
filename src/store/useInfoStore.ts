@@ -1,10 +1,9 @@
+import { UserInfo } from '#types/info';
+import { InfoState } from '#types/storeType/info';
 import { updateInfo } from 'src/utils';
 import create from 'zustand';
 
 import { infoInitialState } from './constants';
-
-import { UserInfo } from '#types/info';
-import { InfoState } from '#types/storeType/info';
 
 export const useInfoStore = create<InfoState>((set) => ({
   ...infoInitialState,
@@ -16,8 +15,9 @@ export const useInfoStore = create<InfoState>((set) => ({
         type === 'topColors' ||
         type === 'bottomColors';
 
-      if (type === 'styles' && typeof value === 'number')
-        return { [type]: updateInfo<number>(state[type], value) };
+      // TODO: 서비스 고도화 전까지 styles 데이터 주석
+      // if (type === 'styles' && typeof value === 'number')
+      //   return { [type]: updateInfo<number>(state[type], value) };
       if (isStringArr && typeof value === 'string')
         return { [type]: updateInfo<string>(state[type], value) };
       return { [type]: value };

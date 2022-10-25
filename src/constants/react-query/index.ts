@@ -1,4 +1,9 @@
 export const queryKey = {
+  myInfo: ['myInfo'],
+  styleImgs: ['styleImgs'],
+  staticData: (kind: req.StaticType) => {
+    return ['staticData', kind];
+  },
   category: (isExcluded: boolean) => {
     return [isExcluded ? 'excludedCategory' : 'category'];
   },
@@ -14,7 +19,7 @@ export const queryKey = {
   searchingItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
     return ['searchingProductItemList', { ...requestParams }];
   },
-  myInfo: ['myInfo'],
 };
 
-export const DAYTIME = 1000 * 60 * 60 * 24;
+export const QUERY_DAYTIME = 1000 * 60 * 60 * 24;
+export const QUERY_WEEKTIME = 1000 * 60 * 60 * 24 * 7;

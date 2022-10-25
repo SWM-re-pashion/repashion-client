@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
 
+import { ISR_WEEK } from '@constants/api';
 import { queryKey } from '@constants/react-query';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
@@ -21,7 +22,7 @@ export const getStaticProps = withGetServerSideProps(async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 60 * 60 * 24, // 하루
+    revalidate: ISR_WEEK,
   };
 });
 
