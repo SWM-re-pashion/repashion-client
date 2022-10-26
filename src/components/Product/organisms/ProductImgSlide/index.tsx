@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { useCallback } from 'react';
 
 import { ImgProps } from '#types/index';
@@ -15,16 +17,17 @@ type Props = {
 
 function ProductImgSlide(slideProps: Props) {
   const { id, isMe, imgList, isSoldOut } = slideProps;
+  const router = useRouter();
   const { mutate } = useDeleteProduct(id);
+
   const deleteProduct = useCallback(() => mutate(id), [id, mutate]);
   const updateDate = useCallback(
     () => toastError({ message: '준비중입니다.' }),
     [],
   );
-  const updateProduct = useCallback(
-    () => toastError({ message: '준비중입니다.' }),
-    [],
-  );
+  const updateProduct = useCallback(() => {
+    router.push(`/upload/${id}`);
+  }, [id, router]);
   const report = useCallback(
     () => toastError({ message: '준비중입니다.' }),
     [],

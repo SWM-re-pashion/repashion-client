@@ -44,7 +44,6 @@ const judgeValid = (states: UploadState) => {
       tagValid &&
       materialValid &&
       priceValid &&
-      deliveryValid &&
       titleValid &&
       categoryValid &&
       brandValid &&
