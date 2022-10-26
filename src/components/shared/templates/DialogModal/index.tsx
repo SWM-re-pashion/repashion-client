@@ -2,8 +2,10 @@ import { memo } from 'react';
 
 import Button from '@atoms/Button';
 import Span from '@atoms/Span';
+import { URL_REGEX } from '@constants/regExp';
 import { Modal } from '@templates/Modal';
 import classnames from 'classnames';
+import { isSameRegExpCondition } from 'src/utils/regExp';
 
 import $ from './style.module.scss';
 
@@ -14,6 +16,7 @@ type Props = {
   isVerticalBtn?: boolean;
   title?: string;
   content?: string;
+  emphasisContent?: string;
   clickText?: string;
   cancelText?: string;
   onCancel?: () => void;
@@ -22,7 +25,9 @@ type Props = {
 
 function DialogModal(dialogProps: Props) {
   const { id, label, isOpen, isVerticalBtn, onCancel, onClick } = dialogProps;
-  const { title, content, clickText, cancelText } = dialogProps;
+  const { title, content, clickText, cancelText, emphasisContent } =
+    dialogProps;
+  const isUrl = isSameRegExpCondition(URL_REGEX, emphasisContent || '');
 
   return (
     <Modal id={`${id}-dialog-modal`} {...{ isOpen }}>
@@ -32,6 +37,20 @@ function DialogModal(dialogProps: Props) {
       >
         {title && <h2 className={$.title}>{title}</h2>}
         {content && <Span className={$.content}>{content}</Span>}
+
+        {emphasisContent &&
+          (isUrl ? (
+            <a
+              target="_blank"
+              href={emphasisContent}
+              rel="noreferrer"
+              className={$.title}
+            >
+              {emphasisContent}
+            </a>
+          ) : (
+            <h3 className={$.title}>{emphasisContent}</h3>
+          ))}
 
         <div
           className={classnames($['btn-box'], {

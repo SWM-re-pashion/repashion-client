@@ -18,6 +18,9 @@
     margin-bottom: 15px;
     @include typography(18);
     font-weight: 700;
+    &:visited {
+      color: $primary;
+    }
   }
 
   .content {

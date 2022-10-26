@@ -1,6 +1,6 @@
 export const shopDetail = {
   isMe: true,
-  contact: '010-6777-9169',
+  contact: 'https://coding-factory.tistory.com/819',
   isSoldOut: false,
   sellerInfo: {
     profileImg:

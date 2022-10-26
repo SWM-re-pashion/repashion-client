@@ -1,9 +1,12 @@
+import { useState } from 'react';
+
 import { ProductFooterInfo } from '#types/product';
 import type { DefaultProps } from '#types/props';
 import Button from '@atoms/Button';
 import { ClickHeart, SmallHeart, Time, Views } from '@atoms/icon';
 import IconText from '@atoms/IconText';
 import Span from '@atoms/Span';
+import DialogModal from '@templates/DialogModal';
 import classnames from 'classnames';
 import useTimeForToday from 'src/hooks/useTimeForToday';
 
@@ -13,14 +16,14 @@ type Props = {
   footer: ProductFooterInfo;
 } & DefaultProps;
 
-export default function ProductFooter({
-  className,
-  style,
-  children,
-  footer,
-}: Props) {
-  const { price, isIncludeDelivery, updatedAt, like, views } = footer;
+export default function ProductFooter(footerProps: Props) {
+  const { className, style, children, footer } = footerProps;
+  const { price, isIncludeDelivery, updatedAt, like, views, contact } = footer;
   const time = useTimeForToday(updatedAt);
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   const iconData = [
     {
       Icon: Views,
@@ -69,7 +72,20 @@ export default function ProductFooter({
               className={$.price}
             >{`${price.toLocaleString()}원`}</Span>
           </div>
-          <Button className={$['product-btn']}>{children}</Button>
+          <Button className={$['product-btn']} onClick={openModal}>
+            {children}
+          </Button>
+
+          <DialogModal
+            id="contact-modal"
+            label="판매자에게 연락하기 모달"
+            isOpen={isOpen}
+            title="아래 정보를 통해 연락할 수 있습니다."
+            content="현재 채팅 기능 준비중이에요. 서비스 준비 전까지 조금만 기다려주세요."
+            emphasisContent={contact}
+            clickText="닫기"
+            onClick={closeModal}
+          />
         </div>
       </div>
     </footer>
