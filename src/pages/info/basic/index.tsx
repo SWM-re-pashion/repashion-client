@@ -16,6 +16,7 @@ import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
+import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStaticData } from 'src/api/staticData';
 import { useStaticData } from 'src/hooks/api/staticData';
 import { useInfoStore } from 'src/store/useInfoStore';
@@ -24,16 +25,16 @@ import { toastError } from 'src/utils/toaster';
 
 import $ from './style.module.scss';
 
-export async function getStaticProps() {
+export const getStaticProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(queryKey.staticData('Gender'), () =>
+  await queryClient.fetchQuery(queryKey.staticData('Gender'), () =>
     getStaticData('Gender'),
   );
-  await queryClient.prefetchQuery(queryKey.staticData('BodyShape'), () =>
+  await queryClient.fetchQuery(queryKey.staticData('BodyShape'), () =>
     getStaticData('BodyShape'),
   );
-  await queryClient.prefetchQuery(queryKey.staticData('Size'), () =>
+  await queryClient.fetchQuery(queryKey.staticData('Size'), () =>
     getStaticData('Size'),
   );
 
@@ -43,7 +44,7 @@ export async function getStaticProps() {
     },
     revalidate: ISR_WEEK,
   };
-}
+});
 
 export function BasicInfo() {
   const state = useInfoStore((stat) => stat);
@@ -104,7 +105,7 @@ export function BasicInfo() {
         url={`${seoData.url}/info/basic`}
       />
 
-      <InfoPageNum>2/3</InfoPageNum>
+      <InfoPageNum>1/2</InfoPageNum>
       <InfoHeader title="basic">
         성별, 키, 체형 및 사이즈를 알려주세요.
         <br /> 사이즈는 복수 선택도 가능해요.

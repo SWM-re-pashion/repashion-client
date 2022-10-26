@@ -4,6 +4,7 @@ declare namespace res {
     data: {
       isMe: boolean;
       isSoldOut: boolean;
+      contact: string;
       sellerInfo: {
         profileImg: string;
         nickname: string;

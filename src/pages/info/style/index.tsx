@@ -12,23 +12,24 @@ import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
+import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStyleImgs } from 'src/api/preference';
 import { useStyleImgs } from 'src/hooks/api/preference';
 import { useInfoStore } from 'src/store/useInfoStore';
 
 import $ from './style.module.scss';
 
-export async function getStaticProps() {
+export const getStaticProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(queryKey.styleImgs, getStyleImgs);
+  await queryClient.fetchQuery(queryKey.styleImgs, getStyleImgs);
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
   };
-}
+});
 
 const skeletonImgBox = Array.from({ length: 20 });
 

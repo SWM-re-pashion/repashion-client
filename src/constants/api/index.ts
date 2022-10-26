@@ -9,6 +9,7 @@ export const HTTP_METHOD = {
 export const ACCESSTOKEN = 'x-access-token';
 
 export const ACCESSTOKEN_EXPIRED = 'TOKEN_EXPIRED';
+export const USER_NOT_EXISTED = 'USER_NOT_EXISTED';
 
 export const TOKEN_REFRESH = 'api/auth/reissue';
 
