@@ -13,17 +13,17 @@ import $ from './style.module.scss';
 
 type Props = {
   imgList: (ImgProps | string)[];
-  status?: res.ProductStatus;
+  isSoldOut: boolean;
 } & DefaultProps;
 
 export default function ImgSlide(slideProps: Props) {
-  const { children, className, style, imgList, status } = slideProps;
+  const { children, className, style, imgList, isSoldOut } = slideProps;
   const [imgCurrentNo, setImgCurrentNo] = useState(0);
   const [mouseDownClientX, setMouseDownClientX] = useState(0);
   const [mouseUpClientX, setMouseUpClientX] = useState(0);
   const dragRef = useRef<HTMLDivElement>(null);
   const ref = dragRef.current;
-  const isSoldOut = status === 'soldout';
+  // const isSoldOut = status === 'soldout'; // TODO: 추후에 상품 상태 추가
   const currentImgNo = imgCurrentNo + 1;
   const imgListLen = imgList.length;
   useDragScroll(dragRef);

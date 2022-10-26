@@ -11,7 +11,7 @@ export type ProductNoticeInfo = {
   pollution: string;
   height: string;
   length: string;
-  bodyForm: string;
+  bodyShape: string;
   fit: string;
   purchaseTime?: string;
   purchasePlace?: string;
@@ -34,4 +34,5 @@ export type ProductFooterInfo = {
   updatedAt: string;
   like: number;
   views: number;
+  contact: string;
 };

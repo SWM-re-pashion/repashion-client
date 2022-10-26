@@ -27,7 +27,7 @@ export const productNoticeUtil = (notice: ProductNoticeInfo) => {
     pollution,
     height,
     length,
-    bodyForm,
+    bodyShape,
     fit,
     purchaseTime,
     purchasePlace,
@@ -37,7 +37,7 @@ export const productNoticeUtil = (notice: ProductNoticeInfo) => {
     { label: '사용감', desc: condition },
     { label: '오염 여부', desc: pollution },
     { label: '기장', desc: `키 ${height}cm 기준, ${length}까지` },
-    { label: `${bodyForm}체형 기준`, desc: `${fit}핏이에요` },
+    { label: `${bodyShape}체형 기준`, desc: `${fit}핏이에요` },
     { label: '구매시기', desc: purchaseTime },
     { label: '구매처', desc: purchasePlace },
   ];
