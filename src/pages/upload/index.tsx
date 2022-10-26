@@ -9,7 +9,7 @@ import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getCategory } from 'src/api/category';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
-import { useCategoryTree } from 'src/hooks/api/category';
+import { getStaticData } from 'src/api/staticData';
 import { useUploadStore } from 'src/store/upload/useUploadStore';
 import { toastError } from 'src/utils/toaster';
 import { judgeValid } from 'src/utils/upload.utils';
@@ -17,7 +17,27 @@ import { judgeValid } from 'src/utils/upload.utils';
 export const getStaticProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
-
+  await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
+    getStaticData('Style'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Color'), () =>
+    getStaticData('Color'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Size'), () =>
+    getStaticData('Size'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('PollutionCondition'), () =>
+    getStaticData('PollutionCondition'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Length'), () =>
+    getStaticData('Length'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('BodyShape'), () =>
+    getStaticData('BodyShape'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Fit'), () =>
+    getStaticData('Fit'),
+  );
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
@@ -28,7 +48,6 @@ export const getStaticProps = withGetServerSideProps(async () => {
 
 function Upload() {
   const router = useRouter();
-  const categoryData = useCategoryTree(false)?.data;
   const states = useUploadStore((state) => state);
   const { isRemainState } = judgeValid(states);
 
@@ -45,9 +64,7 @@ function Upload() {
     };
   }, [backBtnClick, router.events, router.pathname]);
 
-  return (
-    <UploadTemplate {...{ id: '-1', states, categoryData, isUpdate: false }} />
-  );
+  return <UploadTemplate {...{ id: '-1', states, isUpdate: false }} />;
 }
 
 Upload.getLayout = function getLayout(page: ReactElement) {

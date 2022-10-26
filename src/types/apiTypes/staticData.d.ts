@@ -6,7 +6,8 @@ declare namespace req {
     | 'Length'
     | 'Size'
     | 'Style'
-    | 'BodyShape';
+    | 'BodyShape'
+    | 'PollutionCondition';
 }
 
 declare namespace res {
