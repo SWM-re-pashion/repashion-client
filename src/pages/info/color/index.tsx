@@ -40,8 +40,7 @@ export const getStaticProps = withGetServerSideProps(async () => {
 export function ColorInfo() {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
-  const { isLoading, isError, data, error } =
-    useStaticData<res.KindStaticData>('Color');
+  const { isLoading, data } = useStaticData<res.KindStaticData>('Color');
   const { mutate } = usePostPreference();
   const router = useRouter();
   const colorData = [data?.data.top, data?.data.bottom];

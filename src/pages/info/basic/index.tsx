@@ -51,21 +51,9 @@ export function BasicInfo() {
   const inputRef = useRef<HTMLInputElement>(null);
   const updateInfo = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const router = useRouter();
-  const {
-    isLoading: genderIsLoading,
-    isError: genderIsError,
-    data: genderData,
-  } = useStaticData<res.StaticData>('Gender');
-  const {
-    isLoading: bodyIsLoading,
-    isError: bodyIsError,
-    data: bodyData,
-  } = useStaticData<res.StaticData>('BodyShape');
-  const {
-    isLoading: sizeIsLoading,
-    isError: sizeIsError,
-    data: sizeData,
-  } = useStaticData<res.KindStaticData>('Size');
+  const { data: genderData } = useStaticData<res.StaticData>('Gender');
+  const { data: bodyData } = useStaticData<res.StaticData>('BodyShape');
+  const { data: sizeData } = useStaticData<res.KindStaticData>('Size');
   const restData = [bodyData?.data, sizeData?.data.top, sizeData?.data.bottom];
 
   const heightChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {

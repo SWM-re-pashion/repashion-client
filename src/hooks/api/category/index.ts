@@ -8,7 +8,6 @@ export const useCategoryTree = (isExcluded: boolean) => {
     queryKey.category(isExcluded),
     () => (isExcluded ? getExcludeCategory() : getCategory()),
     {
-      cacheTime: QUERY_DAYTIME,
       staleTime: QUERY_DAYTIME,
       suspense: true,
     },

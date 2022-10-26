@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useCallback } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -26,7 +27,9 @@ export const getServerSideProps = withGetServerSideProps(
     const id = params?.id;
     const paramId = (typeof id !== 'object' && id) || '0';
 
-    await queryClient.fetchQuery(['styles'], () => getProductDetail(paramId));
+    await queryClient.fetchQuery(queryKey.productDetail(paramId), () =>
+      getProductDetail(paramId),
+    );
 
     return {
       props: {
