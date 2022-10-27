@@ -1,9 +1,8 @@
+import { ImgBasicProps } from '#types/index';
+import { UploadStoreState, Measure } from '#types/storeType/upload';
 import { isObjectType, uploadInitialState } from 'src/store/constants';
 import { deepClone, updateInfo } from 'src/utils';
 import { StateCreator } from 'zustand';
-
-import { ImgBasicProps } from '#types/index';
-import { UploadStoreState, Measure } from '#types/storeType/upload';
 
 export type UploadSlice = UploadStoreState;
 
