@@ -17,6 +17,8 @@ export const KAKAO_OAUTH_URL = `${process.env.OAUTH_URL}&client_id=${process.env
 export const GOOGLE_OAUTH_URL = `${process.env.OAUTH_URL}&client_id=${process.env.OAUTH_CLIENT_ID}&redirect_uri=${process.env.OAUTH_REDIRECT_URI}&state=${process.env.OAUTH_STATE}&identity_provider=Google`;
 
 export const ISR_MIN = 60;
+export const ISR_5MIN = 60 * 5;
+export const ISR_10MIN = 60 * 10;
 export const ISR_HOUR = 60 * 60;
 export const ISR_DAY = 60 * 60 * 24;
 export const ISR_WEEK = 60 * 60 * 24 * 7;
