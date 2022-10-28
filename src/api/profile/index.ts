@@ -16,7 +16,7 @@ export const updateMyInfo = async (
   return response;
 };
 
-export const getUserProfile = async (id: string) => {
+export const getUserInfo = async (id: string): Promise<res.Profile> => {
   const response = await Axios.get(`/api/user/${id}`);
   return response;
 };

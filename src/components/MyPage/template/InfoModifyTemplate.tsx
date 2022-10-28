@@ -9,7 +9,7 @@ import InfoArticle from '@molecules/InfoArticle';
 import PageTemplate from '@templates/PageTemplate';
 import ProfileImgUpload from 'src/components/MyPage/organisms/ProfileImgUpload';
 import { useDebounceInput } from 'src/hooks';
-import { useSaveMyInfo } from 'src/hooks/api/profile';
+import { useUpdateMyInfo } from 'src/hooks/api/profile';
 import { useImgPreview } from 'src/hooks/useImgPreview';
 import { toastError } from 'src/utils/toaster';
 
@@ -19,15 +19,15 @@ function InfoModifyTemplate(templateProps: Props) {
   // TODO: 닉네임 중복체크
   const { name, email, profileImage } = templateProps;
   const inputRef = useRef<HTMLInputElement>(null);
-  const { mutate } = useSaveMyInfo();
+  const { mutate } = useUpdateMyInfo();
   const [nickname, setNickName] = useState(name || '');
   const [image, saveImage] = useImgPreview();
-  const [img, setImg] = useState<string | ArrayBuffer>(profileImage || '');
+  const [img, setImg] = useState<string>(profileImage || '');
   const debounceInput = useDebounceInput(setNickName, 300);
 
   useEffect(() => {
     if (image.file && image.preview) {
-      setImg(image.preview);
+      setImg(image.preview as string); // TODO: 타입 단언 제거
     }
   }, [image]);
 
