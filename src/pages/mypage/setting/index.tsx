@@ -8,7 +8,9 @@ import Span from '@atoms/Span';
 import { seoData } from '@constants/seo';
 import Layout from '@templates/Layout';
 import PageTemplate from '@templates/PageTemplate';
+import { logout } from 'src/api/login';
 import SettingMenu from 'src/components/MyPage/molecules/SettingMenu';
+import { toastSuccess } from 'src/utils/toaster';
 
 function Setting() {
   const router = useRouter();
@@ -24,23 +26,27 @@ function Setting() {
       onClick: () => router.push('/info/basic'),
     },
     {
-      text: '오픈소스 라이브러리',
+      text: '개인정보 처리방침',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
+      onClick: () => toastSuccess({ message: '준비중입니다.' }),
     },
     {
       text: '서비스 이용약관',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
+      onClick: () => toastSuccess({ message: '준비중입니다.' }),
     },
     {
       text: '앱 버전',
-      icon: <Span color="#936dff">v0.8.1</Span>,
+      icon: <Span color="#936dff">v0.9.7</Span>,
     },
     {
       text: '로그아웃',
+      onClick: () => logout(),
     },
     {
       text: '회원탈퇴',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
+      onClick: () => toastSuccess({ message: '준비중입니다.' }),
     },
   ];
 
