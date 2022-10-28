@@ -9,6 +9,7 @@ import Span from '@atoms/Span';
 import DialogModal from '@templates/DialogModal';
 import classnames from 'classnames';
 import useTimeForToday from 'src/hooks/useTimeForToday';
+import { toastSuccess } from 'src/utils/toaster';
 
 import $ from './style.module.scss';
 
@@ -23,6 +24,8 @@ export default function ProductFooter(footerProps: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+  const handleClickLike = () =>
+    toastSuccess({ message: '좋아요 기능 준비중입니다.' });
 
   const iconData = [
     {
@@ -62,7 +65,10 @@ export default function ProductFooter(footerProps: Props) {
         </div>
 
         <div className={$['attractive-box']}>
-          <ClickHeart />
+          <Button iconBtn onClick={handleClickLike}>
+            <ClickHeart />
+          </Button>
+
           <div className={$['price-box']}>
             <Span color="#9E9E9E" className={$.delivery}>
               {isIncludeDelivery ? '배송비 포함' : '배송비 제외'}

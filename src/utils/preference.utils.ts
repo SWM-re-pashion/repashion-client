@@ -9,7 +9,7 @@ export const refinePreferenceData = (state: InfoState): req.Preference => {
   const { topSize, bottomSize, topColors, bottomColors } = rest;
 
   return {
-    ...state,
+    ...rest,
     topSize: arrToString(topSize),
     bottomSize: arrToString(bottomSize),
     topColors: removeBlank(arrToString(topColors)),
