@@ -3,7 +3,8 @@ declare namespace res {
     status: number;
     data: {
       isMe: boolean;
-      status: string;
+      isSoldOut: boolean;
+      contact: string;
       sellerInfo: {
         profileImg: string;
         nickname: string;
@@ -21,7 +22,7 @@ declare namespace res {
         pollution: string;
         height: string;
         length: string;
-        bodyForm: string;
+        bodyShape: string;
         fit: string;
         purchaseTime: string;
         purchasePlace: string;
@@ -44,5 +45,5 @@ declare namespace res {
       views: number;
     };
   };
-  type ProductStatus = 'soldout' | 'sale' | 'reserve';
+  type ProductStatus = 'soldout' | 'sale' | 'reserve'; // TODO: 추후에 상품 상태 추가
 }

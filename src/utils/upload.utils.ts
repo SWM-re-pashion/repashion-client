@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { UploadState, UploadStoreState } from '#types/storeType/upload';
+import { imageList } from 'src/components/Upload/organisms/ImgUpload/utils';
 import { uploadInitialState } from 'src/store/constants';
 
 import { arrToString } from './arrToString';
@@ -43,7 +44,6 @@ const judgeValid = (states: UploadState) => {
       tagValid &&
       materialValid &&
       priceValid &&
-      deliveryValid &&
       titleValid &&
       categoryValid &&
       brandValid &&
@@ -75,14 +75,14 @@ const refineUploadData = (data: UploadStoreState): req.UploadData => {
     ...rest,
     imgList: imgList.map(({ src }) => src),
     basicInfo: {
-      ...basicInfo,
+      title: basicInfo.title,
+      brand: basicInfo.brand,
       category: basicInfo.category[basicInfo.category.length - 1],
     },
     style: {
       ...style,
       color: arrToString(style.color),
     },
-    measureType: rest.measureType?.toUpperCase() || null,
     measure: Object.entries(measure).reduce((acc, [key, value]) => {
       if (typeof value === 'number')
         return {
@@ -107,7 +107,7 @@ const uploadedDataToState = (
   return {
     ...uploadInitialState,
     ...data.data,
-    imgList: imgList.map((img, id) => ({ id: id + 1, src: img })),
+    imgList: imageList(imgList),
     basicInfo: {
       ...basicInfo,
       category: [gender, main, category],
@@ -117,7 +117,6 @@ const uploadedDataToState = (
       ...style,
       color: style.color.split('/'),
     },
-    measureType: data.data.measureType?.toLowerCase() || null,
   };
 };
 

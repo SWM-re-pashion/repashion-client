@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { useCallback } from 'react';
 
 import { ImgProps } from '#types/index';
@@ -9,22 +11,23 @@ import { toastError } from 'src/utils/toaster';
 type Props = {
   id: string;
   isMe: boolean;
-  status: res.ProductStatus;
+  isSoldOut: boolean;
   imgList: (ImgProps | string)[];
 };
 
 function ProductImgSlide(slideProps: Props) {
-  const { id, isMe, imgList, status } = slideProps;
+  const { id, isMe, imgList, isSoldOut } = slideProps;
+  const router = useRouter();
   const { mutate } = useDeleteProduct(id);
+
   const deleteProduct = useCallback(() => mutate(id), [id, mutate]);
   const updateDate = useCallback(
     () => toastError({ message: '준비중입니다.' }),
     [],
   );
-  const updateProduct = useCallback(
-    () => toastError({ message: '준비중입니다.' }),
-    [],
-  );
+  const updateProduct = useCallback(() => {
+    router.push(`/upload/${id}`);
+  }, [id, router]);
   const report = useCallback(
     () => toastError({ message: '준비중입니다.' }),
     [],
@@ -41,7 +44,7 @@ function ProductImgSlide(slideProps: Props) {
   const options = isMe ? myMoreMenu : notMyMoreMenu;
 
   return (
-    <ImgSlide {...{ status }} imgList={imgList}>
+    <ImgSlide {...{ isSoldOut }} imgList={imgList}>
       <ImgSlideTools options={options} />
     </ImgSlide>
   );

@@ -13,6 +13,7 @@ import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
+import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStaticData } from 'src/api/staticData';
 import { usePostPreference } from 'src/hooks/api/preference';
 import { useStaticData } from 'src/hooks/api/staticData';
@@ -21,10 +22,10 @@ import { refinePreferenceData } from 'src/utils/preference.utils';
 
 import $ from './style.module.scss';
 
-export async function getStaticProps() {
+export const getStaticProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(queryKey.staticData('Color'), () =>
+  await queryClient.fetchQuery(queryKey.staticData('Color'), () =>
     getStaticData('Color'),
   );
 
@@ -34,13 +35,12 @@ export async function getStaticProps() {
     },
     revalidate: ISR_WEEK,
   };
-}
+});
 
 export function ColorInfo() {
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
-  const { isLoading, isError, data, error } =
-    useStaticData<res.KindStaticData>('Color');
+  const { isLoading, data } = useStaticData<res.KindStaticData>('Color');
   const { mutate } = usePostPreference();
   const router = useRouter();
   const colorData = [data?.data.top, data?.data.bottom];
@@ -59,7 +59,7 @@ export function ColorInfo() {
         url={`${seoData.url}/info/color`}
       />
 
-      <InfoPageNum>3/3</InfoPageNum>
+      <InfoPageNum>2/2</InfoPageNum>
 
       <InfoHeader title="color">
         선호하는 컬러를 알려주세요.

@@ -42,12 +42,13 @@ function ImgBox({
       style={{ ...style }}
       role="button"
       tabIndex={0}
-      onClick={() => {
-        if (id && isNeedClick && onClick) onClick(id, 'styles');
-      }}
-      onKeyPress={() => {
-        if (id && isNeedClick && onClick) onClick(id, 'styles');
-      }}
+      // TODO: 서비스 고도화 전까지 styles 데이터 주석
+      // onClick={() => {
+      //   if (id && isNeedClick && onClick) onClick(id, 'styles');
+      // }}
+      // onKeyPress={() => {
+      //   if (id && isNeedClick && onClick) onClick(id, 'styles');
+      // }}
       aria-label={`${alt} 이미지 박스`}
       ref={boxRef}
     >

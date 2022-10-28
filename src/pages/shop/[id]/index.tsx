@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useCallback } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Profile from '@molecules/Profile';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -26,7 +27,9 @@ export const getServerSideProps = withGetServerSideProps(
     const id = params?.id;
     const paramId = (typeof id !== 'object' && id) || '0';
 
-    await queryClient.fetchQuery(['styles'], () => getProductDetail(paramId));
+    await queryClient.fetchQuery(queryKey.productDetail(paramId), () =>
+      getProductDetail(paramId),
+    );
 
     return {
       props: {
@@ -45,10 +48,10 @@ function ShopDetail({ id }: { id: string }) {
   const detailData = data?.data;
 
   if (detailData) {
-    const { isMe, sellerInfo, basic, sellerNotice, measure } = detailData;
-    const { opinion, price, isIncludeDelivery, updatedAt, like, views } =
-      detailData;
-    const status = 'soldout'; // TODO: 백엔드와 협의
+    const { isMe, isSoldOut, sellerInfo, basic, sellerNotice } = detailData;
+    const { measure, opinion, price, isIncludeDelivery } = detailData;
+    const { updatedAt, like, views, contact } = detailData;
+    // const status = 'soldout'; // TODO: 백엔드와 협의, 추후에 상품 상태 추가
     addProduct({ id: +id, img: sellerInfo.image[0] });
 
     return (
@@ -60,7 +63,7 @@ function ShopDetail({ id }: { id: string }) {
 
         <Layout noPadding className={$['shop-detail-layout']}>
           <ProductImgSlide
-            {...{ id, isMe, status, imgList: sellerInfo.image }}
+            {...{ id, isMe, isSoldOut, imgList: sellerInfo.image }}
           />
           <Profile profile={sellerInfo} />
           <section className={$['shop-detail-info']}>
@@ -74,7 +77,8 @@ function ShopDetail({ id }: { id: string }) {
             )}
             <ProductFooter
               footer={{
-                ...{ price, isIncludeDelivery, updatedAt, like, views },
+                ...{ price, isIncludeDelivery, updatedAt },
+                ...{ like, views, contact },
               }}
             >
               연락하기

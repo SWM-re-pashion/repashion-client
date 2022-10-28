@@ -1,24 +1,17 @@
 export const shopDetail = {
   isMe: true,
+  contact: 'https://coding-factory.tistory.com/819',
+  isSoldOut: false,
   sellerInfo: {
     profileImg:
       'https://images.unsplash.com/photo-1618588507085-c79565432917?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwbmF0dXJlfGVufDB8fDB8fA%3D%3D&w=1000&q=80',
     nickname: '사용자128',
+    image: [
+      'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
+      'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
+      'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
+    ],
   },
-  image: [
-    {
-      src: 'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
-      alt: '이미지12',
-    },
-    {
-      src: 'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
-      alt: '이미지23',
-    },
-    {
-      src: 'https://user-images.githubusercontent.com/62797441/180398288-76213583-0128-429e-bb1c-672a281e56dd.png',
-      alt: '이미지34',
-    },
-  ],
   basic: {
     title: '스투시 프린팅 티셔츠',
     classification: '상의/탑',
@@ -31,7 +24,7 @@ export const shopDetail = {
     pollution: '외관상 안 보임',
     height: '170',
     length: '엉덩이',
-    bodyForm: '보통',
+    bodyShape: '보통',
     fit: '루즈',
     purchaseTime: '작년 9월',
     purchasePlace: '스투시 온라인 매장',
