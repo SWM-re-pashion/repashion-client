@@ -11,7 +11,7 @@ export const getAccessToken = () => {
   return getCookie(ACCESSTOKEN) || '';
 };
 
-export const logout = () => {
+export const deleteAccessToken = () => {
   deleteCookie(ACCESSTOKEN);
 };
 
