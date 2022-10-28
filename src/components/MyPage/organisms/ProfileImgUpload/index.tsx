@@ -3,7 +3,6 @@ import React from 'react';
 import { Camera } from '@atoms/icon/Camera';
 import InputFile from '@atoms/InputFile';
 import InputLabel from '@atoms/InputLabel';
-import LoadingSpinner from '@atoms/LoadingSpinner';
 import ProfileImg from '@atoms/ProfileImg';
 
 import $ from './style.module.scss';
@@ -25,7 +24,6 @@ function ProfileImgUpload(uploadProps: Props) {
       onClick={onUploadClick}
       onKeyDown={onUploadClick}
     >
-      {/* <LoadingSpinner width={50} borderWidth={3} color="#876bf6" /> */}
       <ProfileImg
         width={180}
         height={180}
