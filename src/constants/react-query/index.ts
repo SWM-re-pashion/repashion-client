@@ -1,6 +1,9 @@
 export const queryKey = {
   myInfo: ['myInfo'],
   styleImgs: ['styleImgs'],
+  userInfo: (id: string) => {
+    return ['userInfo', id];
+  },
   staticData: (kind: req.StaticType) => {
     return ['staticData', kind];
   },
