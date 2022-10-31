@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { queryKey } from '@constants/react-query';
 import { isAxiosError } from 'src/api/core/error';
 import { deleteProductDetail, getProductDetail } from 'src/api/product';
@@ -14,8 +16,10 @@ export function useProdutDetail(id: string) {
 }
 
 export function useDeleteProduct(id: string) {
+  const router = useRouter();
   const response = useCoreMutation(deleteProductDetail, {
     onSuccess: () => {
+      router.back();
       queryClient.removeQueries(queryKey.productDetail(id));
       queryClient.invalidateQueries(['productItemList']);
       toastSuccess({ message: '상품을 삭제했습니다.' });

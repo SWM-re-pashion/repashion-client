@@ -8,6 +8,6 @@ export const getProductDetail = async (
 };
 
 export const deleteProductDetail = async (id: string) => {
-  const response = await Axios.delete(`/api/product/delete/${id}`);
+  const response = await Axios.delete(`/api/product/${id}`);
   return response;
 };
