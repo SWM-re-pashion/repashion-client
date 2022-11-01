@@ -6,6 +6,7 @@ declare namespace res {
       isSoldOut: boolean;
       contact: string;
       sellerInfo: {
+        userId: number;
         profileImg: string;
         nickname: string;
         image: string[];

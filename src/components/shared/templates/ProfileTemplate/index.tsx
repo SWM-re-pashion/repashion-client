@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import BackBtn from '@atoms/BackBtn';
 import { Setting } from '@atoms/icon';
 import Span from '@atoms/Span';
 import { seoData } from '@constants/seo';
@@ -12,7 +13,7 @@ import { useQueryRouter, useSearch } from 'src/hooks';
 import $ from './style.module.scss';
 
 type Props = {
-  status: string;
+  status?: string;
   isMe: boolean;
   profile: {
     profileImg: string;
@@ -35,6 +36,7 @@ function ProfileTemplate(profileProps: Props) {
       metaTitle="re:Fashion | 마이 페이지"
       metaUrl={`${seoData.url}/mypage`}
       title={`${isMe ? '내' : profile.nickname} 프로필`}
+      left={<BackBtn color="#000" />}
       right={
         isMe && (
           <Link href="/mypage/setting">

@@ -15,8 +15,11 @@ export const TOKEN_REFRESH = 'api/auth/reissue';
 
 export const KAKAO_OAUTH_URL = `${process.env.OAUTH_URL}&client_id=${process.env.OAUTH_CLIENT_ID}&redirect_uri=${process.env.OAUTH_REDIRECT_URI}&state=${process.env.OAUTH_STATE}&identity_provider=kakao`;
 export const GOOGLE_OAUTH_URL = `${process.env.OAUTH_URL}&client_id=${process.env.OAUTH_CLIENT_ID}&redirect_uri=${process.env.OAUTH_REDIRECT_URI}&state=${process.env.OAUTH_STATE}&identity_provider=Google`;
+export const LOGOUT_URL = `${process.env.OAUTH_LOGOUT_URL}&client_id=${process.env.LOGOUT_CLIENT_ID}&redirect_uri=${process.env.LOGOUT_REDIRECT_URI}&state=${process.env.OAUTH_STATE}&scope=openid+profile+aws.cognito.signin.user.admin`;
 
 export const ISR_MIN = 60;
+export const ISR_5MIN = 60 * 5;
+export const ISR_10MIN = 60 * 10;
 export const ISR_HOUR = 60 * 60;
 export const ISR_DAY = 60 * 60 * 24;
 export const ISR_WEEK = 60 * 60 * 24 * 7;

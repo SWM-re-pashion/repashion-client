@@ -39,6 +39,8 @@ export const useProductUpload = () => {
   return useCoreMutation(postProduct, {
     onSuccess: ({ data }) => {
       router.push(`/shop/${data}`);
+      queryClient.invalidateQueries(queryKey.productDetail(`${data}`));
+      queryClient.invalidateQueries(['productItemList']);
       clearUpload();
       toastSuccess({ message: '상품 등록에 성공했습니다.' });
     },
