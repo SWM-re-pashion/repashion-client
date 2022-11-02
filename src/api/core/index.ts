@@ -1,10 +1,5 @@
 /* eslint-disable no-param-reassign */
-import {
-  ACCESSTOKEN,
-  ACCESSTOKEN_EXPIRED,
-  HTTP_METHOD,
-  TOKEN_REFRESH,
-} from '@constants/api';
+import { ACCESSTOKEN, ACCESSTOKEN_EXPIRED, HTTP_METHOD } from '@constants/api';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -19,7 +14,7 @@ import ErrorInterceptor from './errorInterceptor';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
-  timeout: 3000,
+  timeout: 5000,
   withCredentials: true,
   headers: {
     'Content-type': 'application/json',
@@ -29,7 +24,7 @@ export const axiosInstance = axios.create({
 
 const AiAxios = axios.create({
   baseURL: process.env.AI_API_URL,
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     'Content-type': 'multipart/form-data',
   },
@@ -50,7 +45,9 @@ const handleResponse = <T>(response: AxiosResponse<T>) => {
 
 export const refreshAccessToken = async (err: AxiosError) => {
   try {
-    const response = await axiosInstance.get<res.reissue>(TOKEN_REFRESH);
+    const response = await axiosInstance.get<res.reissue>(
+      `${process.env.CLIENT_URL}api/refresh`,
+    );
     const {
       data: { accessToken },
     } = response.data;

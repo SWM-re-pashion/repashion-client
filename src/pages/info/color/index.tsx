@@ -13,7 +13,6 @@ import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStaticData } from 'src/api/staticData';
 import { usePostPreference } from 'src/hooks/api/preference';
 import { useStaticData } from 'src/hooks/api/staticData';

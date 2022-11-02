@@ -12,7 +12,6 @@ import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStyleImgs } from 'src/api/preference';
 import { useStyleImgs } from 'src/hooks/api/preference';
 import { useInfoStore } from 'src/store/useInfoStore';
