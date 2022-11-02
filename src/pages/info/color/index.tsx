@@ -22,7 +22,7 @@ import { refinePreferenceData } from 'src/utils/preference.utils';
 
 import $ from './style.module.scss';
 
-export const getStaticProps = withGetServerSideProps(async () => {
+export const getStaticProps = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.fetchQuery(queryKey.staticData('Color'), () =>
@@ -35,7 +35,7 @@ export const getStaticProps = withGetServerSideProps(async () => {
     },
     revalidate: ISR_WEEK,
   };
-});
+};
 
 export function ColorInfo() {
   const state = useInfoStore((stat) => stat);

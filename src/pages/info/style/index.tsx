@@ -19,17 +19,17 @@ import { useInfoStore } from 'src/store/useInfoStore';
 
 import $ from './style.module.scss';
 
-export const getStaticProps = withGetServerSideProps(async () => {
-  const queryClient = new QueryClient();
+// export const getStaticProps = async () => {
+//   const queryClient = new QueryClient();
 
-  await queryClient.fetchQuery(queryKey.styleImgs, getStyleImgs);
+//   await queryClient.fetchQuery(queryKey.styleImgs, getStyleImgs);
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-});
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   };
+// };
 
 const skeletonImgBox = Array.from({ length: 20 });
 

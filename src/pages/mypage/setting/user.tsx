@@ -9,7 +9,7 @@ import { getMyInfo } from 'src/api/profile';
 import InfoModifyTemplate from 'src/components/MyPage/template/InfoModifyTemplate';
 import { useMyInfo } from 'src/hooks/api/profile';
 
-export const getStaticProps = withGetServerSideProps(async () => {
+export const getServerSideProps = withGetServerSideProps(async () => {
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(queryKey.myInfo, () => getMyInfo());
 
@@ -17,7 +17,6 @@ export const getStaticProps = withGetServerSideProps(async () => {
     props: {
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
-    revalidate: ISR_5MIN,
   };
 });
 

@@ -14,7 +14,7 @@ import { useUploadStore } from 'src/store/upload/useUploadStore';
 import { toastError } from 'src/utils/toaster';
 import { judgeValid } from 'src/utils/upload.utils';
 
-export const getStaticProps = withGetServerSideProps(async () => {
+export const getStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
   await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
@@ -44,7 +44,7 @@ export const getStaticProps = withGetServerSideProps(async () => {
     },
     revalidate: ISR_WEEK,
   };
-});
+};
 
 function Upload() {
   const router = useRouter();
