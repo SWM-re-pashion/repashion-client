@@ -9,8 +9,8 @@ import $ from './style.module.scss';
 export default function ProfileImg({
   className,
   style,
-  width = 44,
-  height = 44,
+  width = 36,
+  height = 36,
   src,
   alt,
 }: DefaultProps & ImgProps) {
