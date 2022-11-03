@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 
 import { ImgList } from '#types/storeType/upload';
+import { recognitionResult } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Loading from '@atoms/Loading';
 import classnames from 'classnames';
 import ImgCard from 'src/components/Upload/molecules/ImgCard';
 import ImgUploadBtn from 'src/components/Upload/molecules/ImgUploadBtn';
 
-import ImgResultModal, { recognitionResult } from '../ImgResultModal';
+import ImgResultModal from '../ImgResultModal';
 import $ from './style.module.scss';
 
 type Props = {
