@@ -2,15 +2,15 @@ import { orderData } from '..';
 
 export const queries: readonly (keyof Omit<req.ShopFeed, 'page' | 'size'>)[] = [
   'category',
-  'hide_sold',
+  'hideSold',
   'order',
   'style',
-  'price_goe',
-  'price_loe',
+  'priceGoe',
+  'priceLoe',
   'color',
   'fit',
   'length',
-  'clothes_size',
+  'clothesSize',
 ];
 
 export const queryData: [keyof Omit<req.ShopFeed, 'page' | 'size'>, string?][] =
@@ -21,7 +21,7 @@ export const queryData: [keyof Omit<req.ShopFeed, 'page' | 'size'>, string?][] =
 export const searchQueries: readonly (keyof Omit<
   req.ShopFeed,
   'page' | 'size'
->)[] = ['value', 'hide_sold', 'order'];
+>)[] = ['value', 'hideSold', 'order'];
 
 export const searchQueryData: [
   keyof Omit<req.ShopFeed, 'page' | 'size'>,

@@ -8,7 +8,6 @@ import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getCategory } from 'src/api/category';
-import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStaticData } from 'src/api/staticData';
 import { useUploadStore } from 'src/store/upload/useUploadStore';
 import { toastError } from 'src/utils/toaster';

@@ -22,7 +22,7 @@ function SearchHeader(headerProps: Props) {
   );
   const valueQuery = useQueryRouter('value');
   const replaceValueQuery = useQueryRouter('value', 'REPLACE');
-  const queryHideSold = useQueryRouter('hide_sold', 'REPLACE');
+  const queryHideSold = useQueryRouter('hideSold', 'REPLACE');
   const queryOrder = useQueryRouter('order', 'REPLACE');
   const searchQuery = searchWord ? replaceValueQuery : valueQuery;
 

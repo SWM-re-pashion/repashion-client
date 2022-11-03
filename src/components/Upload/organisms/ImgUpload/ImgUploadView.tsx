@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 
 import { ImgList } from '#types/storeType/upload';
+import { recognitionResult } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Loading from '@atoms/Loading';
 import classnames from 'classnames';
 import ImgCard from 'src/components/Upload/molecules/ImgCard';
 import ImgUploadBtn from 'src/components/Upload/molecules/ImgUploadBtn';
 
-import ImgResultModal, { ImgResult } from '../ImgResultModal';
+import ImgResultModal from '../ImgResultModal';
 import $ from './style.module.scss';
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
   uploadRef: React.RefObject<HTMLDivElement>;
   inputRef: React.RefObject<HTMLInputElement>;
   state: ImgList[];
-  imgResult: ImgResult;
+  imgResult: recognitionResult;
   onUploadClick: () => void;
   onUploadImg: (e: React.ChangeEvent) => void;
   remove: (removeId: number) => void;
@@ -52,7 +53,7 @@ function ImgUploadView(viewProps: Props) {
           />
         </>
       )}
-      <ImgResultModal resultType={imgResult} {...{ isLoading }} />
+      <ImgResultModal result={imgResult} {...{ isLoading }} />
     </article>
   );
 }

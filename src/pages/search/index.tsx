@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { GetServerSidePropsContext } from 'next';
 
 import { ReactElement } from 'react';
@@ -20,8 +19,8 @@ import { getQueriesArr, getQueryStringObj } from 'src/utils';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ query }: GetServerSidePropsContext) => {
-    const { value, hide_sold, order } = query;
-    const queryArr = [value, hide_sold, order];
+    const { value, hideSold, order } = query;
+    const queryArr = [value, hideSold, order];
 
     const queryObj = getQueriesArr(searchQueryData, queryArr);
     const queryStringObj = getQueryStringObj(queryObj);
@@ -49,7 +48,7 @@ export const getServerSideProps = withGetServerSideProps(
 
 function SearchPage() {
   const queryStringObj = useMultipleSearch(searchQueryData, searchQueries);
-  const { value, hide_sold, order } = queryStringObj;
+  const { value, hideSold, order } = queryStringObj;
 
   const isMounted = useMounted();
 
@@ -65,7 +64,7 @@ function SearchPage() {
       <SearchHeader
         {...{
           searchWord: value,
-          hideSoldQuery: hide_sold,
+          hideSoldQuery: hideSold,
           orderQuery: order,
         }}
       />

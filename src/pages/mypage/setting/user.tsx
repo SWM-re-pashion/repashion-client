@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import { ISR_5MIN } from '@constants/api';
 import { queryKey } from '@constants/react-query';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';

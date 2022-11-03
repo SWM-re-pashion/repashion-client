@@ -66,6 +66,7 @@ function InfoModifyTemplate(templateProps: Props) {
       left={<BackBtn color="#000" />}
       isNeedFooter={false}
       paddingTop="88px"
+      paddingBottom="110px"
       sidePadding="24px"
     >
       <ProfileImgUpload

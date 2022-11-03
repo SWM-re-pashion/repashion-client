@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { GetServerSidePropsContext } from 'next';
 
 import { ReactElement } from 'react';
@@ -23,10 +22,10 @@ import { judgeCategoryId } from 'src/utils/shop.utils';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ query }: GetServerSidePropsContext) => {
-    const { category, hide_sold, order, style } = query;
-    const { price_goe, price_loe, color, fit, length, clothes_size } = query;
-    const arr1 = [category, hide_sold, order, style]; // TODO: obj로 변경
-    const arr2 = [price_goe, price_loe, color, fit, length, clothes_size];
+    const { category, hideSold, order, style } = query;
+    const { priceGoe, priceLoe, color, fit, length, clothesSize } = query;
+    const arr1 = [category, hideSold, order, style]; // TODO: obj로 변경
+    const arr2 = [priceGoe, priceLoe, color, fit, length, clothesSize];
     const queryArr = [...arr1, ...arr2];
 
     const queryObj = getQueriesArr(queryData, queryArr);
@@ -58,7 +57,7 @@ export const getServerSideProps = withGetServerSideProps(
 function Shop() {
   const data = useCategoryTree(false)?.data;
   const queryObj = useMultipleSearch(queryData, queries);
-  const { category, hide_sold, order } = queryObj;
+  const { category, hideSold, order } = queryObj;
 
   if (!data) return null;
 
@@ -82,7 +81,7 @@ function Shop() {
     genderQuery,
     categoryQuery,
     orderQuery: order,
-    hideSoldQuery: hide_sold,
+    hideSoldQuery: hideSold,
     genderSelectMenu,
     selectData,
     breadCrumb,

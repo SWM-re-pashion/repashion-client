@@ -31,7 +31,7 @@ export default function Profile(profileProps: Props) {
         className={$['profile-box']}
         onClick={handleProfileClick}
       >
-        <ProfileImg src={profileImg} alt={nickname} />
+        <ProfileImg src={profileImg} alt={nickname} width={44} height={44} />
         <span className={$.nickname}>{nickname}</span>
       </button>
     </div>

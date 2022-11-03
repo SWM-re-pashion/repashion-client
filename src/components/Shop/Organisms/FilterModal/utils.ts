@@ -18,12 +18,12 @@ export type btnBox = btnTemplateBox<
 
 type FilterElement = {
   style: string;
-  price_goe: string;
-  price_loe: string;
+  priceGoe: string;
+  priceLoe: string;
   color: string;
   fit: string;
   length: string;
-  clothes_size: string;
+  clothesSize: string;
 };
 
 const commonProps: btnBox[] = [
@@ -85,12 +85,12 @@ export const getFilterElement = (
   const { style, price, color, fit, length, clothesSize } = states;
   const common = {
     style: style.join(','),
-    price_goe: Math.min(...price).toString(),
-    price_loe: Math.max(...price).toString(),
+    priceGoe: Math.min(...price).toString(),
+    priceLoe: Math.max(...price).toString(),
     color: '',
     fit: '',
     length: '',
-    clothes_size: '',
+    clothesSize: '',
   };
 
   if (category === 'all') return common;
@@ -99,7 +99,7 @@ export const getFilterElement = (
     color: color[category].join(','),
     fit: fit[category].join(','),
     length: length[category].join(','),
-    clothes_size: clothesSize[category].join(','),
+    clothesSize: clothesSize[category].join(','),
   };
 };
 

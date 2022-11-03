@@ -15,7 +15,7 @@ type Props = {
   isOpen: boolean;
   isVerticalBtn?: boolean;
   title?: string;
-  content?: string;
+  content?: string | JSX.Element;
   emphasisContent?: string;
   clickText?: string;
   cancelText?: string;
