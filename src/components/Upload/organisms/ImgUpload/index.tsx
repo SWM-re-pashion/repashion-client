@@ -11,7 +11,7 @@ import { useImgUpload } from 'src/hooks/api/upload';
 import useDragScroll from 'src/hooks/useDragScroll';
 import { toastError } from 'src/utils/toaster';
 
-import { ImgResult } from '../ImgResultModal';
+import { recognitionResult } from '../ImgResultModal';
 import ImgUploadView from './ImgUploadView';
 import { imageList } from './utils';
 
@@ -28,7 +28,7 @@ type Props = {
 function ImgUpload(imgProps: Props) {
   const { onChange, imgUpload, removeImg, updateArr } = imgProps;
   const { state, isImgValid, categoryData } = imgProps;
-  const [imgResult, setImgResult] = useState<ImgResult | null>(null);
+  const [imgResult, setImgResult] = useState<recognitionResult>({});
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
   const { isLoading, mutate } = useImgUpload();
@@ -56,19 +56,29 @@ function ImgUpload(imgProps: Props) {
           });
           mutate(formData, {
             onSuccess: ({ error, attribute, image }) => {
+              const images = imageList(image);
+              if (image.length) imgUpload(images);
+              if (error) {
+                if (image.length) setImgResult({ state: 'failed' });
+                else setImgResult({ state: 'error' });
+                return;
+              }
               const { style: tag, material, color } = attribute;
               const { gender, mainCategory, subCategory } = attribute;
               const nameArr = [gender, mainCategory, subCategory];
-              const images = imageList(image);
+              const category = `${gender} > ${mainCategory} > ${subCategory}`;
               const categoryIds = getCategoryIds(categoryData, nameArr);
-              setImgResult(error ? 'error' : 'success');
-              imgUpload(images);
-              if (!error) {
-                updateArr(categoryIds, 'basicInfo', 'category');
-                updateArr(color, 'style', 'color');
-                onChange(tag, 'style', 'tag');
-                onChange(material, 'style', 'material');
-              }
+              setImgResult({
+                state: 'success',
+                category,
+                tag,
+                color: color.join(', '),
+                material,
+              });
+              updateArr(categoryIds, 'basicInfo', 'category');
+              updateArr(color, 'style', 'color');
+              onChange(tag, 'style', 'tag');
+              onChange(material, 'style', 'material');
             },
           });
         }
