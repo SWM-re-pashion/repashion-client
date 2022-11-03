@@ -23,7 +23,7 @@ function ShopHeader(headerProps: Props) {
   const pushCtgr = useQueryRouter('category');
   const replaceCtgr = useQueryRouter('category', 'REPLACE');
   const queryOrder = useQueryRouter('order', 'REPLACE');
-  const queryHideSold = useQueryRouter('hide_sold', 'REPLACE');
+  const queryHideSold = useQueryRouter('hideSold', 'REPLACE');
   const { categoryQuery, orderQuery, hideSoldQuery } = headerProps;
   const { genderSelectMenu, selectData } = headerProps;
   const { genderQuery, breadCrumb } = headerProps;
