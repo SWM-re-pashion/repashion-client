@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 
-import { postAuthToken } from 'src/api/login';
+import { postAuthToken, authTest } from 'src/api/login';
 import { setAccessToken } from 'src/utils/auth';
 import { toastError, toastSuccess } from 'src/utils/toaster';
 
-import { useCoreMutation } from '../core';
+import { useCoreMutation, useCoreQuery } from '../core';
 
 export const usePostAuthToken = () => {
   const router = useRouter();
@@ -19,6 +19,17 @@ export const usePostAuthToken = () => {
     },
     onError: () => {
       router.back();
+      toastError({ message: '다시 로그인해주세요.' });
+    },
+  });
+};
+
+export const useAuthTest = () => {
+  const router = useRouter();
+  return useCoreQuery(['auth-test'], () => authTest(), {
+    retry: false,
+    onError: () => {
+      router.push('/login');
       toastError({ message: '다시 로그인해주세요.' });
     },
   });
