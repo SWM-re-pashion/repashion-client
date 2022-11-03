@@ -1,14 +1,10 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 
+import { recognitionResult } from '#types/upload';
 import DialogModal from '@templates/DialogModal';
 
-export type recognitionResult = {
-  state?: 'success' | 'failed' | 'error';
-  category?: string;
-  tag?: string;
-  color?: string;
-  material?: string;
-};
+import FailText from '../../atoms/FailText';
+import SuccessText from '../../atoms/SuccessText';
 
 type Props = {
   isLoading: boolean;
@@ -23,10 +19,12 @@ function ImgResultModal(modalProps: Props) {
     state === 'failed' ? '실패' : '성공'
   }했습니다.`;
 
-  const failText =
-    '이미지 인식에 성공하는 경우 스타일 정보(태그, 컬러, 소재) 아이템 기본 정보(카테고리)를 자동으로 채워줍니다.\n\n이미지 인식을 원하는 경우 다른 사진을 올려주세요. 혹은 입력 항목을 직접 수정해주세요.';
-  const successText = `스타일 정보(태그: ${tag}, 컬러: ${color}, 소재: ${material})\n 아이템 기본 정보(카테고리: ${category})가 성공적으로 인식되었습니다.\n\n인식 결과가 예상과 다르다면 입력 항목을 직접 수정해주세요.`;
-  const contentText = state === 'success' ? successText : failText;
+  const contentText =
+    state === 'success' ? (
+      <SuccessText {...{ tag, color, material, category }} />
+    ) : (
+      <FailText />
+    );
 
   useEffect(() => {
     if (!isLoading && state && state !== 'error') setDialogOpen(true);
