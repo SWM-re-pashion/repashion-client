@@ -1,5 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { ACCESSTOKEN, ACCESSTOKEN_EXPIRED, HTTP_METHOD } from '@constants/api';
+import {
+  ACCESSTOKEN,
+  ACCESSTOKEN_EXPIRED,
+  HTTP_METHOD,
+  TOKEN_REFRESH,
+} from '@constants/api';
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -45,9 +50,7 @@ const handleResponse = <T>(response: AxiosResponse<T>) => {
 
 export const refreshAccessToken = async (err: AxiosError) => {
   try {
-    const response = await axiosInstance.get<res.reissue>(
-      `${process.env.CLIENT_URL}api/refresh`,
-    );
+    const response = await axiosInstance.get<res.reissue>(TOKEN_REFRESH);
     const {
       data: { accessToken },
     } = response.data;
