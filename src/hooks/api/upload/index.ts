@@ -56,7 +56,7 @@ export const useProductUpload = () => {
 export function useUpdateProduct(id: string) {
   const response = useCoreMutation(updateProductDetail, {
     onSuccess: ({ data }) => {
-      router.push(`/shop/${data}`);
+      router.replace(`/shop/${data}`);
       queryClient.invalidateQueries(queryKey.productDetail(id));
       queryClient.invalidateQueries(['productItemList']);
       toastSuccess({ message: '상품을 수정했습니다.' });

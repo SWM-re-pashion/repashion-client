@@ -4,6 +4,7 @@ import { ReactElement, useCallback, ChangeEvent, useRef } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import Loading from '@atoms/Loading';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
 import { ISR_WEEK } from '@constants/api';
@@ -17,6 +18,7 @@ import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getStaticData } from 'src/api/staticData';
+import { useAuthTest } from 'src/hooks/api/login';
 import { useStaticData } from 'src/hooks/api/staticData';
 import { useInfoStore } from 'src/store/useInfoStore';
 import { filterHeight } from 'src/utils/filterValue';
@@ -46,6 +48,7 @@ export const getStaticProps = async () => {
 };
 
 export function BasicInfo() {
+  const { isSuccess } = useAuthTest();
   const state = useInfoStore((stat) => stat);
   const inputRef = useRef<HTMLInputElement>(null);
   const updateInfo = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
@@ -85,6 +88,8 @@ export function BasicInfo() {
     router,
   ]);
 
+  if (!isSuccess)
+    return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;
   return (
     <>
       <HeadMeta
