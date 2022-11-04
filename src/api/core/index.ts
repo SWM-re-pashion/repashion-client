@@ -4,7 +4,6 @@ import setInterceptors from './interceptors';
 
 const AiAxios = axios.create({
   baseURL: process.env.AI_API_URL,
-  timeout: 20000,
   headers: {
     'Content-type': 'multipart/form-data',
   },

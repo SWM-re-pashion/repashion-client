@@ -26,8 +26,8 @@ export const useImgUpload = () => {
         toastError({ message: '이미지 인식을 실패했습니다.' });
       }
     },
-    onError: () => {
-      toastError({ message: '이미지 업로드를 실패했습니다.' });
+    onSettled: (_, err) => {
+      if (err) toastError({ message: '이미지 업로드를 실패했습니다.' });
     },
   });
 };
@@ -44,7 +44,7 @@ export const useProductUpload = () => {
       clearUpload();
       toastSuccess({ message: '상품 등록에 성공했습니다.' });
     },
-    onError: (err) => {
+    onSettled: (_, err) => {
       if (isAxiosError<res.error>(err) && !!err.response) {
         const { message } = err.response.data;
         toastError({ message });
@@ -61,7 +61,7 @@ export function useUpdateProduct(id: string) {
       queryClient.invalidateQueries(['productItemList']);
       toastSuccess({ message: '상품을 수정했습니다.' });
     },
-    onError: (err) => {
+    onSettled: (_, err) => {
       if (isAxiosError<res.error>(err) && !!err.response) {
         const { message } = err.response.data;
         toastError({ message });
@@ -72,7 +72,15 @@ export function useUpdateProduct(id: string) {
 }
 
 export const useUploadedProduct = (id: string) => {
-  return useCoreQuery(queryKey.uploadedProduct(id), () =>
-    getUploadedProduct(id),
+  return useCoreQuery(
+    queryKey.uploadedProduct(id),
+    () => getUploadedProduct(id),
+    {
+      onSettled: (_, err) => {
+        if (isAxiosError<res.error>(err) && err.response) {
+          toastError({ message: err.response.data.message });
+        }
+      },
+    },
   );
 };

@@ -17,20 +17,15 @@ export const usePostAuthToken = () => {
       if (hasPreference) router.push('/shop');
       else router.push('/info/basic');
     },
-    onError: () => {
-      router.back();
-      toastError({ message: '다시 로그인해주세요.' });
+    onSettled: (_, error) => {
+      if (error) {
+        router.back();
+        toastError({ message: '다시 로그인해주세요.' });
+      }
     },
   });
 };
 
 export const useAuthTest = () => {
-  const router = useRouter();
-  return useCoreQuery(['auth-test'], () => authTest(), {
-    retry: false,
-    onError: () => {
-      router.push('/login');
-      toastError({ message: '다시 로그인해주세요.' });
-    },
-  });
+  return useCoreQuery(['auth-test'], () => authTest(), {});
 };
