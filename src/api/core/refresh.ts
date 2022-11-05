@@ -23,6 +23,7 @@ export const refreshAccessToken = async (
     const res = await instance.request(err.config);
     return Promise.resolve(res.data);
   } catch (error) {
+    console.log(error);
     throw new ForbiddenError(403);
   }
 };

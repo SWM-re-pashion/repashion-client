@@ -27,5 +27,8 @@ export const usePostAuthToken = () => {
 };
 
 export const useAuthTest = () => {
-  return useCoreQuery(['auth-test'], () => authTest(), {});
+  return useCoreQuery(['auth-test'], () => authTest(), {
+    staleTime: 0,
+    cacheTime: 0,
+  });
 };
