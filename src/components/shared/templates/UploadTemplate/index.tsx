@@ -39,7 +39,7 @@ function UploadTemplate({ id, isUpdate, states }: Props) {
   const isMounted = useMounted();
   const { mutate } = useProductUpload();
   const { mutate: updateMutate } = useUpdateProduct(id);
-  const categoryData = useCategoryTree(false)?.data;
+  const categoryData = useCategoryTree(true)?.data;
   const { data: styles } = useStaticData<res.StaticData>('Style');
   const { data: bodyShapes } = useStaticData<res.StaticData>('BodyShape');
   const { data: pol } = useStaticData<res.StaticData>('PollutionCondition');

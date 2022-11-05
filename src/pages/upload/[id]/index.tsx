@@ -8,7 +8,7 @@ import { queryKey } from '@constants/react-query';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
-import { getCategory } from 'src/api/category';
+import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
@@ -24,7 +24,9 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const id = params?.id as string;
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
+  await queryClient.fetchQuery(queryKey.category(true), () =>
+    getSelectedCategory(true),
+  );
   await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
     getStaticData('Style'),
   );

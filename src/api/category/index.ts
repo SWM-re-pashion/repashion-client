@@ -1,12 +1,11 @@
 import { Axios } from 'src/api/core';
 
-export const getCategory = async (): Promise<res.CategoryTree> => {
-  const response = await Axios.get('/api/category/v3');
-  return response;
-};
-
-export const getExcludeCategory = async (): Promise<res.CategoryTree> => {
-  const response = await Axios.get('/api/category/exclude');
+export const getSelectedCategory = async (
+  isExcluded: boolean,
+): Promise<res.CategoryTree> => {
+  const response = await Axios.get(
+    `/api/category/v3${isExcluded ? '/exclude' : ''}`,
+  );
   return response;
 };
 
