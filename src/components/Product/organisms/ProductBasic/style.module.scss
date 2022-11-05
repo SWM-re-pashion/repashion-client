@@ -18,4 +18,27 @@
     }
     color: $gray-550;
   }
+  .product-status {
+    @include border(border, 5px, $gray-280);
+    width: 80px;
+    height: fit-content;
+    margin-left: 20px;
+    padding: 5px 10px;
+    text-align: center;
+  }
+  .sale {
+    border-color: $second;
+    background-color: rgba($second, 0.5);
+    color: $second-font-color;
+  }
+  .soldout {
+    border-color: $third;
+    background-color: rgba($third, 0.7);
+    color: $white;
+  }
+  .reserved {
+    border-color: $primary;
+    background-color: rgba($primary, 0.8);
+    color: $white;
+  }
 }

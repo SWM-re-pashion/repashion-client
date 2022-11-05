@@ -1,6 +1,9 @@
 import { ProductBasicInfo } from '#types/product';
 import { StyleProps } from '#types/props';
+import Span from '@atoms/Span';
 import SelectBox from '@molecules/SelectBox';
+import classnames from 'classnames';
+import { useUpdateProductStatus } from 'src/hooks/api/product';
 import { productBasicUtil } from 'src/utils/product';
 import { replace } from 'src/utils/replace';
 
@@ -8,12 +11,16 @@ import ProductCell from '../../atoms/ProductCell';
 import $ from './style.module.scss';
 
 type Props = {
+  id: string;
   basic: ProductBasicInfo;
+  isMe: boolean;
   isSoldOut: boolean;
 } & StyleProps;
 
-export default function ProductBasic({ basic, isSoldOut }: Props) {
+export default function ProductBasic({ id, basic, isMe, isSoldOut }: Props) {
   const { title, classification } = basic;
+  const { mutate } = useUpdateProductStatus(id);
+  const handleStatusChange = (option: string) => mutate(id); // TODO: 추후에 판매 상태 추가 후 option param 활용
   const datas = productBasicUtil(basic);
   const saleStatus = isSoldOut ? '판매완료' : '판매중';
 
@@ -26,15 +33,28 @@ export default function ProductBasic({ basic, isSoldOut }: Props) {
             {replace(classification, '/', ' > ')}
           </span>
         </div>
-        <SelectBox
-          options={['판매중', '판매완료']}
-          selected={saleStatus}
-          name="sale-status"
-          width="110px"
-          height="24px"
-          fontSize={14}
-          fontWeight={700}
-        />
+        {isMe ? (
+          <SelectBox
+            onQueryChange={handleStatusChange}
+            options={['판매중', '판매완료']}
+            selected={saleStatus}
+            name="sale-status"
+            width="110px"
+            height="24px"
+            fontSize={14}
+            fontWeight={700}
+          />
+        ) : (
+          <Span
+            fontSize={14}
+            className={classnames($['product-status'], {
+              [$.soldout]: isSoldOut,
+              [$.sale]: !isSoldOut,
+            })}
+          >
+            {saleStatus}
+          </Span>
+        )}
       </header>
 
       <article>
