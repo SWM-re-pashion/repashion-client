@@ -1,5 +1,7 @@
 .product-header {
+  display: flex;
   margin-bottom: 19px;
+  justify-content: space-between;
   .product-title {
     font-weight: 700;
     @include typography(24);
