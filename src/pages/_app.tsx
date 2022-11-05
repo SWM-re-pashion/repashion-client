@@ -13,7 +13,7 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '../styles/globals.scss';
-import { axiosInstance } from 'src/api/core';
+import { Axios } from 'src/api/core';
 import { useMounted, useWindowResize } from 'src/hooks';
 import { getSSRAccessToken } from 'src/utils/auth';
 
@@ -28,6 +28,7 @@ type AppPropsWithLayout = AppProps & {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      retry: false,
       staleTime: 3 * 60 * 1000,
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -77,10 +78,10 @@ MyApp.getInitialProps = async (context: AppContext) => {
   let pageProps = {};
   const cookie = ctx.req?.headers.cookie || '';
   const token = getSSRAccessToken(ctx);
-  axiosInstance.defaults.headers.Cookie = '';
-  axiosInstance.defaults.headers[ACCESSTOKEN] = token;
+  Axios.defaults.headers.Cookie = '';
+  Axios.defaults.headers[ACCESSTOKEN] = token;
   if (ctx.req && cookie) {
-    axiosInstance.defaults.headers.Cookie = cookie;
+    Axios.defaults.headers.Cookie = cookie;
   }
 
   if (Component.getInitialProps) {

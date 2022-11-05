@@ -4,6 +4,7 @@ import { ReactElement, useCallback, useEffect } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import Loading from '@atoms/Loading';
 import { ISR_WEEK } from '@constants/api';
 import { colorBtnProps } from '@constants/colorInfo/constants';
 import { queryKey } from '@constants/react-query';
@@ -14,6 +15,7 @@ import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getStaticData } from 'src/api/staticData';
+import { useAuthTest } from 'src/hooks/api/login';
 import { usePostPreference } from 'src/hooks/api/preference';
 import { useStaticData } from 'src/hooks/api/staticData';
 import { useInfoStore } from 'src/store/useInfoStore';
@@ -37,6 +39,7 @@ export const getStaticProps = async () => {
 };
 
 export function ColorInfo() {
+  const { isSuccess } = useAuthTest();
   const state = useInfoStore((stat) => stat);
   const handleClick = useInfoStore(useCallback((stat) => stat.infoUpdate, []));
   const { isLoading, data } = useStaticData<res.KindStaticData>('Color');
@@ -51,6 +54,8 @@ export function ColorInfo() {
 
   const handleSubmit = () => mutate(refinePreferenceData(state));
 
+  if (!isSuccess)
+    return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;
   return (
     <>
       <HeadMeta

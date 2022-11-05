@@ -23,8 +23,8 @@ export function useUpdateMyInfo() {
       toastSuccess({ message: '성공적으로 업데이트했습니다.' });
       router.replace('/mypage');
     },
-    onError: () => {
-      toastError({ message: '업데이트에 실패했습니다.' });
+    onSettled: (_, err) => {
+      if (err) toastError({ message: '업데이트에 실패했습니다.' });
     },
   });
 }

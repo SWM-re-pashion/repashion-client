@@ -24,7 +24,7 @@ export function useDeleteProduct(id: string) {
       queryClient.invalidateQueries(['productItemList']);
       toastSuccess({ message: '상품을 삭제했습니다.' });
     },
-    onError: (err) => {
+    onSettled: (_, err) => {
       if (isAxiosError<res.error>(err) && !!err.response) {
         const { message } = err.response.data;
         toastError({ message });

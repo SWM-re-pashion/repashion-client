@@ -21,3 +21,8 @@ export const logout = async () => {
     return err;
   }
 };
+
+export const authTest = async () => {
+  const response = await Axios.get('/auth-testing');
+  return response;
+};

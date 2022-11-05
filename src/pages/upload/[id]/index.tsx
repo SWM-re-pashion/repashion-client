@@ -1,78 +1,50 @@
+import { GetStaticPropsContext } from 'next';
+
 import { ReactElement, useCallback, useEffect } from 'react';
 
-import { queryKey, QUERY_WEEKTIME } from '@constants/react-query';
+import Loading from '@atoms/Loading';
+import { ISR_WEEK } from '@constants/api';
+import { queryKey } from '@constants/react-query';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getCategory } from 'src/api/category';
-import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getStaticData } from 'src/api/staticData';
-import { getUploadedProduct } from 'src/api/upload';
 import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
 import { uploadedDataToState } from 'src/utils/upload.utils';
 
-export const getServerSideProps = withGetServerSideProps(async ({ params }) => {
+export const getStaticPaths = async () => {
+  const paths = Array.from({ length: 10 }, (_, i) => ({
+    params: { id: `${i + 1}` },
+  }));
+  return { paths, fallback: true };
+};
+
+export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const id = params?.id as string;
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(queryKey.category(false), () => getCategory(), {
-    staleTime: QUERY_WEEKTIME,
-  });
-  await queryClient.fetchQuery(
-    queryKey.staticData('Style'),
-    () => getStaticData('Style'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
+  await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
+    getStaticData('Style'),
   );
-  await queryClient.fetchQuery(
-    queryKey.staticData('Color'),
-    () => getStaticData('Color'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.staticData('Color'), () =>
+    getStaticData('Color'),
   );
-  await queryClient.fetchQuery(
-    queryKey.staticData('Size'),
-    () => getStaticData('Size'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.staticData('Size'), () =>
+    getStaticData('Size'),
   );
-  await queryClient.fetchQuery(
-    queryKey.staticData('PollutionCondition'),
-    () => getStaticData('PollutionCondition'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.staticData('PollutionCondition'), () =>
+    getStaticData('PollutionCondition'),
   );
-  await queryClient.fetchQuery(
-    queryKey.staticData('Length'),
-    () => getStaticData('Length'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.staticData('Length'), () =>
+    getStaticData('Length'),
   );
-  await queryClient.fetchQuery(
-    queryKey.staticData('BodyShape'),
-    () => getStaticData('BodyShape'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.staticData('BodyShape'), () =>
+    getStaticData('BodyShape'),
   );
-  await queryClient.fetchQuery(
-    queryKey.staticData('Fit'),
-    () => getStaticData('Fit'),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
-  );
-  await queryClient.fetchQuery(
-    queryKey.uploadedProduct(id),
-    () => getUploadedProduct(id),
-    {
-      staleTime: QUERY_WEEKTIME,
-    },
+  await queryClient.fetchQuery(queryKey.staticData('Fit'), () =>
+    getStaticData('Fit'),
   );
 
   return {
@@ -80,21 +52,23 @@ export const getServerSideProps = withGetServerSideProps(async ({ params }) => {
       id,
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: ISR_WEEK,
   };
-});
+};
 
 function UploadUpdate({ id }: { id: string }) {
-  const { data } = useUploadedProduct(id);
+  const { data, isSuccess } = useUploadedProduct(id);
   const states = useUploadUpdateStore((state) => state);
   const { initState } = states;
   const initUploads = useCallback(initState, [initState]);
   const state = uploadedDataToState(data);
 
   useEffect(() => {
-    if (state) initUploads(state);
-  }, []);
+    if (data && state) initUploads(state);
+  }, [data]);
 
-  return <UploadTemplate {...{ id, states, isUpdate: true }} />;
+  if (isSuccess) return <UploadTemplate {...{ id, states, isUpdate: true }} />;
+  return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;
 }
 
 UploadUpdate.getLayout = function getLayout(page: ReactElement) {
