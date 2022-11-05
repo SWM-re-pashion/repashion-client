@@ -27,7 +27,7 @@ export default function ProductBasic({ id, basic, isMe, isSoldOut }: Props) {
   return (
     <>
       <header className={$['product-header']}>
-        <div>
+        <div className={$['product-title-box']}>
           <h1 className={$['product-title']}>{title}</h1>
           <span className={$['product-category']}>
             {replace(classification, '/', ' > ')}
@@ -39,7 +39,7 @@ export default function ProductBasic({ id, basic, isMe, isSoldOut }: Props) {
             options={['판매중', '판매완료']}
             selected={saleStatus}
             name="sale-status"
-            width="110px"
+            width="100px"
             height="24px"
             fontSize={14}
             fontWeight={700}
@@ -48,8 +48,8 @@ export default function ProductBasic({ id, basic, isMe, isSoldOut }: Props) {
           <Span
             fontSize={14}
             className={classnames($['product-status'], {
-              [$.soldout]: isSoldOut,
-              [$.sale]: !isSoldOut,
+              [$.soldout]: saleStatus === '판매완료',
+              [$.sale]: saleStatus === '판매중',
             })}
           >
             {saleStatus}

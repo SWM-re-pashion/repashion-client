@@ -78,7 +78,7 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
         <Span
           fontSize={fontSize || 16}
           fontWeight={fontWeight || 400}
-          className={classnames({
+          className={classnames($.text, {
             [$['gender-text']]: isGender,
           })}
         >
