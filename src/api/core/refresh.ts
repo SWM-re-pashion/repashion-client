@@ -14,6 +14,7 @@ export const refreshAccessToken = async (
     const {
       data: { accessToken },
     } = response.data;
+    console.log(accessToken);
     if (err.config.headers) {
       err.config.headers[ACCESSTOKEN] = accessToken;
     }

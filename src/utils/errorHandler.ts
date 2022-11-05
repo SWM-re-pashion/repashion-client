@@ -16,7 +16,11 @@ export function errorHandler(err: AxiosError, router: NextRouter) {
     if (status === 401 || (isStatus403 && !isTokenExpired))
       toastError({ message: '다시 로그인해주세요.' });
     if (redirectUrl) {
-      if (isStatus403 && isTokenExpired) return;
+      if (isStatus403 && isTokenExpired) {
+        console.log('is 403 && TokenExpired');
+        return;
+      }
+      console.log('is Not 403 && TokenExpired');
       router.replace(redirectUrl);
     }
   }
