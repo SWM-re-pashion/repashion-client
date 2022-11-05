@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { NextRouter } from 'next/router';
 
 import { ACCESSTOKEN_EXPIRED } from '@constants/api';
@@ -9,12 +8,15 @@ import { toastError } from 'src/utils/toaster';
 export function errorHandler(err: AxiosError, router: NextRouter) {
   if (isInstanceOfAPIError(err)) {
     const { redirectUrl, notFound, status, code } = err;
+    const isStatus403 = status === 403;
+    const isTokenExpired = code === ACCESSTOKEN_EXPIRED;
     if (notFound) {
-      return router.replace('/404');
+      router.replace('/404');
     }
-    if (status === 401 || (status === 403 && code !== ACCESSTOKEN_EXPIRED))
+    if (status === 401 || (isStatus403 && !isTokenExpired))
       toastError({ message: '다시 로그인해주세요.' });
     if (redirectUrl) {
+      if (isStatus403 && isTokenExpired) return;
       router.replace(redirectUrl);
     }
   }
