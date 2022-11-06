@@ -30,7 +30,7 @@ export const queryClient = new QueryClient({
     queries: {
       retry: false,
       staleTime: 3 * 60 * 1000,
-      refetchOnMount: false,
+      refetchOnMount: true,
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
     },
