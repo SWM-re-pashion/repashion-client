@@ -53,6 +53,7 @@ const nextConfig = {
     OAUTH_LOGOUT_URL: process.env.OAUTH_LOGOUT_URL,
     LOGOUT_REDIRECT_URI: process.env.LOGOUT_REDIRECT_URI,
     LOGOUT_CLIENT_ID: process.env.LOGOUT_CLIENT_ID,
+    GA_ID: process.env.GA_ID,
   },
   images: {
     domains: [
