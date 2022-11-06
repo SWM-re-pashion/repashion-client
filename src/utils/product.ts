@@ -7,7 +7,15 @@ import { Skirt, OnePiece, Pants, Top } from '@atoms/icon';
 
 import { replace } from './replace';
 
-export const productBasicUtil = (basic: ProductBasicInfo) => {
+export type ProductBasicDataProp = {
+  label: string;
+  desc: string;
+  isBottom?: boolean;
+};
+
+export const productBasicUtil = (
+  basic: ProductBasicInfo,
+): ProductBasicDataProp[] => {
   const { brand, productInfo, styleInfo } = basic;
 
   return [

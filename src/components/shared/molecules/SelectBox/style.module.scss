@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   background-color: $white;
+  white-space: nowrap;
   @include border(border, 5px, $gray-280);
   &,
   button {
@@ -95,6 +96,10 @@
   path {
     stroke: $primary;
   }
+}
+
+.text {
+  margin-right: 5px;
 }
 
 .arrow {

@@ -1,12 +1,12 @@
 import { QUERY_DAYTIME, queryKey } from '@constants/react-query';
-import { getCategory, getExcludeCategory } from 'src/api/category';
+import { getSelectedCategory } from 'src/api/category';
 
 import { useCoreQuery } from '../core';
 
 export const useCategoryTree = (isExcluded: boolean) => {
   const response = useCoreQuery(
     queryKey.category(isExcluded),
-    () => (isExcluded ? getExcludeCategory() : getCategory()),
+    () => getSelectedCategory(isExcluded),
     {
       staleTime: QUERY_DAYTIME,
       suspense: true,

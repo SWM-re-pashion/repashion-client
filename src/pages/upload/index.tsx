@@ -8,7 +8,7 @@ import { queryKey } from '@constants/react-query';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
-import { getCategory } from 'src/api/category';
+import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import { useAuthTest } from 'src/hooks/api/login';
 import { useUploadStore } from 'src/store/upload/useUploadStore';
@@ -17,7 +17,9 @@ import { judgeValid } from 'src/utils/upload.utils';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
+  await queryClient.fetchQuery(queryKey.category(true), () =>
+    getSelectedCategory(true),
+  );
   await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
     getStaticData('Style'),
   );

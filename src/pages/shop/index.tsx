@@ -9,7 +9,11 @@ import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
-import { getBreadcrumb, getCategory, getCategoryTree } from 'src/api/category';
+import {
+  getBreadcrumb,
+  getCategoryTree,
+  getSelectedCategory,
+} from 'src/api/category';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getInfiniteProducts, getProductItemList } from 'src/api/shop';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
@@ -33,7 +37,9 @@ export const getServerSideProps = withGetServerSideProps(
 
     const queryClient = new QueryClient();
 
-    await queryClient.fetchQuery(queryKey.category(false), () => getCategory());
+    await queryClient.fetchQuery(queryKey.category(false), () =>
+      getSelectedCategory(false),
+    );
     await queryClient.fetchInfiniteQuery(
       queryKey.productItemList(queryStringObj),
       getInfiniteProducts({ queryStringObj, apiFunc: getProductItemList }),

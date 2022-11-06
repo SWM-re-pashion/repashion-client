@@ -67,7 +67,7 @@ function ShopDetail({ id }: { id: string }) {
           />
           <Profile profile={sellerInfo} needDetail />
           <section className={$['shop-detail-info']}>
-            <ProductBasic basic={basic} />
+            <ProductBasic basic={basic} {...{ id, isMe, isSoldOut }} />
             <ProductNotice sellerNotice={sellerNotice} />
             {measure && (
               <ProductSize size={measure} kind={basic.classification} />

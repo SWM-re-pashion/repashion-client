@@ -36,3 +36,5 @@ export type ProductFooterInfo = {
   views: number;
   contact: string;
 };
+
+export type SaleStatusDataProp = '판매완료' | '판매중' | '예약중';

@@ -32,12 +32,12 @@ function Footer() {
       label: 'search',
       href: '/search',
     },
-    {
-      id: 3,
-      icon: Chat,
-      label: 'chat',
-      href: '/chat',
-    },
+    // {
+    //   id: 3,
+    //   icon: Chat,
+    //   label: 'chat',
+    //   href: '',
+    // },
     {
       id: 4,
       icon: MyPage,
