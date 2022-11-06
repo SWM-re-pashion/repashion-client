@@ -1,0 +1,23 @@
+.contact-page {
+  height: calc(var(--vh, 1vh) * 100 - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin-bottom: 30px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.chat-btn {
+  margin-bottom: 30px;
+  padding: 10px 30px;
+  background-color: $primary;
+  a {
+    text-decoration: none;
+    color: $white;
+  }
+}

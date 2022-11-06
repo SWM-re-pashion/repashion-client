@@ -16,6 +16,11 @@ function Setting() {
   const router = useRouter();
   const settingData = [
     {
+      text: '1:1 문의하기',
+      icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
+      onClick: () => router.push('/mypage/setting/contact'),
+    },
+    {
       text: '계정 설정',
       icon: <SelectArrow style={{ transform: 'rotate(270deg)' }} />,
       onClick: () => router.push('/mypage/setting/user'),
