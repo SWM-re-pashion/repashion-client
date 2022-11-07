@@ -2,7 +2,7 @@
 source ~/.bash_profile
 
 cd ~/repashion-client/
-git pull origin dev
+git pull origin main
 yarn build
 pm2 stop refashion-app
 pm2 start yarn --name "refashion-app" -- start
