@@ -14,6 +14,7 @@ const moduleExports = {
 
 const sentryWebpackPluginOptions = {
   silent: true,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
 };
 
 const nextConfig = {
@@ -50,6 +51,7 @@ const nextConfig = {
     OAUTH_SCOPE: process.env.OAUTH_SCOPE,
     CLIENT_URL: process.env.CLIENT_URL,
     SENTRY_DSN: process.env.SENTRY_DSN,
+    SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     OAUTH_LOGOUT_URL: process.env.OAUTH_LOGOUT_URL,
     LOGOUT_REDIRECT_URI: process.env.LOGOUT_REDIRECT_URI,
     LOGOUT_CLIENT_ID: process.env.LOGOUT_CLIENT_ID,
