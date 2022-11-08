@@ -1,11 +1,14 @@
 import Link from 'next/link';
 
 import BackBtn from '@atoms/BackBtn';
+import ErrorFallback from '@atoms/ErrorFallback';
 import { Setting } from '@atoms/icon';
 import Span from '@atoms/Span';
 import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
+import AsyncBoundary from '@templates/AsyncBoundary';
 import PageTemplate from '@templates/PageTemplate';
+import ProfileSkeleton from '@templates/Skeleton/Profile';
 import StatusMenuList from 'src/components/MyPage/organisms/StatusMenuList';
 import UserProfile from 'src/components/MyPage/organisms/UserProfile';
 import { useQueryRouter, useSearch } from 'src/hooks';
@@ -55,7 +58,12 @@ function ProfileTemplate(profileProps: Props) {
       paddingTop="84px"
       sidePadding="23px"
     >
-      <UserProfile userId={id} />
+      <AsyncBoundary
+        suspenseFallback={<ProfileSkeleton />}
+        errorFallback={ErrorFallback}
+      >
+        <UserProfile userId={id} />
+      </AsyncBoundary>
 
       <StatusMenuList
         data={statusData}
