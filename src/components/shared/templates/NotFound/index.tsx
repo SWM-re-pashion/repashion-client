@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import HeadMeta from '@atoms/HeadMeta';
+import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 
 import $ from './style.module.scss';
 
@@ -19,6 +20,8 @@ function NotFound() {
             alt="404 Not Found"
             width="400"
             height="220"
+            placeholder="blur"
+            blurDataURL={IMAGE_BLUR_DATA_URL}
           />
         </div>
         <button type="button" className={$['go-back']} onClick={handleClick}>

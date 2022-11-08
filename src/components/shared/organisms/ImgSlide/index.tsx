@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ImgProps } from '#types/index';
 import type { DefaultProps } from '#types/props';
+import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 import InfoPageNum from '@molecules/InfoPageNum';
 import classnames from 'classnames';
 import SoldoutBox from 'src/components/Shop/molecules/SoldoutBox';
@@ -104,7 +105,13 @@ export default function ImgSlide(slideProps: Props) {
                 aria-roledescription="slide"
                 aria-label={`${imgListLen}개의 이미지 중 ${imgCurrentNo}번째 이미지`}
               >
-                <Image {...{ src, alt }} layout="fill" priority />
+                <Image
+                  {...{ src, alt }}
+                  placeholder="blur"
+                  blurDataURL={IMAGE_BLUR_DATA_URL}
+                  layout="fill"
+                  priority
+                />
               </li>
             );
           })}
