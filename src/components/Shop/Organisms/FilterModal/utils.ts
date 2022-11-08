@@ -5,15 +5,20 @@ import {
   FilterType,
   FilterState,
 } from '#types/storeType/filter';
-import { bottomSizes } from '@constants/basic';
-import { colorsData, topSizes } from '@constants/index';
-import { fitsData, lengthsData, stylesData } from '@constants/style';
 
 export type btnBox = btnTemplateBox<
   keyof Omit<FilterState, 'price'>,
   keyof ClothesCategory
 > & {
   datas: (string | DefaultData)[];
+};
+
+type FilterDatas = {
+  styles?: res.StaticData;
+  colors?: res.KindStaticData;
+  sizes?: res.KindStaticData;
+  fits?: res.KindStaticData;
+  lengths?: res.KindStaticData;
 };
 
 type FilterElement = {
@@ -26,50 +31,55 @@ type FilterElement = {
   clothesSize: string;
 };
 
-const commonProps: btnBox[] = [
+const commonProps = (styles: FilterDatas['styles']): btnBox[] => [
   {
     label: '스타일',
     type: 'style',
-    datas: stylesData,
+    datas: styles?.data || [],
     noCheckColor: true,
   },
 ];
 
-export const filterData = (category: FilterType): btnBox[] => {
+export const filterData = (
+  category: FilterType,
+  datas: FilterDatas,
+): btnBox[] => {
+  const { styles, colors, sizes, fits, lengths } = datas;
+  const commonData = commonProps(styles);
   const categoryCondition = category === 'top' ? 'top' : 'bottom';
   switch (category) {
     case 'all':
-      return [...commonProps];
+      return [...commonData];
     case 'top':
     case 'bottom':
       return [
-        ...commonProps,
+        ...commonData,
         {
           label: '컬러',
           type: 'color',
           subType: categoryCondition,
           isColor: true,
-          datas: colorsData,
+          datas: colors?.data.top || [],
         },
         {
           label: '핏',
           type: 'fit',
           subType: categoryCondition,
-          datas: fitsData[categoryCondition],
+          datas: fits?.data[categoryCondition] || [],
           noCheckColor: true,
         },
         {
           label: '기장',
           type: 'length',
           subType: categoryCondition,
-          datas: lengthsData[categoryCondition],
+          datas: lengths?.data[categoryCondition] || [],
           noCheckColor: true,
         },
         {
           label: '사이즈',
           type: 'clothesSize',
           subType: categoryCondition,
-          datas: category === 'top' ? topSizes : bottomSizes,
+          datas: sizes?.data[category === 'top' ? 'top' : 'bottom'] || [],
           noCheckColor: true,
         },
       ];

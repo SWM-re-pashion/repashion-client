@@ -5,9 +5,12 @@ import { useState } from 'react';
 import { FilterType } from '#types/storeType/filter';
 import BackBtn from '@atoms/BackBtn';
 import Button from '@atoms/Button';
+import ErrorFallback from '@atoms/ErrorFallback';
 import { Filter, Search } from '@atoms/icon';
 import Span from '@atoms/Span';
 import SelectBox from '@molecules/SelectBox';
+import AsyncBoundary from '@templates/AsyncBoundary';
+import FilterSkeleton from '@templates/Skeleton/Filter';
 import FilterModal from 'src/components/Shop/Organisms/FilterModal';
 
 import $ from './style.module.scss';
@@ -68,19 +71,24 @@ function HeaderTool(headerProps: Props) {
           </button>
         </Link>
 
-        <Button
-          iconBtn
-          label="상품 필터 버튼"
-          className={$.btn}
-          onClick={openFilterModal}
+        <AsyncBoundary
+          suspenseFallback={<FilterSkeleton />}
+          errorFallback={ErrorFallback}
         >
-          <Filter />
-        </Button>
-        <FilterModal
-          {...{ mainCategory }}
-          isOpen={filterOpen}
-          onClose={closeFilterModal}
-        />
+          <Button
+            iconBtn
+            label="상품 필터 버튼"
+            className={$.btn}
+            onClick={openFilterModal}
+          >
+            <Filter fill="#C9B6FF" stroke="#936DFF" />
+          </Button>
+          <FilterModal
+            {...{ mainCategory }}
+            isOpen={filterOpen}
+            onClose={closeFilterModal}
+          />
+        </AsyncBoundary>
       </section>
     </section>
   );

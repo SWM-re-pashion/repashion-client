@@ -1,10 +1,8 @@
-import { GetServerSidePropsContext } from 'next';
-
 import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
 import { queries, queryData } from '@constants/queryString';
-import { queryKey, QUERY_DAYTIME } from '@constants/react-query';
+import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -14,51 +12,42 @@ import {
   getCategoryTree,
   getSelectedCategory,
 } from 'src/api/category';
-import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
-import { getInfiniteProducts, getProductItemList } from 'src/api/shop';
+import { getStaticData } from 'src/api/staticData';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'src/components/Shop/Organisms/ShopHeader';
 import { categoryPropArr } from 'src/components/Upload/organisms/Dialog/utils';
 import { useMultipleSearch } from 'src/hooks';
 import { useCategoryTree } from 'src/hooks/api/category';
-import { getQueryStringObj, getQueriesArr } from 'src/utils';
 import { judgeCategoryId } from 'src/utils/shop.utils';
 
-export const getServerSideProps = withGetServerSideProps(
-  async ({ query }: GetServerSidePropsContext) => {
-    const { category, hideSold, order, style } = query;
-    const { priceGoe, priceLoe, color, fit, length, clothesSize } = query;
-    const arr1 = [category, hideSold, order, style]; // TODO: obj로 변경
-    const arr2 = [priceGoe, priceLoe, color, fit, length, clothesSize];
-    const queryArr = [...arr1, ...arr2];
+export const getStaticProps = async () => {
+  const queryClient = new QueryClient();
 
-    const queryObj = getQueriesArr(queryData, queryArr);
-    const queryStringObj = getQueryStringObj(queryObj);
+  await queryClient.fetchQuery(queryKey.category(false), () =>
+    getSelectedCategory(false),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
+    getStaticData('Style'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Color'), () =>
+    getStaticData('Color'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Size'), () =>
+    getStaticData('Size'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Length'), () =>
+    getStaticData('Length'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Fit'), () =>
+    getStaticData('Fit'),
+  );
 
-    const queryClient = new QueryClient();
-
-    await queryClient.fetchQuery(queryKey.category(false), () =>
-      getSelectedCategory(false),
-    );
-    await queryClient.fetchInfiniteQuery(
-      queryKey.productItemList(queryStringObj),
-      getInfiniteProducts({ queryStringObj, apiFunc: getProductItemList }),
-      {
-        getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
-          return isEndOfPage ? undefined : pageNumber + 1;
-        },
-        cacheTime: QUERY_DAYTIME,
-        staleTime: QUERY_DAYTIME,
-      },
-    );
-
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
-  },
-);
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
 
 function Shop() {
   const data = useCategoryTree(false)?.data;

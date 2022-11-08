@@ -2,6 +2,7 @@ import { useCallback, useRef } from 'react';
 
 import { FilterType } from '#types/storeType/filter';
 import { useQueryObjRouter } from 'src/hooks';
+import { useStaticData } from 'src/hooks/api/staticData';
 import { useFilterStore } from 'src/store/useFilterStore';
 import { filterMaxPrice, validatePriceRange } from 'src/utils';
 
@@ -17,6 +18,13 @@ type Props = {
 
 export default function FilterModal(filterProps: Props) {
   const { isOpen, onClose, mainCategory } = filterProps;
+  const { data: styles } = useStaticData<res.StaticData>('Style');
+  const { data: colors } = useStaticData<res.KindStaticData>('Color');
+  const { data: sizes } = useStaticData<res.KindStaticData>('Size');
+  const { data: lengths } = useStaticData<res.KindStaticData>('Length');
+  const { data: fits } = useStaticData<res.KindStaticData>('Fit');
+  const datas = { styles, colors, sizes, lengths, fits };
+
   const router = useQueryObjRouter();
   const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
 
@@ -61,7 +69,7 @@ export default function FilterModal(filterProps: Props) {
   );
 
   const priceProp = priceProps(states.price);
-  const filterDatas = filterData(mainCategory);
+  const filterDatas = filterData(mainCategory, datas);
 
   const props = {
     isOpen,
