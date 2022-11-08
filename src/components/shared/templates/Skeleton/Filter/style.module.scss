@@ -1,0 +1,6 @@
+.skeleton-filter {
+  display: flex;
+  .filter {
+    @include iconLoading();
+  }
+}

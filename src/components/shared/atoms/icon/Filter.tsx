@@ -1,6 +1,6 @@
-import type { StyleProps } from '#types/props';
+import type { IconProps } from '#types/props';
 
-function Filter({ className, style }: StyleProps) {
+function Filter({ className, style, stroke, fill }: IconProps) {
   return (
     <svg
       {...{ className, style }}
@@ -10,18 +10,18 @@ function Filter({ className, style }: StyleProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <line y1="2.5" x2="19" y2="2.5" stroke="#936DFF" strokeWidth="3" />
+      <line y1="2.5" x2="19" y2="2.5" stroke={stroke} strokeWidth="3" />
       <line
         opacity="0.5"
         y1="9.5"
         x2="19"
         y2="9.5"
-        stroke="#936DFF"
+        stroke={stroke}
         strokeWidth="3"
       />
-      <line y1="16.5" x2="19" y2="16.5" stroke="#936DFF" strokeWidth="3" />
-      <circle cx="13.5" cy="2.5" r="2.5" fill="#C9B6FF" />
-      <circle cx="5.5" cy="16.5" r="2.5" fill="#C9B6FF" />
+      <line y1="16.5" x2="19" y2="16.5" stroke={stroke} strokeWidth="3" />
+      <circle cx="13.5" cy="2.5" r="2.5" stroke="none" fill={fill} />
+      <circle cx="5.5" cy="16.5" r="2.5" stroke="none" fill={fill} />
     </svg>
   );
 }

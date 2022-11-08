@@ -86,7 +86,5 @@ export default function FilterModal(filterProps: Props) {
     handlePriceChange,
   };
 
-  if (styles && colors && sizes && fits && lengths)
-    return <FilterModalView {...props} />;
-  return null;
+  return <FilterModalView {...props} />;
 }
