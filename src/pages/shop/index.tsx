@@ -12,6 +12,7 @@ import {
   getCategoryTree,
   getSelectedCategory,
 } from 'src/api/category';
+import { getStaticData } from 'src/api/staticData';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'src/components/Shop/Organisms/ShopHeader';
 import { categoryPropArr } from 'src/components/Upload/organisms/Dialog/utils';
@@ -24,6 +25,21 @@ export const getStaticProps = async () => {
 
   await queryClient.fetchQuery(queryKey.category(false), () =>
     getSelectedCategory(false),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Style'), () =>
+    getStaticData('Style'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Color'), () =>
+    getStaticData('Color'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Size'), () =>
+    getStaticData('Size'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Length'), () =>
+    getStaticData('Length'),
+  );
+  await queryClient.fetchQuery(queryKey.staticData('Fit'), () =>
+    getStaticData('Fit'),
   );
 
   return {
