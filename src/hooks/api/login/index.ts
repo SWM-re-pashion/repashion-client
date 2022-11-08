@@ -19,7 +19,7 @@ export const usePostAuthToken = () => {
     },
     onSettled: (_, error) => {
       if (error) {
-        // router.back();
+        router.back();
         toastError({ message: '다시 로그인해주세요.' });
       }
     },

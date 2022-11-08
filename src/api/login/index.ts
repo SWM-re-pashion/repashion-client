@@ -4,7 +4,7 @@ import { deleteAccessToken } from 'src/utils/auth';
 import { toastSuccess, toastError } from 'src/utils/toaster';
 
 export const postAuthToken = async (token: string): Promise<res.OAuth> => {
-  const response = Axios.post(`${process.env.CLIENT_URL}api/login`, {
+  const response = Axios.post('api/auth/login', {
     accessToken: token,
   });
   return response;
