@@ -42,13 +42,11 @@ export const sizeData = (
   return {
     label: '사이즈',
     type: 'size',
-    datas: (isTop(category) ? sizes?.data.top : sizes?.data.bottom) || [],
+    datas: sizes?.data[isTop(category) ? 'top' : 'bottom'] || [],
     noCheckColor: true,
     required: true,
   };
 };
-
-const allSlice = (arr: DefaultData[]) => arr.slice(1);
 
 type ReviewDatasInput = {
   pollution?: res.StaticData;
@@ -72,12 +70,8 @@ export const reviewData = (
   return {
     condition: reviewDatas.pollution?.data || [],
     pollution: reviewDatas.pollution?.data || [],
-    fit: isTop(category)
-      ? allSlice(reviewDatas.fits?.data.top || [])
-      : allSlice(reviewDatas.fits?.data.bottom || []),
+    fit: reviewDatas.fits?.data[isTop(category) ? 'top' : 'bottom'] || [],
     bodyShapes: reviewDatas.bodyShapes?.data || [],
-    length: isTop(category)
-      ? allSlice(reviewDatas.lengths?.data.top || [])
-      : allSlice(reviewDatas.lengths?.data.top || []),
+    length: reviewDatas.lengths?.data[isTop(category) ? 'top' : 'bottom'] || [],
   };
 };
