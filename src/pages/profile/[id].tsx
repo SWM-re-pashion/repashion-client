@@ -8,7 +8,6 @@ import Layout from '@templates/Layout';
 import ProfileTemplate from '@templates/ProfileTemplate';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getUserInfo } from 'src/api/profile';
-import { useUserInfo } from 'src/hooks/api/profile';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ params }: GetServerSidePropsContext) => {
@@ -29,20 +28,7 @@ export const getServerSideProps = withGetServerSideProps(
 );
 
 function Profile({ id }: { id: string }) {
-  const { data } = useUserInfo(id);
-  const profile = data?.data;
-
-  if (!profile) return null;
-  return (
-    <ProfileTemplate
-      {...{ isMe: false, isNeedFooter: false }}
-      profile={{
-        profileImg: profile?.profileImage,
-        nickname: profile?.name,
-      }}
-      totalCount={profile?.totalCount}
-    />
-  );
+  return <ProfileTemplate {...{ id, isMe: false, isNeedFooter: false }} />;
 }
 
 Profile.getLayout = function getLayout(page: ReactElement) {

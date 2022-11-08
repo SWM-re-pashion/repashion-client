@@ -13,14 +13,14 @@ import { useQueryRouter, useSearch } from 'src/hooks';
 import $ from './style.module.scss';
 
 type Props = {
+  id?: string;
   status?: string;
   isMe: boolean;
-  totalCount: number;
   isNeedFooter: boolean;
 };
 
 function ProfileTemplate(profileProps: Props) {
-  const { status, isMe, isNeedFooter, totalCount } = profileProps;
+  const { id, status, isMe, isNeedFooter } = profileProps;
   const statusQuery = useSearch('status');
   const queryStatus = useQueryRouter('status');
   const replaceStatus = useQueryRouter('status', 'REPLACE');
@@ -55,7 +55,7 @@ function ProfileTemplate(profileProps: Props) {
       paddingTop="84px"
       sidePadding="23px"
     >
-      <UserProfile totalCount={totalCount} />
+      <UserProfile userId={id} />
 
       <StatusMenuList
         data={statusData}
