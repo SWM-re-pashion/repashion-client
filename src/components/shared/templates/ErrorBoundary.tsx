@@ -1,9 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import { isInstanceOfAPIError } from 'src/api/core/error';
-
-import NotFound from './NotFound';
-
 type ErrorFallbackProps<ErrorType extends Error = Error> = {
   error: ErrorType;
   reset: (...args: unknown[]) => void;
@@ -73,17 +69,6 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     const { children } = this.props;
 
     if (hasError && error !== null) {
-      if (isInstanceOfAPIError(error)) {
-        const { redirectUrl, notFound } = error;
-
-        if (notFound) {
-          return <NotFound />;
-        }
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        }
-      }
-
       return errorFallback({
         error,
         reset: this.resetBoundary,
