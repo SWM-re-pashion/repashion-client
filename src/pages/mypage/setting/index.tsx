@@ -8,8 +8,8 @@ import Span from '@atoms/Span';
 import { seoData } from '@constants/seo';
 import Layout from '@templates/Layout';
 import PageTemplate from '@templates/PageTemplate';
+import { logoutUtil } from 'src/api/login';
 import SettingMenu from 'src/components/MyPage/molecules/SettingMenu';
-import { logout } from 'src/utils/auth';
 import { toastSuccess } from 'src/utils/toaster';
 
 function Setting() {
@@ -47,7 +47,7 @@ function Setting() {
     {
       text: '로그아웃',
       onClick: () => {
-        logout();
+        logoutUtil();
         router.push('/shop');
       },
     },
