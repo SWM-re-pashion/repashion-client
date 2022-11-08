@@ -15,16 +15,12 @@ import $ from './style.module.scss';
 type Props = {
   status?: string;
   isMe: boolean;
-  profile: {
-    profileImg: string;
-    nickname: string;
-  };
   totalCount: number;
   isNeedFooter: boolean;
 };
 
 function ProfileTemplate(profileProps: Props) {
-  const { status, isMe, profile, isNeedFooter, totalCount } = profileProps;
+  const { status, isMe, isNeedFooter, totalCount } = profileProps;
   const statusQuery = useSearch('status');
   const queryStatus = useQueryRouter('status');
   const replaceStatus = useQueryRouter('status', 'REPLACE');
@@ -35,7 +31,7 @@ function ProfileTemplate(profileProps: Props) {
     <PageTemplate
       metaTitle="re:Fashion | 마이 페이지"
       metaUrl={`${seoData.url}/mypage`}
-      title={`${isMe ? '내' : profile.nickname} 프로필`}
+      title={`${isMe ? '내' : '다른 사용자'} 프로필`}
       left={<BackBtn color="#000" />}
       right={
         isMe && (
@@ -59,7 +55,7 @@ function ProfileTemplate(profileProps: Props) {
       paddingTop="84px"
       sidePadding="23px"
     >
-      <UserProfile profile={profile} totalCount={totalCount} />
+      <UserProfile totalCount={totalCount} />
 
       <StatusMenuList
         data={statusData}

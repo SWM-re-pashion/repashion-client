@@ -9,8 +9,8 @@ import $ from './style.module.scss';
 type Props = {
   profile: {
     userId?: number;
-    profileImg: string;
-    nickname: string;
+    profileImage: string;
+    name: string;
   };
   needDetail?: boolean;
 } & StyleProps;
@@ -18,7 +18,7 @@ type Props = {
 export default function Profile(profileProps: Props) {
   const { needDetail, profile, className, style } = profileProps;
   const router = useRouter();
-  const { userId, profileImg, nickname } = profile;
+  const { userId, profileImage, name } = profile;
 
   const handleProfileClick = () => {
     if (needDetail && userId) router.push(`/profile/${userId}`);
@@ -31,8 +31,8 @@ export default function Profile(profileProps: Props) {
         className={$['profile-box']}
         onClick={handleProfileClick}
       >
-        <ProfileImg src={profileImg} alt={nickname} width={44} height={44} />
-        <span className={$.nickname}>{nickname}</span>
+        <ProfileImg src={profileImage} alt={name} width={44} height={44} />
+        <span className={$.nickname}>{name}</span>
       </button>
     </div>
   );

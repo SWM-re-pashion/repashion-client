@@ -3,19 +3,25 @@ import { memo } from 'react';
 import { StyleProps } from '#types/props';
 import Span from '@atoms/Span';
 import Profile from '@molecules/Profile';
+import { useMyInfo } from 'src/hooks/api/profile';
 
 import $ from './style.module.scss';
 
 type Props = {
-  profile: {
-    profileImg: string;
-    nickname: string;
-  };
   totalCount: number;
 } & StyleProps;
 
+const initialProfile = {
+  name: '',
+  profileImage: '',
+  totalCount: '',
+};
+
 function UserProfile(headerProps: Props) {
-  const { profile, totalCount } = headerProps;
+  const { totalCount } = headerProps;
+  const { data } = useMyInfo();
+  const profile = data?.data || initialProfile;
+
   return (
     <div className={$['profile-container']}>
       <div className={$['profile-info']}>

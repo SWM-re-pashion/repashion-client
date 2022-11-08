@@ -1,31 +1,8 @@
-import { GetServerSidePropsContext } from 'next';
-
 import { ReactElement } from 'react';
 
-import { queryKey } from '@constants/react-query';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import ProfileTemplate from '@templates/ProfileTemplate';
-import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
-import { getMyInfo } from 'src/api/profile';
 import { useMyInfo } from 'src/hooks/api/profile';
-
-export const getServerSideProps = withGetServerSideProps(
-  async ({ query }: GetServerSidePropsContext) => {
-    const { status } = query;
-    const statusQuery = (typeof status !== 'object' && status) || '';
-
-    const queryClient = new QueryClient();
-    await queryClient.fetchQuery(queryKey.myInfo, () => getMyInfo());
-
-    return {
-      props: {
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-        status: statusQuery,
-      },
-    };
-  },
-);
 
 function MyPage({ status }: { status: string }) {
   const { data } = useMyInfo();
@@ -35,10 +12,6 @@ function MyPage({ status }: { status: string }) {
   return (
     <ProfileTemplate
       {...{ status, isMe: true, isNeedFooter: true }}
-      profile={{
-        profileImg: profile?.profileImage,
-        nickname: profile?.name,
-      }}
       totalCount={profile?.totalCount}
     />
   );
