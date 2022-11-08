@@ -1,0 +1,21 @@
+name: vercelPush
+
+on:
+  push:
+    branches:
+      - main
+  delete:
+    branches:
+      - main
+
+jobs:
+  git-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git-sync
+        uses: wei/git-sync@v3
+        with:
+          source_repo: ${{ secrets.SOURCE_URL }}
+          source_branch: 'main'
+          destination_repo: ${{ secrets.VERCEL_URL }}
+          destination_branch: 'main'
