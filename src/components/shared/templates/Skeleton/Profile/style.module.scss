@@ -1,0 +1,21 @@
+.text {
+  @include loading();
+  width: 75px;
+  height: 19px;
+}
+
+.skeleton-img {
+  @include loading();
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.skeleton-profile {
+  padding: 13.5px 0;
+  border: 0;
+}
+
+.skeleton-box {
+  @include loading();
+}

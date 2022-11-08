@@ -1,7 +1,7 @@
 declare namespace res {
   type Preference = {
-    staus: number;
-    style: string;
+    status: number;
+    data: number;
   };
   type StyleImgs = {
     status: number;
