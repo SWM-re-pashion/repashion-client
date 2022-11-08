@@ -42,7 +42,7 @@ function Setting() {
     },
     {
       text: '앱 버전',
-      icon: <Span color="#936dff">v0.9.7</Span>,
+      icon: <Span color="#936dff">v1.0.1</Span>,
     },
     {
       text: '로그아웃',
