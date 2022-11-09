@@ -62,7 +62,7 @@ function ProfileTemplate(profileProps: Props) {
         suspenseFallback={<ProfileSkeleton />}
         errorFallback={ErrorFallback}
       >
-        <UserProfile userId={id} />
+        <UserProfile userId={id} isMe={isMe} />
       </AsyncBoundary>
 
       <StatusMenuList
