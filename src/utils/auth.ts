@@ -1,4 +1,4 @@
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 
 import { ACCESSTOKEN } from '@constants/api';
 import { getCookie, setCookie, deleteCookie } from 'cookies-next';
@@ -15,6 +15,6 @@ export const deleteAccessToken = () => {
   deleteCookie(ACCESSTOKEN);
 };
 
-export const getSSRAccessToken = (ctx: NextPageContext) => {
+export const getSSRAccessToken = (ctx: GetServerSidePropsContext) => {
   return getCookie(ACCESSTOKEN, ctx)?.toString() || '';
 };

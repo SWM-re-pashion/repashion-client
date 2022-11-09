@@ -16,6 +16,7 @@ export function useMyInfo() {
 export function useUserInfo(id: string) {
   const response = useCoreQuery(queryKey.userInfo(id), () => getUserInfo(id), {
     suspense: true,
+    enabled: !!id,
   });
   return response;
 }

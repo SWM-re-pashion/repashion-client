@@ -4,20 +4,27 @@ import BackBtn from '@atoms/BackBtn';
 import ButtonFooter from '@atoms/ButtonFooter';
 import Span from '@atoms/Span';
 import TextInput from '@atoms/TextInput';
+import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 import { seoData } from '@constants/seo';
 import InfoArticle from '@molecules/InfoArticle';
 import PageTemplate from '@templates/PageTemplate';
 import ProfileImgUpload from 'src/components/MyPage/organisms/ProfileImgUpload';
 import { useDebounceInput } from 'src/hooks';
-import { useUpdateMyInfo } from 'src/hooks/api/profile';
+import { useMyInfo, useUpdateMyInfo } from 'src/hooks/api/profile';
 import { useImgPreview } from 'src/hooks/useImgPreview';
 import { toastError } from 'src/utils/toaster';
 
-type Props = Omit<res.Profile['data'], 'totalCount'>;
+const initialUser = {
+  name: '',
+  email: '',
+  profileImage: IMAGE_BLUR_DATA_URL,
+};
 
-function InfoModifyTemplate(templateProps: Props) {
+function InfoModifyTemplate() {
   // TODO: 닉네임 중복체크
-  const { name, email, profileImage } = templateProps;
+  const { data } = useMyInfo();
+  const userData = data?.data || initialUser;
+  const { name, email, profileImage } = userData;
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutate } = useUpdateMyInfo();
   const [nickname, setNickName] = useState(name || '');

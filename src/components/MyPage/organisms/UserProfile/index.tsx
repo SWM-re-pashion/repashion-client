@@ -8,6 +8,7 @@ import { useMyInfo, useUserInfo } from 'src/hooks/api/profile';
 import $ from './style.module.scss';
 
 type Props = {
+  isMe: boolean;
   userId?: string;
 };
 
@@ -17,12 +18,12 @@ const initialProfile = {
   totalCount: '',
 };
 
-export function useGetUserInfo(userId?: string) {
-  return userId ? useUserInfo : useMyInfo;
+export function useGetUserInfo(isMe: boolean) {
+  return isMe ? useMyInfo : useUserInfo;
 }
 
-function UserProfile({ userId }: Props) {
-  const useInfo = useGetUserInfo(userId);
+function UserProfile({ userId, isMe }: Props) {
+  const useInfo = useGetUserInfo(isMe);
   const { data } = useInfo(userId || '');
   const profile = data?.data || initialProfile;
 
