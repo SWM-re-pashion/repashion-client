@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { AppContext, AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -7,7 +7,6 @@ import Script from 'next/script';
 import React, { ReactElement, ReactNode, useEffect } from 'react';
 
 import Toast from '@atoms/Toast';
-import { ACCESSTOKEN } from '@constants/api';
 import {
   Hydrate,
   QueryClient,
@@ -15,10 +14,8 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '../styles/globals.scss';
-import { Axios } from 'src/api/core';
 import { useMounted, useWindowResize } from 'src/hooks';
 import * as gtag from 'src/lib/gtag';
-import { getSSRAccessToken } from 'src/utils/auth';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -107,22 +104,5 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </>
   );
 }
-
-MyApp.getInitialProps = async (context: AppContext) => {
-  const { ctx, Component } = context;
-  let pageProps = {};
-  const cookie = ctx.req?.headers.cookie || '';
-  const token = getSSRAccessToken(ctx);
-  Axios.defaults.headers.Cookie = '';
-  Axios.defaults.headers[ACCESSTOKEN] = token;
-  if (ctx.req && cookie) {
-    Axios.defaults.headers.Cookie = cookie;
-  }
-
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx);
-  }
-  return { pageProps };
-};
 
 export default MyApp;
