@@ -84,6 +84,7 @@ function ProductItemList(listProps: Props) {
   const commonProducts = isLoading ? (
     <ShopSkeleton itemNum={12} />
   ) : (
+    // TODO: 윈도우 사이즈에 따라 스켈레톤 아이템 개수 다르게 하기
     <ProductListView
       {...{ intersectRef, isFetching, noProducts }}
       itemList={itemList}
