@@ -76,6 +76,7 @@ export const useUploadedProduct = (id: string) => {
     queryKey.uploadedProduct(id),
     () => getUploadedProduct(id),
     {
+      enabled: !!id,
       onSettled: (_, err) => {
         if (isAxiosError<res.error>(err) && err.response) {
           toastError({ message: err.response.data.message });
