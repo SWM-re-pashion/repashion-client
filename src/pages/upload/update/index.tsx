@@ -12,6 +12,8 @@ import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
+import { getPropFromQuery } from 'src/utils';
+import { toastError } from 'src/utils/toaster';
 import { uploadedDataToState } from 'src/utils/upload.utils';
 
 export const getStaticProps = async () => {
@@ -50,8 +52,9 @@ export const getStaticProps = async () => {
 };
 
 function UploadUpdate() {
-  const router = useRouter();
-  const id = router.query.id as string;
+  const { asPath, replace } = useRouter();
+  const searchParams = asPath.split('?')[1];
+  const id = getPropFromQuery(searchParams, 'id') || '';
   const { data, isSuccess } = useUploadedProduct(id);
   const states = useUploadUpdateStore((state) => state);
   const { initState } = states;
@@ -61,6 +64,13 @@ function UploadUpdate() {
   useEffect(() => {
     if (data && state) initUploads(state);
   }, [data]);
+
+  useEffect(() => {
+    if (!id) {
+      replace('/404');
+      toastError({ message: '잘못된 상품 id값입니다.' });
+    }
+  }, [id]);
 
   if (isSuccess) return <UploadTemplate {...{ id, states, isUpdate: true }} />;
   return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;

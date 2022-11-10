@@ -2,6 +2,7 @@ import router from 'next/router';
 
 import { useCallback } from 'react';
 
+import { INVALID_TYPE_VALUE_MSG } from '@constants/api';
 import { queryKey } from '@constants/react-query';
 import { isAxiosError } from 'src/api/core/error';
 import {
@@ -79,6 +80,12 @@ export const useUploadedProduct = (id: string) => {
       enabled: !!id,
       onSettled: (_, err) => {
         if (isAxiosError<res.error>(err) && err.response) {
+          const { message } = err.response.data;
+          if (message === INVALID_TYPE_VALUE_MSG) {
+            router.replace('/404');
+            toastError({ message: '잘못된 상품 id값입니다.' });
+            return;
+          }
           toastError({ message: err.response.data.message });
         }
       },

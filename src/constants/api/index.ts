@@ -10,7 +10,9 @@ export const ACCESSTOKEN = 'x-access-token';
 
 export const ACCESSTOKEN_EXPIRED = 'TOKEN_EXPIRED';
 export const USER_NOT_EXISTED = 'USER_NOT_EXISTED';
+
 export const PRODUCT_NOT_FOUND_MSG = '해당 상품이 존재하지 않습니다';
+export const INVALID_TYPE_VALUE_MSG = ' Invalid Type Value';
 
 export const TOKEN_REFRESH = 'api/auth/reissue';
 
