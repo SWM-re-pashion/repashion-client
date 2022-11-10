@@ -1,4 +1,4 @@
-import { GetStaticPropsContext } from 'next';
+import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
 
@@ -12,17 +12,11 @@ import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
+import { getPropFromQuery } from 'src/utils';
+import { toastError } from 'src/utils/toaster';
 import { uploadedDataToState } from 'src/utils/upload.utils';
 
-export const getStaticPaths = async () => {
-  const paths = Array.from({ length: 10 }, (_, i) => ({
-    params: { id: `${i + 1}` },
-  }));
-  return { paths, fallback: true };
-};
-
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const id = params?.id as string;
+export const getStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(queryKey.category(true), () =>
     getSelectedCategory(true),
@@ -51,14 +45,16 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   return {
     props: {
-      id,
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: ISR_WEEK,
   };
 };
 
-function UploadUpdate({ id }: { id: string }) {
+function UploadUpdate() {
+  const { asPath, replace } = useRouter();
+  const searchParams = asPath.split('?')[1];
+  const id = getPropFromQuery(searchParams, 'id') || '';
   const { data, isSuccess } = useUploadedProduct(id);
   const states = useUploadUpdateStore((state) => state);
   const { initState } = states;
@@ -68,6 +64,13 @@ function UploadUpdate({ id }: { id: string }) {
   useEffect(() => {
     if (data && state) initUploads(state);
   }, [data]);
+
+  useEffect(() => {
+    if (!id) {
+      replace('/404');
+      toastError({ message: '잘못된 상품 id값입니다.' });
+    }
+  }, [id]);
 
   if (isSuccess) return <UploadTemplate {...{ id, states, isUpdate: true }} />;
   return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;

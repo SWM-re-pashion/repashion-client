@@ -26,7 +26,7 @@ function ProductImgSlide(slideProps: Props) {
     [],
   );
   const updateProduct = useCallback(() => {
-    router.push(`/upload/${id}`);
+    router.push(`/upload/update?id=${id}`);
   }, [id, router]);
   const report = useCallback(
     () => toastError({ message: '준비중입니다.' }),

@@ -7,12 +7,17 @@ import { toastSuccess, toastError } from 'src/utils/toaster';
 import { useCoreMutation, useCoreQuery } from '../core';
 
 export function useMyInfo() {
-  const response = useCoreQuery(queryKey.myInfo, () => getMyInfo());
+  const response = useCoreQuery(queryKey.myInfo, () => getMyInfo(), {
+    suspense: true,
+  });
   return response;
 }
 
 export function useUserInfo(id: string) {
-  const response = useCoreQuery(queryKey.userInfo(id), () => getUserInfo(id));
+  const response = useCoreQuery(queryKey.userInfo(id), () => getUserInfo(id), {
+    suspense: true,
+    enabled: !!id,
+  });
   return response;
 }
 

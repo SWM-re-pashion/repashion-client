@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import Loading from '@atoms/Loading';
+import ShopSkeleton from '@templates/Skeleton/shop';
 import ProductItem from 'src/components/Shop/molecules/ProductItem';
 
 import $ from './style.module.scss';
@@ -14,7 +14,7 @@ type Props = {
 
 function ProductListView(viewProps: Props) {
   const { isFetching, itemList, intersectRef, noProducts } = viewProps;
-
+  // TODO: 윈도우 사이즈에 따라 스켈레톤 아이템 개수 다르게 하기
   return (
     <>
       {itemList && (
@@ -26,7 +26,7 @@ function ProductListView(viewProps: Props) {
       )}
       {noProducts}
       <div ref={intersectRef} />
-      {isFetching && <Loading />}
+      {isFetching && <ShopSkeleton itemNum={12} />}
     </>
   );
 }

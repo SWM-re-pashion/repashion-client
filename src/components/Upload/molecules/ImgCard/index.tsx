@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { memo } from 'react';
 
 import { ImgClose } from '@atoms/icon';
+import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
@@ -40,6 +41,8 @@ function ImgCard(imgProps: Props) {
         alt={`${id}번째 사진`}
         width="106"
         height="106"
+        placeholder="blur"
+        blurDataURL={IMAGE_BLUR_DATA_URL}
         priority
       />
       <button

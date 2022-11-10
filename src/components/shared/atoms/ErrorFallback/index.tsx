@@ -15,8 +15,8 @@ function ErrorFallback(props: Props) {
   return (
     <div className={classnames($['error-fallback'], className)}>
       <div className={$['error-fallback-box']}>
-        <Span fontSize={18} className={$['error-msg']}>
-          {error?.message}
+        <Span fontSize={14} className={$['error-msg']}>
+          네트워크 오류가 발생했습니다.
         </Span>
 
         <button
