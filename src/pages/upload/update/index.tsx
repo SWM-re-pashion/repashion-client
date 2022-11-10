@@ -1,4 +1,4 @@
-import { GetStaticPropsContext } from 'next';
+import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
 
@@ -14,15 +14,7 @@ import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
 import { uploadedDataToState } from 'src/utils/upload.utils';
 
-export const getStaticPaths = async () => {
-  const paths = Array.from({ length: 10 }, (_, i) => ({
-    params: { id: `${i + 1}` },
-  }));
-  return { paths, fallback: true };
-};
-
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const id = params?.id as string;
+export const getStaticProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(queryKey.category(true), () =>
     getSelectedCategory(true),
@@ -51,14 +43,15 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   return {
     props: {
-      id,
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: ISR_WEEK,
   };
 };
 
-function UploadUpdate({ id }: { id: string }) {
+function UploadUpdate() {
+  const router = useRouter();
+  const id = router.query.id as string;
   const { data, isSuccess } = useUploadedProduct(id);
   const states = useUploadUpdateStore((state) => state);
   const { initState } = states;
