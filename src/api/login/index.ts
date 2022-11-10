@@ -32,6 +32,6 @@ export const logoutUtil = () => {
 };
 
 export const authTest = async () => {
-  const response = await Axios.get('/auth-testing');
+  const response = await Axios.get('/auth-verification');
   return response;
 };
