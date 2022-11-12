@@ -13,6 +13,9 @@ export const queryKey = {
   productItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
     return ['productItemList', { ...requestParams }];
   },
+  recommendItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
+    return ['recommendItemList', { ...requestParams }];
+  },
   productDetail: (id: string) => {
     return ['product', id];
   },
