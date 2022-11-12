@@ -20,14 +20,16 @@ export default function ResponsiveImg(imgProps: Props) {
       style={{ ...style }}
       className={classnames($['responsive-img'], className)}
     >
-      <Image
-        {...{ width, height, src, alt }}
-        placeholder="blur"
-        blurDataURL={IMAGE_BLUR_DATA_URL}
-        layout="responsive"
-        priority
-      />
-      {children}
+      <div className={$.inner}>
+        <Image
+          {...{ width, height, src, alt }}
+          placeholder="blur"
+          blurDataURL={IMAGE_BLUR_DATA_URL}
+          layout="responsive"
+          priority
+        />
+        {children}
+      </div>
     </div>
   );
 }

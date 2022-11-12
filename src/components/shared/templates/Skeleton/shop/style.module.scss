@@ -1,6 +1,12 @@
 .skeleton-product-img {
+  width: 100%;
   @include loading();
   border-radius: 10px;
+}
+.skeleton-product-img::after {
+  display: block;
+  content: '';
+  padding-bottom: 100%;
 }
 
 .skeleton-text-box {

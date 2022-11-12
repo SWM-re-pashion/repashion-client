@@ -32,7 +32,7 @@ function SearchBody(bodyProps: Props) {
   );
 
   return value ? (
-    <ProductItemList paddingTop="120px" isSearch {...{ queryStringObj }} />
+    <ProductItemList paddingTop="120px" type="search" {...{ queryStringObj }} />
   ) : (
     <section className={$['search-body']}>
       <Keywords {...{ keywords, removeKeyword, queryFunc }} />

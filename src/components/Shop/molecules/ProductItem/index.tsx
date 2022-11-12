@@ -5,6 +5,7 @@ import { memo } from 'react';
 import { StyleProps } from '#types/props';
 import ResponsiveImg from '@atoms/ResponsiveImg';
 import Span from '@atoms/Span';
+import classnames from 'classnames';
 import { useTimeForToday } from 'src/hooks';
 
 import SoldoutBox from '../SoldoutBox';
@@ -13,12 +14,21 @@ import $ from './style.module.scss';
 type Props = res.ProductSummary & StyleProps;
 
 function ProductItem(itemProps: Props) {
-  const { id, img, title, size, like, price, isSoldOut, updatedAt } = itemProps;
+  const { id, img, title, size, like, price } = itemProps;
+  const { isSoldOut, updatedAt, type } = itemProps;
+  const isRecommend = !!type;
+  const isTop = type === 'top';
+  const clothesText = isTop ? '상의' : '하의';
   const date = useTimeForToday(updatedAt);
 
   return (
     <Link href={`/shop/${id}`}>
-      <div className={$['product-item']}>
+      <div
+        className={classnames($['common-item'], {
+          [$['recommend-item']]: isRecommend,
+          [$['product-item']]: !isRecommend,
+        })}
+      >
         <ResponsiveImg
           width={200}
           height={200}
@@ -27,6 +37,15 @@ function ProductItem(itemProps: Props) {
           className={$['product-img']}
         >
           <SoldoutBox {...{ isSoldOut }} />
+          {isRecommend && (
+            <Span
+              fontSize={12}
+              fontWeight={700}
+              className={classnames($['clothes-tag'], { [$.top]: isTop })}
+            >
+              {clothesText}
+            </Span>
+          )}
         </ResponsiveImg>
 
         <div className={$['text-box']}>
