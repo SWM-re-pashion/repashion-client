@@ -16,6 +16,18 @@
     }
   }
 
+  .recommend-list {
+    @include tablet() {
+      grid-template-columns: repeat(2, 50%);
+    }
+  }
+
+  .recommend-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .no-products {
     width: 100%;
     height: calc(var(--vh, 1vh) * 100 - 185px);

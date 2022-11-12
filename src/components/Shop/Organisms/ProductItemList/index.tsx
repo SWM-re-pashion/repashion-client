@@ -5,13 +5,20 @@ import PullToRefresh from '@templates/PullToRefresh';
 import ShopSkeleton from '@templates/Skeleton/shop';
 import { useIntersect } from 'src/hooks';
 import { useSearchingItemListQuery } from 'src/hooks/api/search';
-import { useProductItemListQuery } from 'src/hooks/api/shop';
+import {
+  useProductItemListQuery,
+  useRecommendItemListQuery,
+} from 'src/hooks/api/shop';
 
-import NoProductView from './NoProductView';
-import ProductListView from './ProductListView';
-import ProductListWrapperView from './ProductListWrapperView';
+import NoProductView from './NoProduct.view';
+import ProductListView from './ProductList.view';
+import ProductListWrapperView from './ProductListWrapper.view';
+
+export type ProductItemListType = 'shop' | 'mypage' | 'recommend' | 'search';
 
 type Props = {
+  type: ProductItemListType;
+  isRecommend?: boolean;
   isSearch?: boolean;
   queryStringObj?: Omit<req.ShopFeed, 'page' | 'size'>;
   paddingTop?: string;
@@ -21,17 +28,18 @@ type Props = {
 
 type ProductList = Props['queryStringObj'];
 
-const useProductItemQuery = (isSearch?: boolean) => {
-  if (isSearch) return useSearchingItemListQuery;
+const useProductItemQuery = (type: ProductItemListType) => {
+  if (type === 'search') return useSearchingItemListQuery;
+  if (type === 'recommend') return useRecommendItemListQuery;
   return useProductItemListQuery;
 };
 
 function ProductItemList(listProps: Props) {
-  const { isSearch, paddingTop, paddingBottom } = listProps;
+  const { type, paddingTop, paddingBottom } = listProps;
   const { needPullToRefresh, queryStringObj } = listProps;
 
   const productList: ProductList = { ...queryStringObj };
-  const useProductItem = useProductItemQuery(isSearch);
+  const useProductItem = useProductItemQuery(type);
 
   const {
     data,
@@ -57,13 +65,9 @@ function ProductItemList(listProps: Props) {
     }
   });
 
-  const items = data?.pages;
-
-  const itemList = items?.reduce((acc: res.ProductSummary[], cur) => {
-    acc.push(...cur.items);
-    return acc;
-  }, []);
-
+  const pages = data?.pages;
+  const isRecommend = type === 'recommend';
+  const itemList = pages?.map(({ items }) => items).flat();
   const isNoProducts = (itemList && !itemList.length) || false;
 
   const noProducts = (
@@ -82,11 +86,12 @@ function ProductItemList(listProps: Props) {
   const maxPullDownDistance = 90;
 
   const commonProducts = isLoading ? (
-    <ShopSkeleton itemNum={12} />
+    <ShopSkeleton itemNum={12} {...{ isRecommend }} />
   ) : (
     // TODO: 윈도우 사이즈에 따라 스켈레톤 아이템 개수 다르게 하기
     <ProductListView
       {...{ intersectRef, isFetching, noProducts }}
+      isRecommend={isRecommend}
       itemList={itemList}
     />
   );
