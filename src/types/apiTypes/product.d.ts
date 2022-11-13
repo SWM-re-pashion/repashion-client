@@ -43,7 +43,7 @@ declare namespace res {
       isIncludeDelivery: boolean;
       updatedAt: string;
       like: number;
-      views: number;
+      view: number;
     };
   };
   type ProductStatus = 'soldout' | 'sale' | 'reserve'; // TODO: 추후에 상품 상태 추가
