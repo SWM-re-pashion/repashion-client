@@ -57,5 +57,6 @@ declare namespace req {
     fit?: string;
     length?: string;
     clothesSize?: string;
+    status?: string;
   };
 }

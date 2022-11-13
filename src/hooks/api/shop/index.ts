@@ -3,6 +3,7 @@ import {
   getInfiniteProducts,
   getProductItemList,
   getRecommendItemList,
+  getMyItemList,
 } from 'src/api/shop';
 
 import { useCoreInfiniteQuery } from '../core';
@@ -32,6 +33,25 @@ export const useRecommendItemListQuery = (
     getInfiniteProducts({
       queryStringObj: requestParams,
       apiFunc: getRecommendItemList,
+    }),
+    {
+      getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {
+        return isEndOfPage ? undefined : pageNumber + 1;
+      },
+    },
+  );
+};
+
+export const useMyItemListQuery = (
+  requestParams: Omit<req.ShopFeed, 'page' | 'size'>,
+  params: string,
+) => {
+  return useCoreInfiniteQuery(
+    queryKey.recommendItemList(requestParams),
+    getInfiniteProducts({
+      params,
+      queryStringObj: requestParams,
+      apiFunc: getMyItemList,
     }),
     {
       getNextPageParam: ({ pagination: { isEndOfPage, pageNumber } }) => {

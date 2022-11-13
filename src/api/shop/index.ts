@@ -1,7 +1,7 @@
 import { Axios } from 'src/api/core';
 import { getQueryString } from 'src/utils';
 
-const getProductItemList = async (
+export const getProductItemList = async (
   queryString: string,
 ): Promise<res.ShopFeed> => {
   const response = await Axios.get(
@@ -10,7 +10,7 @@ const getProductItemList = async (
   return response;
 };
 
-const getRecommendItemList = async (
+export const getRecommendItemList = async (
   queryString: string,
 ): Promise<res.RecommendFeed> => {
   const response = await Axios.get(
@@ -19,12 +19,22 @@ const getRecommendItemList = async (
   return response;
 };
 
+export const getMyItemList = async (
+  queryString: string,
+): Promise<res.RecommendFeed> => {
+  const response = await Axios.get(
+    `/api/product/my?${decodeURIComponent(queryString)}`,
+  );
+  return response;
+};
+
 type GetInfiniteParams = {
+  params?: string;
   queryStringObj: { [key: string]: string };
   apiFunc: (queryString: string) => Promise<res.ShopFeed | res.RecommendFeed>;
 };
 
-const getInfiniteProducts =
+export const getInfiniteProducts =
   ({ queryStringObj, apiFunc }: GetInfiniteParams) =>
   async ({ pageParam = 0 }) => {
     const queryString = getQueryString({
@@ -32,7 +42,6 @@ const getInfiniteProducts =
       page: `${pageParam}`,
       size: '50',
     });
-
     const {
       data: { pagination, items },
     } = await apiFunc(queryString);
@@ -48,5 +57,3 @@ const getInfiniteProducts =
 export type GetInfiniteProducts = () => ReturnType<
   ReturnType<typeof getInfiniteProducts>
 >;
-
-export { getInfiniteProducts, getProductItemList, getRecommendItemList };
