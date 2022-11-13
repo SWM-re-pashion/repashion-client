@@ -66,10 +66,14 @@ function Shop() {
   const breadCrumb = getBreadcrumb(data, id) || '';
   const isInclude = categoryPropArr(selectData, 'id').includes(category);
   const categoryQuery = isInclude ? category : selectData[0].id;
+  const genderData = categoryQuery[0];
+  const isRecommend = categoryQuery.includes('999');
+  const productType = isRecommend ? 'recommend' : 'shop';
+  const categoryData = isRecommend ? genderData : categoryQuery;
 
   const queryStringObj: Omit<req.ShopFeed, 'page' | 'size'> = {
     ...queryObj,
-    category: categoryQuery,
+    category: categoryData,
   };
 
   const props = {
@@ -86,7 +90,11 @@ function Shop() {
     <>
       <HeadMeta title="re:Fashion | 상품 피드" url={`${seoData.url}/shop`} />
       <ShopHeader {...props} />
-      <ProductItemList needPullToRefresh {...{ queryStringObj }} />
+      <ProductItemList
+        needPullToRefresh
+        type={productType}
+        {...{ queryStringObj }}
+      />
       {/** TODO: 렌더링 최적화 */}
       <Footer />
     </>

@@ -12,6 +12,12 @@ declare namespace res {
     data: Pagination<res.ProductSummary>;
     status: number;
   };
+  export type RecommendFeed = {
+    data: Pagination<res.RecommendProduct>;
+    status: number;
+  };
+
+  export type RecommendClothesType = 'top' | 'bottom';
 
   export type ProductSummary = {
     id: number;
@@ -22,6 +28,17 @@ declare namespace res {
     price: number;
     isSoldOut: boolean;
     updatedAt: string;
+    type?: RecommendClothesType;
+  };
+
+  export type RecommendProduct = {
+    id: number;
+    product: {
+      type: RecommendClothesType;
+    } & ProductSummary;
+    associatedProduct: {
+      type: RecommendClothesType;
+    } & ProductSummary;
   };
 }
 
