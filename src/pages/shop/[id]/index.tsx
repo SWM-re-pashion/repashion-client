@@ -50,7 +50,7 @@ function ShopDetail({ id }: { id: string }) {
   if (detailData) {
     const { isMe, isSoldOut, sellerInfo, basic, sellerNotice } = detailData;
     const { measure, opinion, price, isIncludeDelivery } = detailData;
-    const { updatedAt, like, views, contact } = detailData;
+    const { updatedAt, like, view, contact } = detailData;
     const { userId, profileImg: profileImage, nickname: name } = sellerInfo;
     // const status = 'soldout'; // TODO: 백엔드와 협의, 추후에 상품 상태 추가
     addProduct({ id: +id, img: sellerInfo.image[0] });
@@ -79,7 +79,7 @@ function ShopDetail({ id }: { id: string }) {
             <ProductFooter
               footer={{
                 ...{ price, isIncludeDelivery, updatedAt },
-                ...{ like, views, contact },
+                ...{ like, view, contact },
               }}
             >
               연락하기

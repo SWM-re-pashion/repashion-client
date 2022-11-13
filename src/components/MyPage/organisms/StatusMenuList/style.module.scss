@@ -2,6 +2,7 @@
   overflow: hidden;
   display: flex;
   margin: 41px 0 4px;
+  padding: 0 23px;
   .menu-btn {
     margin: 0 4px;
     &:first-child {
@@ -11,4 +12,11 @@
       margin-right: 0;
     }
   }
+}
+
+.prepare {
+  height: calc(var(--vh, 1vh) * 100 - 329px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -19,7 +19,7 @@ type Props = {
 
 export default function ProductFooter(footerProps: Props) {
   const { className, style, children, footer } = footerProps;
-  const { price, isIncludeDelivery, updatedAt, like, views, contact } = footer;
+  const { price, isIncludeDelivery, updatedAt, like, view, contact } = footer;
   const time = useTimeForToday(updatedAt);
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
@@ -31,7 +31,7 @@ export default function ProductFooter(footerProps: Props) {
     {
       Icon: Views,
       color: '#936DFF',
-      colorText: `${views || 0}명`,
+      colorText: `${view || 0}명`,
       text: '이 보았어요・',
     },
     {
