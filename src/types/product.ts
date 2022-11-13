@@ -33,7 +33,7 @@ export type ProductFooterInfo = {
   isIncludeDelivery: boolean;
   updatedAt: string;
   like: number;
-  views: number;
+  view: number;
   contact: string;
 };
 

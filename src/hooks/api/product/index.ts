@@ -43,6 +43,7 @@ export function useUpdateProductStatus(id: string) {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey.productDetail(id));
       queryClient.invalidateQueries(['productItemList']);
+      queryClient.invalidateQueries(['myItemList']);
       toastSuccess({ message: '상품상태를 변경했습니다.' });
     },
     onSettled: (_, err) => {

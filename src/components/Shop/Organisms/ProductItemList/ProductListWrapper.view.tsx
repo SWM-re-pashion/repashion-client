@@ -1,16 +1,17 @@
 import $ from './style.module.scss';
 
 type Props = {
+  children: React.ReactNode;
   paddingTop?: string;
   paddingBottom?: string;
-  children: React.ReactNode;
+  height?: string;
 };
 
 function ProductListWrapperView(wrapperProps: Props) {
-  const { paddingTop, paddingBottom, children } = wrapperProps;
+  const { paddingTop, paddingBottom, children, height } = wrapperProps;
   return (
     <section
-      style={{ paddingTop, paddingBottom }}
+      style={{ paddingTop, paddingBottom, height }}
       className={$['product-container']}
     >
       {children}
