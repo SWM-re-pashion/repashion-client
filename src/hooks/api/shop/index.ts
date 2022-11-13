@@ -46,7 +46,7 @@ export const useMyItemListQuery = (
   requestParams: Omit<req.ShopFeed, 'page' | 'size'>,
 ) => {
   return useCoreInfiniteQuery(
-    queryKey.recommendItemList(requestParams),
+    queryKey.myItemList(requestParams),
     getInfiniteProducts({
       queryStringObj: requestParams,
       apiFunc: getMyItemList,
