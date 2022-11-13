@@ -44,12 +44,10 @@ export const useRecommendItemListQuery = (
 
 export const useMyItemListQuery = (
   requestParams: Omit<req.ShopFeed, 'page' | 'size'>,
-  params: string,
 ) => {
   return useCoreInfiniteQuery(
     queryKey.recommendItemList(requestParams),
     getInfiniteProducts({
-      params,
       queryStringObj: requestParams,
       apiFunc: getMyItemList,
     }),

@@ -6,6 +6,7 @@ import ShopSkeleton from '@templates/Skeleton/shop';
 import { useIntersect } from 'src/hooks';
 import { useSearchingItemListQuery } from 'src/hooks/api/search';
 import {
+  useMyItemListQuery,
   useProductItemListQuery,
   useRecommendItemListQuery,
 } from 'src/hooks/api/shop';
@@ -19,11 +20,11 @@ export type ProductItemListType = 'shop' | 'mypage' | 'recommend' | 'search';
 type Props = {
   type: ProductItemListType;
   isRecommend?: boolean;
-  isSearch?: boolean;
+  needPullToRefresh?: boolean;
   queryStringObj?: Omit<req.ShopFeed, 'page' | 'size'>;
+  height?: string;
   paddingTop?: string;
   paddingBottom?: string;
-  needPullToRefresh?: boolean;
 };
 
 type ProductList = Props['queryStringObj'];
@@ -31,13 +32,13 @@ type ProductList = Props['queryStringObj'];
 const useProductItemQuery = (type: ProductItemListType) => {
   if (type === 'search') return useSearchingItemListQuery;
   if (type === 'recommend') return useRecommendItemListQuery;
+  if (type === 'mypage') return useMyItemListQuery;
   return useProductItemListQuery;
 };
 
 function ProductItemList(listProps: Props) {
   const { type, paddingTop, paddingBottom } = listProps;
-  const { needPullToRefresh, queryStringObj } = listProps;
-
+  const { needPullToRefresh, queryStringObj, height } = listProps;
   const productList: ProductList = { ...queryStringObj };
   const useProductItem = useProductItemQuery(type);
 
@@ -76,6 +77,7 @@ function ProductItemList(listProps: Props) {
         isNoProducts,
         isLoading,
         isFetching,
+        height,
       }}
     />
   );
@@ -98,7 +100,7 @@ function ProductItemList(listProps: Props) {
 
   if (needPullToRefresh) {
     return (
-      <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
+      <ProductListWrapperView {...{ paddingTop, paddingBottom, height }}>
         <PullToRefresh
           {...{
             refreshingContent,
@@ -114,7 +116,7 @@ function ProductItemList(listProps: Props) {
   }
 
   return (
-    <ProductListWrapperView {...{ paddingTop, paddingBottom }}>
+    <ProductListWrapperView {...{ paddingTop, paddingBottom, height }}>
       {commonProducts}
     </ProductListWrapperView>
   );
