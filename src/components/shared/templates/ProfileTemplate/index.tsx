@@ -34,7 +34,6 @@ function ProfileTemplate(profileProps: Props) {
       title={`${isMe ? '내' : '다른 사용자'} 프로필`}
       isNeedFooter={isNeedFooter}
       paddingTop="84px"
-      sidePadding="23px"
       left={<BackBtn color="#000" />}
       right={
         isMe && (
