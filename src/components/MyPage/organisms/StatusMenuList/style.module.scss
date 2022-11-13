@@ -12,3 +12,10 @@
     }
   }
 }
+
+.prepare {
+  height: calc(var(--vh, 1vh) * 100 - 329px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

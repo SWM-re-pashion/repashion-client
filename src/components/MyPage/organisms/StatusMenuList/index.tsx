@@ -1,37 +1,55 @@
 import { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
+import Span from '@atoms/Span';
 import MenuBtn from '@molecules/MenuBtn';
-import { useDragScroll } from 'src/hooks';
+import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
+import { useDragScroll, useSearch } from 'src/hooks';
 
 import $ from './style.module.scss';
 
 type Props = {
+  isMe: boolean;
   data: DefaultData[];
   selectedMenu: string;
   onClick: (value?: string) => void;
 };
 
 function StatusMenuList(listProps: Props) {
-  const { data, selectedMenu, onClick } = listProps;
+  const { isMe, data, selectedMenu, onClick } = listProps;
   const listRef = useRef<HTMLDivElement | null>(null);
+  const status = useSearch('status') || data[0].code;
   useDragScroll(listRef);
 
   return (
-    <div className={$['status-menu-list']} ref={listRef}>
-      {data.map(({ name, code }) => {
-        const isSelected = selectedMenu === code;
+    <>
+      <div className={$['status-menu-list']} ref={listRef}>
+        {data.map(({ name, code }) => {
+          const isSelected = selectedMenu === code;
 
-        return (
-          <MenuBtn
-            value={code}
-            key={name}
-            {...{ name, onClick, isSelected }}
-            className={$['menu-btn']}
-          />
-        );
-      })}
-    </div>
+          return (
+            <MenuBtn
+              value={code}
+              key={name}
+              {...{ name, onClick, isSelected }}
+              className={$['menu-btn']}
+            />
+          );
+        })}
+      </div>
+      {isMe ? (
+        <ProductItemList
+          queryStringObj={{ status }}
+          paddingTop="0"
+          type="mypage"
+          height="calc(var(--vh, 1vh) * 100 - 329px)"
+        />
+      ) : (
+        <div className={$.prepare}>
+          <Span>서비스 준비중입니다.</Span>
+        </div>
+      )}
+    </>
   );
 }
 
