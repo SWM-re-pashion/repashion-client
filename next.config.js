@@ -18,15 +18,6 @@ const sentryWebpackPluginOptions = {
 };
 
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/shop',
-        permanent: true,
-      },
-    ];
-  },
   reactStrictMode: true,
   swcMinify: true,
   presets: [['next/babel']],
