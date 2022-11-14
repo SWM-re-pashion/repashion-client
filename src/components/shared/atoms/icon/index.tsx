@@ -5,6 +5,7 @@ import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
 import { Filter } from './Filter';
 import { Google } from './Google';
+import { Home } from './Home';
 import { ImgClose } from './ImgClose';
 import { Kakao } from './Kakao';
 import { More } from './More';
@@ -56,4 +57,5 @@ export {
   MyPage,
   Plus,
   Setting,
+  Home,
 };
