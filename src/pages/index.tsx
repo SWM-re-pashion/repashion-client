@@ -1,30 +1,32 @@
-import { useRouter } from 'next/router';
-
 import { ReactElement } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
+import MainHeader from 'src/components/Main/molecules/MainHeader';
+import RecommendListHeader from 'src/components/Main/molecules/RecommendListHeader';
+import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 
 import $ from '../styles/index.module.scss';
 
 function OnBoarding() {
-  const router = useRouter();
-  const handleClick = () => router.push('/login');
+  const queryStringObj = { category: '3', hideSold: 'false', order: 'view' };
 
   return (
     <>
       <HeadMeta />
 
       <section className={$['on-boarding']}>
-        <h1 className={$.title}>re:Fashion</h1>
-        <span className={$.decription}>
-          recommend individual outfit from secondhand
-        </span>
+        <MainHeader />
 
-        <ButtonFooter btnColor="#4a4a4a" onClick={handleClick}>
-          시작하기
-        </ButtonFooter>
+        <RecommendListHeader />
+        <ProductItemList
+          type="recommend"
+          paddingTop="0"
+          queryStringObj={queryStringObj}
+        />
+
+        <Footer />
       </section>
     </>
   );
