@@ -1,10 +1,12 @@
 .main-header {
-  @include header(23px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 28px 23px 15px;
+  @include header(0px);
   background-color: $white;
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 23px 15px;
+  }
 }
 
 .title {
