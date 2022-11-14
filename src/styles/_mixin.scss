@@ -46,6 +46,13 @@
   max-width: 1024px;
 }
 
+@mixin header($sidePadding) {
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  max-width: calc(1024px - #{$sidePadding * 2});
+}
+
 @mixin btn-footer($isFooter) {
   z-index: 99;
   position: fixed;
