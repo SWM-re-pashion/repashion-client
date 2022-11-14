@@ -32,20 +32,14 @@ function Footer() {
       label: 'shop',
       href: '/shop',
     },
-    {
-      id: 3,
-      icon: SearchBlack,
-      label: 'search',
-      href: '/search',
-    },
     // {
-    //   id: 4,
+    //   id: 3,
     //   icon: Chat,
     //   label: 'chat',
     //   href: '',
     // },
     {
-      id: 5,
+      id: 4,
       icon: MyPage,
       label: 'me',
       href: '/mypage',
