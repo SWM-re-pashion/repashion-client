@@ -6,6 +6,7 @@ import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
 import MainHeader from 'src/components/Main/molecules/MainHeader';
 import RecommendListHeader from 'src/components/Main/molecules/RecommendListHeader';
+import TodayRecommend from 'src/components/Main/organisms/TodayRecommend';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 
 import $ from '../styles/index.module.scss';
@@ -22,6 +23,8 @@ function Main() {
 
       <section className={$['on-boarding']}>
         <MainHeader />
+
+        <TodayRecommend />
 
         <RecommendListHeader />
         <ProductItemList

@@ -1,6 +1,7 @@
 export const queryKey = {
   myInfo: ['myInfo'],
   styleImgs: ['styleImgs'],
+  todayRecommend: ['todayRecommend'],
   userInfo: (id: string) => {
     return ['userInfo', id];
   },
