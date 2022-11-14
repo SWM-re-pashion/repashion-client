@@ -1,9 +1,6 @@
 .header {
-  z-index: 1;
-  position: fixed;
+  @include header(0px);
   top: 0;
-  max-width: 1024px;
-  width: 100%;
   padding-top: 15px;
   background-color: $white;
 }

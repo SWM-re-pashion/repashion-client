@@ -1,37 +1,46 @@
-import { useRouter } from 'next/router';
-
 import { ReactElement } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
+import { seoData } from '@constants/seo';
+import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
+import MainHeader from 'src/components/Main/molecules/MainHeader';
+import RecommendListHeader from 'src/components/Main/molecules/RecommendListHeader';
+import TodayRecommend from 'src/components/Main/organisms/TodayRecommend';
+import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 
 import $ from '../styles/index.module.scss';
 
-function OnBoarding() {
-  const router = useRouter();
-  const handleClick = () => router.push('/login');
+function Main() {
+  const queryStringObj = { category: '3', hideSold: 'false', order: 'view' };
 
   return (
     <>
-      <HeadMeta />
+      <HeadMeta
+        title="re:Fashion | 서비스 메인 페이지"
+        url={`${seoData.url}`}
+      />
 
       <section className={$['on-boarding']}>
-        <h1 className={$.title}>re:Fashion</h1>
-        <span className={$.decription}>
-          recommend individual outfit from secondhand
-        </span>
+        <MainHeader />
 
-        <ButtonFooter btnColor="#4a4a4a" onClick={handleClick}>
-          시작하기
-        </ButtonFooter>
+        <TodayRecommend />
+
+        <RecommendListHeader />
+        <ProductItemList
+          type="recommend"
+          paddingTop="0"
+          queryStringObj={queryStringObj}
+        />
+
+        <Footer />
       </section>
     </>
   );
 }
 
-OnBoarding.getLayout = function getLayout(page: ReactElement) {
+Main.getLayout = function getLayout(page: ReactElement) {
   return <Layout noPadding>{page}</Layout>;
 };
 
-export default OnBoarding;
+export default Main;
