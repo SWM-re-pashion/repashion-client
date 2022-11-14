@@ -1,6 +1,7 @@
 import { Arrow } from './Arrow';
 import { Chat } from './Chat';
 import { Check } from './Check';
+import { Circle } from './Circle';
 import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
 import { Filter } from './Filter';
@@ -22,6 +23,7 @@ import { Setting } from './Setting';
 import { Shop } from './Shop';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
+import { Star } from './Star';
 import { Strong } from './Strong';
 import { Time } from './Time';
 import { Top } from './Top';
@@ -58,4 +60,6 @@ export {
   Plus,
   Setting,
   Home,
+  Circle,
+  Star,
 };
