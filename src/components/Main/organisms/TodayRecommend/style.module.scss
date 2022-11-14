@@ -1,0 +1,35 @@
+.today-recommend {
+  overflow-x: hidden;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 71px 0 15px;
+  padding-top: 20px;
+  border-radius: 19px;
+  background-color: rgba($second, 0.25);
+}
+
+.circle {
+  z-index: -1;
+  position: absolute;
+  top: 90px;
+  right: 0;
+  @include mobile() {
+    right: -20px;
+  }
+}
+
+.star {
+  z-index: -1;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  @include mobile() {
+    left: -30px;
+  }
+}
