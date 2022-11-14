@@ -1,10 +1,12 @@
 import { Arrow } from './Arrow';
 import { Chat } from './Chat';
 import { Check } from './Check';
+import { Circle } from './Circle';
 import { ClickHeart } from './ClickHeart';
 import { Close } from './Close';
 import { Filter } from './Filter';
 import { Google } from './Google';
+import { Home } from './Home';
 import { ImgClose } from './ImgClose';
 import { Kakao } from './Kakao';
 import { More } from './More';
@@ -21,6 +23,7 @@ import { Setting } from './Setting';
 import { Shop } from './Shop';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
+import { Star } from './Star';
 import { Strong } from './Strong';
 import { Time } from './Time';
 import { Top } from './Top';
@@ -56,4 +59,7 @@ export {
   MyPage,
   Plus,
   Setting,
+  Home,
+  Circle,
+  Star,
 };

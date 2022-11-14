@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { memo, useEffect, useState } from 'react';
 
-import { Chat, Shop, MyPage, Plus, SearchBlack } from '@atoms/icon';
+import { Chat, Shop, MyPage, Plus, SearchBlack, Home } from '@atoms/icon';
 import NavigationLink from '@molecules/NavigationLink';
 import classnames from 'classnames';
 import { useScrollDetect } from 'src/hooks';
@@ -22,15 +22,15 @@ function Footer() {
   const routes = [
     {
       id: 1,
-      icon: Shop,
-      label: 'shop',
-      href: '/shop',
+      icon: Home,
+      label: 'home',
+      href: '/',
     },
     {
       id: 2,
-      icon: SearchBlack,
-      label: 'search',
-      href: '/search',
+      icon: Shop,
+      label: 'shop',
+      href: '/shop',
     },
     // {
     //   id: 3,
@@ -52,21 +52,23 @@ function Footer() {
     href: '/upload',
   };
 
+  const isActiveCondition = (path: string, currentPath: string) =>
+    (!path.includes('/') && path.includes(currentPath)) || path === currentPath;
+
   return (
     <footer className={$.footer}>
       <div className={classnames($['footer-wrapper'], { [$.down]: isDown })}>
         <div className={$['rest-footer']}>
-          {routes.map((route) => {
-            const isActive =
-              pathname.includes(route.href) || pathname === route.href;
-            return (
-              <NavigationLink
-                key={route.id}
-                label={`${route.label}버튼`}
-                {...{ route, isActive }}
-              />
-            );
-          })}
+          {routes.map((route) => (
+            <NavigationLink
+              key={route.id}
+              label={`${route.label}버튼`}
+              {...{
+                route,
+                isActive: isActiveCondition(pathname, route.href),
+              }}
+            />
+          ))}
         </div>
 
         <NavigationLink

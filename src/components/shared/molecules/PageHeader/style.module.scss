@@ -1,10 +1,7 @@
 .page-header {
-  z-index: 100;
-  position: fixed;
+  @include header(0px);
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 1024px;
   height: 60px;
   display: flex;
   align-items: center;
