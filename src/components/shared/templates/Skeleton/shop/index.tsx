@@ -1,3 +1,4 @@
+import { StyleProps } from '#types/props';
 import classnames from 'classnames';
 import $$ from 'src/components/Shop/molecules/ProductItem/style.module.scss';
 import $ from 'src/components/Shop/Organisms/ProductItemList/style.module.scss';
@@ -32,6 +33,18 @@ function ShopItem({ isRecommend }: { isRecommend: boolean }) {
   );
 }
 
+export function RecommendItemSkeleton(
+  props: { isRecommend: boolean } & StyleProps,
+) {
+  const { isRecommend, className } = props;
+  return (
+    <div className={classnames($['recommend-item'], className)}>
+      <ShopItem {...{ isRecommend }} />
+      <ShopItem {...{ isRecommend }} />
+    </div>
+  );
+}
+
 function ShopSkeleton(skeletonProps: Props) {
   const { itemNum, isRecommend } = skeletonProps;
   const skeletonItemList = Array.from({ length: itemNum }, (_, i) => i);
@@ -45,8 +58,7 @@ function ShopSkeleton(skeletonProps: Props) {
       {isRecommend
         ? skeletonItemList.map((item) => (
             <div key={item} className={$['recommend-item']}>
-              <ShopItem {...{ isRecommend }} />
-              <ShopItem {...{ isRecommend }} />
+              <RecommendItemSkeleton {...{ isRecommend }} />
             </div>
           ))
         : skeletonItemList.map((item) => (

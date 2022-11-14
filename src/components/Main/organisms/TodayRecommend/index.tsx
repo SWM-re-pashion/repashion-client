@@ -1,7 +1,11 @@
+import ErrorFallback from '@atoms/ErrorFallback';
 import { Circle, Star } from '@atoms/icon';
 import Span from '@atoms/Span';
+import AsyncBoundary from '@templates/AsyncBoundary';
+import { RecommendItemSkeleton } from '@templates/Skeleton/shop';
 
 import TodayRecommendItem from '../TodayRecommendItem';
+import $$ from '../TodayRecommendItem/style.module.scss';
 import $ from './style.module.scss';
 
 function TodayRecommend() {
@@ -12,7 +16,15 @@ function TodayRecommend() {
       <Span fontSize={20} isStrongFontFamily>
         오늘 추천하는 아이템 코디
       </Span>
-      <TodayRecommendItem />
+
+      <AsyncBoundary
+        suspenseFallback={
+          <RecommendItemSkeleton isRecommend className={$$.item} />
+        }
+        errorFallback={ErrorFallback}
+      >
+        <TodayRecommendItem />
+      </AsyncBoundary>
     </div>
   );
 }
