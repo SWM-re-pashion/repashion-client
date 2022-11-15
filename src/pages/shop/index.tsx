@@ -84,6 +84,7 @@ function Shop() {
     genderSelectMenu,
     selectData,
     breadCrumb,
+    isRecommend,
   };
 
   return (
