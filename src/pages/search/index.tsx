@@ -69,7 +69,6 @@ function SearchPage() {
         }}
       />
       <SearchBody {...{ value, queryStringObj }} />
-      <Footer />
     </>
   );
 }
