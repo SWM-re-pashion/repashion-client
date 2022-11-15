@@ -6,7 +6,6 @@ import HeadMeta from '@atoms/HeadMeta';
 import { searchQueries, searchQueryData } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
-import Footer from '@organisms/Footer';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
