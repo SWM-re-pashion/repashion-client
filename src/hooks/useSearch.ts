@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 
-import { getQueryStringObj, getQueriesArr } from 'src/utils';
+import { getQueryStringObj, getQueriesArr, getPropFromQuery } from 'src/utils';
 
 function useSearch(target: string) {
-  return useRouter().query[target]?.toString() || '';
+  return getPropFromQuery(useRouter().asPath.split('?')[1], target) || '';
 }
 
 function useMultipleSearch<T extends string>(
@@ -14,7 +14,9 @@ function useMultipleSearch<T extends string>(
   return getQueryStringObj(
     getQueriesArr<T>(
       queryDatas,
-      targets.map((target) => router.query[target]),
+      targets.map(
+        (target) => getPropFromQuery(router.asPath.split('?')[1], target) || '',
+      ),
     ),
   );
 }
