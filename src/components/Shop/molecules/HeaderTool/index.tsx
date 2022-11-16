@@ -51,14 +51,16 @@ function HeaderTool(headerProps: Props) {
         {!isSelectedSub && (
           <SelectBox
             {...{ onQueryChange: onClick }}
-            options={data}
-            selected={selectedMenu}
-            name="category"
-            width="100px"
-            height="33px"
-            fontWeight={700}
             isGender
             hasId
+            isSameCodeName
+            options={data}
+            selected={selectedMenu}
+            name="gender"
+            width="fit-content"
+            height="33px"
+            fontSize={13}
+            fontWeight={700}
           />
         )}
 
