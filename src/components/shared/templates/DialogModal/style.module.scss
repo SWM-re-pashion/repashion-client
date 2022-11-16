@@ -19,6 +19,7 @@
     @include typography(18);
     font-weight: 700;
     color: $black-600;
+    word-break: break-all;
     &:visited {
       color: $primary;
     }

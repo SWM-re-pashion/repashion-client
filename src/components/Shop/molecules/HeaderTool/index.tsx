@@ -21,11 +21,12 @@ type Props = {
   isSelectedSub: boolean;
   breadCrumb: string;
   mainCategory: FilterType;
+  isRecommend: boolean;
   onClick: (value: string) => void;
 };
 
 function HeaderTool(headerProps: Props) {
-  const { data, selectedMenu, onClick } = headerProps;
+  const { data, selectedMenu, onClick, isRecommend } = headerProps;
   const { isSelectedSub, breadCrumb, mainCategory } = headerProps;
   const [filterOpen, setFilterOpen] = useState(false);
 
@@ -50,14 +51,16 @@ function HeaderTool(headerProps: Props) {
         {!isSelectedSub && (
           <SelectBox
             {...{ onQueryChange: onClick }}
-            options={data}
-            selected={selectedMenu}
-            name="category"
-            width="100px"
-            height="33px"
-            fontWeight={700}
             isGender
             hasId
+            isSameCodeName
+            options={data}
+            selected={selectedMenu}
+            name="gender"
+            width="fit-content"
+            height="33px"
+            fontSize={13}
+            fontWeight={700}
           />
         )}
 
@@ -65,30 +68,32 @@ function HeaderTool(headerProps: Props) {
           <button
             type="button"
             aria-label="상품 검색 버튼"
-            className={$['btn-search']}
+            className={$.search}
           >
             <Search />
           </button>
         </Link>
 
-        <AsyncBoundary
-          suspenseFallback={<FilterSkeleton />}
-          errorFallback={ErrorFallback}
-        >
-          <Button
-            iconBtn
-            label="상품 필터 버튼"
-            className={$.btn}
-            onClick={openFilterModal}
+        {!isRecommend && (
+          <AsyncBoundary
+            suspenseFallback={<FilterSkeleton />}
+            errorFallback={ErrorFallback}
           >
-            <Filter fill="#C9B6FF" stroke="#936DFF" />
-          </Button>
-          <FilterModal
-            {...{ mainCategory }}
-            isOpen={filterOpen}
-            onClose={closeFilterModal}
-          />
-        </AsyncBoundary>
+            <Button
+              iconBtn
+              label="상품 필터 버튼"
+              className={$.filter}
+              onClick={openFilterModal}
+            >
+              <Filter fill="#C9B6FF" stroke="#936DFF" />
+            </Button>
+            <FilterModal
+              {...{ mainCategory }}
+              isOpen={filterOpen}
+              onClose={closeFilterModal}
+            />
+          </AsyncBoundary>
+        )}
       </section>
     </section>
   );
