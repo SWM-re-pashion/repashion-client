@@ -1,10 +1,11 @@
 import { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
-import { Check, SelectArrow } from '@atoms/icon';
+import { SelectArrow } from '@atoms/icon';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
 
+import SelectMenuView from './SelectMenu.view';
 import $ from './style.module.scss';
 import useSelect from './useSelect';
 import { getLabelNameByProp } from './utils';
@@ -23,17 +24,22 @@ type Props<T, U> = {
   fontWeight?: number;
   fontSize?: number;
   hasId?: boolean;
+  isSameCodeName?: boolean;
 };
 
 function SelectBox<T, U>(selectProps: Props<T, U>) {
-  const { options, selected, onChange, onQueryChange, isGender, hasId } =
-    selectProps;
-  const { name, width, height, type, subType, fontWeight, fontSize } =
-    selectProps;
+  const { options, selected, onChange, onQueryChange } = selectProps;
+  const { width, height, type, subType, fontWeight, fontSize } = selectProps;
+  const { name, isGender, hasId, isSameCodeName } = selectProps;
   const labelRef = useRef<HTMLButtonElement>(null);
   const [isClicked, setIsClicked] = useSelect(labelRef);
   const labelProp = hasId ? 'id' : 'code';
-  const labelName = getLabelNameByProp(options, selected, labelProp);
+  const labelName = getLabelNameByProp(
+    [options, selected],
+    labelProp,
+    isSameCodeName,
+  );
+
   const isGenderSelected = (optionName: string) =>
     isGender && labelName === optionName;
   const isSelected = (optionName: string) =>
@@ -104,34 +110,28 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
         >
           {options.map((option) => {
             const isObject = typeof option === 'object';
-            const optionName = isObject ? option.name : option;
+            const candidateName = isObject ? option.name : option;
+            const optionCodeName = isObject ? option.code : option;
+            const optionName = isSameCodeName ? optionCodeName : candidateName;
             const optionData = isObject ? option.code : option;
             const hasIdData = isObject ? option.id : option;
             const toBeData = hasId ? hasIdData : optionData;
 
-            return (
-              <li
-                tabIndex={0}
-                role="menuitem"
-                key={optionName}
-                style={{ ...{ height } }}
-                className={classnames($['select-item'], {
-                  [$['select-item-gender']]: isGender,
-                  [$['select-item-clicked']]: isSelected(optionName),
-                  [$['select-hover']]: !isGender,
-                  [$['gender-item-clicked']]: isGenderSelected(optionName),
-                  [$['gender-hover']]: isGender,
-                })}
-                onClick={(e) => handleSelectItem(e, toBeData)}
-                onKeyPress={(e) => handleSelectItem(e, toBeData)}
-              >
-                <span style={{ fontSize }}>{optionName}</span>
+            const props = {
+              height,
+              fontSize: `${fontSize}px`,
+              isGender,
+              optionName,
+              isItemSelected: isSelected(optionName),
+              isGenderItemSelected: isGenderSelected(optionName),
+              handleSelectMenu: (
+                e:
+                  | React.MouseEvent<HTMLLIElement>
+                  | React.KeyboardEvent<HTMLLIElement>,
+              ) => handleSelectItem(e, toBeData),
+            };
 
-                {isGenderSelected(optionName) && (
-                  <Check className={$['check-icon']} />
-                )}
-              </li>
-            );
+            return <SelectMenuView key={props.optionName} {...props} />;
           })}
         </ul>
       )}
