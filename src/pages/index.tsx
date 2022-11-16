@@ -21,7 +21,7 @@ function Main() {
         url={`${seoData.url}`}
       />
 
-      <section className={$['on-boarding']}>
+      <section className={$.main}>
         <MainHeader />
 
         <TodayRecommend />

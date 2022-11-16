@@ -4,14 +4,14 @@ function Home({ className, style, fill }: IconProps) {
   return (
     <svg
       {...{ className, style }}
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="20"
+      height="17"
+      viewBox="0 0 20 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z"
+        d="M8 17V11H12V17H17V9H20L10 0L0 9H3V17H8Z"
         fill={fill || 'black'}
         fillOpacity="0.87"
       />

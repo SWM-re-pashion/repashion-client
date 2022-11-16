@@ -1,14 +1,16 @@
 import { DefaultData } from '#types/index';
 
 export const getLabelNameByProp = (
-  options: (string | DefaultData)[],
-  selected: string | number,
+  [options, selected]: [(string | DefaultData)[], string | number],
   prop?: keyof DefaultData,
+  isSameCodeName?: boolean,
 ) => {
   let labelName = '선택';
   options.forEach((option) => {
     if (typeof option !== 'string' && prop) {
-      if (option[prop]?.toString() === selected) labelName = option.name;
+      const isSameLabel = option[prop]?.toString() === selected;
+      if (isSameLabel && isSameCodeName) labelName = option.code;
+      else if (isSameLabel) labelName = option.name;
     }
     if (option === selected) labelName = option;
   });

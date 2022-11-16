@@ -10,9 +10,9 @@ import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
+import { useSearch } from 'src/hooks';
 import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
-import { getPropFromQuery } from 'src/utils';
 import { toastError } from 'src/utils/toaster';
 import { uploadedDataToState } from 'src/utils/upload.utils';
 
@@ -52,9 +52,8 @@ export const getStaticProps = async () => {
 };
 
 function UploadUpdate() {
-  const { asPath, replace } = useRouter();
-  const searchParams = asPath.split('?')[1];
-  const id = getPropFromQuery(searchParams, 'id') || '';
+  const { replace } = useRouter();
+  const id = useSearch('id');
   const { data, isSuccess } = useUploadedProduct(id);
   const states = useUploadUpdateStore((state) => state);
   const { initState } = states;

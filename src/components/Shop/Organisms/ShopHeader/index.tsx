@@ -17,6 +17,7 @@ type Props = {
   genderSelectMenu: res.CategoryTreeChildren[];
   selectData: res.CategoryTreeChildren[];
   breadCrumb: string;
+  isRecommend: boolean;
 };
 
 function ShopHeader(headerProps: Props) {
@@ -26,7 +27,7 @@ function ShopHeader(headerProps: Props) {
   const queryHideSold = useQueryRouter('hideSold', 'REPLACE');
   const { categoryQuery, orderQuery, hideSoldQuery } = headerProps;
   const { genderSelectMenu, selectData } = headerProps;
-  const { genderQuery, breadCrumb } = headerProps;
+  const { genderQuery, breadCrumb, isRecommend } = headerProps;
   const isSelectedSub = categoryQuery.length === 7;
   const selectedMenu = categoryQuery;
   const mainCategory = judgeMainCategory(breadCrumb);
@@ -37,7 +38,7 @@ function ShopHeader(headerProps: Props) {
     <header className={$.header}>
       <HeaderTool
         {...{ onClick: queryCategory, breadCrumb }}
-        {...{ isSelectedSub, mainCategory }}
+        {...{ isSelectedSub, mainCategory, isRecommend }}
         data={genderSelectMenu}
         selectedMenu={genderQuery}
       />

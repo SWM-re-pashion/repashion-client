@@ -1,20 +1,16 @@
 import { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
-import { Check, SelectArrow } from '@atoms/icon';
-import Span from '@atoms/Span';
-import classnames from 'classnames';
 
-import $ from './style.module.scss';
+import SelectBoxView from './SelectBox.view';
+import SelectMenuView from './SelectMenu.view';
 import useSelect from './useSelect';
 import { getLabelNameByProp } from './utils';
 
 type Props<T, U> = {
+  name: string;
   options: (string | DefaultData)[];
   selected: string | number;
-  onChange?: (value: string, type: T, subType: U) => void;
-  onQueryChange?: (value: string) => void;
-  name: string;
   type?: T;
   subType?: U;
   width?: string;
@@ -23,17 +19,20 @@ type Props<T, U> = {
   fontWeight?: number;
   fontSize?: number;
   hasId?: boolean;
+  isSameCodeName?: boolean;
+  onChange?: (value: string, type: T, subType: U) => void;
+  onQueryChange?: (value: string) => void;
 };
 
 function SelectBox<T, U>(selectProps: Props<T, U>) {
-  const { options, selected, onChange, onQueryChange, isGender, hasId } =
-    selectProps;
-  const { name, width, height, type, subType, fontWeight, fontSize } =
-    selectProps;
-  const labelRef = useRef<HTMLButtonElement>(null);
-  const [isClicked, setIsClicked] = useSelect(labelRef);
+  const { options, selected, onChange, onQueryChange } = selectProps;
+  const { width, height, type, subType, fontWeight, fontSize } = selectProps;
+  const { name, isGender, hasId, isSameCodeName: isSame } = selectProps;
+  const ref = useRef<HTMLButtonElement>(null);
+  const [isClicked, setIsClicked] = useSelect(ref);
   const labelProp = hasId ? 'id' : 'code';
-  const labelName = getLabelNameByProp(options, selected, labelProp);
+  const labelName = getLabelNameByProp([options, selected], labelProp, isSame);
+
   const isGenderSelected = (optionName: string) =>
     isGender && labelName === optionName;
   const isSelected = (optionName: string) =>
@@ -46,10 +45,7 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     setIsClicked((clicked) => !clicked);
   };
 
-  const handleSelectItem = (
-    e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
-    option?: string,
-  ) => {
+  const handleSelectItem = (option?: string) => {
     if (type && subType && option && onChange) {
       onChange(option, type, subType);
     } else if (option && onQueryChange) {
@@ -58,84 +54,43 @@ function SelectBox<T, U>(selectProps: Props<T, U>) {
     setIsClicked(false);
   };
 
+  const viewProps = {
+    name,
+    isClicked,
+    isGender,
+    labelName,
+    width,
+    height,
+    fontSize,
+    fontWeight,
+    handleMouseDown,
+    ref,
+  };
+
   return (
-    <div
-      className={classnames($['select-box'], {
-        [$['select-box-clicked']]: isClicked,
-        [$['gender-box']]: isGender,
+    <SelectBoxView {...viewProps}>
+      {options.map((option) => {
+        const isObject = typeof option === 'object';
+        const candidateName = isObject ? option.name : option;
+        const optionCodeName = isObject ? option.code : option;
+        const optionName = isSame ? optionCodeName : candidateName;
+        const optionData = isObject ? option.code : option;
+        const hasIdData = isObject ? option.id : option;
+        const toBeData = hasId ? hasIdData : optionData;
+
+        const props = {
+          height,
+          fontSize: `${fontSize}px`,
+          isGender,
+          optionName,
+          isItemSelected: isSelected(optionName),
+          isGenderItemSelected: isGenderSelected(optionName),
+          handleSelectMenu: () => handleSelectItem(toBeData),
+        };
+
+        return <SelectMenuView key={props.optionName} {...props} />;
       })}
-      style={{ ...{ width, height } }}
-    >
-      <button
-        id={`${name}-select-box`}
-        ref={labelRef}
-        type="button"
-        aria-haspopup="true"
-        aria-expanded="true"
-        aria-controls={`${name}-select-list`}
-        onClick={handleMouseDown}
-      >
-        <Span
-          fontSize={fontSize || 16}
-          fontWeight={fontWeight || 400}
-          className={classnames($.text, {
-            [$['gender-text']]: isGender,
-          })}
-        >
-          {labelName || '선택'}
-        </Span>
-        <SelectArrow
-          className={classnames($.arrow, {
-            [$['arrow-clicked']]: isClicked,
-          })}
-        />
-      </button>
-
-      {isClicked && (
-        <ul
-          id={`${name}-select-list`}
-          aria-labelledby={`${name}-select-box`}
-          role="menu"
-          tabIndex={0}
-          style={{ top: height ? `calc(${height} + 6px)` : '56px' }}
-          className={classnames($['select-wrapper'], {
-            [$['select-wrapper-clicked']]: isClicked,
-          })}
-        >
-          {options.map((option) => {
-            const isObject = typeof option === 'object';
-            const optionName = isObject ? option.name : option;
-            const optionData = isObject ? option.code : option;
-            const hasIdData = isObject ? option.id : option;
-            const toBeData = hasId ? hasIdData : optionData;
-
-            return (
-              <li
-                tabIndex={0}
-                role="menuitem"
-                key={optionName}
-                style={{ ...{ height } }}
-                className={classnames($['select-item'], {
-                  [$['select-item-gender']]: isGender,
-                  [$['select-item-clicked']]: isSelected(optionName),
-                  [$['select-hover']]: !isGender,
-                  [$['gender-item-clicked']]: isGenderSelected(optionName),
-                  [$['gender-hover']]: isGender,
-                })}
-                onClick={(e) => handleSelectItem(e, toBeData)}
-                onKeyPress={(e) => handleSelectItem(e, toBeData)}
-              >
-                <span style={{ fontSize }}>{optionName}</span>
-
-                {isGenderSelected(optionName) && (
-                  <Check className={$['check-icon']} />
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
+    </SelectBoxView>
   );
 }
 
