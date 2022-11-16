@@ -10,9 +10,7 @@ type Props = {
   optionName: string;
   height?: string;
   fontSize?: string;
-  handleSelectMenu: (
-    e: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
-  ) => void;
+  handleSelectMenu: () => void;
 };
 
 function SelectMenuView(viewProps: Props) {
