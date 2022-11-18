@@ -1,9 +1,8 @@
+import { FilterStoreState, FilterType } from '#types/storeType/filter';
 import { updateInfo, deepClone } from 'src/utils';
 import create from 'zustand';
 
 import { filterCommonState, filterInitialState } from './constants';
-
-import { FilterStoreState, FilterType } from '#types/storeType/filter';
 
 export const useFilterStore = create<FilterStoreState>((set) => ({
   ...filterInitialState,
