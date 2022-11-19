@@ -87,7 +87,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         (code) => code === status,
       );
       const renderCondition = !redirectUrl || isIncludeOtherStatus;
-      if (redirectUrl && !otherRenderComponent) {
+      if (redirectUrl && !isIncludeOtherStatus) {
         router.replace(redirectUrl);
       }
       if (notFound) {

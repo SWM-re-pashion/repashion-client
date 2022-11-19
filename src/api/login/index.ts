@@ -29,6 +29,7 @@ export const logoutUtil = () => {
   deleteAccessToken();
   queryClient.removeQueries(['userInfo']);
   queryClient.removeQueries(queryKey.myInfo);
+  queryClient.removeQueries(['myItemList']);
 };
 
 export const authTest = async () => {
