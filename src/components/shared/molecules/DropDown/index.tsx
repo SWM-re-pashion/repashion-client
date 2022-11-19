@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
 import { StyleProps } from '#types/props';
@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import $ from './style.module.scss';
 
 type Props = {
-  options: (string | Partial<DefaultData>)[];
+  options: (string | Partial<DefaultData> | JSX.Element)[];
   children: React.ReactNode;
   name: string;
   top?: string;
@@ -19,6 +19,12 @@ type Props = {
   fontWeight?: number;
   fontSize?: number;
 } & StyleProps;
+
+const isReactComponent = (
+  option: Props['options'][0],
+): option is JSX.Element => {
+  return typeof option === 'object' && !('name' in option);
+};
 
 function DropDown(selectProps: Props) {
   const { options, children, className } = selectProps;
@@ -63,6 +69,8 @@ function DropDown(selectProps: Props) {
           style={{ top, right, bottom, left }}
         >
           {options.map((option) => {
+            if (isReactComponent(option)) return option;
+
             const isObject = typeof option === 'object';
             const optionName = isObject ? option.name : option;
             const optionClick = isObject ? option.onClick : undefined;

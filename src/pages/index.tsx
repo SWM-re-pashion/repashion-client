@@ -4,9 +4,9 @@ import HeadMeta from '@atoms/HeadMeta';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
 import Layout from '@templates/Layout';
-import MainHeader from 'src/components/Main/molecules/MainHeader';
 import RecommendListHeader from 'src/components/Main/molecules/RecommendListHeader';
 import Introduction from 'src/components/Main/organisms/Introduction';
+import MainHeader from 'src/components/Main/organisms/MainHeader';
 import TodayRecommend from 'src/components/Main/organisms/TodayRecommend';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 
