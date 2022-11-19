@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import ErrorFallback from '@atoms/ErrorFallback';
-import Loading from '@atoms/Loading';
 import AsyncBoundary from '@templates/AsyncBoundary';
 
 import UserDropDown from '../UserDropDown';
@@ -16,12 +15,14 @@ function MainHeader() {
     </Link>
   );
 
+  const UserSkeleton = <div className={$['user-skeleton']} />;
+
   return (
     <div className={$['main-header']}>
       <div className={$['main-header-wrapper']}>
         <h1 className={$.title}>re:Fashion</h1>
         <AsyncBoundary
-          suspenseFallback={<Loading />}
+          suspenseFallback={UserSkeleton}
           errorFallback={ErrorFallback}
           otherRenderComponent={LoginBtn}
           includedStatusCodes={[401, 403]}
