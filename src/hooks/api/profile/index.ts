@@ -13,6 +13,16 @@ export function useMyInfo() {
   return response;
 }
 
+export function useMyUser() {
+  const response = useCoreQuery(queryKey.myInfo, () => getMyInfo(), {
+    suspense: true,
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+  return response;
+}
+
 export function useUserInfo(id: string) {
   const response = useCoreQuery(queryKey.userInfo(id), () => getUserInfo(id), {
     suspense: true,

@@ -6,7 +6,7 @@ import Span from '@atoms/Span';
 import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 import DropDown from '@molecules/DropDown';
 import { logoutUtil } from 'src/api/login';
-import { useMyInfo } from 'src/hooks/api/profile';
+import { useMyUser } from 'src/hooks/api/profile';
 
 import $ from './style.module.scss';
 
@@ -18,7 +18,7 @@ const initialProfile = {
 
 function UserDropDown() {
   const router = useRouter();
-  const { data } = useMyInfo();
+  const { data } = useMyUser();
   const { profileImage, name } = data?.data || initialProfile;
   const profileImgView = (
     <ProfileImg src={profileImage} alt={name} width={28} height={28} />
