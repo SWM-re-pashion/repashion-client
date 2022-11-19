@@ -20,9 +20,12 @@ function UserDropDown() {
   const router = useRouter();
   const { data } = useMyInfo();
   const { profileImage, name } = data?.data || initialProfile;
+  const profileImgView = (
+    <ProfileImg src={profileImage} alt={name} width={28} height={28} />
+  );
   const profileView = (
-    <div className={$.profile} key={name}>
-      <ProfileImg src={profileImage} alt={name} width={28} height={28} />
+    <div className={$.profile}>
+      {profileImgView}
       <Span fontSize={14} className={$.name}>
         {name}
       </Span>
@@ -42,7 +45,7 @@ function UserDropDown() {
   return (
     <DropDown options={options} name="my-menu" top="40px" right="0">
       <div className={$['profile-container']}>
-        <ProfileImg src={profileImage} alt={name} width={28} height={28} />
+        {profileImgView}
         <SelectArrow className={$.arrow} stroke="#fff" />
       </div>
     </DropDown>

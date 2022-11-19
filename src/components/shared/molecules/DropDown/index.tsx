@@ -68,8 +68,12 @@ function DropDown(selectProps: Props) {
           className={$['dropdown-menulist']}
           style={{ top, right, bottom, left }}
         >
-          {options.map((option) => {
-            if (isReactComponent(option)) return option;
+          {options.map((option, idx) => {
+            if (isReactComponent(option))
+              return React.cloneElement(option, {
+                // eslint-disable-next-line react/no-array-index-key
+                key: `component-menu-${idx}`,
+              });
 
             const isObject = typeof option === 'object';
             const optionName = isObject ? option.name : option;
