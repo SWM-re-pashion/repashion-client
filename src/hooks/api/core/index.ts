@@ -13,7 +13,7 @@ import type {
 } from '@tanstack/react-query';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
-import { errorHandler } from 'src/utils/errorHandler';
+import { axiosErrorHandler } from 'src/utils/axiosErrorHandler';
 
 export function useCoreQuery<T, U = null>(
   keyName: QueryKey,
@@ -26,8 +26,8 @@ export function useCoreQuery<T, U = null>(
   const router = useRouter();
   return useQuery(keyName, query, {
     onError: (err) => {
-      errorHandler(err, router);
-      return console.error(err);
+      axiosErrorHandler(err, router);
+      console.error(err);
     },
     ...options,
   });
@@ -40,8 +40,8 @@ export function useCoreMutation<T, U>(
   const router = useRouter();
   return useMutation(mutation, {
     onError: (err) => {
-      errorHandler(err, router);
-      return console.error(err);
+      axiosErrorHandler(err, router);
+      console.error(err);
     },
     ...options,
   });

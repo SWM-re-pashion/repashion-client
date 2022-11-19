@@ -1,6 +1,6 @@
-import type { StyleProps } from '#types/props';
+import type { IconProps } from '#types/props';
 
-function SelectArrow({ className, style }: StyleProps) {
+function SelectArrow({ className, style, stroke }: IconProps) {
   return (
     <svg
       {...{ className, style }}
@@ -12,7 +12,7 @@ function SelectArrow({ className, style }: StyleProps) {
     >
       <path
         d="M1.92383 1L6.24098 5L10.5581 1"
-        stroke="#303030"
+        stroke={stroke || '#303030'}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

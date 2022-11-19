@@ -11,17 +11,24 @@ type Props = {
   suspenseFallback: ComponentProps<typeof SSRSafeSuspense>['fallback'];
   errorFallback: ErrorBoundaryProps['errorFallback'];
   keys?: Array<unknown>;
+  otherRenderComponent?: React.ReactNode;
+  includedStatusCodes?: number[];
 };
 
 function AsyncBoundary(props: PropsWithChildren<Props>) {
   const { suspenseFallback, errorFallback, children, keys } = props;
+  const { otherRenderComponent, includedStatusCodes } = props;
   const { reset } = useQueryErrorResetBoundary();
   const resetHandler = useCallback(() => {
     reset();
   }, [reset]);
 
   return (
-    <ErrorBoundary resetQuery={resetHandler} {...{ errorFallback, keys }}>
+    <ErrorBoundary
+      resetQuery={resetHandler}
+      {...{ errorFallback, keys }}
+      {...{ otherRenderComponent, includedStatusCodes }}
+    >
       <SSRSafeSuspense fallback={suspenseFallback}>{children}</SSRSafeSuspense>
     </ErrorBoundary>
   );

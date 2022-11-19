@@ -1,18 +1,32 @@
 import { StyleProps } from '#types/props';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
+import { ApiError } from 'src/api/core/error';
 
 import $ from './style.module.scss';
 
 type Props = {
-  error: Error;
+  error: Error | ApiError;
   reset: () => void;
+  otherRenderComponent?: React.ReactNode;
+  includedStatusCodes?: number[];
 } & StyleProps;
 
 function ErrorFallback(props: Props) {
   const { error, reset, className } = props;
+  const { otherRenderComponent, includedStatusCodes } = props;
 
-  return (
+  const isIncludeOtherRender = () => {
+    if ('status' in error)
+      return includedStatusCodes?.some((code) => error.status === code);
+    return false;
+  };
+
+  const otherRenderCondition = !!otherRenderComponent && isIncludeOtherRender();
+
+  return otherRenderCondition ? (
+    otherRenderComponent
+  ) : (
     <div className={classnames($['error-fallback'], className)}>
       <div className={$['error-fallback-box']}>
         <Span fontSize={14} className={$['error-msg']}>

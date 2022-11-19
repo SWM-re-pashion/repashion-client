@@ -1,8 +1,19 @@
+import { NextRouter, withRouter } from 'next/router';
+
 import React, { ReactElement } from 'react';
+
+import { isInstanceOfAPIError } from 'src/api/core/error';
+import NotFoundPage from 'src/pages/404';
 
 type ErrorFallbackProps<ErrorType extends Error = Error> = {
   error: ErrorType;
   reset: (...args: unknown[]) => void;
+  otherRenderComponent?: React.ReactNode;
+  includedStatusCodes?: number[];
+};
+
+type WithRouterProps = {
+  router: NextRouter;
 };
 
 type ErrorFallbackType = <ErrorType extends Error>(
@@ -10,11 +21,13 @@ type ErrorFallbackType = <ErrorType extends Error>(
 ) => React.ReactNode;
 
 type Props = {
-  resetQuery?: () => void;
   errorFallback: ErrorFallbackType;
   children: ReactElement;
+  resetQuery?: () => void;
   keys?: unknown[];
-};
+  otherRenderComponent?: React.ReactNode;
+  includedStatusCodes?: number[];
+} & WithRouterProps;
 
 type State = {
   hasError: boolean;
@@ -34,7 +47,7 @@ const changedArray = (
   );
 };
 
-export default class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
@@ -65,16 +78,34 @@ export default class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     const { hasError, error } = this.state;
-    const { errorFallback } = this.props;
-    const { children } = this.props;
+    const { errorFallback, router } = this.props;
+    const { children, otherRenderComponent, includedStatusCodes } = this.props;
 
-    if (hasError && error !== null) {
-      return errorFallback({
-        error,
-        reset: this.resetBoundary,
-      });
+    if (isInstanceOfAPIError(error)) {
+      const { redirectUrl, notFound, status } = error;
+      const isIncludeOtherStatus = includedStatusCodes?.some(
+        (code) => code === status,
+      );
+      const renderCondition = !redirectUrl || isIncludeOtherStatus;
+      if (redirectUrl && !isIncludeOtherStatus) {
+        router.replace(redirectUrl);
+      }
+      if (notFound) {
+        return <NotFoundPage />;
+      }
+
+      if (hasError && error !== null && renderCondition) {
+        return errorFallback({
+          error,
+          reset: this.resetBoundary,
+          otherRenderComponent,
+          includedStatusCodes,
+        });
+      }
     }
 
     return children;
   }
 }
+
+export default withRouter(ErrorBoundary);

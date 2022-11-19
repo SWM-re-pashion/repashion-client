@@ -1,20 +1,17 @@
 .today-recommend {
   overflow-x: hidden;
   position: relative;
-  left: 50%;
+  left: calc(50% - 23px);
   transform: translateX(-50%);
   max-width: 500px;
   min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 71px 0 15px;
+  margin: 97px 23px 15px;
   padding-top: 20px;
   border-radius: 19px;
   background-color: rgba($second, 0.25);
-  @include mobile() {
-    border-radius: 0;
-  }
 }
 
 .circle {

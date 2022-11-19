@@ -1,0 +1,37 @@
+.introduction {
+  position: relative;
+  left: calc(50% - 23px);
+  transform: translateX(-50%);
+  max-width: 432px;
+  padding: 23px 32px;
+  margin: 10px 23px;
+  background: $white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+
+  .title {
+    margin-bottom: 8px;
+  }
+
+  .text {
+    line-height: 23px;
+  }
+
+  .bubble {
+    position: absolute;
+    top: -13px;
+    right: -15px;
+  }
+
+  .green-star {
+    position: absolute;
+    top: 9px;
+    right: -19px;
+  }
+
+  .pink-star {
+    position: absolute;
+    bottom: 27px;
+    left: -16px;
+  }
+}
