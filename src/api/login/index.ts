@@ -27,8 +27,8 @@ export const logout = async () => {
 export const logoutUtil = () => {
   toastSuccess({ message: '로그아웃되었습니다.' });
   deleteAccessToken();
-  queryClient.invalidateQueries(['userInfo']);
-  queryClient.invalidateQueries(queryKey.myInfo);
+  queryClient.removeQueries(['userInfo']);
+  queryClient.removeQueries(queryKey.myInfo);
 };
 
 export const authTest = async () => {

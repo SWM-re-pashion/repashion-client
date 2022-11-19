@@ -82,8 +82,11 @@ class ErrorBoundary extends React.Component<Props, State> {
     const { children, otherRenderComponent, includedStatusCodes } = this.props;
 
     if (isInstanceOfAPIError(error)) {
-      const { redirectUrl, notFound } = error;
-      const renderCondition = !redirectUrl || otherRenderComponent;
+      const { redirectUrl, notFound, status } = error;
+      const isIncludeOtherStatus = includedStatusCodes?.some(
+        (code) => code === status,
+      );
+      const renderCondition = !redirectUrl || isIncludeOtherStatus;
       if (redirectUrl && !otherRenderComponent) {
         router.replace(redirectUrl);
       }

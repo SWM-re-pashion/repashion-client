@@ -39,7 +39,13 @@ function UserDropDown() {
       name: '계정 정보 수정',
       onClick: () => router.push('/mypage/setting/user'),
     },
-    { name: '로그아웃', onClick: () => logoutUtil() },
+    {
+      name: '로그아웃',
+      onClick: () => {
+        logoutUtil();
+        router.replace('/');
+      },
+    },
   ];
 
   return (
