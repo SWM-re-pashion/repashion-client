@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 import { isInstanceOfAPIError } from 'src/api/core/error';
 import { toastError } from 'src/utils/toaster';
 
-export function errorHandler(err: AxiosError, router: NextRouter) {
+export function axiosErrorHandler(err: AxiosError, router: NextRouter) {
   if (isInstanceOfAPIError(err)) {
     const { redirectUrl, notFound, status, code } = err;
     const isStatus403 = status === 403;

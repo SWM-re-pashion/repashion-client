@@ -31,3 +31,10 @@
     color: $white;
   }
 }
+
+.user-skeleton {
+  width: 54px;
+  height: 32px;
+  border-radius: 19px;
+  @include loading();
+}
