@@ -66,7 +66,9 @@ function ShopDetail({ id }: { id: string }) {
           <ProductImgSlide
             {...{ id, isMe, isSoldOut, imgList: sellerInfo.image }}
           />
-          <ProfileInfo {...{ userId, profileImage, name }} />
+          <ProfileInfo
+            {...{ userId, profileImage, name, title: basic.title }}
+          />
 
           <section className={$['shop-detail-info']}>
             <ProductBasic basic={basic} {...{ id, isMe, isSoldOut }} />
