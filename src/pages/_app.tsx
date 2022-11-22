@@ -16,6 +16,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '../styles/globals.scss';
 import { useMounted, useWindowResize } from 'src/hooks';
 import * as gtag from 'src/lib/gtag';
+import { setPathValue } from 'src/utils/pathStorage';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -54,6 +55,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
+      setPathValue(url);
       gtag.pageview(url);
     };
     router.events.on('routeChangeComplete', handleRouteChange);

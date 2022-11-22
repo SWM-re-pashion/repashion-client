@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 
 import { postAuthToken, authTest } from 'src/api/login';
 import { setAccessToken } from 'src/utils/auth';
+import { getPrevPath } from 'src/utils/pathStorage';
 import { toastError, toastSuccess } from 'src/utils/toaster';
 
 import { useCoreMutation, useCoreQuery } from '../core';
@@ -14,7 +15,7 @@ export const usePostAuthToken = () => {
       toastSuccess({ message: '로그인되었습니다.' });
       const { accessToken } = data.data;
       setAccessToken(accessToken);
-      router.replace('/');
+      router.replace(getPrevPath());
     },
     onSettled: (_, error) => {
       if (error) {
