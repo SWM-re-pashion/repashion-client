@@ -5,7 +5,6 @@ import { useCallback } from 'react';
 import HeadMeta from '@atoms/HeadMeta';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
-import Profile from '@molecules/Profile';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
@@ -16,6 +15,7 @@ import ProductFooter from 'src/components/Product/organisms/ProductFooter';
 import ProductImgSlide from 'src/components/Product/organisms/ProductImgSlide';
 import ProductNotice from 'src/components/Product/organisms/ProductNotice';
 import ProductSize from 'src/components/Product/organisms/ProductSize';
+import ProfileInfo from 'src/components/Product/organisms/ProfileInfo';
 import { useProdutDetail } from 'src/hooks/api/product';
 import { useSearchStore } from 'src/store/useSearchStore';
 
@@ -66,7 +66,10 @@ function ShopDetail({ id }: { id: string }) {
           <ProductImgSlide
             {...{ id, isMe, isSoldOut, imgList: sellerInfo.image }}
           />
-          <Profile profile={{ userId, profileImage, name }} needDetail />
+          <ProfileInfo
+            {...{ userId, profileImage, name, title: basic.title }}
+          />
+
           <section className={$['shop-detail-info']}>
             <ProductBasic basic={basic} {...{ id, isMe, isSoldOut }} />
             <ProductNotice sellerNotice={sellerNotice} />

@@ -3,6 +3,7 @@ import { Chat } from './Chat';
 import { Check } from './Check';
 import { Circle } from './Circle';
 import { ClickHeart } from './ClickHeart';
+import { ClipBoard } from './ClipBoard';
 import { Close } from './Close';
 import { Filter } from './Filter';
 import { Google } from './Google';
@@ -11,6 +12,8 @@ import { ImgClose } from './ImgClose';
 import { Kakao } from './Kakao';
 import { More } from './More';
 import { MyPage } from './MyPage';
+import { NoProduct } from './NoProduct';
+import { NoService } from './NoService';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
 import { Plus } from './Plus';
@@ -20,6 +23,7 @@ import { Search } from './Search';
 import { SearchBlack } from './SearchBlack';
 import { SelectArrow } from './SelectArrow';
 import { Setting } from './Setting';
+import { Share } from './Share';
 import { Shop } from './Shop';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
@@ -62,4 +66,8 @@ export {
   Home,
   Circle,
   Star,
+  ClipBoard,
+  Share,
+  NoProduct,
+  NoService,
 };

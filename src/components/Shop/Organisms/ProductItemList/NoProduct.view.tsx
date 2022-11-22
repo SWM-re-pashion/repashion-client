@@ -1,4 +1,4 @@
-import Span from '@atoms/Span';
+import { NoProduct } from '@atoms/icon';
 
 import $ from './style.module.scss';
 
@@ -13,7 +13,7 @@ function NoProductView({ isNoProducts, isLoading, isFetching, height }: Props) {
   return (
     (!isLoading && !isFetching && isNoProducts && (
       <div className={$['no-products']} style={{ height }}>
-        <Span fontWeight={500}>상품 결과가 없습니다.</Span>
+        <NoProduct />
       </div>
     )) ||
     null

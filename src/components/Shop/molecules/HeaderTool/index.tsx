@@ -53,7 +53,6 @@ function HeaderTool(headerProps: Props) {
             {...{ onQueryChange: onClick }}
             isGender
             hasId
-            isSameCodeName
             options={data}
             selected={selectedMenu}
             name="gender"
