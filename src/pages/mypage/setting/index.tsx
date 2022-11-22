@@ -42,13 +42,13 @@ function Setting() {
     },
     {
       text: '앱 버전',
-      icon: <Span color="#936dff">v1.0.1</Span>,
+      icon: <Span color="#936dff">v1.0.6</Span>,
     },
     {
       text: '로그아웃',
       onClick: () => {
         logoutUtil();
-        router.push('/shop');
+        router.push('/');
       },
     },
     {

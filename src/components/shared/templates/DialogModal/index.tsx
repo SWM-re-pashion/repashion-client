@@ -1,11 +1,12 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
 import Button from '@atoms/Button';
 import Span from '@atoms/Span';
-import { URL_REGEX } from '@constants/regExp';
+import { MAILTO, SMS } from '@constants/link';
+import { EMAIL_REGEX, PHONE_REGEX, URL_REGEX } from '@constants/regExp';
 import { Modal } from '@templates/Modal';
 import classnames from 'classnames';
-import { isSameRegExpCondition } from 'src/utils/regExp';
+import { isSameMultipleRegExp } from 'src/utils/regExp';
 
 import $ from './style.module.scss';
 
@@ -17,6 +18,7 @@ type Props = {
   title?: string;
   content?: string | JSX.Element;
   emphasisContent?: string;
+  emphasisIcon?: JSX.Element;
   clickText?: string;
   cancelText?: string;
   onCancel?: () => void;
@@ -25,9 +27,16 @@ type Props = {
 
 function DialogModal(dialogProps: Props) {
   const { id, label, isOpen, isVerticalBtn, onCancel, onClick } = dialogProps;
-  const { title, content, clickText, cancelText, emphasisContent } =
-    dialogProps;
-  const isUrl = isSameRegExpCondition(URL_REGEX, emphasisContent || '');
+  const { title, content, clickText, cancelText } = dialogProps;
+  const { emphasisContent, emphasisIcon } = dialogProps;
+  const [isUrl, isPhone, isEmail] = isSameMultipleRegExp(
+    [URL_REGEX, PHONE_REGEX, EMAIL_REGEX],
+    emphasisContent || '',
+  );
+  const isContactType = isUrl || isPhone || isEmail;
+  const smsStr = isPhone ? SMS : '';
+  const mailStr = isEmail ? MAILTO : '';
+  const strContent = (smsStr || mailStr) + emphasisContent;
 
   return (
     <Modal id={`${id}-dialog-modal`} {...{ isOpen }}>
@@ -38,19 +47,22 @@ function DialogModal(dialogProps: Props) {
         {title && <h2 className={$.title}>{title}</h2>}
         {content && <Span className={$.content}>{content}</Span>}
 
-        {emphasisContent &&
-          (isUrl ? (
-            <a
-              target="_blank"
-              href={emphasisContent}
-              rel="noreferrer"
-              className={$.title}
-            >
-              {emphasisContent}
-            </a>
-          ) : (
-            <h3 className={$.title}>{emphasisContent}</h3>
-          ))}
+        <div className={$.emphasis}>
+          {emphasisContent &&
+            (isContactType ? (
+              <a
+                target="_blank"
+                href={strContent}
+                rel="noreferrer"
+                className={$['emphasis-content']}
+              >
+                {emphasisContent}
+              </a>
+            ) : (
+              <h3 className={$['emphasis-content']}>{emphasisContent}</h3>
+            ))}
+          {emphasisContent && emphasisIcon && emphasisIcon}
+        </div>
 
         <div
           className={classnames($['btn-box'], {

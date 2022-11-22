@@ -64,3 +64,20 @@
     }
   }
 }
+
+.emphasis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  &-content {
+    @include typography(18);
+    font-weight: 700;
+    color: $black-600;
+    word-break: break-all;
+    &:visited {
+      color: $primary;
+    }
+  }
+}

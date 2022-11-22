@@ -1,5 +1,6 @@
 .skeleton-filter {
   display: flex;
+  margin-left: 20px;
   .filter {
     @include iconLoading();
   }

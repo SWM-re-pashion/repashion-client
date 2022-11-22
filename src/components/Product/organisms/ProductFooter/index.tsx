@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ProductFooterInfo } from '#types/product';
 import type { DefaultProps } from '#types/props';
 import Button from '@atoms/Button';
-import { ClickHeart, SmallHeart, Time, Views } from '@atoms/icon';
+import { ClickHeart, ClipBoard, SmallHeart, Time, Views } from '@atoms/icon';
 import IconText from '@atoms/IconText';
 import Span from '@atoms/Span';
 import DialogModal from '@templates/DialogModal';
@@ -12,6 +12,7 @@ import useTimeForToday from 'src/hooks/useTimeForToday';
 import { toastSuccess } from 'src/utils/toaster';
 
 import $ from './style.module.scss';
+import copyClipBoard from './utils';
 
 type Props = {
   footer: ProductFooterInfo;
@@ -24,6 +25,7 @@ export default function ProductFooter(footerProps: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+  const handleClipBoard = copyClipBoard();
   const handleClickLike = () =>
     toastSuccess({ message: '좋아요 기능 준비중입니다.' });
 
@@ -88,9 +90,18 @@ export default function ProductFooter(footerProps: Props) {
             isOpen={isOpen}
             title="아래 정보를 통해 연락할 수 있습니다."
             content="현재 채팅 기능 준비중이에요. 서비스 준비 전까지 조금만 기다려주세요."
-            emphasisContent={contact}
             clickText="닫기"
             onClick={closeModal}
+            emphasisContent={contact}
+            emphasisIcon={
+              <Button
+                iconBtn
+                onClick={() => handleClipBoard(contact)}
+                className={$['clip-board']}
+              >
+                <ClipBoard stroke="#e3e1e1" />
+              </Button>
+            }
           />
         </div>
       </div>

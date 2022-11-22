@@ -53,3 +53,17 @@
     }
   }
 }
+
+.clip-board {
+  box-sizing: border-box;
+  margin-left: 10px;
+  border: 1.5px solid $gray-280;
+  border-radius: $border-radius;
+  background-color: $white;
+  &:hover {
+    border-color: rgba($primary, 0.7);
+    svg {
+      stroke: rgba($primary, 0.7);
+    }
+  }
+}
