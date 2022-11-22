@@ -1,6 +1,6 @@
 import type { IconProps } from '#types/props';
 
-function ClipBoard({ className, style }: IconProps) {
+function ClipBoard({ className, style, stroke }: IconProps) {
   return (
     <svg
       {...{ className, style }}
@@ -10,7 +10,7 @@ function ClipBoard({ className, style }: IconProps) {
       height="24"
       viewBox="0 0 24 24"
       strokeWidth="1.5"
-      stroke="#9e9e9e"
+      stroke={stroke || '#9e9e9e'}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
