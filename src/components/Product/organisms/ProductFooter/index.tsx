@@ -99,7 +99,7 @@ export default function ProductFooter(footerProps: Props) {
                 onClick={() => handleClipBoard(contact)}
                 className={$['clip-board']}
               >
-                <ClipBoard />
+                <ClipBoard stroke="#e3e1e1" />
               </Button>
             }
           />
