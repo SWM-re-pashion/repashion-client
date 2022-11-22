@@ -21,6 +21,7 @@ import { Search } from './Search';
 import { SearchBlack } from './SearchBlack';
 import { SelectArrow } from './SelectArrow';
 import { Setting } from './Setting';
+import { Share } from './Share';
 import { Shop } from './Shop';
 import { Skirt } from './Skirt';
 import { SmallHeart } from './SmallHeart';
@@ -64,4 +65,5 @@ export {
   Circle,
   Star,
   ClipBoard,
+  Share,
 };
