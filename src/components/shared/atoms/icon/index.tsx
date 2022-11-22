@@ -3,6 +3,7 @@ import { Chat } from './Chat';
 import { Check } from './Check';
 import { Circle } from './Circle';
 import { ClickHeart } from './ClickHeart';
+import { ClipBoard } from './ClipBoard';
 import { Close } from './Close';
 import { Filter } from './Filter';
 import { Google } from './Google';
@@ -62,4 +63,5 @@ export {
   Home,
   Circle,
   Star,
+  ClipBoard,
 };
