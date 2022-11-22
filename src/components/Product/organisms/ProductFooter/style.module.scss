@@ -53,3 +53,11 @@
     }
   }
 }
+
+.clip-board {
+  box-sizing: border-box;
+  margin-left: 10px;
+  border: 1.5px solid $gray-500;
+  border-radius: $border-radius;
+  background-color: $white;
+}
