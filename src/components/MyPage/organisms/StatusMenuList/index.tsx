@@ -1,7 +1,7 @@
 import { memo, useRef } from 'react';
 
 import { DefaultData } from '#types/index';
-import Span from '@atoms/Span';
+import { NoService } from '@atoms/icon';
 import MenuBtn from '@molecules/MenuBtn';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 import { useDragScroll, useSearch } from 'src/hooks';
@@ -46,7 +46,7 @@ function StatusMenuList(listProps: Props) {
         />
       ) : (
         <div className={$.prepare}>
-          <Span>서비스 준비중입니다.</Span>
+          <NoService />
         </div>
       )}
     </>

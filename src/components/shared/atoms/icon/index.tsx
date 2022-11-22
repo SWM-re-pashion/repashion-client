@@ -12,6 +12,8 @@ import { ImgClose } from './ImgClose';
 import { Kakao } from './Kakao';
 import { More } from './More';
 import { MyPage } from './MyPage';
+import { NoProduct } from './NoProduct';
+import { NoService } from './NoService';
 import { OnePiece } from './OnePiece';
 import { Pants } from './Pants';
 import { Plus } from './Plus';
@@ -66,4 +68,6 @@ export {
   Star,
   ClipBoard,
   Share,
+  NoProduct,
+  NoService,
 };
