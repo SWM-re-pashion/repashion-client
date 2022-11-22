@@ -86,7 +86,6 @@ class ErrorBoundary extends React.Component<Props, State> {
       const isIncludeOtherStatus = includedStatusCodes?.some(
         (code) => code === status,
       );
-      const renderCondition = !redirectUrl || isIncludeOtherStatus;
       if (redirectUrl && !isIncludeOtherStatus) {
         router.replace(redirectUrl);
       }
@@ -94,7 +93,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         return <NotFoundPage />;
       }
 
-      if (hasError && error !== null && renderCondition) {
+      if (hasError && error !== null) {
         return errorFallback({
           error,
           reset: this.resetBoundary,
