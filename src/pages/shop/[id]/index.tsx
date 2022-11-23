@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 
 import { ReactElement } from 'react';
 
@@ -11,9 +12,8 @@ import AsyncBoundary from '@templates/AsyncBoundary';
 import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getProductDetail } from 'src/api/product';
-import ProductDetail from 'src/components/Product/organisms/ProductDetail';
+import { getProductRecommendItemList } from 'src/api/recommend';
 import ProductDetailSkeleton from 'src/components/Product/organisms/ProductDetail/Skeleton.view';
-import ProductRecommend from 'src/components/Product/organisms/ProductRecommend';
 import ProductRecommendSkeleton from 'src/components/Product/organisms/ProductRecommend/Skeleton/Skeleton.view';
 
 export const getServerSideProps = withGetServerSideProps(
@@ -24,6 +24,10 @@ export const getServerSideProps = withGetServerSideProps(
 
     await queryClient.fetchQuery(queryKey.productDetail(paramId), () =>
       getProductDetail(paramId),
+    );
+    await queryClient.fetchQuery(
+      queryKey.productRecommendItemList(paramId),
+      () => getProductRecommendItemList(paramId),
     );
 
     return {
@@ -36,6 +40,12 @@ export const getServerSideProps = withGetServerSideProps(
 );
 
 function ShopDetail({ id }: { id: string }) {
+  const ProductDetail = dynamic(
+    () => import('src/components/Product/organisms/ProductDetail'),
+  );
+  const ProductRecommend = dynamic(
+    () => import('src/components/Product/organisms/ProductRecommend'),
+  );
   return (
     <>
       <HeadMeta

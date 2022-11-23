@@ -13,8 +13,12 @@ import { toastError, toastSuccess } from 'src/utils/toaster';
 import { useCoreMutation, useCoreQuery } from '../core';
 
 export function useProdutDetail(id: string) {
-  const response = useCoreQuery(queryKey.productDetail(id), () =>
-    getProductDetail(id),
+  const response = useCoreQuery(
+    queryKey.productDetail(id),
+    () => getProductDetail(id),
+    {
+      suspense: true,
+    },
   );
   return response;
 }
