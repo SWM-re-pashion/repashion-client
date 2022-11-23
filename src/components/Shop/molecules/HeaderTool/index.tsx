@@ -10,8 +10,8 @@ import { Filter, Search } from '@atoms/icon';
 import Span from '@atoms/Span';
 import SelectBox from '@molecules/SelectBox';
 import AsyncBoundary from '@templates/AsyncBoundary';
-import FilterSkeleton from '@templates/Skeleton/Filter';
 import FilterModal from 'src/components/Shop/Organisms/FilterModal';
+import FilterSkeleton from 'src/components/Shop/Organisms/FilterModal/Skeleton';
 
 import $ from './style.module.scss';
 

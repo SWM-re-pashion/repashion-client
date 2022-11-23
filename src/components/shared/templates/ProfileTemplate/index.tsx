@@ -7,9 +7,9 @@ import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import PageTemplate from '@templates/PageTemplate';
-import ProfileSkeleton from '@templates/Skeleton/Profile';
 import StatusMenuList from 'src/components/MyPage/organisms/StatusMenuList';
 import UserProfile from 'src/components/MyPage/organisms/UserProfile';
+import ProfileSkeleton from 'src/components/MyPage/organisms/UserProfile/Skeleton';
 import { useQueryRouter, useSearch } from 'src/hooks';
 
 type Props = {
