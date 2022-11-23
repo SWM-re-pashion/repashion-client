@@ -4,7 +4,6 @@ import { ReactElement } from 'react';
 
 import ErrorFallback from '@atoms/ErrorFallback';
 import HeadMeta from '@atoms/HeadMeta';
-import Loading from '@atoms/Loading';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -15,6 +14,7 @@ import { getProductDetail } from 'src/api/product';
 import ProductDetail from 'src/components/Product/organisms/ProductDetail';
 import ProductDetailSkeleton from 'src/components/Product/organisms/ProductDetail/Skeleton.view';
 import ProductRecommend from 'src/components/Product/organisms/ProductRecommend';
+import ProductRecommendSkeleton from 'src/components/Product/organisms/ProductRecommend/Skeleton/Skeleton.view';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ params }: GetServerSidePropsContext) => {
@@ -51,7 +51,7 @@ function ShopDetail({ id }: { id: string }) {
       </AsyncBoundary>
 
       <AsyncBoundary
-        suspenseFallback={<Loading />}
+        suspenseFallback={<ProductRecommendSkeleton />}
         errorFallback={ErrorFallback}
       >
         <ProductRecommend {...{ id }} />
