@@ -1,0 +1,14 @@
+.product-recommend {
+  padding: 0 23px 20px;
+  .item-list {
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    border-radius: 10px;
+    background-color: rgba($primary, 0.2);
+  }
+
+  .no-product {
+    margin: auto;
+  }
+}

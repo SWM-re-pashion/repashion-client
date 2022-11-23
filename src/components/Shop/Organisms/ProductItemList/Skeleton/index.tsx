@@ -1,8 +1,8 @@
 import { StyleProps } from '#types/props';
 import classnames from 'classnames';
 import $$ from 'src/components/Shop/molecules/ProductItem/style.module.scss';
-import $ from 'src/components/Shop/Organisms/ProductItemList/style.module.scss';
 
+import $ from '../style.module.scss';
 import sklt from './style.module.scss';
 
 type Props = {

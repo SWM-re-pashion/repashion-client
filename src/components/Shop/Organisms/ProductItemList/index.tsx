@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 
 import Loading from '@atoms/Loading';
 import PullToRefresh from '@templates/PullToRefresh';
-import ShopSkeleton from '@templates/Skeleton/shop';
+import ShopSkeleton from 'src/components/Shop/Organisms/ProductItemList/Skeleton';
 import { useIntersect } from 'src/hooks';
 import { useSearchingItemListQuery } from 'src/hooks/api/search';
 import {

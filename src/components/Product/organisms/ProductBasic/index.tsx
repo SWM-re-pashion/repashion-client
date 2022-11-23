@@ -3,7 +3,7 @@ import { StyleProps } from '#types/props';
 import { useUpdateProductStatus } from 'src/hooks/api/product';
 import { productBasicUtil } from 'src/utils/product';
 
-import ProductBasicView from './ProductBasicView';
+import ProductBasicView from './ProductBasic.view';
 
 type Props = {
   id: string;

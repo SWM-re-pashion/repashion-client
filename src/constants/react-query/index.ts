@@ -17,6 +17,9 @@ export const queryKey = {
   recommendItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
     return ['recommendItemList', { ...requestParams }];
   },
+  productRecommendItemList: (id: string) => {
+    return ['productRecommendItemList', id];
+  },
   myItemList: (requestParams: Omit<req.ShopFeed, 'page' | 'size'>) => {
     return ['myItemList', { ...requestParams }];
   },

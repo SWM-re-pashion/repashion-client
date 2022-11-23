@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-import ShopSkeleton from '@templates/Skeleton/shop';
 import classnames from 'classnames';
 import ProductItem from 'src/components/Shop/molecules/ProductItem';
+import ShopSkeleton from 'src/components/Shop/Organisms/ProductItemList/Skeleton';
 
 import RecommendItem from './RecommendItem.view';
 import $ from './style.module.scss';

@@ -2,7 +2,7 @@ import ErrorFallback from '@atoms/ErrorFallback';
 import { Circle, Star } from '@atoms/icon';
 import Span from '@atoms/Span';
 import AsyncBoundary from '@templates/AsyncBoundary';
-import { RecommendItemSkeleton } from '@templates/Skeleton/shop';
+import { RecommendItemSkeleton } from 'src/components/Shop/Organisms/ProductItemList/Skeleton';
 
 import TodayRecommendItem from '../TodayRecommendItem';
 import $$ from '../TodayRecommendItem/style.module.scss';

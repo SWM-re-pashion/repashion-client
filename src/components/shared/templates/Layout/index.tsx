@@ -12,10 +12,11 @@ type Props = {
 
 export default function PageLayout(layoutProps: Props) {
   const { noPadding } = layoutProps;
-  const { children, className } = layoutProps;
+  const { children, className, style } = layoutProps;
 
   return (
     <main
+      {...{ style }}
       className={classnames($.layout, className, {
         [$['no-padding']]: noPadding,
       })}

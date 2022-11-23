@@ -1,0 +1,6 @@
+.skeleton-product-recommend {
+  margin: 0 23px 20px;
+  height: 200px;
+  border-radius: 10px;
+  @include loading();
+}
