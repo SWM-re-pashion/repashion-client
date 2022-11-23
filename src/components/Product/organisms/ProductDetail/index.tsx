@@ -10,8 +10,6 @@ import ProfileInfo from 'src/components/Product/organisms/ProfileInfo';
 import { useProdutDetail } from 'src/hooks/api/product';
 import { useSearchStore } from 'src/store/useSearchStore';
 
-import $ from './style.module.scss';
-
 function ProductDetail({ id }: { id: string }) {
   const { data } = useProdutDetail(id);
   const addProduct = useSearchStore(
@@ -28,10 +26,6 @@ function ProductDetail({ id }: { id: string }) {
   addProduct({ id: +id, img: sellerInfo.image[0] });
   // const status = 'soldout'; // TODO: 백엔드와 협의, 추후에 상품 상태 추가
 
-  // useEffect(() => {
-  //   if (sellerInfo.image[0]) addProduct({ id: +id, img: sellerInfo.image[0] });
-  // }, []);
-
   return (
     <>
       <ProductImgSlide
@@ -39,7 +33,7 @@ function ProductDetail({ id }: { id: string }) {
       />
       <ProfileInfo {...{ userId, profileImage, name, title: basic.title }} />
 
-      <section className={$['shop-detail-info']}>
+      <section style={{ padding: '16px 23px 20px' }}>
         <ProductBasic basic={basic} {...{ id, isMe, isSoldOut }} />
         <ProductNotice sellerNotice={sellerNotice} />
         {measure && <ProductSize size={measure} kind={basic.classification} />}

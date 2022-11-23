@@ -13,9 +13,8 @@ import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getProductDetail } from 'src/api/product';
 import ProductDetail from 'src/components/Product/organisms/ProductDetail';
+import ProductDetailSkeleton from 'src/components/Product/organisms/ProductDetail/Skeleton.view';
 import ProductRecommend from 'src/components/Product/organisms/ProductRecommend';
-
-import $ from './style.module.scss';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ params }: GetServerSidePropsContext) => {
@@ -45,7 +44,7 @@ function ShopDetail({ id }: { id: string }) {
       />
 
       <AsyncBoundary
-        suspenseFallback={<Loading />}
+        suspenseFallback={<ProductDetailSkeleton />}
         errorFallback={ErrorFallback}
       >
         <ProductDetail {...{ id }} />
@@ -63,7 +62,7 @@ function ShopDetail({ id }: { id: string }) {
 
 ShopDetail.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout noPadding className={$['shop-detail-layout']}>
+    <Layout noPadding style={{ paddingBottom: '100px' }}>
       {page}
     </Layout>
   );
