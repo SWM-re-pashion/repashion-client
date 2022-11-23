@@ -13,21 +13,25 @@
   padding: 16px 23px 20px;
   &-basic {
     height: 160px;
+    border-radius: 10px;
     @include loading();
   }
   &-notice {
     height: 260px;
     margin-top: 37px;
+    border-radius: 10px;
     @include loading();
   }
   &-measure {
     height: 217px;
     margin-top: 23px;
+    border-radius: 10px;
     @include loading();
   }
   &-comment {
     height: 85px;
     margin-top: 20px;
+    border-radius: 10px;
     @include loading();
   }
 }
