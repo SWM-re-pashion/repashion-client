@@ -4,7 +4,6 @@
   border-bottom: 1px solid $gray-280;
   padding: 20px 23px;
   cursor: pointer;
-
   .text-box {
     overflow: hidden;
     display: flex;
@@ -36,7 +35,6 @@
     flex-direction: column;
     border: 0;
   }
-
   .product-img {
     min-width: 113px;
     max-height: 113px;
@@ -49,7 +47,6 @@
       height: 200px;
     }
   }
-
   .text-box {
     width: 100%;
     @include mobile() {
@@ -80,11 +77,9 @@
       padding-left: 0;
     }
   }
-
   .product-img {
     max-width: 200px;
   }
-
   .clothes-tag {
     position: absolute;
     bottom: 12px;
@@ -97,10 +92,34 @@
   .top {
     background-color: rgba($primary, 0.8);
   }
-
   .text-box {
     max-width: 200px;
     width: 100%;
+    .title {
+      margin-top: 7px;
+    }
+  }
+}
+
+.unknown-item {
+  flex-direction: column;
+  border: 0;
+  &:not(:last-child) {
+    padding-right: 0;
+  }
+  .product-img {
+    min-width: 113px;
+    max-height: 113px;
+    width: 113px;
+    height: 113px;
+    @include tablet() {
+      min-width: 200px;
+      min-height: 200px;
+      width: 200px;
+      height: 200px;
+    }
+  }
+  .text-box {
     .title {
       margin-top: 7px;
     }

@@ -1,25 +1,20 @@
 import { GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 
-import { useCallback } from 'react';
+import { ReactElement } from 'react';
 
+import ErrorFallback from '@atoms/ErrorFallback';
 import HeadMeta from '@atoms/HeadMeta';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
+import AsyncBoundary from '@templates/AsyncBoundary';
 import Layout from '@templates/Layout';
 import { withGetServerSideProps } from 'src/api/core/withGetServerSideProps';
 import { getProductDetail } from 'src/api/product';
-import SellerComment from 'src/components/Product/molecules/SellerComment';
-import ProductBasic from 'src/components/Product/organisms/ProductBasic';
-import ProductFooter from 'src/components/Product/organisms/ProductFooter';
-import ProductImgSlide from 'src/components/Product/organisms/ProductImgSlide';
-import ProductNotice from 'src/components/Product/organisms/ProductNotice';
-import ProductSize from 'src/components/Product/organisms/ProductSize';
-import ProfileInfo from 'src/components/Product/organisms/ProfileInfo';
-import { useProdutDetail } from 'src/hooks/api/product';
-import { useSearchStore } from 'src/store/useSearchStore';
-
-import $ from './style.module.scss';
+import { getProductRecommendItemList } from 'src/api/recommend';
+import ProductDetailSkeleton from 'src/components/Product/organisms/ProductDetail/Skeleton.view';
+import ProductRecommendSkeleton from 'src/components/Product/organisms/ProductRecommend/Skeleton/Skeleton.view';
 
 export const getServerSideProps = withGetServerSideProps(
   async ({ params }: GetServerSidePropsContext) => {
@@ -29,6 +24,10 @@ export const getServerSideProps = withGetServerSideProps(
 
     await queryClient.fetchQuery(queryKey.productDetail(paramId), () =>
       getProductDetail(paramId),
+    );
+    await queryClient.fetchQuery(
+      queryKey.productRecommendItemList(paramId),
+      () => getProductRecommendItemList(paramId),
     );
 
     return {
@@ -41,58 +40,42 @@ export const getServerSideProps = withGetServerSideProps(
 );
 
 function ShopDetail({ id }: { id: string }) {
-  const { data } = useProdutDetail(id);
-  const addProduct = useSearchStore(
-    useCallback((state) => state.addProduct, []),
+  const ProductDetail = dynamic(
+    () => import('src/components/Product/organisms/ProductDetail'),
   );
-  const detailData = data?.data;
+  const ProductRecommend = dynamic(
+    () => import('src/components/Product/organisms/ProductRecommend'),
+  );
+  return (
+    <>
+      <HeadMeta
+        title="re:Fashion | 상품 상세보기"
+        url={`${seoData.url}/shop/${id}`}
+      />
 
-  if (detailData) {
-    const { isMe, isSoldOut, sellerInfo, basic, sellerNotice } = detailData;
-    const { measure, opinion, price, isIncludeDelivery } = detailData;
-    const { updatedAt, like, view, contact } = detailData;
-    const { userId, profileImg: profileImage, nickname: name } = sellerInfo;
-    // const status = 'soldout'; // TODO: 백엔드와 협의, 추후에 상품 상태 추가
-    addProduct({ id: +id, img: sellerInfo.image[0] });
+      <AsyncBoundary
+        suspenseFallback={<ProductDetailSkeleton />}
+        errorFallback={ErrorFallback}
+      >
+        <ProductDetail {...{ id }} />
+      </AsyncBoundary>
 
-    return (
-      <>
-        <HeadMeta
-          title="re:Fashion | 상품 상세보기"
-          url={`${seoData.url}/shop/${id}`}
-        />
-
-        <Layout noPadding className={$['shop-detail-layout']}>
-          <ProductImgSlide
-            {...{ id, isMe, isSoldOut, imgList: sellerInfo.image }}
-          />
-          <ProfileInfo
-            {...{ userId, profileImage, name, title: basic.title }}
-          />
-
-          <section className={$['shop-detail-info']}>
-            <ProductBasic basic={basic} {...{ id, isMe, isSoldOut }} />
-            <ProductNotice sellerNotice={sellerNotice} />
-            {measure && (
-              <ProductSize size={measure} kind={basic.classification} />
-            )}
-            {opinion && (
-              <SellerComment opinion={opinion} src={sellerInfo.profileImg} />
-            )}
-            <ProductFooter
-              footer={{
-                ...{ price, isIncludeDelivery, updatedAt },
-                ...{ like, view, contact },
-              }}
-            >
-              연락하기
-            </ProductFooter>
-          </section>
-        </Layout>
-      </>
-    );
-  }
-  return null;
+      <AsyncBoundary
+        suspenseFallback={<ProductRecommendSkeleton />}
+        errorFallback={ErrorFallback}
+      >
+        <ProductRecommend {...{ id }} />
+      </AsyncBoundary>
+    </>
+  );
 }
+
+ShopDetail.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout noPadding style={{ paddingBottom: '100px' }}>
+      {page}
+    </Layout>
+  );
+};
 
 export default ShopDetail;
