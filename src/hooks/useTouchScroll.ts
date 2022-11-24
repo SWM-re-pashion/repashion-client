@@ -1,8 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
 export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
-  const listScrollWidth = listRef.current?.scrollWidth;
-  const listClientWidth = listRef.current?.clientWidth;
   // 필요한 변수
   let isDown = false;
   let startX = 0;
@@ -11,17 +9,15 @@ export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
   let listX = 0;
 
   const getClientX = (e: MouseEvent | TouchEvent) => {
-    if ('touches' in e) return e.touches[0].clientX;
+    if ('touches' in e) return e.changedTouches[0].clientX;
     return e.clientX;
   };
 
-  const getTranslateX = () => {
-    const list = listRef.current;
-    if (list)
-      return parseInt(
-        getComputedStyle(list).transform.split(/[^\-0-9]+/g)[5],
-        10,
-      );
+  const getTranslateX = (list: HTMLElement | null) => {
+    if (list) {
+      const { transform } = getComputedStyle(list);
+      return parseInt(transform.split(/[^\-0-9.]+/g)[5], 10);
+    }
     return 0;
   };
 
@@ -30,8 +26,12 @@ export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
     if (list) list.style.transform = `translateX(${x}px)`;
   };
 
-  const onScrollLeave = (e: MouseEvent | TouchEvent) => {
-    isDown = false;
+  const onScrollLeave = () => {
+    if (isDown) {
+      setTranslateX(0);
+      listX = 0;
+      isDown = false;
+    }
   };
 
   const onScrollMove = (e: MouseEvent | TouchEvent) => {
@@ -43,26 +43,32 @@ export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
 
   const onScrollEnd = (e: MouseEvent | TouchEvent) => {
     const list = listRef.current;
+    const scrollWidth = list?.scrollWidth;
+    const clientWidth = list?.clientWidth;
     isDown = false;
     endX = getClientX(e);
-    listX = getTranslateX();
-    console.log(listX);
-    if (listX > 0 && list) {
+    listX = getTranslateX(list);
+    const isMoving =
+      clientWidth && scrollWidth && listX < clientWidth - scrollWidth;
+
+    if (isMoving) {
+      setTranslateX(clientWidth - scrollWidth);
+      listX = clientWidth - scrollWidth;
+      return;
+    }
+    if (listX > 0) {
       setTranslateX(0);
       listX = 0;
-    } else if (
-      listClientWidth &&
-      listScrollWidth &&
-      listX < listClientWidth - listScrollWidth
-    ) {
-      setTranslateX(listClientWidth - listScrollWidth);
-      listX = listClientWidth - listScrollWidth;
     }
   };
 
   const onScrollStart = (e: MouseEvent | TouchEvent) => {
     isDown = true;
     startX = getClientX(e);
+  };
+
+  const onClickWhenMoving = (e: MouseEvent) => {
+    if (startX - endX !== 0) e.preventDefault();
   };
 
   useEffect(() => {
@@ -80,6 +86,7 @@ export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
       list.addEventListener('touchmove', onScrollMove, {
         passive: true,
       });
+      list.addEventListener('click', onClickWhenMoving);
     }
 
     return () => {
@@ -96,6 +103,7 @@ export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
         list.addEventListener('touchmove', onScrollMove, {
           passive: true,
         });
+        list.addEventListener('click', onClickWhenMoving);
       }
     };
   }, [listRef]);
