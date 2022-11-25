@@ -5,7 +5,7 @@ import { NoProduct } from '@atoms/icon';
 import StrongLabel from 'src/components/Product/atoms/StrongLabel';
 import ProductItem from 'src/components/Shop/molecules/ProductItem';
 import { useProductRecommendItemList } from 'src/hooks/api/recommend';
-import useTouchScroll from 'src/hooks/useTouchScroll';
+import useSwipe from 'src/hooks/useSwipe';
 
 import $ from './style.module.scss';
 
@@ -16,7 +16,7 @@ type Props = {
 export default function ProductRecommend({ id }: Props) {
   const { data } = useProductRecommendItemList(id);
   const ref = useRef<HTMLDivElement>(null);
-  useTouchScroll(ref);
+  useSwipe(ref);
   const recommendData = data?.data;
   const isNoData = recommendData && recommendData.length === 0;
 

@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
-export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
+export default function useSwipe(listRef: RefObject<HTMLElement>) {
   // 필요한 변수
   let isDown = false;
   let startX = 0;
@@ -45,20 +45,22 @@ export default function useTouchScroll(listRef: RefObject<HTMLElement>) {
     const list = listRef.current;
     const scrollWidth = list?.scrollWidth;
     const clientWidth = list?.clientWidth;
+    const isWidthExist = clientWidth && scrollWidth;
     isDown = false;
     endX = getClientX(e);
     listX = getTranslateX(list);
-    const isMoving =
-      clientWidth && scrollWidth && listX < clientWidth - scrollWidth;
+    const isMoving = isWidthExist && listX < clientWidth - scrollWidth;
 
+    if (listX > 0 && list) {
+      setTranslateX(0);
+      list.style.transition = 'all 0.3s ease';
+      listX = 0;
+      return;
+    }
     if (isMoving) {
       setTranslateX(clientWidth - scrollWidth);
       listX = clientWidth - scrollWidth;
-      return;
-    }
-    if (listX > 0) {
-      setTranslateX(0);
-      listX = 0;
+      list.style.transition = 'all 0.3s ease';
     }
   };
 
