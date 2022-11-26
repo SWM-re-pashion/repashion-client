@@ -53,14 +53,12 @@ export default function useSwipe(listRef: RefObject<HTMLElement>) {
 
     if (listX > 0 && list) {
       setTranslateX(0);
-      list.style.transition = 'all 0.3s ease';
       listX = 0;
       return;
     }
     if (isMoving) {
       setTranslateX(clientWidth - scrollWidth);
       listX = clientWidth - scrollWidth;
-      list.style.transition = 'all 0.3s ease';
     }
   };
 

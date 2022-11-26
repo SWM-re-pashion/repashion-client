@@ -3,7 +3,6 @@
 
   .current-products {
     overflow: hidden;
-    display: flex;
     &-box {
       display: grid;
       grid-template-columns: repeat(5, 1fr);

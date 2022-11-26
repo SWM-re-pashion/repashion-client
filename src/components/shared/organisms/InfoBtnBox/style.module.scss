@@ -1,5 +1,8 @@
-.btn-box {
+.btn-box-wrapper {
   overflow: hidden;
+}
+
+.btn-box {
   display: grid;
   gap: 8px;
 }
