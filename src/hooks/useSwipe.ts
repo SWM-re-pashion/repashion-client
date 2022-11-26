@@ -26,22 +26,19 @@ export default function useSwipe(listRef: RefObject<HTMLElement>) {
     if (list) list.style.transform = `translateX(${x}px)`;
   };
 
-  const onScrollLeave = () => {
-    if (isDown) {
-      setTranslateX(0);
-      listX = 0;
-      isDown = false;
-    }
+  const onSwipeStart = (e: MouseEvent | TouchEvent) => {
+    isDown = true;
+    startX = getClientX(e);
   };
 
-  const onScrollMove = (e: MouseEvent | TouchEvent) => {
+  const onSwipeMove = (e: MouseEvent | TouchEvent) => {
     if (!isDown) return;
 
     nowX = getClientX(e);
     setTranslateX(listX + nowX - startX);
   };
 
-  const onScrollEnd = (e: MouseEvent | TouchEvent) => {
+  const onSwipeEndOrLeave = (e: MouseEvent | TouchEvent) => {
     const list = listRef.current;
     const scrollWidth = list?.scrollWidth;
     const clientWidth = list?.clientWidth;
@@ -62,28 +59,23 @@ export default function useSwipe(listRef: RefObject<HTMLElement>) {
     }
   };
 
-  const onScrollStart = (e: MouseEvent | TouchEvent) => {
-    isDown = true;
-    startX = getClientX(e);
-  };
-
   const onClickWhenMoving = (e: MouseEvent) => {
-    if (startX - endX !== 0) e.preventDefault();
+    if (startX !== endX) e.stopPropagation();
   };
 
   useEffect(() => {
     const list = listRef.current;
     if (list) {
-      list.addEventListener('mousedown', onScrollStart);
-      list.addEventListener('mouseup', onScrollEnd);
-      list.addEventListener('mouseleave', onScrollLeave);
-      list.addEventListener('mousemove', onScrollMove);
-      list.addEventListener('touchstart', onScrollStart, {
+      list.addEventListener('mousedown', onSwipeStart);
+      list.addEventListener('mouseup', onSwipeEndOrLeave);
+      list.addEventListener('mouseleave', onSwipeEndOrLeave);
+      list.addEventListener('mousemove', onSwipeMove);
+      list.addEventListener('touchstart', onSwipeStart, {
         passive: true,
       });
-      list.addEventListener('touchend', onScrollEnd);
-      list.addEventListener('touchcancel', onScrollLeave);
-      list.addEventListener('touchmove', onScrollMove, {
+      list.addEventListener('touchend', onSwipeEndOrLeave);
+      list.addEventListener('touchcancel', onSwipeEndOrLeave);
+      list.addEventListener('touchmove', onSwipeMove, {
         passive: true,
       });
       list.addEventListener('click', onClickWhenMoving);
@@ -91,16 +83,16 @@ export default function useSwipe(listRef: RefObject<HTMLElement>) {
 
     return () => {
       if (list) {
-        list.addEventListener('mousedown', onScrollStart);
-        list.addEventListener('mouseup', onScrollEnd);
-        list.addEventListener('mouseleave', onScrollLeave);
-        list.addEventListener('mousemove', onScrollMove);
-        list.addEventListener('touchstart', onScrollStart, {
+        list.addEventListener('mousedown', onSwipeStart);
+        list.addEventListener('mouseup', onSwipeEndOrLeave);
+        list.addEventListener('mouseleave', onSwipeEndOrLeave);
+        list.addEventListener('mousemove', onSwipeMove);
+        list.addEventListener('touchstart', onSwipeStart, {
           passive: true,
         });
-        list.addEventListener('touchend', onScrollEnd);
-        list.addEventListener('touchcancel', onScrollLeave);
-        list.addEventListener('touchmove', onScrollMove, {
+        list.addEventListener('touchend', onSwipeEndOrLeave);
+        list.addEventListener('touchcancel', onSwipeEndOrLeave);
+        list.addEventListener('touchmove', onSwipeMove, {
           passive: true,
         });
         list.addEventListener('click', onClickWhenMoving);
