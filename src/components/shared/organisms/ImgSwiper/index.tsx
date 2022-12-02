@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { DefaultProps } from '#types/props';
 import classnames from 'classnames';
 
-import { getClientX, getTranslateX } from './ImgSwiper.utils';
+import { getClientX, getTranslateX } from '../Swiper/Swiper.utils';
 import $ from './style.module.scss';
 
 type Props = {
