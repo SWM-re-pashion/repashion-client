@@ -70,12 +70,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <Head>
         <meta charSet="utf-8" />
-        <meta name="description" content="중고 의류 마켓 re:Fashion" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, shrink-to-fit=no, viewport-fit=cover"
         />
-        <title>re:Fashion</title>
       </Head>
       <Script
         strategy="afterInteractive"

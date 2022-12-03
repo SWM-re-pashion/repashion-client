@@ -37,15 +37,17 @@ function ImgUploadView(viewProps: Props) {
         <Loading />
       ) : (
         <>
-          <div className={$['img-upload']} ref={uploadRef}>
-            <ImgUploadBtn
-              {...{ inputRef, onUploadClick }}
-              num={state.length}
-              onUpload={onUploadImg}
-            />
-            {state.map(({ id, src }, idx) => (
-              <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
-            ))}
+          <div className={$['img-upload-wrapper']}>
+            <div className={$['img-upload']} ref={uploadRef}>
+              <ImgUploadBtn
+                {...{ inputRef, onUploadClick }}
+                num={state.length}
+                onUpload={onUploadImg}
+              />
+              {state.map(({ id, src }, idx) => (
+                <ImgCard key={id + src} first={!idx} {...{ id, src, remove }} />
+              ))}
+            </div>
           </div>
           <ErrorMsg
             isValid={isImgValid}
