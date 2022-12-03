@@ -9,7 +9,7 @@ import {
 import { recognitionResult } from '#types/upload';
 import { getCategoryIds } from 'src/api/category';
 import { useImgUpload } from 'src/hooks/api/upload';
-import useSwipe from 'src/hooks/useSwipe';
+import useSwiper from 'src/hooks/useSwiper';
 
 import ImgUploadView from './ImgUploadView';
 import { getFormData, imageList } from './utils';
@@ -31,7 +31,7 @@ function ImgUpload(imgProps: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
   const { isLoading, mutate } = useImgUpload();
-  useSwipe(uploadRef);
+  useSwiper(uploadRef);
 
   const onUploadClick = useCallback(() => {
     if (inputRef.current) inputRef.current.click();

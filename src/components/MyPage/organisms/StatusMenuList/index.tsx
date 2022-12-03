@@ -5,7 +5,7 @@ import { NoService } from '@atoms/icon';
 import MenuBtn from '@molecules/MenuBtn';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 import { useSearch } from 'src/hooks';
-import useSwipe from 'src/hooks/useSwipe';
+import useSwiper from 'src/hooks/useSwiper';
 
 import $ from './style.module.scss';
 
@@ -20,7 +20,7 @@ function StatusMenuList(listProps: Props) {
   const { isMe, data, selectedMenu, onClick } = listProps;
   const listRef = useRef<HTMLDivElement | null>(null);
   const status = useSearch('status') || data[0].code;
-  useSwipe(listRef);
+  useSwiper(listRef);
 
   return (
     <>

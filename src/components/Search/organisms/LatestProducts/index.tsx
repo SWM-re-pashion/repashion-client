@@ -4,7 +4,7 @@ import { SearchStoreState } from '#types/storeType/search';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
 import ImgCard from 'src/components/Upload/molecules/ImgCard';
-import useSwipe from 'src/hooks/useSwipe';
+import useSwiper from 'src/hooks/useSwiper';
 
 import $ from './style.module.scss';
 
@@ -17,7 +17,7 @@ type Props = {
 function LatestProducts(inputProps: Props) {
   const { products, removeProduct, moveProduct } = inputProps;
   const containerRef = useRef<HTMLUListElement | null>(null);
-  useSwipe(containerRef);
+  useSwiper(containerRef);
 
   return (
     <div className={$['products-box']}>

@@ -46,16 +46,18 @@ export default function useSwipe(listRef: RefObject<HTMLElement>) {
     isDown = false;
     endX = getClientX(e);
     listX = getTranslateX(list);
-    const isMoving = isWidthExist && listX < clientWidth - scrollWidth;
+    const distance = isWidthExist ? clientWidth - scrollWidth : 0;
+    const isListStart = listX > 0;
+    const isListEnd = isWidthExist && listX < distance;
 
-    if (listX > 0 && list) {
+    if (isListStart && list) {
       setTranslateX(0);
       listX = 0;
       return;
     }
-    if (isMoving) {
-      setTranslateX(clientWidth - scrollWidth);
-      listX = clientWidth - scrollWidth;
+    if (isListEnd) {
+      setTranslateX(distance);
+      listX = distance;
     }
   };
 

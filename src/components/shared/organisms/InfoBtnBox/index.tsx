@@ -4,7 +4,7 @@ import { memo, useRef } from 'react';
 import { DefaultData } from '#types/index';
 import { StyleProps } from '#types/props';
 import classnames from 'classnames';
-import useSwipe from 'src/hooks/useSwipe';
+import useSwiper from 'src/hooks/useSwiper';
 
 import ButtonSelect from '../../molecules/ButtonSelect';
 import InfoArticle from '../../molecules/InfoArticle';
@@ -30,7 +30,7 @@ function InfoBtnBox<T, U>(btnBoxProps: Props<T, U>) {
   const { error, label, type, subType } = btnBoxProps;
   const { datas, compareData, required, handleFunc } = btnBoxProps;
   const btnBoxRef = useRef<HTMLDivElement>(null);
-  useSwipe(btnBoxRef);
+  useSwiper(btnBoxRef);
 
   return (
     <InfoArticle {...{ label, required, childrenBox }}>
