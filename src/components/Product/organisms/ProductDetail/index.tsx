@@ -10,6 +10,8 @@ import ProfileInfo from 'src/components/Product/organisms/ProfileInfo';
 import { useProdutDetail } from 'src/hooks/api/product';
 import { useSearchStore } from 'src/store/useSearchStore';
 
+import $ from './style.module.scss';
+
 function ProductDetail({ id }: { id: string }) {
   const { data } = useProdutDetail(id);
   const addProduct = useSearchStore(
@@ -33,7 +35,7 @@ function ProductDetail({ id }: { id: string }) {
       />
       <ProfileInfo {...{ userId, profileImage, name, title: basic.title }} />
 
-      <section style={{ padding: '16px 23px 20px' }}>
+      <section className={$['product-detail-wrapper']}>
         <ProductBasic basic={basic} {...{ id, isMe, isSoldOut }} />
         <ProductNotice sellerNotice={sellerNotice} />
         {measure && <ProductSize size={measure} kind={basic.classification} />}

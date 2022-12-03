@@ -1,10 +1,7 @@
-import { useRef } from 'react';
-
 import { DefaultData } from '#types/index';
 import Span from '@atoms/Span';
 import CheckBtn from '@molecules/CheckBtn';
 import SelectBox from '@molecules/SelectBox';
-import { useDragScroll } from 'src/hooks';
 
 import $ from './style.module.scss';
 
@@ -18,14 +15,12 @@ type Props = {
 
 function SortBox(boxProps: Props) {
   const { data, selectedMenu, hideSold, onSoldClick, onOrderClick } = boxProps;
-  const btnBoxRef = useRef<HTMLDivElement>(null);
-  useDragScroll(btnBoxRef);
 
   const isHideSold = hideSold === 'true';
   const handleClick = () => onSoldClick((!isHideSold).toString());
 
   return (
-    <section ref={btnBoxRef} className={$['sort-box']}>
+    <section className={$['sort-box']}>
       <div
         role="button"
         tabIndex={0}

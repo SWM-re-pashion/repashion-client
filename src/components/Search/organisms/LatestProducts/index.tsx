@@ -4,7 +4,7 @@ import { SearchStoreState } from '#types/storeType/search';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
 import ImgCard from 'src/components/Upload/molecules/ImgCard';
-import { useDragScroll } from 'src/hooks';
+import useSwiper from 'src/hooks/useSwiper';
 
 import $ from './style.module.scss';
 
@@ -17,22 +17,19 @@ type Props = {
 function LatestProducts(inputProps: Props) {
   const { products, removeProduct, moveProduct } = inputProps;
   const containerRef = useRef<HTMLUListElement | null>(null);
-  useDragScroll(containerRef);
+  useSwiper(containerRef);
 
   return (
     <div className={$['products-box']}>
       <Span fontSize={18}>최근 본 상품</Span>
-
-      <ul
-        className={$['current-products']}
-        role="listbox"
-        aria-label="최근 본 상품 목록"
-        ref={containerRef}
-      >
-        <div
+      <div className={$['current-products']}>
+        <ul
           className={classnames($['current-products-box'], {
             [$['no-products']]: !products.length,
           })}
+          role="listbox"
+          aria-label="최근 본 상품 목록"
+          ref={containerRef}
         >
           {products.length ? (
             products.map(({ id, img }) => (
@@ -46,8 +43,8 @@ function LatestProducts(inputProps: Props) {
           ) : (
             <Span fontWeight={500}>최근 본 상품이 존재하지 않습니다.</Span>
           )}
-        </div>
-      </ul>
+        </ul>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import { getProductRecommendItemList } from 'src/api/recommend';
 import ProductDetailSkeleton from 'src/components/Product/organisms/ProductDetail/Skeleton.view';
 import ProductRecommendSkeleton from 'src/components/Product/organisms/ProductRecommend/Skeleton/Skeleton.view';
 
+import $ from './style.module.scss';
+
 export const getServerSideProps = withGetServerSideProps(
   async ({ params }: GetServerSidePropsContext) => {
     const queryClient = new QueryClient();
@@ -72,7 +74,7 @@ function ShopDetail({ id }: { id: string }) {
 
 ShopDetail.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout noPadding style={{ paddingBottom: '100px' }}>
+    <Layout noPadding className={$['detail-layout']}>
       {page}
     </Layout>
   );

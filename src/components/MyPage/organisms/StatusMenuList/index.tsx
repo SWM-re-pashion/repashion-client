@@ -4,7 +4,8 @@ import { DefaultData } from '#types/index';
 import { NoService } from '@atoms/icon';
 import MenuBtn from '@molecules/MenuBtn';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
-import { useDragScroll, useSearch } from 'src/hooks';
+import { useSearch } from 'src/hooks';
+import useSwiper from 'src/hooks/useSwiper';
 
 import $ from './style.module.scss';
 
@@ -19,23 +20,25 @@ function StatusMenuList(listProps: Props) {
   const { isMe, data, selectedMenu, onClick } = listProps;
   const listRef = useRef<HTMLDivElement | null>(null);
   const status = useSearch('status') || data[0].code;
-  useDragScroll(listRef);
+  useSwiper(listRef);
 
   return (
     <>
-      <div className={$['status-menu-list']} ref={listRef}>
-        {data.map(({ name, code }) => {
-          const isSelected = selectedMenu === code;
+      <div className={$['status-menu-list']}>
+        <div className={$['status-list-wrapper']} ref={listRef}>
+          {data.map(({ name, code }) => {
+            const isSelected = selectedMenu === code;
 
-          return (
-            <MenuBtn
-              value={code}
-              key={name}
-              {...{ name, onClick, isSelected }}
-              className={$['menu-btn']}
-            />
-          );
-        })}
+            return (
+              <MenuBtn
+                value={code}
+                key={name}
+                {...{ name, onClick, isSelected }}
+                className={$['menu-btn']}
+              />
+            );
+          })}
+        </div>
       </div>
       {isMe ? (
         <ProductItemList
