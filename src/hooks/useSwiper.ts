@@ -85,19 +85,15 @@ export default function useSwipe(listRef: RefObject<HTMLElement>) {
 
     return () => {
       if (list) {
-        list.addEventListener('mousedown', onSwipeStart);
-        list.addEventListener('mouseup', onSwipeEndOrLeave);
-        list.addEventListener('mouseleave', onSwipeEndOrLeave);
-        list.addEventListener('mousemove', onSwipeMove);
-        list.addEventListener('touchstart', onSwipeStart, {
-          passive: true,
-        });
-        list.addEventListener('touchend', onSwipeEndOrLeave);
-        list.addEventListener('touchcancel', onSwipeEndOrLeave);
-        list.addEventListener('touchmove', onSwipeMove, {
-          passive: true,
-        });
-        list.addEventListener('click', onClickWhenMoving);
+        list.removeEventListener('mousedown', onSwipeStart);
+        list.removeEventListener('mouseup', onSwipeEndOrLeave);
+        list.removeEventListener('mouseleave', onSwipeEndOrLeave);
+        list.removeEventListener('mousemove', onSwipeMove);
+        list.removeEventListener('touchstart', onSwipeStart);
+        list.removeEventListener('touchend', onSwipeEndOrLeave);
+        list.removeEventListener('touchcancel', onSwipeEndOrLeave);
+        list.removeEventListener('touchmove', onSwipeMove);
+        list.removeEventListener('click', onClickWhenMoving);
       }
     };
   }, [listRef]);
