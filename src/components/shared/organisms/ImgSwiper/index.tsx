@@ -151,7 +151,6 @@ function ImgSwiper(swiperProps: Props) {
     >
       <ul
         ref={listRef}
-        role="region"
         className={$['slide-list']}
         style={{ transform: `translateX(${translateX}px)` }}
       >
