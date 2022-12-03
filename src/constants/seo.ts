@@ -1,8 +1,10 @@
 export const seoData = {
-  title: 're:Fashion',
-  creator: 're-pashion',
+  title: 'AI 기반 패션 리세일 마켓, re:Fashion',
+  creator: 'team.re-pashion',
   url: 'https://refashion.link',
-  description: '세컨핸드 의류에 새 생명을, re:Fashion',
+  keywords: '패션, 중고, 인공지능',
+  author: 'dongyong Kim',
+  description: 'AI 기반 패션 리세일 마켓, re:Fashion',
   images: {
     logo: 'logo/refashion-logo.png',
   },

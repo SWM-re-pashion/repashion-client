@@ -17,10 +17,7 @@ function Main() {
 
   return (
     <>
-      <HeadMeta
-        title="re:Fashion | 서비스 메인 페이지"
-        url={`${seoData.url}`}
-      />
+      <HeadMeta url={`${seoData.url}`} />
 
       <section className={$.main}>
         <MainHeader />
