@@ -52,14 +52,12 @@ function ImgSwiper(swiperProps: Props) {
     if (!isDown) return;
     const nowX = getClientX(e);
     setTranslateX(listX + nowX - startX);
-    offSwiperAnimation();
   };
 
   const onSwipeEndOrLeave = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
     const list = listRef.current;
-    offSwiperAnimation();
     setDown(false);
     setEndX(getClientX(e));
     setListX(getTranslateX(list));
