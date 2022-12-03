@@ -37,11 +37,12 @@ function SelectBoxView(
       style={{ ...{ width, height } }}
     >
       <button
-        id={`${name}-select-box`}
+        id={`${name}-select-button`}
         ref={ref}
         type="button"
-        aria-haspopup="true"
-        aria-expanded="true"
+        aria-label={`${name} 버튼`}
+        aria-haspopup={isClicked ? 'true' : 'false'}
+        aria-expanded={isClicked ? 'true' : 'false'}
         aria-controls={`${name}-select-list`}
         onClick={handleMouseDown}
       >
@@ -64,7 +65,7 @@ function SelectBoxView(
       {isClicked && (
         <ul
           id={`${name}-select-list`}
-          aria-labelledby={`${name}-select-box`}
+          aria-labelledby={`${name} 선택 리스트`}
           role="menu"
           tabIndex={0}
           style={{ top: height ? `calc(${height} + 6px)` : '56px' }}

@@ -48,11 +48,12 @@ function DropDown(selectProps: Props) {
     <div className={classnames(className, $['dropdown-btn'])}>
       <button
         {...{ className }}
-        id={`${name}-select-box`}
+        id={`${name}-dropdown-button`}
         ref={labelRef}
         type="button"
-        aria-haspopup="true"
-        aria-expanded="true"
+        aria-label={`${name} 버튼`}
+        aria-haspopup={isClicked ? 'true' : 'false'}
+        aria-expanded={isClicked ? 'true' : 'false'}
         aria-controls={`${name}-dropdown-list`}
         onClick={handleMouseDown}
       >
@@ -62,7 +63,7 @@ function DropDown(selectProps: Props) {
       {isClicked && (
         <ul
           id={`${name}-dropdown-list`}
-          aria-labelledby={`${name}-select-box`}
+          aria-labelledby={`${name} 드롭다운 리스트`}
           role="menu"
           tabIndex={0}
           className={$['dropdown-menulist']}
