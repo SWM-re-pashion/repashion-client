@@ -14,11 +14,9 @@ function HeadMeta({ title, description, url, image, creator }: Props) {
   return (
     <Head>
       <title>{title ?? seoData.title}</title>
+      <meta name="keywords" content={seoData.keywords} />
+      <meta name="author" content={seoData.author} />
       <meta name="description" content={description ?? seoData.description} />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
-      />
       <meta property="og:title" content={title ?? seoData.title} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url ?? seoData.url} />
