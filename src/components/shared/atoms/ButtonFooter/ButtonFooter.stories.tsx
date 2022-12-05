@@ -18,7 +18,7 @@ export default {
     },
     LeftBtn: {
       control: {
-        type: 'text',
+        type: 'object',
       },
     },
     msg: {

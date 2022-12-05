@@ -4,7 +4,7 @@ import { AuthError } from 'src/api/core/error';
 import ErrorFallback from '.';
 
 export default {
-  title: 'shared/Atoms/ErrorFallback',
+  title: 'shared/Organisms/ErrorFallback',
   component: ErrorFallback,
   argTypes: {
     error: { control: 'object' },
