@@ -26,7 +26,7 @@ export default function ButtonFooter(footerProps: Props) {
       {LeftBtn}
       <Button
         background={btnColor}
-        errorMsg={msg}
+        hasErrorMsg={!!msg}
         onClick={onClick}
         className={$.btn}
       >
