@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useState, useCallback } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ButtonFooter from '@molecules/ButtonFooter';
 import ImgBox from '@molecules/ImgBox';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';

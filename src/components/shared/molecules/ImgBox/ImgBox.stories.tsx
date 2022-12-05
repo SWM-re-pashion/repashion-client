@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import ImgBox from '.';
 
 export default {
-  title: 'shared/Atoms/ImgBox',
+  title: 'shared/Molecules/ImgBox',
   component: ImgBox,
   argTypes: {
     src: { control: 'text' },

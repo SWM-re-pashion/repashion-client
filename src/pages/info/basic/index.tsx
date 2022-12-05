@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, ChangeEvent, useRef } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import Loading from '@atoms/Loading';
 import Span from '@atoms/Span';
@@ -11,6 +10,7 @@ import { ISR_WEEK } from '@constants/api';
 import { basicBtnProps } from '@constants/basicInfo/constants';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ButtonFooter from '@molecules/ButtonFooter';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';

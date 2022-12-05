@@ -2,11 +2,11 @@ import { useCallback, useMemo } from 'react';
 
 import { UploadStoreState } from '#types/storeType/upload';
 import BackBtn from '@atoms/BackBtn';
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import { seoData } from '@constants/seo';
 import { additionData } from '@constants/upload/constants';
 import { reviewData, sizeData, styleData } from '@constants/upload/utils';
+import ButtonFooter from '@molecules/ButtonFooter';
 import PageHeader from '@molecules/PageHeader';
 import { getBreadcrumb } from 'src/api/category';
 import AdditionInfo from 'src/components/Upload/organisms/AdditionInfo';

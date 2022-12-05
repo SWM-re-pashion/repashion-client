@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import ButtonFooter from '.';
 
 export default {
-  title: 'shared/Atoms/ButtonFooter',
+  title: 'shared/Molecules/ButtonFooter',
   component: ButtonFooter,
   argTypes: {
     btnColor: {
