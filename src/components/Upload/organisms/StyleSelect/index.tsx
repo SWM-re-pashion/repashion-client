@@ -8,8 +8,8 @@ import {
   UploadState,
 } from '#types/storeType/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
+import TextInput from '@molecules/TextInput';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 
