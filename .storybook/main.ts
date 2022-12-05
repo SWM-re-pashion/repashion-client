@@ -39,6 +39,9 @@ module.exports = {
         __dirname,
         '../src/components/shared/templates',
       ),
+      'next/router': require.resolve('./next/router.js'),
+      'next/link': require.resolve('./next/link.js'),
+      'next/image': require.resolve('./next/image.js'),
     };
 
     baseConfig.module.rules.push({
