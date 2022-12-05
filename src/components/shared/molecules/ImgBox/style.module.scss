@@ -2,6 +2,8 @@
   position: relative;
   width: 100%;
   height: 100%;
+  max-width: 233px;
+  max-height: 233px;
   border-radius: $border-radius;
   background-color: $gray-500;
   img {
@@ -34,6 +36,9 @@
 
 .loading {
   width: 100%;
+  height: 100%;
+  max-width: 233px;
+  max-height: 233px;
   @include loading();
   .skeleton {
     padding-top: 100%;
