@@ -8,7 +8,7 @@ import $ from './style.module.scss';
 type Props = {
   error: Error | ApiError;
   reset: () => void;
-  otherRenderComponent?: React.ReactNode;
+  otherRenderComponent?: JSX.Element;
   includedStatusCodes?: number[];
 } & StyleProps;
 

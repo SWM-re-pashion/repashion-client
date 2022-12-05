@@ -1,6 +1,6 @@
-import ErrorFallback from '@atoms/ErrorFallback';
 import { Circle, Star } from '@atoms/icon';
 import Span from '@atoms/Span';
+import ErrorFallback from '@organisms/ErrorFallback';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import { RecommendItemSkeleton } from 'src/components/Shop/Organisms/ProductItemList/Skeleton';
 

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import ErrorFallback from '@atoms/ErrorFallback';
 import Loading from '@atoms/Loading';
+import ErrorFallback from '@organisms/ErrorFallback';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import Layout from '@templates/Layout';
 import InfoModifyTemplate from 'src/components/MyPage/template/InfoModifyTemplate';
