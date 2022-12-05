@@ -11,7 +11,7 @@ type Props = {
   suspenseFallback: ComponentProps<typeof SSRSafeSuspense>['fallback'];
   errorFallback: ErrorBoundaryProps['errorFallback'];
   keys?: Array<unknown>;
-  otherRenderComponent?: React.ReactNode;
+  otherRenderComponent?: JSX.Element;
   includedStatusCodes?: number[];
 };
 
