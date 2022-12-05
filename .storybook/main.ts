@@ -22,6 +22,7 @@ module.exports = {
     baseConfig.resolve.alias = {
       ...baseConfig.resolve.alias,
       src: path.resolve(__dirname, '../src'),
+      public: path.resolve(__dirname, '../public'),
       '@styles': path.resolve(__dirname, '../src/styles'),
       '#types': path.resolve(__dirname, '../src/types'),
       '@mocks': path.resolve(__dirname, '../__mocks__'),
