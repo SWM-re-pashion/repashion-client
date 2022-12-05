@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { StyleProps } from '#types/props';
 import { Arrow } from '@atoms/icon';
 
-import Button from './Button';
+import Button from '../Button';
 
 type Props = {
   color?: string;
