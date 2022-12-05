@@ -5,9 +5,9 @@ import { ReactElement, useState, useCallback } from 'react';
 
 import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
-import ImgBox from '@atoms/ImgBox';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ImgBox from '@molecules/ImgBox';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
