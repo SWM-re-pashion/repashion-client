@@ -5,5 +5,7 @@ export const useRouter = () => ({
   asPath: '',
   prefetch: () => {},
   push: () => {},
+  back: () => {},
+  replace: () => {},
 });
 export default { useRouter };
