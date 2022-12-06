@@ -58,11 +58,12 @@ function ImgSwiper(swiperProps: Props) {
   const onSwipeEndOrLeave = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
+    const isEnd = e.type === 'mouseup' || e.type === 'touchend';
     const list = listRef.current;
     setDown(false);
     setEndX(getClientX(e));
     setListX(getTranslateX(list));
-    setMouseUpClientX(getClientX(e));
+    if (isEnd) setMouseUpClientX(getClientX(e));
   };
 
   const onClickWhenMoving = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -141,10 +142,12 @@ function ImgSwiper(swiperProps: Props) {
       style={{ ...style, backgroundColor }}
       onMouseDown={onSwipeStart}
       onMouseUp={onSwipeEndOrLeave}
+      onMouseLeave={onSwipeEndOrLeave}
       onMouseMove={onSwipeMove}
       onTouchStart={onSwipeStart}
       onTouchEnd={onSwipeEndOrLeave}
       onTouchMove={onSwipeMove}
+      onTouchCancel={onSwipeEndOrLeave}
       onClick={onClickWhenMoving}
       onKeyDown={onKeyDown}
     >
