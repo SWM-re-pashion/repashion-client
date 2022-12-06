@@ -1,4 +1,5 @@
 import { DefaultProps } from '#types/props';
+import Description from '@atoms/Description';
 import Required from '@atoms/Required';
 import Span from '@atoms/Span';
 import classnames from 'classnames';
@@ -28,9 +29,12 @@ export default function InfoArticle(infoProps: Props) {
           {required && <Required className={$['required-msg']} />}
         </div>
         {description && (
-          <Span fontSize={12} fontWeight={600} className={$.description}>
-            {description}
-          </Span>
+          <Description
+            description={description}
+            fontSize={12}
+            fontWeight={600}
+            className={$.description}
+          />
         )}
       </div>
 

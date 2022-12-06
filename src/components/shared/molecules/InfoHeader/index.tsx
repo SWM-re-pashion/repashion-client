@@ -1,4 +1,5 @@
-import { DefaultProps } from '#types/props';
+import { StyleProps } from '#types/props';
+import Description from '@atoms/Description';
 import Required from '@atoms/Required';
 import Span from '@atoms/Span';
 import Title from '@atoms/Title';
@@ -10,7 +11,7 @@ type Props = {
   title: string;
   required?: boolean;
   description?: string;
-} & DefaultProps;
+} & StyleProps;
 
 export default function InfoHeader(props: Props) {
   const { title, required, description, className, style } = props;
@@ -21,11 +22,7 @@ export default function InfoHeader(props: Props) {
         {required && <Required className={$['required-msg']} />}
       </div>
 
-      {description && (
-        <Span fontSize={14} fontWeight={500} hasPreWrap>
-          {description}
-        </Span>
-      )}
+      {description && <Description description={description} hasPreWrap />}
     </header>
   );
 }
