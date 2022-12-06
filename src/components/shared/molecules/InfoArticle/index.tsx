@@ -1,13 +1,11 @@
 import { DefaultProps } from '#types/props';
-import Description from '@atoms/Description';
-import Required from '@atoms/Required';
-import Span from '@atoms/Span';
+import InfoHeader from '@molecules/InfoHeader';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
 type Props = {
-  label: string | number;
+  label: string;
   childrenBox?: boolean;
   required?: boolean;
   description?: string;
@@ -23,20 +21,22 @@ export default function InfoArticle(infoProps: Props) {
         [$['children-box']]: childrenBox,
       })}
     >
-      <div className={$['info-article-header']}>
-        <div className={$['info-article-header-text']}>
-          <Span className={$.label}>{label}</Span>
-          {required && <Required className={$['required-msg']} />}
-        </div>
+      <InfoHeader className={$['info-article-header']}>
+        <InfoHeader.TitleBox
+          className={$['info-article-header-text']}
+          title={label}
+          marginLeft="7px"
+          required={required}
+        />
         {description && (
-          <Description
+          <InfoHeader.Description
             description={description}
             fontSize={12}
             fontWeight={600}
             className={$.description}
           />
         )}
-      </div>
+      </InfoHeader>
 
       {children}
     </article>
