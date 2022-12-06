@@ -61,10 +61,12 @@ export function StyleInfo() {
 
       <InfoPageNum>1/3</InfoPageNum>
 
-      <InfoHeader title="style" style={{ marginBottom: '17px' }} required>
-        선호하는 이미지를 선택주세요.
-        <br /> 2개 이상 선택 가능해요.
-      </InfoHeader>
+      <InfoHeader
+        title="style"
+        style={{ marginBottom: '17px' }}
+        required
+        description={'선호하는 이미지를 선택주세요.\n2개 이상 선택 가능해요.'}
+      />
 
       <section className={$['style-info']}>
         {styleImgs &&

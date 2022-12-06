@@ -98,10 +98,12 @@ export function BasicInfo() {
       />
 
       <InfoPageNum>1/2</InfoPageNum>
-      <InfoHeader title="basic">
-        성별, 키, 체형 및 사이즈를 알려주세요.
-        <br /> 사이즈는 복수 선택도 가능해요.
-      </InfoHeader>
+      <InfoHeader
+        title="basic"
+        description={
+          '성별, 키, 체형 및 사이즈를 알려주세요.\n사이즈는 복수 선택도 가능해요.'
+        }
+      />
       {genderData && genderData?.data && (
         <InfoBtnBox
           {...basicBtnProps[0]}

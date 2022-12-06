@@ -65,10 +65,12 @@ export function ColorInfo() {
 
       <InfoPageNum>2/2</InfoPageNum>
 
-      <InfoHeader title="color">
-        선호하는 컬러를 알려주세요.
-        <br /> 여러 개 선택하는 것도 가능해요.
-      </InfoHeader>
+      <InfoHeader
+        title="color"
+        description={
+          '선호하는 컬러를 알려주세요.\n여러 개 선택하는 것도 가능해요.'
+        }
+      />
 
       {!isLoading &&
         data &&
