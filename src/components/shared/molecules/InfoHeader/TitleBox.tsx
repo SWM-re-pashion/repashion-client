@@ -13,7 +13,7 @@ type Props = {
   required?: boolean;
 } & StyleProps;
 
-export default function TitleBox(props: Props) {
+function TitleBox(props: Props) {
   const { className, style } = props;
   const { isHeader, marginLeft, required, title } = props;
   return (
@@ -27,3 +27,4 @@ export default function TitleBox(props: Props) {
     </div>
   );
 }
+export default TitleBox;
