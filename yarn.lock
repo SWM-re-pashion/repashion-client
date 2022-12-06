@@ -4222,19 +4222,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/babel__core@npm:^7":
-  version: 7.1.20
-  resolution: "@types/babel__core@npm:7.1.20"
-  dependencies:
-    "@babel/parser": ^7.1.0
-    "@babel/types": ^7.0.0
-    "@types/babel__generator": "*"
-    "@types/babel__template": "*"
-    "@types/babel__traverse": "*"
-  checksum: a09c4f0456552547a5b8a5a009a3daec4d362f622168f8e08bda0ded2da0a65ab0b1642e23c433b3616721f5701dc34a996c5bde5baeaea53eda98f438043f2c
-  languageName: node
-  linkType: hard
-
 "@types/babel__core@npm:^7.1.14":
   version: 7.1.19
   resolution: "@types/babel__core@npm:7.1.19"
@@ -4254,13 +4241,6 @@ __metadata:
   dependencies:
     "@babel/types": ^7.0.0
   checksum: 20effbbb5f8a3a0211e95959d06ae70c097fb6191011b73b38fe86deebefad8e09ee014605e0fd3cdaedc73d158be555866810e9166e1f09e4cfd880b874dcb0
-  languageName: node
-  linkType: hard
-
-"@types/babel__preset-env@npm:^7":
-  version: 7.9.2
-  resolution: "@types/babel__preset-env@npm:7.9.2"
-  checksum: a905ed92a3f602384966153e74a94790425e98af54e392a7fcfb5c5ded2f2a58c49a9fa64a0cb506fbffb8169ad25b56ea87983c812a4fb880f0716668c8c085
   languageName: node
   linkType: hard
 
@@ -6951,7 +6931,6 @@ __metadata:
   resolution: "client@workspace:."
   dependencies:
     "@babel/core": ^7.20.5
-    "@mdx-js/react": ^1.6.22
     "@next/eslint-plugin-next": ^12.2.0
     "@sentry/nextjs": ^7.16.0
     "@storybook/addon-actions": ^6.5.14
@@ -6969,8 +6948,6 @@ __metadata:
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^14.4.3
-    "@types/babel__core": ^7
-    "@types/babel__preset-env": ^7
     "@types/jest": ^29.1.1
     "@types/jsdom": ^20.0.0
     "@types/node": 18.0.0
