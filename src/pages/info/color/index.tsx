@@ -65,12 +65,15 @@ export function ColorInfo() {
 
       <InfoPageNum>2/2</InfoPageNum>
 
-      <InfoHeader
-        title="color"
-        description={
-          '선호하는 컬러를 알려주세요.\n여러 개 선택하는 것도 가능해요.'
-        }
-      />
+      <InfoHeader isStrongFontFamily>
+        <InfoHeader.TitleBox title="color" marginLeft="5px" isHeader />
+        <InfoHeader.Description
+          hasPreWrap
+          description={
+            '선호하는 컬러를 알려주세요.\n여러 개 선택하는 것도 가능해요.'
+          }
+        />
+      </InfoHeader>
 
       {!isLoading &&
         data &&
