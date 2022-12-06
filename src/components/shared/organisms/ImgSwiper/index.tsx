@@ -114,8 +114,6 @@ function ImgSwiper(swiperProps: Props) {
 
     if (isLeft || isRight) {
       onSwiperAnimation();
-      setMouseUpClientX(0);
-      setMouseDownClientX(0);
       onChangeImg(imgCurrentNo + (isLeft ? 1 : -1));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,10 +142,8 @@ function ImgSwiper(swiperProps: Props) {
       onMouseDown={onSwipeStart}
       onMouseUp={onSwipeEndOrLeave}
       onMouseMove={onSwipeMove}
-      onMouseLeave={onSwipeEndOrLeave}
       onTouchStart={onSwipeStart}
       onTouchEnd={onSwipeEndOrLeave}
-      onTouchCancel={onSwipeEndOrLeave}
       onTouchMove={onSwipeMove}
       onClick={onClickWhenMoving}
       onKeyDown={onKeyDown}
