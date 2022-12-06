@@ -9,11 +9,12 @@ import $ from './style.module.scss';
 type Props = {
   imgListLen: number;
   backgroundColor?: string;
+  slideCover?: JSX.Element;
   setImgNum?: React.Dispatch<React.SetStateAction<number>>;
 } & DefaultProps;
 
 function ImgSwiper(swiperProps: Props) {
-  const { imgListLen, children, setImgNum } = swiperProps;
+  const { imgListLen, children, setImgNum, slideCover } = swiperProps;
   const { className, style, backgroundColor } = swiperProps;
   const listRef = React.useRef<HTMLUListElement>(null);
   const [translateX, setTranslateX] = useState(getTranslateX(listRef.current));
@@ -107,13 +108,15 @@ function ImgSwiper(swiperProps: Props) {
 
   useEffect(() => {
     const dragSpace = Math.abs(mouseDownClientX - mouseUpClientX);
+    const isOverThreshold = dragSpace > 100;
+    const isLeft = mouseUpClientX < mouseDownClientX && isOverThreshold;
+    const isRight = mouseUpClientX > mouseDownClientX && isOverThreshold;
 
-    if (mouseUpClientX < mouseDownClientX && dragSpace > 100) {
+    if (isLeft || isRight) {
       onSwiperAnimation();
-      onChangeImg(imgCurrentNo + 1);
-    } else if (mouseUpClientX > mouseDownClientX && dragSpace > 100) {
-      onSwiperAnimation();
-      onChangeImg(imgCurrentNo - 1);
+      setMouseUpClientX(0);
+      setMouseDownClientX(0);
+      onChangeImg(imgCurrentNo + (isLeft ? 1 : -1));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mouseUpClientX]);
@@ -156,6 +159,7 @@ function ImgSwiper(swiperProps: Props) {
       >
         {children}
       </ul>
+      {slideCover}
     </div>
   );
 }
