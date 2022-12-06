@@ -1,8 +1,5 @@
 import { StyleProps } from '#types/props';
 import Span from '@atoms/Span';
-import classnames from 'classnames';
-
-import $ from './style.module.scss';
 
 type Props = {
   description: string;
@@ -20,7 +17,7 @@ export default function Description(props: Props) {
       fontSize={fontSize || 14}
       fontWeight={fontWeight || 500}
       hasPreWrap={hasPreWrap}
-      className={classnames($.description, className)}
+      className={className}
     >
       {description}
     </Span>
