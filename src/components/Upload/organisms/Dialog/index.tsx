@@ -5,7 +5,7 @@ import Button from '@atoms/Button';
 import Span from '@atoms/Span';
 import ButtonFooter from '@molecules/ButtonFooter';
 import RadioSelect from '@molecules/RadioSelect';
-import { Modal } from '@templates/Modal';
+import Modal from '@templates/Modal';
 
 import $ from './style.module.scss';
 import { curCategoryChildrenByProp } from './utils';
