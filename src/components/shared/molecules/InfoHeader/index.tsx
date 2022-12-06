@@ -1,28 +1,27 @@
-import { StyleProps } from '#types/props';
+import { DefaultProps } from '#types/props';
 import Description from '@atoms/Description';
-import Required from '@atoms/Required';
-import Span from '@atoms/Span';
-import Title from '@atoms/Title';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
+import TitleBox from './TitleBox';
 
-type Props = {
-  title: string;
-  required?: boolean;
-  description?: string;
-} & StyleProps;
+type Props = { isStrongFontFamily?: boolean } & DefaultProps;
 
-export default function InfoHeader(props: Props) {
-  const { title, required, description, className, style } = props;
+function InfoHeader(props: Props) {
+  const { isStrongFontFamily, children, className, style } = props;
   return (
-    <header {...{ style }} className={classnames($['info-header'], className)}>
-      <div className={$['info-title']}>
-        <Title className={$['info-title-msg']}>{title}</Title>
-        {required && <Required className={$['required-msg']} />}
-      </div>
-
-      {description && <Description description={description} hasPreWrap />}
+    <header
+      {...{ style }}
+      className={classnames($['info-header'], className, {
+        [$['strong-font-family']]: isStrongFontFamily,
+      })}
+    >
+      {children}
     </header>
   );
 }
+
+InfoHeader.TitleBox = TitleBox;
+InfoHeader.Description = Description;
+
+export default InfoHeader;
