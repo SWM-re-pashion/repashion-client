@@ -1,16 +1,14 @@
 .info-header {
   margin: 17px 0 38px 0;
+}
+
+.strong-font-family {
   font-family: 'Montserrat Alternates', sans-serif;
-  .info-title {
-    @include required-header(7px);
-    &-msg {
-      @include typography(25);
-    }
-    .required-msg {
-      margin-left: 5px;
-    }
-  }
-  .info-description {
-    @include typography(14);
+}
+
+.info-title {
+  @include required-header(7px);
+  &-msg {
+    @include typography(25);
   }
 }

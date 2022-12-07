@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import InputRange from '@molecules/InputRange';
+import TextInput from '@molecules/TextInput';
 
 import $ from './style.module.scss';
 import { priceInputProps, rangeProps } from './utils';

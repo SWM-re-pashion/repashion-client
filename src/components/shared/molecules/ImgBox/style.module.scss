@@ -1,0 +1,46 @@
+.img-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 233px;
+  max-height: 233px;
+  border-radius: $border-radius;
+  background-color: $gray-500;
+  img {
+    object-fit: contain;
+    border-radius: $border-radius;
+  }
+  .selected-box {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $img-box-clicked;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid $primary;
+    .icon {
+      path {
+        stroke: $white;
+      }
+    }
+  }
+}
+
+.click-mode {
+  cursor: pointer;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  max-width: 233px;
+  max-height: 233px;
+  @include loading();
+  .skeleton {
+    padding-top: 100%;
+  }
+}

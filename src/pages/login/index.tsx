@@ -6,7 +6,7 @@ import { Google, Kakao } from '@atoms/icon';
 import { GOOGLE_OAUTH_URL, KAKAO_OAUTH_URL } from '@constants/api';
 import { seoData } from '@constants/seo';
 import FooterWrapper from '@molecules/FooterWrapper';
-import { SocialLoginBtn } from '@molecules/SocialLoginBtn';
+import SocialLoginBtn from '@molecules/SocialLoginBtn';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';

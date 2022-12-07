@@ -1,16 +1,25 @@
-import { DefaultProps } from '#types/props';
-import classnames from 'classnames';
+import { StyleProps } from '#types/props';
+import Span from '@atoms/Span';
 
-import $ from './style.module.scss';
+type Props = {
+  description: string;
+  fontSize?: number;
+  fontWeight?: number;
+  hasPreWrap?: boolean;
+} & StyleProps;
 
-export default function Description({
-  className,
-  style,
-  children,
-}: DefaultProps) {
+export default function Description(props: Props) {
+  const { description, className, style } = props;
+  const { fontSize, fontWeight, hasPreWrap } = props;
   return (
-    <span {...{ style }} className={classnames($.description, className)}>
-      {children}
-    </span>
+    <Span
+      style={style}
+      fontSize={fontSize || 14}
+      fontWeight={fontWeight || 500}
+      hasPreWrap={hasPreWrap}
+      className={className}
+    >
+      {description}
+    </Span>
   );
 }

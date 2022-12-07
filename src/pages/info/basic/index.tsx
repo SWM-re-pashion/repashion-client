@@ -2,18 +2,18 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, ChangeEvent, useRef } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import Loading from '@atoms/Loading';
 import Span from '@atoms/Span';
-import TextInput from '@atoms/TextInput';
 import { ISR_WEEK } from '@constants/api';
 import { basicBtnProps } from '@constants/basicInfo/constants';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ButtonFooter from '@molecules/ButtonFooter';
 import InfoArticle from '@molecules/InfoArticle';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
+import TextInput from '@molecules/TextInput';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
@@ -98,9 +98,14 @@ export function BasicInfo() {
       />
 
       <InfoPageNum>1/2</InfoPageNum>
-      <InfoHeader title="basic">
-        성별, 키, 체형 및 사이즈를 알려주세요.
-        <br /> 사이즈는 복수 선택도 가능해요.
+      <InfoHeader isStrongFontFamily>
+        <InfoHeader.TitleBox title="basic" marginLeft="5px" isHeader required />
+        <InfoHeader.Description
+          hasPreWrap
+          description={
+            '성별, 키, 체형 및 사이즈를 알려주세요.\n사이즈는 복수 선택도 가능해요.'
+          }
+        />
       </InfoHeader>
       {genderData && genderData?.data && (
         <InfoBtnBox

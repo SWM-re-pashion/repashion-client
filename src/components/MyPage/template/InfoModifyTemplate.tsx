@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import BackBtn from '@atoms/BackBtn';
-import ButtonFooter from '@atoms/ButtonFooter';
 import Span from '@atoms/Span';
-import TextInput from '@atoms/TextInput';
 import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 import { seoData } from '@constants/seo';
+import ButtonFooter from '@molecules/ButtonFooter';
 import InfoArticle from '@molecules/InfoArticle';
+import TextInput from '@molecules/TextInput';
 import PageTemplate from '@templates/PageTemplate';
 import ProfileImgUpload from 'src/components/MyPage/organisms/ProfileImgUpload';
 import { useDebounceInput } from 'src/hooks';

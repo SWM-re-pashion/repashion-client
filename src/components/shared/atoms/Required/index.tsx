@@ -1,12 +1,24 @@
 import { StyleProps } from '#types/props';
+import Span from '@atoms/Span';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
-export default function Required({ className, style }: StyleProps) {
+type Props = {
+  fontSize?: number;
+  fontWeight?: number;
+} & StyleProps;
+
+export default function Required(props: Props) {
+  const { className, style, fontSize, fontWeight } = props;
   return (
-    <span {...{ style }} className={classnames($.required, className)}>
+    <Span
+      {...{ style }}
+      fontWeight={fontWeight}
+      fontSize={fontSize || 10}
+      className={classnames($.required, className)}
+    >
       필수
-    </span>
+    </Span>
   );
 }

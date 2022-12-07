@@ -2,10 +2,10 @@ import { memo, useEffect } from 'react';
 
 import { BasicInfo, UpdateUpload } from '#types/storeType/upload';
 import Button from '@atoms/Button';
-import ButtonFooter from '@atoms/ButtonFooter';
 import Span from '@atoms/Span';
+import ButtonFooter from '@molecules/ButtonFooter';
 import RadioSelect from '@molecules/RadioSelect';
-import { Modal } from '@templates/Modal';
+import Modal from '@templates/Modal';
 
 import $ from './style.module.scss';
 import { curCategoryChildrenByProp } from './utils';

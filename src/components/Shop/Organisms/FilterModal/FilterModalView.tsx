@@ -2,11 +2,11 @@ import { RefObject } from 'react';
 
 import { FilterUpdate } from '#types/storeType/filter';
 import Button from '@atoms/Button';
-import ButtonFooter from '@atoms/ButtonFooter';
 import { Close } from '@atoms/icon';
+import ButtonFooter from '@molecules/ButtonFooter';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
-import { Modal } from '@templates/Modal';
+import Modal from '@templates/Modal';
 
 import PriceInput from '../PriceInput';
 import { PriceProps } from './constants';

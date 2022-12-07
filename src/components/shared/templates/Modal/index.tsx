@@ -11,7 +11,7 @@ type Props = {
   onClose?: () => void;
 } & DefaultProps;
 
-export function Modal({
+export default function Modal({
   id,
   isOpen,
   children,

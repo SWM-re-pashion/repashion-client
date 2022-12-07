@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { memo, useEffect, useState } from 'react';
 
-import { Chat, Shop, MyPage, Plus, SearchBlack, Home } from '@atoms/icon';
+import { Shop, MyPage, Plus, Home } from '@atoms/icon';
 import NavigationLink from '@molecules/NavigationLink';
 import classnames from 'classnames';
 import { useScrollDetect } from 'src/hooks';

@@ -8,7 +8,7 @@ import NotFoundPage from 'src/pages/404';
 type ErrorFallbackProps<ErrorType extends Error = Error> = {
   error: ErrorType;
   reset: (...args: unknown[]) => void;
-  otherRenderComponent?: React.ReactNode;
+  otherRenderComponent?: JSX.Element;
   includedStatusCodes?: number[];
 };
 
@@ -18,14 +18,14 @@ type WithRouterProps = {
 
 type ErrorFallbackType = <ErrorType extends Error>(
   props: ErrorFallbackProps<ErrorType>,
-) => React.ReactNode;
+) => JSX.Element;
 
 type Props = {
   errorFallback: ErrorFallbackType;
   children: ReactElement;
   resetQuery?: () => void;
   keys?: unknown[];
-  otherRenderComponent?: React.ReactNode;
+  otherRenderComponent?: JSX.Element;
   includedStatusCodes?: number[];
 } & WithRouterProps;
 

@@ -4,7 +4,7 @@ import Button from '@atoms/Button';
 import Span from '@atoms/Span';
 import { MAILTO, SMS } from '@constants/link';
 import { EMAIL_REGEX, PHONE_REGEX, URL_REGEX } from '@constants/regExp';
-import { Modal } from '@templates/Modal';
+import Modal from '@templates/Modal';
 import classnames from 'classnames';
 import { isSameMultipleRegExp } from 'src/utils/regExp';
 

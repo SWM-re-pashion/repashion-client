@@ -6,8 +6,8 @@ import {
   UploadState,
 } from '#types/storeType/upload';
 import TextArea from '@atoms/TextArea';
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
+import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 
 import $ from './style.module.scss';

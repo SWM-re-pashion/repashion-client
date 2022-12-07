@@ -2,13 +2,13 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useCallback, useEffect } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
 import Loading from '@atoms/Loading';
 import { ISR_WEEK } from '@constants/api';
 import { colorBtnProps } from '@constants/colorInfo/constants';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ButtonFooter from '@molecules/ButtonFooter';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import InfoBtnBox from '@organisms/InfoBtnBox';
@@ -65,9 +65,14 @@ export function ColorInfo() {
 
       <InfoPageNum>2/2</InfoPageNum>
 
-      <InfoHeader title="color">
-        선호하는 컬러를 알려주세요.
-        <br /> 여러 개 선택하는 것도 가능해요.
+      <InfoHeader isStrongFontFamily>
+        <InfoHeader.TitleBox title="color" marginLeft="5px" isHeader />
+        <InfoHeader.Description
+          hasPreWrap
+          description={
+            '선호하는 컬러를 알려주세요.\n여러 개 선택하는 것도 가능해요.'
+          }
+        />
       </InfoHeader>
 
       {!isLoading &&

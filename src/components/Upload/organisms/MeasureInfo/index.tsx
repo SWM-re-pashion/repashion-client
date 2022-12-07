@@ -2,8 +2,8 @@ import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
 import { Measure, UpdateUpload, UploadState } from '#types/storeType/upload';
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
+import TextInput from '@molecules/TextInput';
 import { filterHeight } from 'src/utils/filterValue';
 
 import $ from './style.module.scss';
