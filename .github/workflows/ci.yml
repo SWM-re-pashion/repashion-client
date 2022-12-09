@@ -1,0 +1,44 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [dev, main]
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  Continous-Integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16, 18]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies when use Zero-Install
+        run: yarn install --immutable --immutable-cache
+
+      - name: Application Test
+        run: yarn test
+        if: ${{ always() }}
+
+      - name: Check lint validation
+        run: yarn check-lint
+        if: ${{ always() }}
+
+      - name: Check code format validation
+        run: yarn check-format
+        if: ${{ always() }}
+
+      - name: Check type validation
+        run: yarn check-types
+        if: ${{ always() }}
