@@ -1,12 +1,12 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh" # 이부분을 파일 앞에 붙여주는게 필요하다(아마도?)
+. "$(dirname "$0")/_/husky.sh"
 
 echo '🏗️👷 styling, type checking and building your project before committing'
 
 # Check Prettier standards
 yarn run check-format ||
 (
-    echo '🤢🤮🤢🤮 Its F**KING RAW - Your styling looks disgusting. 🤢🤮🤢🤮
+    echo '🤢🤮🤢🤮 check your code format 🤢🤮🤢🤮
             Prettier Check Failed. Run yarn format, add changes and try commit again.';
     false;
 )
@@ -14,7 +14,7 @@ yarn run check-format ||
 # Check ESLint Standards
 yarn run check-lint ||
 (
-        echo '😤🏀👋😤 Get that weak s**t out of here! 😤🏀👋😤 
+        echo '😤🏀👋😤 Check your lint 😤🏀👋😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
         false; 
 )
@@ -22,7 +22,7 @@ yarn run check-lint ||
 # Check tsconfig standards
 yarn run check-types ||
 (
-    echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
+    echo '🤡😂❌🤡 Check your code type 🤡😂❌🤡
             Are you seriously trying to write that? Make the changes required above.'
     false;
 )
