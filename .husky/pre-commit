@@ -16,7 +16,7 @@ yarn check-lint ||
 (
         echo '😤🏀👋😤 Check your lint 😤🏀👋😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
-        false; 
+        false;
 )
 
 # Check tsconfig standards
