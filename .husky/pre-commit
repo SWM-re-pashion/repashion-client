@@ -4,7 +4,7 @@
 echo '🏗️👷 styling, type checking and building your project before committing'
 
 # Check Prettier standards
-yarn run check-format ||
+yarn check-format ||
 (
     echo '🤢🤮🤢🤮 check your code format 🤢🤮🤢🤮
             Prettier Check Failed. Run yarn format, add changes and try commit again.';
@@ -12,7 +12,7 @@ yarn run check-format ||
 )
 
 # Check ESLint Standards
-yarn run check-lint ||
+yarn check-lint ||
 (
         echo '😤🏀👋😤 Check your lint 😤🏀👋😤 
                 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
@@ -20,7 +20,7 @@ yarn run check-lint ||
 )
 
 # Check tsconfig standards
-yarn run check-types ||
+yarn check-types ||
 (
     echo '🤡😂❌🤡 Check your code type 🤡😂❌🤡
             Are you seriously trying to write that? Make the changes required above.'
