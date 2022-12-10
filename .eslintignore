@@ -9,3 +9,5 @@ yarn.lock
 package-lock.json
 public
 storybook-static
+.lighthouseci
+lhci_reports

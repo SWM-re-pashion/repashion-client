@@ -29,8 +29,13 @@ const nextConfig = {
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-    prependData:
-      '@import "src/styles/main.scss"; @import "src/styles/_mixin.scss"; @import "src/styles/_typography.scss"; @import "src/styles/_grid.scss"; @import "src/styles/_loading.scss";',
+    prependData: `
+      @import "src/styles/main.scss";
+      @import "src/styles/_mixin.scss";
+      @import "src/styles/_typography.scss";
+      @import "src/styles/_grid.scss";
+      @import "src/styles/_loading.scss";
+    `,
   },
   env: {
     API_URL: process.env.API_URL,
