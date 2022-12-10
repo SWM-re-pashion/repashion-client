@@ -80,29 +80,26 @@ class ErrorBoundary extends React.Component<Props, State> {
     const { hasError, error } = this.state;
     const { errorFallback, router } = this.props;
     const { children, otherRenderComponent, includedStatusCodes } = this.props;
+    const isErrExist = hasError && error !== null;
+    const fallbacKUI = (err: ErrorFallbackProps['error']) =>
+      errorFallback({
+        error: err,
+        reset: this.resetBoundary,
+        otherRenderComponent,
+        includedStatusCodes,
+      });
 
     if (isInstanceOfAPIError(error)) {
       const { redirectUrl, notFound, status } = error;
       const isIncludeOtherStatus = includedStatusCodes?.some(
         (code) => code === status,
       );
-      if (redirectUrl && !isIncludeOtherStatus) {
-        router.replace(redirectUrl);
-      }
-      if (notFound) {
-        return <NotFoundPage />;
-      }
-
-      if (hasError && error !== null) {
-        return errorFallback({
-          error,
-          reset: this.resetBoundary,
-          otherRenderComponent,
-          includedStatusCodes,
-        });
-      }
+      if (redirectUrl && !isIncludeOtherStatus) router.replace(redirectUrl);
+      if (notFound) return <NotFoundPage />;
+      if (isErrExist) return fallbacKUI(error);
     }
 
+    if (isErrExist) return fallbacKUI(error);
     return children;
   }
 }
