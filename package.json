@@ -7,7 +7,7 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "test:ci": "jest --ci",
     "test:coverage": "jest --coverage",
     "check-types": "tsc",
