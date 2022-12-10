@@ -27,6 +27,14 @@ const customJestConfig = {
     '^src/pages/(.*)$': '<rootDir>/src/pages/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
+  collectCoverageFrom: [
+    './src/**/*.[jt]s?(x)',
+    '!./src/components/**/*.[jt]s?(x)',
+    '!./src/constants/**/*.[jt]s?(x)',
+    '!./src/types/**/*.[jt]s?(x)',
+    '!./src/pages/**/*.[jt]s?(x)',
+    '!./src/*.stories.[jt]s?(x)',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

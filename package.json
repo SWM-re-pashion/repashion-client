@@ -9,6 +9,7 @@
     "start": "next start -p 3001",
     "test": "jest --watch",
     "test:ci": "jest --ci",
+    "test:coverage": "jest --coverage",
     "check-types": "tsc",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
