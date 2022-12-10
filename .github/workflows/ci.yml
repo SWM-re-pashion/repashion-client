@@ -42,7 +42,7 @@ jobs:
         run: yarn install
 
       - name: Application Test
-        run: yarn test
+        run: yarn test:ci
         if: ${{ always() }}
 
       - name: Check lint validation
