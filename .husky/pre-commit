@@ -3,20 +3,12 @@
 
 echo '🏗️👷 styling, type checking your project before committing'
 
-# Check Prettier standards
-yarn check-format ||
-(
-    echo '🤢🤮🤢🤮 check your code format 🤢🤮🤢🤮
-            Prettier Check Failed. Run yarn format, add changes and try commit again.';
-    false;
-)
-
 # Check ESLint Standards
 yarn check-lint ||
 (
-        echo '😤🏀👋😤 Check your lint 😤🏀👋😤 
-                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
-        false;
+    echo '😤🏀👋😤 Check your lint 😤🏀👋😤 
+            ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+    false;
 )
 
 # Check tsconfig standards
