@@ -9,11 +9,12 @@ import $ from './style.module.scss';
 type Props = {
   imgListLen: number;
   backgroundColor?: string;
+  slideCover?: JSX.Element;
   setImgNum?: React.Dispatch<React.SetStateAction<number>>;
 } & DefaultProps;
 
 function ImgSwiper(swiperProps: Props) {
-  const { imgListLen, children, setImgNum } = swiperProps;
+  const { imgListLen, children, setImgNum, slideCover } = swiperProps;
   const { className, style, backgroundColor } = swiperProps;
   const listRef = React.useRef<HTMLUListElement>(null);
   const [translateX, setTranslateX] = useState(getTranslateX(listRef.current));
@@ -57,11 +58,12 @@ function ImgSwiper(swiperProps: Props) {
   const onSwipeEndOrLeave = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
   ) => {
+    const isEnd = e.type === 'mouseup' || e.type === 'touchend';
     const list = listRef.current;
     setDown(false);
     setEndX(getClientX(e));
     setListX(getTranslateX(list));
-    setMouseUpClientX(getClientX(e));
+    if (isEnd) setMouseUpClientX(getClientX(e));
   };
 
   const onClickWhenMoving = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -107,13 +109,13 @@ function ImgSwiper(swiperProps: Props) {
 
   useEffect(() => {
     const dragSpace = Math.abs(mouseDownClientX - mouseUpClientX);
+    const isOverThreshold = dragSpace > 100;
+    const isLeft = mouseUpClientX < mouseDownClientX && isOverThreshold;
+    const isRight = mouseUpClientX > mouseDownClientX && isOverThreshold;
 
-    if (mouseUpClientX < mouseDownClientX && dragSpace > 100) {
+    if (isLeft || isRight) {
       onSwiperAnimation();
-      onChangeImg(imgCurrentNo + 1);
-    } else if (mouseUpClientX > mouseDownClientX && dragSpace > 100) {
-      onSwiperAnimation();
-      onChangeImg(imgCurrentNo - 1);
+      onChangeImg(imgCurrentNo + (isLeft ? 1 : -1));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mouseUpClientX]);
@@ -140,12 +142,12 @@ function ImgSwiper(swiperProps: Props) {
       style={{ ...style, backgroundColor }}
       onMouseDown={onSwipeStart}
       onMouseUp={onSwipeEndOrLeave}
-      onMouseMove={onSwipeMove}
       onMouseLeave={onSwipeEndOrLeave}
+      onMouseMove={onSwipeMove}
       onTouchStart={onSwipeStart}
       onTouchEnd={onSwipeEndOrLeave}
-      onTouchCancel={onSwipeEndOrLeave}
       onTouchMove={onSwipeMove}
+      onTouchCancel={onSwipeEndOrLeave}
       onClick={onClickWhenMoving}
       onKeyDown={onKeyDown}
     >
@@ -156,6 +158,7 @@ function ImgSwiper(swiperProps: Props) {
       >
         {children}
       </ul>
+      {slideCover}
     </div>
   );
 }

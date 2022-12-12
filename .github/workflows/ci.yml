@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [dev, main]
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  Continous-Integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Application Test
+        run: yarn test:ci
+        if: ${{ always() }}
+
+      - name: Check lint validation
+        run: yarn check-lint
+        if: ${{ always() }}
+
+      - name: Check code format validation
+        run: yarn check-format
+        if: ${{ always() }}
+
+      - name: Check type validation
+        run: yarn check-types
+        if: ${{ always() }}

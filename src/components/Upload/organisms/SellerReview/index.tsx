@@ -4,9 +4,9 @@ import { DefaultData } from '#types/index';
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
 import SelectBox from '@molecules/SelectBox';
+import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 import { filterHeight } from 'src/utils/filterValue';
 

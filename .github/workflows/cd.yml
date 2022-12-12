@@ -1,0 +1,17 @@
+name: cd
+
+on:
+  push:
+    branches: [dev, main]
+
+jobs:
+  Continous-Deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git-sync
+        uses: wei/git-sync@v3
+        with:
+          source_repo: ${{ secrets.SOURCE_URL }}
+          source_branch: ${GITHUB_REF_NAME}
+          destination_repo: ${{ secrets.VERCEL_URL }}
+          destination_branch: ${GITHUB_REF_NAME}

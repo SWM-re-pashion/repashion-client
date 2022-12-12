@@ -4,8 +4,8 @@ import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import Button from '@atoms/Button';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
+import TextInput from '@molecules/TextInput';
 import { getBreadcrumb, getCategoryTree } from 'src/api/category';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 

@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
 import BackBtn from '@atoms/BackBtn';
-import ErrorFallback from '@atoms/ErrorFallback';
 import { Setting } from '@atoms/icon';
 import { seoData } from '@constants/seo';
 import { statusData } from '@constants/status';
+import ErrorFallback from '@organisms/ErrorFallback';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import PageTemplate from '@templates/PageTemplate';
 import StatusMenuList from 'src/components/MyPage/organisms/StatusMenuList';

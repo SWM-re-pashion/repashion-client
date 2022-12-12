@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import ErrorFallback from '@atoms/ErrorFallback';
+import ErrorFallback from '@organisms/ErrorFallback';
 import AsyncBoundary from '@templates/AsyncBoundary';
 
 import UserDropDown from '../UserDropDown';

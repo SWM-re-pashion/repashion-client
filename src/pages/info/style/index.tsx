@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 
 import { ReactElement, useState, useCallback } from 'react';
 
-import ButtonFooter from '@atoms/ButtonFooter';
 import HeadMeta from '@atoms/HeadMeta';
-import ImgBox from '@atoms/ImgBox';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ButtonFooter from '@molecules/ButtonFooter';
+import ImgBox from '@molecules/ImgBox';
 import InfoHeader from '@molecules/InfoHeader';
 import InfoPageNum from '@molecules/InfoPageNum';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -61,11 +61,13 @@ export function StyleInfo() {
 
       <InfoPageNum>1/3</InfoPageNum>
 
-      <InfoHeader title="style" style={{ marginBottom: '17px' }} required>
-        선호하는 이미지를 선택주세요.
-        <br /> 2개 이상 선택 가능해요.
+      <InfoHeader isStrongFontFamily style={{ marginBottom: '17px' }}>
+        <InfoHeader.TitleBox title="style" marginLeft="5px" isHeader required />
+        <InfoHeader.Description
+          hasPreWrap
+          description={'선호하는 이미지를 선택주세요.\n2개 이상 선택 가능해요.'}
+        />
       </InfoHeader>
-
       <section className={$['style-info']}>
         {styleImgs &&
           styleImgs?.styles.length !== 0 &&

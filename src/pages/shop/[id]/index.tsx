@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic';
 
 import { ReactElement } from 'react';
 
-import ErrorFallback from '@atoms/ErrorFallback';
 import HeadMeta from '@atoms/HeadMeta';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
+import ErrorFallback from '@organisms/ErrorFallback';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import Layout from '@templates/Layout';

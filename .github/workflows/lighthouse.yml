@@ -1,0 +1,118 @@
+name: Run lighthouse CI When Push
+
+on:
+  pull_request:
+    branches: [dev]
+
+jobs:
+  Lighthouse-CI:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build
+        run: |
+          yarn build
+
+      - name: Run Lighthouse CI
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: |
+          npm install -g @lhci/cli
+          lhci autorun || echo "Fail to Run Lighthouse CI!"
+
+      - name: Format lighthouse score
+        id: format_lighthouse_score
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync("./lhci_reports/manifest.json"));
+            const pages = ["main", "shop", "shop detail", "search", "search result"]
+            let comments = "👕 re:Fashion Lighthouse 성능 측정 결과 👕" + "\n";
+            results.forEach((result, i) => {
+              const { summary, jsonPath } = result;
+              const details = JSON.parse(fs.readFileSync(jsonPath));
+              const { audits } = details;
+              const formatResult = (res) => Math.round(res * 100);
+              Object.keys(summary).forEach(
+                (key) => (summary[key] = formatResult(summary[key]))
+              );
+              const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
+              const comment = [
+                `${pages[i]} page`,
+                `| Category | Score |`,
+                `| --- | --- |`,
+                `| ${score(summary.performance)} Performance | ${summary.performance} |`,
+                `| ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |`,
+                `| ${score(summary["best-practices"])} Best-Practices | ${summary["best-practices"]} |`,
+                `| ${score(summary.seo)} SEO | ${summary.seo} |`,
+                `| ${score(summary.pwa)} PWA | ${summary.pwa} |`
+              ].join("\n");
+              const detail = [
+                `| Category | Score |`,
+                `| --- | --- |`,
+                `| ${score(
+                  audits["first-contentful-paint"].score * 100
+                )} First Contentful Paint | ${
+                  audits["first-contentful-paint"].displayValue
+                } |`,
+                `| ${score(
+                  audits["largest-contentful-paint"].score * 100
+                )} Largest Contentful Paint | ${
+                  audits["largest-contentful-paint"].displayValue
+                } |`,
+                `| ${score(
+                  audits["first-meaningful-paint"].score * 100
+                )} First Meaningful Paint | ${
+                  audits["first-meaningful-paint"].displayValue
+                } |`,
+                `| ${score(
+                  audits["speed-index"].score * 100
+                )} Speed Index | ${
+                  audits["speed-index"].displayValue
+                } |`,
+                `| ${score(
+                  audits["total-blocking-time"].score * 100
+                )} Total Blocking Time | ${
+                  audits["total-blocking-time"].displayValue
+                } |`,
+              ].join("\n");
+              comments += comment + "\n" +"\n"+ detail + "\n" + "\n";
+            });
+            core.setOutput('comments', comments)
+      - uses: jwalton/gh-find-current-pr@v1
+        id: finder
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.finder.outputs.pr }}
+          message: |
+            ${{ github.sha }}
+            Lighthouse CI ended successfully.
+            ${{ steps.format_lighthouse_score.outputs.comments}}

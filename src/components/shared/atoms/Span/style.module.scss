@@ -3,6 +3,9 @@
   font-weight: 700;
   @include typography(16);
 }
+.pre-wrap {
+  white-space: pre-wrap;
+}
 .font-25 {
   @include typography(25);
 }

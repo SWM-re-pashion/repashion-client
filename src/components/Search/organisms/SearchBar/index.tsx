@@ -4,7 +4,7 @@ import { StyleProps } from '#types/props';
 import BackBtn from '@atoms/BackBtn';
 import Button from '@atoms/Button';
 import { Search } from '@atoms/icon';
-import TextInput from '@atoms/TextInput';
+import TextInput from '@molecules/TextInput';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';

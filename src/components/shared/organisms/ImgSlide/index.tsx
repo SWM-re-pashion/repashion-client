@@ -26,13 +26,13 @@ export default function ImgSlide(slideProps: Props) {
   return (
     <section className={$['slide-box']}>
       {children}
-
       <ImgSwiper
         backgroundColor="#e3e1e1"
         className={className}
         style={style}
         imgListLen={imgListLen}
         setImgNum={setImgNum}
+        slideCover={<SoldoutBox {...{ isSoldOut }} />}
       >
         {imgList.map((img, idx) => {
           const key = (typeof img !== 'string' ? img.src + img.alt : img) + idx;
@@ -55,7 +55,6 @@ export default function ImgSlide(slideProps: Props) {
             </ImgSwipe>
           );
         })}
-        <SoldoutBox {...{ isSoldOut }} />
       </ImgSwiper>
 
       <InfoPageNum className={$['page-num']}>{`${

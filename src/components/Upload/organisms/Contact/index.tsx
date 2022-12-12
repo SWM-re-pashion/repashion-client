@@ -2,8 +2,8 @@ import { memo, useCallback } from 'react';
 
 import { UpdateUpload, UploadState } from '#types/storeType/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
-import TextInput from '@atoms/TextInput';
 import InfoArticle from '@molecules/InfoArticle';
+import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 
 import $ from './style.module.scss';

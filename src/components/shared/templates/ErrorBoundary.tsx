@@ -8,7 +8,7 @@ import NotFoundPage from 'src/pages/404';
 type ErrorFallbackProps<ErrorType extends Error = Error> = {
   error: ErrorType;
   reset: (...args: unknown[]) => void;
-  otherRenderComponent?: React.ReactNode;
+  otherRenderComponent?: JSX.Element;
   includedStatusCodes?: number[];
 };
 
@@ -18,14 +18,14 @@ type WithRouterProps = {
 
 type ErrorFallbackType = <ErrorType extends Error>(
   props: ErrorFallbackProps<ErrorType>,
-) => React.ReactNode;
+) => JSX.Element;
 
 type Props = {
   errorFallback: ErrorFallbackType;
   children: ReactElement;
   resetQuery?: () => void;
   keys?: unknown[];
-  otherRenderComponent?: React.ReactNode;
+  otherRenderComponent?: JSX.Element;
   includedStatusCodes?: number[];
 } & WithRouterProps;
 
@@ -80,29 +80,26 @@ class ErrorBoundary extends React.Component<Props, State> {
     const { hasError, error } = this.state;
     const { errorFallback, router } = this.props;
     const { children, otherRenderComponent, includedStatusCodes } = this.props;
+    const isErrExist = hasError && error !== null;
+    const fallbacKUI = (err: ErrorFallbackProps['error']) =>
+      errorFallback({
+        error: err,
+        reset: this.resetBoundary,
+        otherRenderComponent,
+        includedStatusCodes,
+      });
 
     if (isInstanceOfAPIError(error)) {
       const { redirectUrl, notFound, status } = error;
       const isIncludeOtherStatus = includedStatusCodes?.some(
         (code) => code === status,
       );
-      if (redirectUrl && !isIncludeOtherStatus) {
-        router.replace(redirectUrl);
-      }
-      if (notFound) {
-        return <NotFoundPage />;
-      }
-
-      if (hasError && error !== null) {
-        return errorFallback({
-          error,
-          reset: this.resetBoundary,
-          otherRenderComponent,
-          includedStatusCodes,
-        });
-      }
+      if (redirectUrl && !isIncludeOtherStatus) router.replace(redirectUrl);
+      if (notFound) return <NotFoundPage />;
+      if (isErrExist) return fallbacKUI(error);
     }
 
+    if (isErrExist) return fallbacKUI(error);
     return children;
   }
 }

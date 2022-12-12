@@ -55,4 +55,4 @@ function SocialLoginBtn(loginBtnProps: Props) {
     </button>
   );
 }
-export { SocialLoginBtn };
+export default SocialLoginBtn;

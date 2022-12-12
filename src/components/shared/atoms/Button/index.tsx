@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import type { DefaultProps } from '#types/props';
 
-import ButtonView from './ButtonVIew';
+import ButtonView from './Button.view';
 
 type Props<T> = {
   color?: string;
@@ -13,12 +13,12 @@ type Props<T> = {
   borderRadius?: string;
   onClick?: (value?: T) => void;
   value?: T;
-  errorMsg?: string;
+  hasErrorMsg?: boolean;
 } & DefaultProps;
 
 function Button<T>(btnProps: Props<T>) {
   const { color, fontWeight, borderRadius, value } = btnProps;
-  const { label, iconBtn, background, onClick, errorMsg } = btnProps;
+  const { label, iconBtn, background, onClick, hasErrorMsg } = btnProps;
   const { className, style, children } = btnProps;
   const ariaLabel = label || `${children}`;
   const customStyle = {
@@ -40,7 +40,7 @@ function Button<T>(btnProps: Props<T>) {
         customStyle,
         className,
         iconBtn,
-        errorMsg,
+        hasErrorMsg,
         ariaLabel,
         children,
       }}
