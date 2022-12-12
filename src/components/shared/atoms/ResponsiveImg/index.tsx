@@ -9,12 +9,14 @@ import $ from './style.module.scss';
 type Props = {
   width: number;
   height: number;
+  sizes: string;
   src: string;
   alt: string;
 } & DefaultProps;
 
 export default function ResponsiveImg(imgProps: Props) {
-  const { width, height, src, alt, className, style, children } = imgProps;
+  const { width, height, sizes, src, alt, className, style, children } =
+    imgProps;
   return (
     <div
       style={{ ...style }}
@@ -25,7 +27,7 @@ export default function ResponsiveImg(imgProps: Props) {
           {...{ width, height, src, alt }}
           placeholder="blur"
           blurDataURL={IMAGE_BLUR_DATA_URL}
-          layout="responsive"
+          sizes={sizes}
           priority
         />
         {children}
