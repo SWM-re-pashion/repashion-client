@@ -5,7 +5,7 @@ on:
     branches: [dev]
 
 jobs:
-  lighthouse CI:
+  Lighthouse-CI:
     name: Lighthouse CI
     runs-on: ubuntu-latest
     strategy:
