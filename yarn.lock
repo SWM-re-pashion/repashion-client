@@ -1865,7 +1865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@discoveryjs/json-ext@npm:^0.5.3":
+"@discoveryjs/json-ext@npm:^0.5.3, @discoveryjs/json-ext@npm:^0.5.7":
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
   checksum: 2176d301cc258ea5c2324402997cf8134ebb212469c0d397591636cea8d3c02f2b3cf9fd58dcb748c7a0dade77ebdc1b10284fa63e608c033a1db52fddc69918
@@ -4636,7 +4636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-env@npm:^1.16.0":
+"@types/webpack-env@npm:^1.16.0, @types/webpack-env@npm:^1.17.0":
   version: 1.18.0
   resolution: "@types/webpack-env@npm:1.18.0"
   checksum: ecf4daa31cb37d474ac0ce058d83a3cadeb9881ca8107ae93c2299eaa9954943aae09b43e143c62ccbe4288a14db00c918c9debd707afe17c3998f873eaabc59
@@ -6824,6 +6824,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chromatic@npm:^6.12.0":
+  version: 6.12.0
+  resolution: "chromatic@npm:6.12.0"
+  dependencies:
+    "@discoveryjs/json-ext": ^0.5.7
+    "@types/webpack-env": ^1.17.0
+  bin:
+    chroma: bin/main.cjs
+    chromatic: bin/main.cjs
+    chromatic-cli: bin/main.cjs
+  checksum: 01192b5ce1275848f48121add48d92a07b1863c3c2427f0ab9fcf31abf4cb48790a7be26445ceff8f74c964fa3ff1e53b957a594eea61e96b7629eac3a7cebfb
+  languageName: node
+  linkType: hard
+
 "chrome-trace-event@npm:^1.0.2":
   version: 1.0.3
   resolution: "chrome-trace-event@npm:1.0.3"
@@ -6957,6 +6971,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.30.0
     axios: ^0.27.2
     babel-loader: ^8.3.0
+    chromatic: ^6.12.0
     classnames: ^2.3.1
     cookies-next: ^2.1.1
     css-loader: ^6.7.2
@@ -6970,6 +6985,7 @@ __metadata:
     eslint-plugin-react: ^7.30.1
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-storybook: ^0.6.7
+    husky: ^8.0.2
     jest: ^29.1.2
     jest-environment-jsdom: ^29.1.2
     lottie-react: ^2.3.1
@@ -10284,6 +10300,15 @@ __metadata:
   dependencies:
     ms: ^2.0.0
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
+  languageName: node
+  linkType: hard
+
+"husky@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "husky@npm:8.0.2"
+  bin:
+    husky: lib/bin.js
+  checksum: e101656fcb56163d610488f186448c78b132626aa427094489d886ce9374955a90274912b0f3a34af3326eaa74977883b032e5f701d7aaf4554daa5a7931be43
   languageName: node
   linkType: hard
 

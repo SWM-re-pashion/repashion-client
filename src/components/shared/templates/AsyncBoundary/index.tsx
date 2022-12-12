@@ -2,8 +2,8 @@ import { ComponentProps, PropsWithChildren, useCallback } from 'react';
 
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 
-import ErrorBoundary from './ErrorBoundary';
-import SSRSafeSuspense from './SSRSafeSuspense';
+import ErrorBoundary from '../ErrorBoundary';
+import SSRSafeSuspense from '../SSRSafeSuspense';
 
 type ErrorBoundaryProps = ComponentProps<typeof ErrorBoundary>;
 

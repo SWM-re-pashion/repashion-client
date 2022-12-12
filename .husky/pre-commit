@@ -1,0 +1,23 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🏗️👷 styling, type checking your project before committing'
+
+# Check ESLint Standards
+yarn check-lint ||
+(
+    echo '😤🏀👋😤 Check your lint 😤🏀👋😤 
+            ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+    false;
+)
+
+# Check tsconfig standards
+yarn check-types ||
+(
+    echo '🤡😂❌🤡 Check your code type 🤡😂❌🤡
+            Are you seriously trying to write that? Make the changes required above.'
+    false;
+)
+
+# If everything passes... Now we can commit
+echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'

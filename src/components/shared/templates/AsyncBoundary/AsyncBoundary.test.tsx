@@ -1,12 +1,17 @@
 import { QueryKey, useQuery } from '@tanstack/react-query';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import { fireEvent, render, waitFor } from '@testing-library/react';
+import { ApiError } from 'src/api/core/error';
 
 function SuspenseFallback() {
   return <span data-testid="isLoading">로딩중</span>;
 }
 
-function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorFallback<ErrorType extends Error = Error>(props: {
+  error: ErrorType;
+  reset: () => void;
+}) {
+  const { error, reset } = props;
   return (
     <>
       <span data-testid="errorMsg">{error.message}</span>
@@ -19,9 +24,7 @@ function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
 
 const renderAsyncBoundary = (key: QueryKey, mock: jest.Mock<any, any>) => {
   function Component() {
-    useQuery(key, () => {
-      return mock();
-    });
+    useQuery(key, () => mock());
     return <span data-testid="fetchedData">성공</span>;
   }
 
@@ -47,7 +50,7 @@ describe('AsyncBoundary', () => {
 
   describe('에러 핸들링', () => {
     it('에러 발생', async () => {
-      const mock = jest.fn().mockRejectedValue(new Error('에러'));
+      const mock = jest.fn().mockRejectedValue(new ApiError(400, '에러'));
       const { findByTestId } = render(renderAsyncBoundary(['에러', -1], mock));
 
       await waitFor(() => {
@@ -58,7 +61,7 @@ describe('AsyncBoundary', () => {
     it('에러 발생 후, 다시 시도', async () => {
       const mock = jest
         .fn()
-        .mockRejectedValueOnce(new Error('에러'))
+        .mockRejectedValueOnce(new ApiError(400, '에러'))
         .mockResolvedValueOnce({ data: '성공' });
 
       const { getByTestId, findByTestId } = render(

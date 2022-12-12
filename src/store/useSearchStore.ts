@@ -1,10 +1,9 @@
+import { SearchStoreState } from '#types/storeType/search';
 import { deepClone } from 'src/utils';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { initialSearchState } from './constants';
-
-import { SearchStoreState } from '#types/storeType/search';
 
 export const useSearchStore = create(
   persist<SearchStoreState>(

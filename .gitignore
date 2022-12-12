@@ -41,3 +41,11 @@ yarn-error.log*
 
 # env
 .env
+
+# storybook
+storybook-static
+build-storybook.log
+
+# lighthouse
+.lighthouseci
+lhci_reports
