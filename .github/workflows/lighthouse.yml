@@ -5,7 +5,7 @@ on:
     branches: [dev]
 
 jobs:
-  lhci:
+  lighthouse CI:
     name: Lighthouse CI
     runs-on: ubuntu-latest
     strategy:
@@ -13,7 +13,7 @@ jobs:
         node: [14, 16, 18]
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v1
