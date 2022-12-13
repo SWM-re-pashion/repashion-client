@@ -5,7 +5,7 @@ import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 type Props = {
   width: number;
   height: number;
-  sizes: string;
+  sizes?: string;
   src: string;
   alt: string;
 };

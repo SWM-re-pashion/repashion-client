@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ImgProps } from '#types/index';
 import type { DefaultProps } from '#types/props';
 import BaseImage from '@atoms/BaseImage';
+import { IMG_SLIDE_SIZES } from '@constants/img';
 import InfoPageNum from '@molecules/InfoPageNum';
 import ImgSwiper from '@organisms/ImgSwiper';
 import ImgSwipe from '@organisms/ImgSwiper/ImgSwipe/ImgSwipe.view';
@@ -51,7 +52,7 @@ export default function ImgSlide(slideProps: Props) {
                 {...{ src, alt }}
                 width={600}
                 height={600}
-                sizes="(min-width: 600px) 600px, 360px"
+                sizes={IMG_SLIDE_SIZES}
               />
             </ImgSwipe>
           );

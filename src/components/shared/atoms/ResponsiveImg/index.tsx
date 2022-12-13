@@ -7,7 +7,7 @@ import $ from './style.module.scss';
 type Props = {
   width: number;
   height: number;
-  sizes: string;
+  sizes?: string;
   src: string;
   alt: string;
 } & DefaultProps;
