@@ -61,7 +61,7 @@ const nextConfig = {
       'ai-image-bucket.s3.amazonaws.com',
     ],
     imageSizes: [32, 48, 64, 96, 128, 256, 360],
-    deviceSizes: [640, 768, 828, 1024],
+    deviceSizes: [640, 768, 828, 1024, 1920],
   },
 };
 

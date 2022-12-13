@@ -1,20 +1,21 @@
 import Image from 'next/image';
 
+import { StyleProps } from '#types/props';
 import { IMAGE_BLUR_DATA_URL } from '@constants/img';
 
 type Props = {
   width: number;
   height: number;
-  sizes?: string;
   src: string;
   alt: string;
-};
+  sizes?: string;
+} & StyleProps;
 
 export default function BaseImage(imgProps: Props) {
-  const { width, height, sizes, src, alt } = imgProps;
+  const { width, height, sizes, src, alt, style } = imgProps;
   return (
     <Image
-      {...{ width, height, src, alt }}
+      {...{ width, height, src, alt, style }}
       placeholder="blur"
       blurDataURL={IMAGE_BLUR_DATA_URL}
       sizes={sizes}

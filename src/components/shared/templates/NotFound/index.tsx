@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import BaseImage from '@atoms/BaseImage';
 import HeadMeta from '@atoms/HeadMeta';
-import { IMAGE_BLUR_DATA_URL } from '@constants/img';
+import { NOTFOUND_IMAGE } from '@constants/img';
 
 import $ from './style.module.scss';
 
@@ -22,16 +22,11 @@ function NotFound(props: Props) {
       <HeadMeta title={`re:Fashion | ${title || '404 Not Found'}`} />
       <section className={$['not-found']}>
         <div className={$['img-box']}>
-          <Image
-            src={
-              img ||
-              'https://user-images.githubusercontent.com/62797441/187207056-de246ecf-c46a-4a41-b7e6-8e3d760aae99.svg'
-            }
+          <BaseImage
+            src={img || NOTFOUND_IMAGE}
             alt={alt || '404 Not Found'}
-            width="400"
-            height="220"
-            placeholder="blur"
-            blurDataURL={IMAGE_BLUR_DATA_URL}
+            width={400}
+            height={220}
           />
         </div>
         <button type="button" className={$['go-back']} onClick={handleClick}>

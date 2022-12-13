@@ -3,9 +3,24 @@ const PRODUCT_IMG_MIN_WIDTH = '113px';
 const IMG_SLIDE_MAX_WIDTH = '600px';
 const IMG_SLIDE_MIN_SIZES = '360px';
 
-export const IMAGE_BLUR_DATA_URL =
+const IMAGE_BLUR_DATA_URL =
   'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg==';
 
-export const PRODUCT_IMG_SIZES = `(min-width: 768px) ${PRODUCT_IMG_MAX_WIDTH}, ${PRODUCT_IMG_MIN_WIDTH}`;
-export const RECOMMEND_IMG_SIZES = `(min-width: 360px) ${PRODUCT_IMG_MAX_WIDTH}, ${PRODUCT_IMG_MIN_WIDTH}`;
-export const IMG_SLIDE_SIZES = `(min-width: 600px) ${IMG_SLIDE_MAX_WIDTH}, ${IMG_SLIDE_MIN_SIZES}`;
+const NOTFOUND_IMAGE =
+  'https://user-images.githubusercontent.com/62797441/187207056-de246ecf-c46a-4a41-b7e6-8e3d760aae99.svg';
+
+const ERROR_IMAGE =
+  'https://user-images.githubusercontent.com/62797441/202860611-d4b97a7b-7f38-4ce7-a3b2-9af800877250.png';
+
+const PRODUCT_IMG_SIZES = `(min-width: 768px) ${PRODUCT_IMG_MAX_WIDTH}, ${PRODUCT_IMG_MIN_WIDTH}`;
+const RECOMMEND_IMG_SIZES = `(min-width: 360px) ${PRODUCT_IMG_MAX_WIDTH}, ${PRODUCT_IMG_MIN_WIDTH}`;
+const IMG_SLIDE_SIZES = `(min-width: 600px) ${IMG_SLIDE_MAX_WIDTH}, ${IMG_SLIDE_MIN_SIZES}`;
+
+export {
+  IMAGE_BLUR_DATA_URL,
+  NOTFOUND_IMAGE,
+  ERROR_IMAGE,
+  PRODUCT_IMG_SIZES,
+  RECOMMEND_IMG_SIZES,
+  IMG_SLIDE_SIZES,
+};
