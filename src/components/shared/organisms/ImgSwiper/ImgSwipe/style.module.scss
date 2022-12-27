@@ -1,4 +1,8 @@
 .slide {
   position: relative;
   min-width: 100%;
+  min-height: 100%;
+  .img-wrapper {
+    margin: 0 auto;
+  }
 }

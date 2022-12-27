@@ -60,6 +60,8 @@ const nextConfig = {
       'webserver0712.s3.ap-northeast-2.amazonaws.com',
       'ai-image-bucket.s3.amazonaws.com',
     ],
+    imageSizes: [32, 48, 64, 96, 128, 256, 360],
+    deviceSizes: [640, 768, 828, 1024, 1920],
   },
 };
 

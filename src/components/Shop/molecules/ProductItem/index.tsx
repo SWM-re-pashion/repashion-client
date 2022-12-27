@@ -5,6 +5,7 @@ import { memo } from 'react';
 import { StyleProps } from '#types/props';
 import ResponsiveImg from '@atoms/ResponsiveImg';
 import Span from '@atoms/Span';
+import { PRODUCT_IMG_SIZES, RECOMMEND_IMG_SIZES } from '@constants/img';
 import classnames from 'classnames';
 import { useTimeForToday } from 'src/hooks';
 
@@ -20,6 +21,7 @@ function ProductItem(itemProps: Props) {
   const isTop = type === 'top';
   const clothesText = isTop ? '상의' : '하의';
   const date = useTimeForToday(updatedAt);
+  const IMG_SIZE = isRecommend ? RECOMMEND_IMG_SIZES : PRODUCT_IMG_SIZES;
 
   return (
     <Link href={`/shop/${id}`}>
@@ -35,6 +37,7 @@ function ProductItem(itemProps: Props) {
           height={200}
           src={img}
           alt={title}
+          sizes={IMG_SIZE}
           className={$['product-img']}
         >
           <SoldoutBox {...{ isSoldOut }} />

@@ -1,10 +1,9 @@
-import Image from 'next/image';
-
 import React, { useState } from 'react';
 
 import { ImgProps } from '#types/index';
 import type { DefaultProps } from '#types/props';
-import { IMAGE_BLUR_DATA_URL } from '@constants/img';
+import BaseImage from '@atoms/BaseImage';
+import { IMG_SLIDE_SIZES } from '@constants/img';
 import InfoPageNum from '@molecules/InfoPageNum';
 import ImgSwiper from '@organisms/ImgSwiper';
 import ImgSwipe from '@organisms/ImgSwiper/ImgSwipe/ImgSwipe.view';
@@ -37,20 +36,23 @@ export default function ImgSlide(slideProps: Props) {
         {imgList.map((img, idx) => {
           const key = (typeof img !== 'string' ? img.src + img.alt : img) + idx;
           const src = typeof img !== 'string' ? img.src : img;
-          const alt = typeof img !== 'string' ? img.alt : `이미지${idx + 1}`;
+          const alt =
+            (typeof img !== 'string' && img.alt) || `이미지${idx + 1}`;
           return (
             <ImgSwipe
               key={key}
               imgListLen={imgListLen}
               turn={idx + 1}
               className={$.slide}
+              maxWidth="600px"
+              maxHeight="600px"
+              backgroundColor="#121212"
             >
-              <Image
+              <BaseImage
                 {...{ src, alt }}
-                placeholder="blur"
-                blurDataURL={IMAGE_BLUR_DATA_URL}
-                layout="fill"
-                priority
+                width={600}
+                height={600}
+                sizes={IMG_SLIDE_SIZES}
               />
             </ImgSwipe>
           );
