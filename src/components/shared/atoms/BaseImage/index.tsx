@@ -13,11 +13,15 @@ type Props = {
 
 export default function BaseImage(imgProps: Props) {
   const { width, height, sizes, src, alt, style } = imgProps;
+  const isPerformanceConsidered = width > 40;
+  const placeholder = isPerformanceConsidered ? 'blur' : undefined;
+  const blurDataURL = isPerformanceConsidered ? IMAGE_BLUR_DATA_URL : undefined;
+
   return (
     <Image
       {...{ width, height, src, alt, style }}
-      placeholder="blur"
-      blurDataURL={IMAGE_BLUR_DATA_URL}
+      placeholder={placeholder}
+      blurDataURL={blurDataURL}
       sizes={sizes}
       priority
     />
