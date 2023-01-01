@@ -40,7 +40,7 @@ export const getInfiniteProducts =
     const queryString = getQueryString({
       ...queryStringObj,
       page: `${pageParam}`,
-      size: '50',
+      size: '20',
     });
     const {
       data: { pagination, items },
