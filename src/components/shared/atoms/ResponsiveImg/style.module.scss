@@ -7,11 +7,6 @@
     border-radius: 10px;
   }
 }
-.responsive-img::after {
-  display: block;
-  content: '';
-  padding-bottom: 100%;
-}
 
 .inner {
   position: absolute;
