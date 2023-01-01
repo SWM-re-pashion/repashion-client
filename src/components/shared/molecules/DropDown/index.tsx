@@ -47,7 +47,7 @@ function DropDown(selectProps: Props) {
   return (
     <div className={classnames(className, $['dropdown-btn'])}>
       <button
-        {...{ className }}
+        className={$['dropdown-inner']}
         id={`${name}-dropdown-button`}
         ref={labelRef}
         type="button"

@@ -19,17 +19,15 @@ function MainHeader() {
 
   return (
     <div className={$['main-header']}>
-      <div className={$['main-header-wrapper']}>
-        <h1 className={$.title}>re:Fashion</h1>
-        <AsyncBoundary
-          suspenseFallback={UserSkeleton}
-          errorFallback={ErrorFallback}
-          otherRenderComponent={LoginBtn}
-          includedStatusCodes={[401, 403]}
-        >
-          <UserDropDown />
-        </AsyncBoundary>
-      </div>
+      <h1 className={$.title}>re:Fashion</h1>
+      <AsyncBoundary
+        suspenseFallback={UserSkeleton}
+        errorFallback={ErrorFallback}
+        otherRenderComponent={LoginBtn}
+        includedStatusCodes={[401, 403]}
+      >
+        <UserDropDown />
+      </AsyncBoundary>
     </div>
   );
 }

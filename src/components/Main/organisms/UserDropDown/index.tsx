@@ -49,11 +49,15 @@ function UserDropDown() {
   ];
 
   return (
-    <DropDown options={options} name="my-menu" top="40px" right="0">
-      <div className={$['profile-container']}>
-        {profileImgView}
-        <SelectArrow className={$.arrow} stroke="#fff" />
-      </div>
+    <DropDown
+      options={options}
+      name="my-menu"
+      top="40px"
+      right="0"
+      className={$['profile-container']}
+    >
+      {profileImgView}
+      <SelectArrow className={$.arrow} stroke="#fff" />
     </DropDown>
   );
 }
