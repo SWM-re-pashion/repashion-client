@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
-import React, { ReactElement, ReactNode, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 
 import Toast from '@atoms/Toast';
 import {
@@ -15,7 +15,7 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '../styles/globals.scss';
 import { useMounted, useWindowResize } from 'src/hooks';
-import * as gtag from 'src/lib/gtag';
+import { pageview, GA_TRACKING_ID } from 'src/lib/gtag';
 import { setPathValue } from 'src/utils/pathStorage';
 
 export type NextPageWithLayout = NextPage & {
@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       setPathValue(url);
-      gtag.pageview(url);
+      pageview(url);
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     router.events.on('hashChangeComplete', handleRouteChange);
@@ -77,7 +77,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
       />
       <Script
         id="gtag-init"
@@ -87,7 +87,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
+            gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
           `,

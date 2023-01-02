@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent, RefObject } from 'react';
 
 import { Camera } from '@atoms/icon/Camera';
 import InputFile from '@atoms/InputFile';
@@ -9,9 +9,9 @@ import $ from './style.module.scss';
 
 type Props = {
   img: string;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement>;
   onUploadClick: () => void;
-  handleUpload: (e: React.ChangeEvent) => void;
+  handleUpload: (e: ChangeEvent) => void;
 };
 
 function ProfileImgUpload(uploadProps: Props) {

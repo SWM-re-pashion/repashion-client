@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "sideEffects": [
-    "./src/components/shared/atoms/icon"
+    "./src/components/shared/atoms/icon",
+    "./src/hooks",
+    "./src/utils"
   ],
   "scripts": {
     "prepare": "husky install",
