@@ -2,6 +2,9 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": [
+    "./src/components/shared/atoms/icon"
+  ],
   "scripts": {
     "prepare": "husky install",
     "dev": "next dev -p 3001",

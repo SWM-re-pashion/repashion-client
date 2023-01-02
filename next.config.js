@@ -35,7 +35,16 @@ const bundleAnalyzer = withBundleAnalyzer({
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  presets: [['next/babel']],
+  presets: [
+    [
+      'next/babel',
+      {
+        'preset-env': {
+          modules: false,
+        },
+      },
+    ],
+  ],
   typescript: {
     ignoreBuildErrors: true, // TODO: 없애기
   },
