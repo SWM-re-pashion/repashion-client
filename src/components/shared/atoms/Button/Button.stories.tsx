@@ -34,6 +34,11 @@ export default {
         type: 'text',
       },
     },
+    disabled: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 } as ComponentMeta<typeof Button>;
 
@@ -46,6 +51,7 @@ Default.args = {
   hasErrorMsg: false,
   iconBtn: false,
   children: '버튼 텍스트',
+  disabled: false,
   style: {
     padding: '3px 6px',
   },
