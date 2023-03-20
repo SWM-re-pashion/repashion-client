@@ -10,28 +10,20 @@ const judgeValid = (states: UploadState) => {
     states;
   const { imgList, price, size, contact } = validation;
 
-  const colorValid = !!style.color.length;
-  const tagValid = !!style.tag;
-  const materialValid = !!style.material;
-  const titleValid = !!basicInfo.title;
-  const categorySomeValid = !!basicInfo.category.some((x) => !!x);
-  const brandValid = !!basicInfo.brand;
-  const sellerSomeValid = Object.values(sellerNote).some((x) => !!x);
-
   return {
     isRemainState:
       imgList ||
       price ||
       size ||
       contact ||
-      colorValid ||
-      tagValid ||
-      materialValid ||
       isIncludeDelivery ||
-      titleValid ||
-      categorySomeValid ||
-      brandValid ||
-      sellerSomeValid,
+      !!style.color.length ||
+      !!style.tag ||
+      !!style.material ||
+      !!basicInfo.title ||
+      !!basicInfo.category.some((x) => !!x) ||
+      !!basicInfo.brand ||
+      Object.values(sellerNote).some((x) => !!x),
     isFormValid: Object.values(validation).every((x) => x),
   };
 };

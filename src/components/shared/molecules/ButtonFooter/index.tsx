@@ -11,11 +11,12 @@ type Props = {
   onClick?: () => void;
   LeftBtn?: JSX.Element;
   msg?: string;
+  disabled?: boolean;
 } & DefaultProps;
 
 export default function ButtonFooter(footerProps: Props) {
   const { className, style, LeftBtn, children } = footerProps;
-  const { btnColor, background, onClick, msg } = footerProps;
+  const { btnColor, background, onClick, msg, disabled } = footerProps;
   return (
     <FooterWrapper
       className={classnames($['btn-footer'], className)}
@@ -29,6 +30,7 @@ export default function ButtonFooter(footerProps: Props) {
         hasErrorMsg={!!msg}
         onClick={onClick}
         className={$.btn}
+        disabled={disabled}
       >
         {children}
       </Button>

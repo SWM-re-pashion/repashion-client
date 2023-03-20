@@ -31,8 +31,6 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
   const isValidPrevBtn = curCategoryIdx !== 0 && category[curCategoryIdx - 1];
   const lastBtnText = curCategoryIdx === category.length - 1 ? '완료' : '다음';
   const pageNum = `${curCategoryIdx + 1}/${category.length}`;
-  const prevBtnColor = !isValidPrevBtn ? '#e3e1e1' : '#000';
-  const nextBtnColor = !isCurValueExist ? '#e3e1e1' : '#000';
 
   useEffect(() => {
     return () => {
@@ -84,21 +82,17 @@ function Dialog(dialogProps: Omit<Props, 'isOpen'>) {
         </div>
 
         <ButtonFooter
+          disabled={!isCurValueExist}
           LeftBtn={
             <Button
-              background={prevBtnColor}
               className={$.prev}
-              onClick={() => {
-                if (isValidPrevBtn) prevBtn(curCategoryIdx);
-              }}
+              disabled={!isValidPrevBtn}
+              onClick={() => prevBtn(curCategoryIdx)}
             >
               이전
             </Button>
           }
-          btnColor={nextBtnColor}
-          onClick={() => {
-            if (isCurValueExist) nextBtn(curCategoryIdx);
-          }}
+          onClick={() => nextBtn(curCategoryIdx)}
         >
           {lastBtnText}
         </ButtonFooter>
