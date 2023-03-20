@@ -31,6 +31,11 @@ export default {
         type: 'text',
       },
     },
+    disabled: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 } as ComponentMeta<typeof ButtonFooter>;
 
@@ -44,4 +49,5 @@ Default.args = {
   background: '#fff',
   msg: '오류 메시지',
   children: '다음',
+  disabled: false,
 };
