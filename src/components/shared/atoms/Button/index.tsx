@@ -15,7 +15,7 @@ type Props<T> = {
 function Button<T>(btnProps: Props<T>) {
   const { color, fontWeight, borderRadius, value, disabled } = btnProps;
   const { label, iconBtn, background, onClick, hasErrorMsg } = btnProps;
-  const { className, style, children } = btnProps;
+  const { className, style, children, type } = btnProps;
   const ariaLabel = label || `${children}`;
   const customStyle = {
     ...style,
@@ -32,6 +32,7 @@ function Button<T>(btnProps: Props<T>) {
   return (
     <ButtonView
       {...{
+        type: type || 'button',
         handleClick: onClick ? handleClick : undefined,
         customStyle,
         className,

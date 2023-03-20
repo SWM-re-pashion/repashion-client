@@ -1,11 +1,13 @@
 import type { DefaultProps } from '#types/props';
 import Button from '@atoms/Button';
+import { ButtonProps } from '@atoms/Button/Button.view';
 import FooterWrapper from '@molecules/FooterWrapper';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
 type Props = {
+  type?: ButtonProps['type'];
   btnColor?: string;
   background?: string;
   onClick?: () => void;
@@ -15,7 +17,7 @@ type Props = {
 } & DefaultProps;
 
 export default function ButtonFooter(footerProps: Props) {
-  const { className, style, LeftBtn, children } = footerProps;
+  const { className, style, LeftBtn, children, type } = footerProps;
   const { btnColor, background, onClick, msg, disabled } = footerProps;
   return (
     <FooterWrapper
@@ -26,11 +28,11 @@ export default function ButtonFooter(footerProps: Props) {
     >
       {LeftBtn}
       <Button
+        {...{ type, disabled }}
         background={btnColor}
         hasErrorMsg={!!msg}
         onClick={onClick}
         className={$.btn}
-        disabled={disabled}
       >
         {children}
       </Button>
