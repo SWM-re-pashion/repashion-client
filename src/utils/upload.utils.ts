@@ -5,68 +5,38 @@ import { uploadInitialState } from 'src/store/constants';
 
 import { arrToString } from './arrToString';
 
-const judgeValid = (states: UploadState) => {
-  const { imgList, style, price, isIncludeDelivery, basicInfo } = states;
-  const { size, sellerNote, contact } = states;
-  const { title, category, brand } = basicInfo;
-  const imgListValid = !!imgList.length;
-  const colorValid = !!style.color.length;
-  const tagValid = !!style.tag;
-  const materialValid = !!style.material;
-  const priceValid = !!price;
-  const deliveryValid = isIncludeDelivery;
-  const titleValid = !!title;
-  const categoryValid = !!category.every((x) => !!x);
-  const categorySomeValid = !!category.some((x) => !!x);
-  const brandValid = !!brand;
-  const sellerValid = Object.values(sellerNote).every((x) => !!x);
-  const sellerSomeValid = Object.values(sellerNote).some((x) => !!x);
-  const sizeValid = !!size;
-  const contactValid = !!contact;
+const isUploadRemained = (states: UploadState) => {
+  const { validation, style, isIncludeDelivery, basicInfo, sellerNote } =
+    states;
+  const { imgList, price, size, contact } = validation;
 
-  return {
-    isRemainState:
-      imgListValid ||
-      colorValid ||
-      tagValid ||
-      materialValid ||
-      priceValid ||
-      deliveryValid ||
-      titleValid ||
-      categorySomeValid ||
-      brandValid ||
-      sellerSomeValid ||
-      contactValid ||
-      sizeValid,
-    isFormValid:
-      imgListValid &&
-      colorValid &&
-      tagValid &&
-      materialValid &&
-      priceValid &&
-      titleValid &&
-      categoryValid &&
-      brandValid &&
-      sellerValid &&
-      contactValid &&
-      sizeValid,
-    isImgValid: imgListValid,
-    isStyleValid: colorValid && tagValid && materialValid,
-    isPriceValid: priceValid,
-    isBasicValid: titleValid && categoryValid && brandValid,
-    isSellerValid: sellerValid,
-    isSizeValid: sizeValid,
-    isContactValid: contactValid,
-  };
+  return (
+    imgList ||
+    price ||
+    size ||
+    contact ||
+    isIncludeDelivery ||
+    !!style.color.length ||
+    !!style.tag ||
+    !!style.material ||
+    !!basicInfo.title ||
+    !!basicInfo.category.some((x) => !!x) ||
+    !!basicInfo.brand ||
+    Object.values(sellerNote).some((x) => !!x)
+  );
 };
 
 const refineUploadData = (data: UploadStoreState): req.UploadData => {
   const {
+    validation,
     imgUpload,
     removeImg,
     updateUpload,
     clearMeasure,
     clearUpload,
+    updateArr,
+    updateValidate,
+    initMeasure,
     ...rest
   } = data;
   const { imgList, measure, basicInfo, style } = rest;
@@ -120,4 +90,4 @@ const uploadedDataToState = (
   };
 };
 
-export { judgeValid, refineUploadData, uploadedDataToState };
+export { isUploadRemained, refineUploadData, uploadedDataToState };

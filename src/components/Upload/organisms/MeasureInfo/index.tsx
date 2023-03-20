@@ -1,21 +1,22 @@
 import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
-import { Measure, UpdateUpload, UploadState } from '#types/storeType/upload';
+import { Measure, UpdateUpload } from '#types/storeType/upload';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 import { filterHeight } from 'src/utils/filterValue';
 
 import $ from './style.module.scss';
 
 type Props = {
   data: DefaultData[];
-  state: UploadState['measure'];
   onChange: UpdateUpload;
 };
 
 function MeasureInfo(priceProps: Props) {
-  const { data, state, onChange } = priceProps;
+  const { data, onChange } = priceProps;
+  const state = useUploadStore((states) => states.measure);
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, subType?: keyof Measure) => {
       const value = filterHeight(e.target.value);

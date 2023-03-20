@@ -16,3 +16,7 @@
   border: 2px solid $third;
   box-sizing: border-box;
 }
+.disabled {
+  background-color: $gray-280;
+  cursor: not-allowed;
+}

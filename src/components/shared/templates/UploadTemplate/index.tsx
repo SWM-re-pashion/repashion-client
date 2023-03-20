@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { FormEvent, useCallback, useMemo } from 'react';
 
 import { UploadStoreState } from '#types/storeType/upload';
 import BackBtn from '@atoms/BackBtn';
@@ -12,7 +12,6 @@ import { getBreadcrumb } from 'src/api/category';
 import AdditionInfo from 'src/components/Upload/organisms/AdditionInfo';
 import Basic from 'src/components/Upload/organisms/Basic';
 import Contact from 'src/components/Upload/organisms/Contact';
-import ContinueWriteModal from 'src/components/Upload/organisms/ContinueWriteModal';
 import ImgUpload from 'src/components/Upload/organisms/ImgUpload';
 import MeasureInfo from 'src/components/Upload/organisms/MeasureInfo';
 import Price from 'src/components/Upload/organisms/Price';
@@ -25,7 +24,7 @@ import { useStaticData } from 'src/hooks/api/staticData';
 import { useProductUpload, useUpdateProduct } from 'src/hooks/api/upload';
 import { getJudgeCategory, getMeasureElement } from 'src/utils';
 import { toastError } from 'src/utils/toaster';
-import { judgeValid, refineUploadData } from 'src/utils/upload.utils';
+import { refineUploadData } from 'src/utils/upload.utils';
 
 import $ from './style.module.scss';
 
@@ -51,24 +50,14 @@ function UploadTemplate({ id, isUpdate, states }: Props) {
   const condition2 = !pol || !lengths || !bodyShapes || !fits;
   const noRenderCondition = condition1 || condition2;
 
-  const { price, isIncludeDelivery, style, basicInfo, size, contact } = states;
-  const { updateArr, updateUpload, removeImg } = states;
-  const { imgUpload, clearUpload, initMeasure } = states;
-  const { category } = basicInfo;
-  const [gender, main, sub] = category;
+  const { updateUpload, initMeasure } = states;
+  const [gender, main, sub] = states.basicInfo.category;
   const breadCrumb = getBreadcrumb(categoryData, sub || main || gender) || '';
 
-  const judgedState = judgeValid(states);
-  const { isImgValid, isBasicValid, isPriceValid } = judgedState;
-  const { isSellerValid, isContactValid } = judgedState;
-  const { isFormValid, isRemainState, isSizeValid, isStyleValid } = judgedState;
+  const isFormValid = Object.values(states.validation).every((x) => x);
 
-  const clearUploads = useCallback(clearUpload, [clearUpload]);
   const initMeasures = useCallback(initMeasure, [initMeasure]);
   const update = useCallback(updateUpload, [updateUpload]);
-  const updateArray = useCallback(updateArr, [updateArr]);
-  const imgsUpload = useCallback(imgUpload, [imgUpload]);
-  const removeImgs = useCallback(removeImg, [removeImg]);
 
   const mainCategory = useMemo(
     () => getJudgeCategory(breadCrumb),
@@ -80,7 +69,7 @@ function UploadTemplate({ id, isUpdate, states }: Props) {
   );
   const styleProps = useMemo(() => styleData(styles, colors), [styles, colors]);
   const sizeProps = useMemo(
-    () => sizeData(mainCategory, sizes),
+    () => sizeData(mainCategory, sizes as unknown as res.KindStaticData),
     [sizes, mainCategory],
   );
   const reviewDatas = useMemo(
@@ -94,7 +83,8 @@ function UploadTemplate({ id, isUpdate, states }: Props) {
   // TODO: 사이즈, 리뷰 데이터 state 초기화
   // TODO: 서버에서 받은 height, bodyShape 상태 저장하기
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (isFormValid) {
       const body = refineUploadData(states);
       if (isUpdate) updateMutate({ id, body });
@@ -117,75 +107,33 @@ function UploadTemplate({ id, isUpdate, states }: Props) {
         url={`${seoData.url}/upload`}
       />
 
-      {!isUpdate && (
-        <ContinueWriteModal {...{ isRemainState, clear: clearUploads }} />
-      )}
-
       <PageHeader
         title={`상품${isUpdate ? '수정' : '등록'}`}
         left={<BackBtn color="#000" className={$.back} />}
       />
-      <form className={$.upload}>
-        <ImgUpload
-          {...{ isImgValid, imgUpload: imgsUpload, removeImg: removeImgs }}
-          {...{ updateArr: updateArray, categoryData }}
-          state={states.imgList}
-          onChange={update}
-        />
-        <StyleSelect
-          {...{ isStyleValid }}
-          data={styleProps}
-          state={style}
-          onChange={update}
-        />
-        <Contact
-          state={contact}
-          onChange={update}
-          isContactValid={isContactValid}
-        />
-        <Price
-          {...{ isPriceValid }}
-          delivery={isIncludeDelivery}
-          state={price}
-          onChange={update}
-        />
-        <Basic
-          {...{ isBasicValid, categoryData }}
-          state={basicInfo}
-          onChange={update}
-        />
-        <SizeInfo
-          {...{ isSizeValid }}
-          sizeProps={sizeProps}
-          state={size}
-          onChange={update}
-        />
-        <SellerReview
-          {...{ isSellerValid }}
-          data={review}
-          state={states.sellerNote}
-          onChange={update}
-        />
-        <MeasureInfo
-          data={measureData}
-          state={states.measure}
-          onChange={update}
-        />
+      <form className={$.upload} onSubmit={handleSubmit}>
+        <ImgUpload {...{ categoryData }} onChange={update} />
+        <StyleSelect data={styleProps} onChange={update} />
+        <Contact onChange={update} />
+        <Price onChange={update} />
+        <Basic {...{ categoryData }} onChange={update} />
+        <SizeInfo sizeProps={sizeProps} onChange={update} />
+        <SellerReview data={review} onChange={update} />
+        <MeasureInfo data={measureData} onChange={update} />
         <AdditionInfo
           data={additionData}
-          additionState={states.additionalInfo}
-          opinionState={states.opinion}
           opinionPlaceholder="판매자님의 설명은 구매에 도움이 됩니다.(최대 300자)"
           onChange={update}
         />
+        <ButtonFooter
+          background="white"
+          type="submit"
+          style={{ padding: '0 21px 30px' }}
+          disabled={!isFormValid}
+        >
+          올리기
+        </ButtonFooter>
       </form>
-      <ButtonFooter
-        background="white"
-        style={{ padding: '0 21px 30px' }}
-        onClick={handleSubmit}
-      >
-        올리기
-      </ButtonFooter>
     </>
   );
 }

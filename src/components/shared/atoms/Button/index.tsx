@@ -1,25 +1,21 @@
 import { memo } from 'react';
 
-import type { DefaultProps } from '#types/props';
-
-import ButtonView from './Button.view';
+import ButtonView, { ButtonProps } from './Button.view';
 
 type Props<T> = {
   color?: string;
   fontWeight?: number;
   label?: string;
-  iconBtn?: boolean;
   background?: string;
   borderRadius?: string;
   onClick?: (value?: T) => void;
   value?: T;
-  hasErrorMsg?: boolean;
-} & DefaultProps;
+} & ButtonProps;
 
 function Button<T>(btnProps: Props<T>) {
-  const { color, fontWeight, borderRadius, value } = btnProps;
+  const { color, fontWeight, borderRadius, value, disabled } = btnProps;
   const { label, iconBtn, background, onClick, hasErrorMsg } = btnProps;
-  const { className, style, children } = btnProps;
+  const { className, style, children, type } = btnProps;
   const ariaLabel = label || `${children}`;
   const customStyle = {
     ...style,
@@ -36,6 +32,7 @@ function Button<T>(btnProps: Props<T>) {
   return (
     <ButtonView
       {...{
+        type: type || 'button',
         handleClick: onClick ? handleClick : undefined,
         customStyle,
         className,
@@ -43,6 +40,7 @@ function Button<T>(btnProps: Props<T>) {
         hasErrorMsg,
         ariaLabel,
         children,
+        disabled,
       }}
     />
   );

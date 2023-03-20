@@ -1,27 +1,33 @@
-import { CSSProperties } from 'react';
+/* eslint-disable react/button-has-type */
+import { ButtonHTMLAttributes, CSSProperties } from 'react';
 
 import type { DefaultProps } from '#types/props';
 import classnames from 'classnames';
 
 import $ from './style.module.scss';
 
-type Props = {
+export type ButtonProps = {
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   handleClick?: () => void;
-  customStyle: CSSProperties;
-  className?: string;
   iconBtn?: boolean;
   hasErrorMsg?: boolean;
-  ariaLabel: string;
-  children: React.ReactNode;
+  disabled?: boolean;
 } & DefaultProps;
 
+type Props = ButtonProps & {
+  type: NonNullable<ButtonProps['type']>;
+  customStyle: CSSProperties;
+  ariaLabel: string;
+};
+
 function ButtonView(btnProps: Props) {
-  const { iconBtn, hasErrorMsg, ariaLabel, children } = btnProps;
-  const { handleClick, customStyle, className } = btnProps;
+  const { iconBtn, hasErrorMsg, ariaLabel, children, type } = btnProps;
+  const { handleClick, customStyle, className, disabled } = btnProps;
 
   return (
     <button
-      type="button"
+      disabled={disabled}
+      type={type || 'button'}
       onClick={handleClick}
       style={customStyle}
       className={classnames(
@@ -29,6 +35,7 @@ function ButtonView(btnProps: Props) {
         className,
         { [$['icon-btn']]: iconBtn },
         { [$.error]: hasErrorMsg },
+        { [$.disabled]: disabled },
       )}
       aria-label={ariaLabel}
     >
