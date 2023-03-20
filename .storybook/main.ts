@@ -58,6 +58,7 @@ module.exports = {
             },
             additionalData: `
               @import "src/styles/main.scss";
+              @import "src/styles/globals.scss";
               @import "src/styles/_mixin.scss";
               @import "src/styles/_typography.scss";
               @import "src/styles/_grid.scss";
