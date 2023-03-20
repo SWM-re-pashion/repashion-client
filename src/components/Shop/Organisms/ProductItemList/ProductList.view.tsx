@@ -43,7 +43,7 @@ function ProductListView(viewProps: Props) {
         </article>
       )}
       {noProducts}
-      <div ref={intersectRef} />
+      <div ref={intersectRef} style={{ height: '1px' }} />
       {isFetching && <ShopSkeleton itemNum={12} {...{ isRecommend }} />}
     </>
   );

@@ -1,15 +1,15 @@
-import React from 'react';
+import { ReactPortal, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 
 export interface PortalProps {
-  children: React.ReactNode;
+  children: ReactNode;
   container: Element | null;
 }
 
 export function Portal({
   children,
   container,
-}: PortalProps): React.ReactPortal | null {
+}: PortalProps): ReactPortal | null {
   if (!container) return null;
   return ReactDOM.createPortal(children, container);
 }

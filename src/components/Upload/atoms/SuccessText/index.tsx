@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { recognitionResult } from '#types/upload';
 import Span from '@atoms/Span';
 

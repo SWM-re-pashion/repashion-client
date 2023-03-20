@@ -4,6 +4,9 @@ const path = require('path');
 
 const withPlugins = require('next-compose-plugins');
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports = {
@@ -17,10 +20,31 @@ const sentryWebpackPluginOptions = {
   authToken: process.env.SENTRY_AUTH_TOKEN,
 };
 
+const bundleAnalyzer = withBundleAnalyzer({
+  compress: true,
+  webpack: (config) => {
+    const prod = process.env.NODE_ENV === 'production';
+    return {
+      ...config,
+      mode: prod ? 'production' : 'development',
+      devtool: prod ? 'hidden-source-map' : 'eval',
+    };
+  },
+});
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  presets: [['next/babel']],
+  presets: [
+    [
+      'next/babel',
+      {
+        'preset-env': {
+          modules: false,
+        },
+      },
+    ],
+  ],
   typescript: {
     ignoreBuildErrors: true, // TODO: 없애기
   },
@@ -66,7 +90,7 @@ const nextConfig = {
 };
 
 module.exports = withSentryConfig(
-  withPlugins([nextConfig]),
+  withPlugins([nextConfig, bundleAnalyzer]),
   moduleExports,
   sentryWebpackPluginOptions,
 );

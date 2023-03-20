@@ -1,5 +1,11 @@
 .dropdown-btn {
   position: relative;
+
+  .dropdown-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .dropdown-menulist {

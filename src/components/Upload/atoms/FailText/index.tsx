@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Span from '@atoms/Span';
 
 function FailText() {

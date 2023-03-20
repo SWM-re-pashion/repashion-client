@@ -20,10 +20,8 @@ export default function ResponsiveImg(imgProps: Props) {
       style={{ ...style }}
       className={classnames($['responsive-img'], className)}
     >
-      <div className={$.inner}>
-        <BaseImage {...{ width, height, src, alt, sizes }} />
-        {children}
-      </div>
+      <BaseImage {...{ width, height, src, alt, sizes }} />
+      {children}
     </div>
   );
 }

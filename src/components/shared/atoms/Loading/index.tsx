@@ -1,6 +1,6 @@
 import { StyleProps } from '#types/props';
 import classnames from 'classnames';
-import Lottie from 'lottie-react';
+import Lottie from 'lottie-react/build/index';
 import loading from 'public/assets/loading.json';
 
 import $ from './style.module.scss';

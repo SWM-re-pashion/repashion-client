@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import PullToRefreshView from './PullToRefreshView';
+import PullToRefreshView from './PullToRefresh.view';
 import { DIRECTION, isTreeScrollable } from './utils';
 
 export type Props<T> = {
@@ -12,8 +12,6 @@ export type Props<T> = {
   children: JSX.Element;
   pullDownThreshold?: number;
   maxPullDownDistance?: number;
-  backgroundColor?: string;
-  className?: string;
 };
 
 function PullToRefresh<T>(refreshProps: Props<T>) {
@@ -21,10 +19,8 @@ function PullToRefresh<T>(refreshProps: Props<T>) {
   const { onRefresh } = refreshProps;
   const { refreshingContent, children } = refreshProps;
   const { pullDownThreshold = 60, maxPullDownDistance = 95 } = refreshProps;
-  const { backgroundColor, className = '' } = refreshProps;
 
   const [isDisplayRefresh, setDisplayRefresh] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const childrenRef = useRef<HTMLDivElement>(null);
   const pullDownRef = useRef<HTMLDivElement>(null);
   const isCanRelease = useRef(false);
@@ -178,13 +174,10 @@ function PullToRefresh<T>(refreshProps: Props<T>) {
   return (
     <PullToRefreshView
       {...{
-        containerRef,
         pullDownRef,
         childrenRef,
         children,
         refreshingContent: isDisplayRefresh ? refreshingContent : null,
-        backgroundColor,
-        className,
       }}
     />
   );

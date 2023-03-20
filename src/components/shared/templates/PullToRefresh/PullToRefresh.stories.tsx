@@ -13,7 +13,6 @@ export default {
     children: { control: 'object' },
     pullDownThreshold: { control: 'number' },
     maxPullDownDistance: { control: 'number' },
-    backgroundColor: { control: 'text' },
     onRefresh: { action: 'onRefresh' },
   },
 } as ComponentMeta<typeof PullToRefresh>;
@@ -40,7 +39,6 @@ Default.args = {
       모바일에서 아래로 당겨보세요.
     </div>
   ),
-  backgroundColor: '#000',
   // eslint-disable-next-line no-promise-executor-return
   onRefresh: () => new Promise((r) => setTimeout(r, 1000)),
 };
