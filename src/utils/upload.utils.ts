@@ -5,27 +5,25 @@ import { uploadInitialState } from 'src/store/constants';
 
 import { arrToString } from './arrToString';
 
-const judgeValid = (states: UploadState) => {
+const isUploadRemained = (states: UploadState) => {
   const { validation, style, isIncludeDelivery, basicInfo, sellerNote } =
     states;
   const { imgList, price, size, contact } = validation;
 
-  return {
-    isRemainState:
-      imgList ||
-      price ||
-      size ||
-      contact ||
-      isIncludeDelivery ||
-      !!style.color.length ||
-      !!style.tag ||
-      !!style.material ||
-      !!basicInfo.title ||
-      !!basicInfo.category.some((x) => !!x) ||
-      !!basicInfo.brand ||
-      Object.values(sellerNote).some((x) => !!x),
-    isFormValid: Object.values(validation).every((x) => x),
-  };
+  return (
+    imgList ||
+    price ||
+    size ||
+    contact ||
+    isIncludeDelivery ||
+    !!style.color.length ||
+    !!style.tag ||
+    !!style.material ||
+    !!basicInfo.title ||
+    !!basicInfo.category.some((x) => !!x) ||
+    !!basicInfo.brand ||
+    Object.values(sellerNote).some((x) => !!x)
+  );
 };
 
 const refineUploadData = (data: UploadStoreState): req.UploadData => {
@@ -92,4 +90,4 @@ const uploadedDataToState = (
   };
 };
 
-export { judgeValid, refineUploadData, uploadedDataToState };
+export { isUploadRemained, refineUploadData, uploadedDataToState };

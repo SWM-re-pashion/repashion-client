@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { BasicInfo, UpdateUpload } from '#types/storeType/upload';
 import Button from '@atoms/Button';
@@ -123,4 +123,4 @@ function DialogWrapper(dialogProps: Props) {
   );
 }
 
-export default memo(DialogWrapper);
+export default DialogWrapper;
