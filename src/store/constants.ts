@@ -42,6 +42,15 @@ export const filterInitialState: FilterState = {
 };
 
 export const uploadInitialState: UploadState = {
+  validation: {
+    imgList: false,
+    style: false,
+    price: false,
+    basicInfo: false,
+    sellerNote: false,
+    size: false,
+    contact: false,
+  },
   imgList: [], // TODO: refine
   contact: '',
   style: {

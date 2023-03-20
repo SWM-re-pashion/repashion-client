@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import { UpdateUpload } from '#types/storeType/upload';
 import Button from '@atoms/Button';
@@ -13,17 +13,23 @@ import { useUploadStore } from 'src/store/upload/useUploadStore';
 import Dialog from '../Dialog';
 import { dialogCategoryProps } from '../Dialog/utils';
 import $ from './style.module.scss';
+import { basicValidate } from './validate';
 
 type Props = {
   categoryData: res.CategoryTree['data'];
   onChange: UpdateUpload;
-  isBasicValid: boolean;
 };
 
 function Basic(basicProps: Props) {
-  const { onChange, categoryData, isBasicValid } = basicProps;
+  const { onChange, categoryData } = basicProps;
   const state = useUploadStore((states) => states.basicInfo);
+  const updateValidate = useUploadStore((states) => states.updateValidate);
   const { category, curCategoryIdx } = state;
+  const isBasicValid = basicValidate(state);
+
+  useEffect(() => {
+    updateValidate('basicInfo', isBasicValid);
+  }, [isBasicValid, updateValidate]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const openDialog = useCallback(() => setDialogOpen(true), []);

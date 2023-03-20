@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { UpdateUpload } from '#types/storeType/upload';
@@ -13,6 +13,7 @@ import { filterHeight } from 'src/utils/filterValue';
 
 import { reviewProps } from './constants';
 import $ from './style.module.scss';
+import { sellerReviewValidate } from './validate';
 
 type Props = {
   data: {
@@ -23,14 +24,15 @@ type Props = {
     length: DefaultData[];
   };
   onChange: UpdateUpload;
-  isSellerValid: boolean;
 };
 
-function SellerReview(priceProps: Props) {
-  const { data, onChange, isSellerValid } = priceProps;
+function SellerReview({ data, onChange }: Props) {
   const { condition, pollution, fit, bodyShapes, length } = data;
   const state = useUploadStore((states) => states.sellerNote);
+  const updateValidate = useUploadStore((states) => states.updateValidate);
+  const isSellerValid = sellerReviewValidate(state);
   const optionsData = [condition, pollution, length, fit];
+
   const handleInput = useDebounceInput(onChange, 200);
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +42,10 @@ function SellerReview(priceProps: Props) {
     },
     [handleInput],
   );
+
+  useEffect(() => {
+    updateValidate('sellerNote', isSellerValid);
+  }, [isSellerValid, updateValidate]);
 
   return (
     <InfoArticle label="쉽게 작성하는 후기" required>

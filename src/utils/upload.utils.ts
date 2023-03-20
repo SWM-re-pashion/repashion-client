@@ -6,57 +6,33 @@ import { uploadInitialState } from 'src/store/constants';
 import { arrToString } from './arrToString';
 
 const judgeValid = (states: UploadState) => {
-  const { imgList, style, price, isIncludeDelivery, basicInfo } = states;
-  const { size, sellerNote, contact } = states;
-  const { title, category, brand } = basicInfo;
-  const imgListValid = !!imgList.length;
+  const { validation, style, isIncludeDelivery, basicInfo, sellerNote } =
+    states;
+  const { imgList, price, size, contact } = validation;
+
   const colorValid = !!style.color.length;
   const tagValid = !!style.tag;
   const materialValid = !!style.material;
-  const priceValid = !!price;
-  const deliveryValid = isIncludeDelivery;
-  const titleValid = !!title;
-  const categoryValid = !!category.every((x) => !!x);
-  const categorySomeValid = !!category.some((x) => !!x);
-  const brandValid = !!brand;
-  const sellerValid = Object.values(sellerNote).every((x) => !!x);
+  const titleValid = !!basicInfo.title;
+  const categorySomeValid = !!basicInfo.category.some((x) => !!x);
+  const brandValid = !!basicInfo.brand;
   const sellerSomeValid = Object.values(sellerNote).some((x) => !!x);
-  const sizeValid = !!size;
-  const contactValid = !!contact;
 
   return {
     isRemainState:
-      imgListValid ||
+      imgList ||
+      price ||
+      size ||
+      contact ||
       colorValid ||
       tagValid ||
       materialValid ||
-      priceValid ||
-      deliveryValid ||
+      isIncludeDelivery ||
       titleValid ||
       categorySomeValid ||
       brandValid ||
-      sellerSomeValid ||
-      contactValid ||
-      sizeValid,
-    isFormValid:
-      imgListValid &&
-      colorValid &&
-      tagValid &&
-      materialValid &&
-      priceValid &&
-      titleValid &&
-      categoryValid &&
-      brandValid &&
-      sellerValid &&
-      contactValid &&
-      sizeValid,
-    isImgValid: imgListValid,
-    isStyleValid: colorValid && tagValid && materialValid,
-    isPriceValid: priceValid,
-    isBasicValid: titleValid && categoryValid && brandValid,
-    isSellerValid: sellerValid,
-    isSizeValid: sizeValid,
-    isContactValid: contactValid,
+      sellerSomeValid,
+    isFormValid: Object.values(validation).every((x) => x),
   };
 };
 

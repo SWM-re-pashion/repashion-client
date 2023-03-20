@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
@@ -15,6 +15,7 @@ import useDebounceInput from 'src/hooks/useDebounceInput';
 import { useUploadStore } from 'src/store/upload/useUploadStore';
 
 import $ from './style.module.scss';
+import { styleValidate } from './validate';
 
 type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
   datas: (string | DefaultData)[];
@@ -24,19 +25,24 @@ type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
 type Props = {
   data: btnBox[];
   onChange: UpdateUpload;
-  isStyleValid: boolean;
 };
 
 function StyleSelect(styleProps: Props) {
-  const { data, onChange, isStyleValid } = styleProps;
+  const { data, onChange } = styleProps;
   const handleInput = useDebounceInput(onChange, 200);
   const state = useUploadStore((states) => states.style);
+  const isStyleValid = styleValidate(state);
+  const updateValidate = useUploadStore((states) => states.updateValidate);
   const handleChange = useCallback(
     // Todo: 성능 최적화
     (e: React.ChangeEvent<HTMLInputElement>) =>
       onChange(e.target.value, 'style', 'material'),
     [onChange],
   );
+
+  useEffect(() => {
+    updateValidate('style', isStyleValid);
+  }, [isStyleValid, updateValidate]);
 
   return (
     <InfoArticle

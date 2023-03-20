@@ -1,5 +1,9 @@
 import { ImgBasicProps } from '#types/index';
-import { UploadStoreState, Measure } from '#types/storeType/upload';
+import {
+  UploadStoreState,
+  Measure,
+  ValidationKey,
+} from '#types/storeType/upload';
 import { isObjectType, uploadInitialState } from 'src/store/constants';
 import { deepClone, updateInfo } from 'src/utils';
 import { StateCreator } from 'zustand';
@@ -13,6 +17,15 @@ export const createUploadSlice: StateCreator<
   UploadSlice
 > = (set) => ({
   ...uploadInitialState,
+  updateValidate: (type: ValidationKey, isValidate: boolean) => {
+    set((state) => ({
+      ...state,
+      validation: {
+        ...state.validation,
+        [type]: isValidate,
+      },
+    }));
+  },
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => {
     set((state) => {
       return {

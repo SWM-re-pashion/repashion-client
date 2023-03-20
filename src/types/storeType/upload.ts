@@ -1,5 +1,18 @@
 import { ImgBasicProps } from '..';
 
+export type ValidationKey =
+  | 'imgList'
+  | 'style'
+  | 'price'
+  | 'basicInfo'
+  | 'sellerNote'
+  | 'size'
+  | 'contact';
+
+export type UploadValidation = {
+  [key in ValidationKey]: boolean;
+};
+
 export interface ImgList {
   id: number;
   src: string;
@@ -46,6 +59,7 @@ export interface AdditionalInfo {
 export type MeasureType = 'top' | 'bottom' | 'onepiece' | 'skirt';
 
 export interface UploadState {
+  validation: UploadValidation;
   imgList: ImgList[];
   contact: string;
   style: StyleUpload;
@@ -83,6 +97,7 @@ export type UpdateArr = (
 ) => void;
 
 export interface UploadStoreState extends UploadState {
+  updateValidate: (type: ValidationKey, value: boolean) => void;
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;
   initMeasure: (measures: Measure) => void;
