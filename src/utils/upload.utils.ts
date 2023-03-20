@@ -30,11 +30,15 @@ const judgeValid = (states: UploadState) => {
 
 const refineUploadData = (data: UploadStoreState): req.UploadData => {
   const {
+    validation,
     imgUpload,
     removeImg,
     updateUpload,
     clearMeasure,
     clearUpload,
+    updateArr,
+    updateValidate,
+    initMeasure,
     ...rest
   } = data;
   const { imgList, measure, basicInfo, style } = rest;
