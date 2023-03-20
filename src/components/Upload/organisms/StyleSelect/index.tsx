@@ -12,6 +12,7 @@ import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 
 import $ from './style.module.scss';
 
@@ -22,15 +23,14 @@ type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
 
 type Props = {
   data: btnBox[];
-  state: UploadState['style'];
   onChange: UpdateUpload;
   isStyleValid: boolean;
 };
 
 function StyleSelect(styleProps: Props) {
-  const { data, state, onChange, isStyleValid } = styleProps;
+  const { data, onChange, isStyleValid } = styleProps;
   const handleInput = useDebounceInput(onChange, 200);
-
+  const state = useUploadStore((states) => states.style);
   const handleChange = useCallback(
     // Todo: 성능 최적화
     (e: React.ChangeEvent<HTMLInputElement>) =>

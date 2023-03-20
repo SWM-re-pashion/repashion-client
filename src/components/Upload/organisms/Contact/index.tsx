@@ -5,18 +5,18 @@ import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 
 import $ from './style.module.scss';
 
 type Props = {
-  state: UploadState['contact'];
   onChange: UpdateUpload;
   isContactValid: boolean;
 };
 
 function Contact(contactProps: Props) {
-  const { state, onChange, isContactValid } = contactProps;
-
+  const { onChange, isContactValid } = contactProps;
+  const state = useUploadStore((states) => states.contact);
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(

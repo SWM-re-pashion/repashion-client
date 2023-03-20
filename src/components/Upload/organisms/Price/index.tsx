@@ -9,20 +9,22 @@ import TextInput from '@molecules/TextInput';
 import classnames from 'classnames';
 import { max } from 'src/components/Shop/Organisms/FilterModal/constants';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 import { filterMaxPrice } from 'src/utils';
 
 import $ from './style.module.scss';
 
 type Props = {
-  state: UploadState['price'];
-  delivery: boolean;
   onChange: UpdateUpload;
   isPriceValid: boolean;
 };
 
 function Price(priceProps: Props) {
-  const { delivery, onChange, state, isPriceValid } = priceProps;
-
+  const { onChange, isPriceValid } = priceProps;
+  const price = useUploadStore((states) => states.price);
+  const isIncludeDelivery = useUploadStore(
+    (states) => states.isIncludeDelivery,
+  );
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,
@@ -41,7 +43,7 @@ function Price(priceProps: Props) {
       <div className={$.box}>
         <TextInput
           controlled={false}
-          value={state.toString()}
+          value={price.toString()}
           placeholder="판매할 가격을 입력해주세요."
           onChange={handleChange}
         />
@@ -52,7 +54,7 @@ function Price(priceProps: Props) {
 
       <div className={classnames($.box, $.delivery)}>
         <RadioBtn
-          isClicked={delivery}
+          isClicked={isIncludeDelivery}
           onTypeClick={onChange}
           type="isIncludeDelivery"
         />

@@ -9,6 +9,7 @@ import TextArea from '@atoms/TextArea';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 
 import $ from './style.module.scss';
 
@@ -20,14 +21,13 @@ type Props = {
     subType: keyof AdditionalInfo;
   }[];
   opinionPlaceholder: string;
-  opinionState: UploadState['opinion'];
-  additionState: UploadState['additionalInfo'];
   onChange: UpdateUpload;
 };
 
 function AdditionInfo(additionProps: Props) {
   const { data: datas, opinionPlaceholder, onChange } = additionProps;
-  const { additionState, opinionState } = additionProps;
+  const opinion = useUploadStore((states) => states.opinion);
+  const additionalInfo = useUploadStore((states) => states.additionalInfo);
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
@@ -53,7 +53,7 @@ function AdditionInfo(additionProps: Props) {
               key={label}
               className={$.addition}
               controlled={false}
-              value={additionState[subType]}
+              value={additionalInfo[subType]}
               {...{ label, placeholder, subType }}
               onChange={handleChange}
             />
@@ -65,7 +65,7 @@ function AdditionInfo(additionProps: Props) {
           className={$.textarea}
           color="#e3e1e1"
           placeholder={opinionPlaceholder}
-          value={opinionState}
+          value={opinion}
           onChange={handleOpinionChange}
         />
       </InfoArticle>

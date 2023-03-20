@@ -1,32 +1,28 @@
 import { memo, useCallback, useRef, useState } from 'react';
 
-import {
-  ImgList,
-  UpdateArr,
-  UpdateUpload,
-  UploadStoreState,
-} from '#types/storeType/upload';
+import { UpdateUpload } from '#types/storeType/upload';
 import { recognitionResult } from '#types/upload';
 import { getCategoryIds } from 'src/api/category';
 import { useImgUpload } from 'src/hooks/api/upload';
 import useSwiper from 'src/hooks/useSwiper';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 
 import ImgUploadView from './ImgUploadView';
 import { getFormData, imageList } from './utils';
 
 type Props = {
   isImgValid: boolean;
-  state: ImgList[];
   categoryData: res.CategoryTree['data'];
-  imgUpload: UploadStoreState['imgUpload'];
-  removeImg: UploadStoreState['removeImg'];
   onChange: UpdateUpload;
-  updateArr: UpdateArr;
 };
 
 function ImgUpload(imgProps: Props) {
-  const { onChange, imgUpload, removeImg, updateArr } = imgProps;
-  const { state, isImgValid, categoryData } = imgProps;
+  const { onChange } = imgProps;
+  const { isImgValid, categoryData } = imgProps;
+  const imgList = useUploadStore((states) => states.imgList);
+  const updateArr = useUploadStore((states) => states.updateArr);
+  const imgUpload = useUploadStore((states) => states.imgUpload);
+  const removeImg = useUploadStore((states) => states.removeImg);
   const [imgResult, setImgResult] = useState<recognitionResult>({});
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
@@ -78,7 +74,7 @@ function ImgUpload(imgProps: Props) {
     isImgValid,
     uploadRef,
     inputRef,
-    state,
+    state: imgList,
     imgResult,
     onUploadClick,
     onUploadImg,

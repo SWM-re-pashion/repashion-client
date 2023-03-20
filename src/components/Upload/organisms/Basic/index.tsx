@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react';
 
-import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import { UpdateUpload } from '#types/storeType/upload';
 import Button from '@atoms/Button';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
@@ -8,22 +8,22 @@ import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import { getBreadcrumb, getCategoryTree } from 'src/api/category';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 
 import Dialog from '../Dialog';
 import { dialogCategoryProps } from '../Dialog/utils';
 import $ from './style.module.scss';
 
 type Props = {
-  state: UploadState['basicInfo'];
   categoryData: res.CategoryTree['data'];
   onChange: UpdateUpload;
   isBasicValid: boolean;
 };
 
 function Basic(basicProps: Props) {
-  const { state, onChange } = basicProps;
+  const { onChange, categoryData, isBasicValid } = basicProps;
+  const state = useUploadStore((states) => states.basicInfo);
   const { category, curCategoryIdx } = state;
-  const { categoryData, isBasicValid } = basicProps;
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const openDialog = useCallback(() => setDialogOpen(true), []);
