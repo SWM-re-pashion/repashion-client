@@ -1,10 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import {
-  AdditionalInfo,
-  UpdateUpload,
-  UploadState,
-} from '#types/storeType/upload';
+import { AdditionalInfo, UploadState } from '#types/storeType/upload';
 import { UploadTemplateProps } from '#types/upload';
 import TextArea from '@atoms/TextArea';
 import InfoArticle from '@molecules/InfoArticle';
@@ -21,15 +17,13 @@ type Props = {
     type: keyof UploadState;
     subType: keyof AdditionalInfo;
   }[];
-  opinionPlaceholder: string;
-  onChange: UpdateUpload;
 } & UploadTemplateProps;
 
-function AdditionInfo(additionProps: Props) {
-  const { isUpdate, data, opinionPlaceholder, onChange } = additionProps;
+function AdditionInfo({ isUpdate, data }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
   const opinion = useStore((states) => states.opinion);
   const additionalInfo = useStore((states) => states.additionalInfo);
+  const onChange = useStore((states) => states.updateUpload);
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
@@ -66,7 +60,7 @@ function AdditionInfo(additionProps: Props) {
         <TextArea
           className={$.textarea}
           color="#e3e1e1"
-          placeholder={opinionPlaceholder}
+          placeholder="판매자님의 설명은 구매에 도움이 됩니다.(최대 300자)"
           value={opinion}
           onChange={handleOpinionChange}
         />

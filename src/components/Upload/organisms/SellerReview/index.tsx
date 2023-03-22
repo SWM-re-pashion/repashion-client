@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
-import { UpdateUpload } from '#types/storeType/upload';
 import { UploadTemplateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
@@ -24,13 +23,13 @@ type Props = {
     bodyShapes: DefaultData[];
     length: DefaultData[];
   };
-  onChange: UpdateUpload;
 } & UploadTemplateProps;
 
-function SellerReview({ isUpdate, data, onChange }: Props) {
+function SellerReview({ isUpdate, data }: Props) {
   const { condition, pollution, fit, bodyShapes, length } = data;
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.sellerNote);
+  const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const isSellerValid = sellerReviewValidate(state);
   const optionsData = [condition, pollution, length, fit];

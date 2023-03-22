@@ -13,13 +13,13 @@ import { imgListValidate } from './validate';
 
 type Props = {
   categoryData: res.CategoryTree['data'];
-  onChange: UpdateUpload;
 } & UploadTemplateProps;
 
 function ImgUpload(imgProps: Props) {
-  const { isUpdate, categoryData, onChange } = imgProps;
+  const { isUpdate, categoryData } = imgProps;
   const useStore = useUploadUpdateStore(isUpdate);
   const imgList = useStore((states) => states.imgList);
+  const onChange = useStore((states) => states.updateUpload);
   const updateArr = useStore((states) => states.updateArr);
   const imgUpload = useStore((states) => states.imgUpload);
   const removeImg = useStore((states) => states.removeImg);

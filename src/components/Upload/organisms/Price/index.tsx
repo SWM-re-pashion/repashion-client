@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect } from 'react';
 
-import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import { UploadState } from '#types/storeType/upload';
 import { UploadTemplateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
@@ -16,15 +16,14 @@ import { filterMaxPrice } from 'src/utils';
 import $ from './style.module.scss';
 import { priceValidate } from './validate';
 
-type Props = {
-  onChange: UpdateUpload;
-} & UploadTemplateProps;
+type Props = UploadTemplateProps;
 
-function Price({ isUpdate, onChange }: Props) {
+function Price({ isUpdate }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
   const price = useStore((states) => states.price);
   const isPriceValid = priceValidate(price);
   const isIncludeDelivery = useStore((states) => states.isIncludeDelivery);
+  const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,

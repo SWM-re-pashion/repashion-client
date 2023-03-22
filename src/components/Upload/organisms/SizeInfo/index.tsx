@@ -1,6 +1,5 @@
 import { memo, useEffect } from 'react';
 
-import { UpdateUpload } from '#types/storeType/upload';
 import { UploadTemplateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { sizeBtnBox } from '@constants/upload/utils';
@@ -11,13 +10,13 @@ import { sizeValidate } from './validate';
 
 type Props = {
   sizeProps: sizeBtnBox;
-  onChange: UpdateUpload;
 } & UploadTemplateProps;
 
 function SizeInfo(infoProps: Props) {
-  const { isUpdate, sizeProps, onChange } = infoProps;
+  const { isUpdate, sizeProps } = infoProps;
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.size);
+  const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const isSizeValid = sizeValidate(state);
 

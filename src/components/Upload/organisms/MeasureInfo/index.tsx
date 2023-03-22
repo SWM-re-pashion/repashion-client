@@ -1,24 +1,27 @@
 import { memo, useCallback } from 'react';
 
-import { DefaultData } from '#types/index';
-import { Measure, UpdateUpload } from '#types/storeType/upload';
+import { Measure, MeasureType } from '#types/storeType/upload';
 import { UploadTemplateProps } from '#types/upload';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
+import { useDidMountEffect } from 'src/hooks';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
+import { getMeasureElement } from 'src/utils';
 import { filterHeight } from 'src/utils/filterValue';
 
 import $ from './style.module.scss';
 
 type Props = {
-  data: DefaultData[];
-  onChange: UpdateUpload;
+  mainCategory: MeasureType;
 } & UploadTemplateProps;
 
 function MeasureInfo(priceProps: Props) {
-  const { isUpdate, data, onChange } = priceProps;
+  const { isUpdate, mainCategory } = priceProps;
+  const { measureData, measureState } = getMeasureElement(mainCategory);
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.measure);
+  const initMeasure = useStore((states) => states.initMeasure);
+  const onChange = useStore((states) => states.updateUpload);
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, subType?: keyof Measure) => {
       const value = filterHeight(e.target.value);
@@ -28,9 +31,14 @@ function MeasureInfo(priceProps: Props) {
     [onChange],
   );
 
+  useDidMountEffect(() => {
+    initMeasure(measureState);
+    onChange(mainCategory, 'measureType');
+  }, [mainCategory]); // NOTE: restrictMode로 인해 실행됨.
+
   return (
     <InfoArticle label="실측 사이즈">
-      {data.map(({ name, code }) => {
+      {measureData.map(({ name, code }) => {
         return (
           <TextInput
             key={name}

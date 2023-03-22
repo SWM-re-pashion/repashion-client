@@ -18,13 +18,13 @@ import { basicValidate } from './validate';
 
 type Props = {
   categoryData: res.CategoryTree['data'];
-  onChange: UpdateUpload;
 } & UploadTemplateProps;
 
 function Basic(basicProps: Props) {
-  const { isUpdate, onChange, categoryData } = basicProps;
+  const { isUpdate, categoryData } = basicProps;
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.basicInfo);
+  const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const { category, curCategoryIdx } = state;
   const isBasicValid = basicValidate(state);
