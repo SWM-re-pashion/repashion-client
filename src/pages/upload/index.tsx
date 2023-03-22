@@ -12,9 +12,8 @@ import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import ContinueWriteModal from 'src/components/Upload/organisms/ContinueWriteModal';
 import { useAuthTest } from 'src/hooks/api/login';
-import { useUploadStore } from 'src/store/upload/useUploadStore';
+import { useUploadRemained } from 'src/hooks/useUploadRemained';
 import { toastError } from 'src/utils/toaster';
-import { isUploadRemained } from 'src/utils/upload.utils';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -53,14 +52,13 @@ export const getStaticProps = async () => {
 function Upload() {
   const router = useRouter();
   const { isSuccess } = useAuthTest();
-  const states = useUploadStore((state) => state);
-  const isRemainState = isUploadRemained(states);
+  const { isRemained, clear } = useUploadRemained();
 
   const backBtnClick = useCallback(() => {
-    if (isRemainState) {
+    if (isRemained) {
       toastError({ message: '상품이 임시저장되었습니다.' });
     }
-  }, [isRemainState]);
+  }, [isRemained]);
 
   useEffect(() => {
     router.events.on('routeChangeStart', backBtnClick);
@@ -73,8 +71,8 @@ function Upload() {
     return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;
   return (
     <>
-      <ContinueWriteModal {...{ isRemainState, clear: states.clearUpload }} />
-      <UploadTemplate {...{ id: '-1', states, isUpdate: false }} />
+      <ContinueWriteModal {...{ isRemained, clear }} />
+      <UploadTemplate {...{ id: '-1', isUpdate: false }} />
     </>
   );
 }

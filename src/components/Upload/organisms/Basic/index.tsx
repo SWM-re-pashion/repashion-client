@@ -1,6 +1,5 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 
-import { UpdateUpload } from '#types/storeType/upload';
 import { UploadTemplateProps } from '#types/upload';
 import Button from '@atoms/Button';
 import ErrorMsg from '@atoms/ErrorMsg';
