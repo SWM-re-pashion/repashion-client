@@ -5,3 +5,7 @@ export type recognitionResult = {
   color?: string;
   material?: string;
 };
+
+export type UploadTemplateProps = {
+  isUpdate: boolean;
+};

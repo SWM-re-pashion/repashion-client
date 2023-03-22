@@ -1,19 +1,12 @@
-import { UploadState } from '#types/storeType/upload';
+import { UploadState, UploadStoreState } from '#types/storeType/upload';
 import { uploadInitialState } from 'src/store/constants';
 import { StateCreator } from 'zustand';
 
-export interface UpdateSlice extends UploadState {
-  initState: (state: UploadState) => void;
-}
-
 export const createUpdateSlice: StateCreator<
-  UpdateSlice,
+  UploadState,
   [],
   [],
-  UpdateSlice
-> = (set) => ({
+  UploadState
+> = () => ({
   ...uploadInitialState,
-  initState: (state: UploadState) => {
-    set(state);
-  },
 });

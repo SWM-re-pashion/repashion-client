@@ -3,30 +3,9 @@ import { UploadState, UploadStoreState } from '#types/storeType/upload';
 import { imageList } from 'src/components/Upload/organisms/ImgUpload/utils';
 import { uploadInitialState } from 'src/store/constants';
 
-import { arrToString } from './arrToString';
+import { arrToString } from '../utils/arrToString';
 
-const isUploadRemained = (states: UploadState) => {
-  const { validation, style, isIncludeDelivery, basicInfo, sellerNote } =
-    states;
-  const { imgList, price, size, contact } = validation;
-
-  return (
-    imgList ||
-    price ||
-    size ||
-    contact ||
-    isIncludeDelivery ||
-    !!style.color.length ||
-    !!style.tag ||
-    !!style.material ||
-    !!basicInfo.title ||
-    !!basicInfo.category.some((x) => !!x) ||
-    !!basicInfo.brand ||
-    Object.values(sellerNote).some((x) => !!x)
-  );
-};
-
-const refineUploadData = (data: UploadStoreState): req.UploadData => {
+const uploadStateToData = (data: UploadStoreState): req.UploadData => {
   const {
     validation,
     imgUpload,
@@ -90,4 +69,4 @@ const uploadedDataToState = (
   };
 };
 
-export { isUploadRemained, refineUploadData, uploadedDataToState };
+export { uploadStateToData, uploadedDataToState };

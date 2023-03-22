@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import Loading from '@atoms/Loading';
 import { ISR_WEEK } from '@constants/api';
@@ -10,11 +10,11 @@ import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
+import { uploadedDataToState } from 'src/helpers/upload';
 import { useSearch } from 'src/hooks';
 import { useUploadedProduct } from 'src/hooks/api/upload';
-import { useUploadUpdateStore } from 'src/store/upload/useUploadUpdateStore';
+import { useUpdateStore } from 'src/store/upload/useUpdateStore';
 import { toastError } from 'src/utils/toaster';
-import { uploadedDataToState } from 'src/utils/upload.utils';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -55,13 +55,11 @@ function UploadUpdate() {
   const { replace } = useRouter();
   const id = useSearch('id');
   const { data, isSuccess } = useUploadedProduct(id);
-  const states = useUploadUpdateStore((state) => state);
-  const { initState } = states;
-  const initUploads = useCallback(initState, [initState]);
+  const initState = useUpdateStore((state) => state.initState);
   const state = uploadedDataToState(data);
 
   useEffect(() => {
-    if (data && state) initUploads(state);
+    if (data && state) initState(state);
   }, [data]);
 
   useEffect(() => {
@@ -71,7 +69,7 @@ function UploadUpdate() {
     }
   }, [id]);
 
-  if (isSuccess) return <UploadTemplate {...{ id, states, isUpdate: true }} />;
+  if (isSuccess) return <UploadTemplate {...{ id, isUpdate: true }} />;
   return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;
 }
 

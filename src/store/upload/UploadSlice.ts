@@ -3,18 +3,17 @@ import {
   UploadStoreState,
   Measure,
   ValidationKey,
+  UploadState,
 } from '#types/storeType/upload';
 import { isObjectType, uploadInitialState } from 'src/store/constants';
 import { deepClone, updateInfo } from 'src/utils';
 import { StateCreator } from 'zustand';
 
-export type UploadSlice = UploadStoreState;
-
 export const createUploadSlice: StateCreator<
-  UploadSlice,
+  UploadStoreState,
   [['zustand/persist', unknown]] | [],
   [],
-  UploadSlice
+  UploadStoreState
 > = (set) => ({
   ...uploadInitialState,
   updateValidate: (type: ValidationKey, isValidate: boolean) => {
@@ -41,6 +40,9 @@ export const createUploadSlice: StateCreator<
         imgList: [...state.imgList.filter(({ id }) => id !== removeId)],
       };
     });
+  },
+  initState: (state: UploadState) => {
+    set(state);
   },
   initMeasure: (measures: Measure) => {
     set((state) => {

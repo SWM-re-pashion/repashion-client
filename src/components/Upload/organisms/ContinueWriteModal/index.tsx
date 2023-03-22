@@ -4,16 +4,16 @@ import { UploadStoreState } from '#types/storeType/upload';
 import DialogModal from '@templates/DialogModal';
 
 type Props = {
-  isRemainState: boolean;
+  isRemained: boolean;
   clear: UploadStoreState['clearUpload'];
 };
 
 function ContinueWriteModal(modalProps: Props) {
-  const { isRemainState, clear } = modalProps;
+  const { isRemained, clear } = modalProps;
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (isRemainState) setDialogOpen(true);
+    if (isRemained) setDialogOpen(true);
   }, []);
 
   const handleCancel = useCallback(() => {

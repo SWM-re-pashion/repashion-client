@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect } from 'react';
 
-import { UpdateUpload, UploadState } from '#types/storeType/upload';
+import { UploadState } from '#types/storeType/upload';
+import { UploadTemplateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import InfoArticle from '@molecules/InfoArticle';
@@ -9,23 +10,21 @@ import TextInput from '@molecules/TextInput';
 import classnames from 'classnames';
 import { max } from 'src/components/Shop/Organisms/FilterModal/constants';
 import useDebounceInput from 'src/hooks/useDebounceInput';
-import { useUploadStore } from 'src/store/upload/useUploadStore';
+import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterMaxPrice } from 'src/utils';
 
 import $ from './style.module.scss';
 import { priceValidate } from './validate';
 
-type Props = {
-  onChange: UpdateUpload;
-};
+type Props = UploadTemplateProps;
 
-function Price({ onChange }: Props) {
-  const price = useUploadStore((states) => states.price);
+function Price({ isUpdate }: Props) {
+  const useStore = useUploadUpdateStore(isUpdate);
+  const price = useStore((states) => states.price);
   const isPriceValid = priceValidate(price);
-  const isIncludeDelivery = useUploadStore(
-    (states) => states.isIncludeDelivery,
-  );
-  const updateValidate = useUploadStore((states) => states.updateValidate);
+  const isIncludeDelivery = useStore((states) => states.isIncludeDelivery);
+  const onChange = useStore((states) => states.updateUpload);
+  const updateValidate = useStore((states) => states.updateValidate);
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,

@@ -100,6 +100,7 @@ export interface UploadStoreState extends UploadState {
   updateValidate: (type: ValidationKey, value: boolean) => void;
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;
+  initState: (state: UploadState) => void;
   initMeasure: (measures: Measure) => void;
   clearMeasure: () => void;
   clearUpload: () => void;
