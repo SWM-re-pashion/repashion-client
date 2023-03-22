@@ -2,13 +2,14 @@ import { memo, useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { UpdateUpload } from '#types/storeType/upload';
+import { UploadTemplateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import InfoArticle from '@molecules/InfoArticle';
 import SelectBox from '@molecules/SelectBox';
 import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
-import { useUploadStore } from 'src/store/upload/useUploadStore';
+import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterHeight } from 'src/utils/filterValue';
 
 import { reviewProps } from './constants';
@@ -24,12 +25,13 @@ type Props = {
     length: DefaultData[];
   };
   onChange: UpdateUpload;
-};
+} & UploadTemplateProps;
 
-function SellerReview({ data, onChange }: Props) {
+function SellerReview({ isUpdate, data, onChange }: Props) {
   const { condition, pollution, fit, bodyShapes, length } = data;
-  const state = useUploadStore((states) => states.sellerNote);
-  const updateValidate = useUploadStore((states) => states.updateValidate);
+  const useStore = useUploadUpdateStore(isUpdate);
+  const state = useStore((states) => states.sellerNote);
+  const updateValidate = useStore((states) => states.updateValidate);
   const isSellerValid = sellerReviewValidate(state);
   const optionsData = [condition, pollution, length, fit];
 

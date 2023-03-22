@@ -5,11 +5,12 @@ import {
   UpdateUpload,
   UploadState,
 } from '#types/storeType/upload';
+import { UploadTemplateProps } from '#types/upload';
 import TextArea from '@atoms/TextArea';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
-import { useUploadStore } from 'src/store/upload/useUploadStore';
+import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import $ from './style.module.scss';
 
@@ -22,12 +23,13 @@ type Props = {
   }[];
   opinionPlaceholder: string;
   onChange: UpdateUpload;
-};
+} & UploadTemplateProps;
 
 function AdditionInfo(additionProps: Props) {
-  const { data: datas, opinionPlaceholder, onChange } = additionProps;
-  const opinion = useUploadStore((states) => states.opinion);
-  const additionalInfo = useUploadStore((states) => states.additionalInfo);
+  const { isUpdate, data, opinionPlaceholder, onChange } = additionProps;
+  const useStore = useUploadUpdateStore(isUpdate);
+  const opinion = useStore((states) => states.opinion);
+  const additionalInfo = useStore((states) => states.additionalInfo);
   const handleInput = useDebounceInput(onChange, 200);
 
   const handleChange = useCallback(
@@ -47,7 +49,7 @@ function AdditionInfo(additionProps: Props) {
   return (
     <>
       <InfoArticle label="구매시기와 구매처">
-        {datas.map(({ label, placeholder, subType }) => {
+        {data.map(({ label, placeholder, subType }) => {
           return (
             <TextInput
               key={label}

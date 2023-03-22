@@ -2,9 +2,10 @@ import { memo, useCallback } from 'react';
 
 import { DefaultData } from '#types/index';
 import { Measure, UpdateUpload } from '#types/storeType/upload';
+import { UploadTemplateProps } from '#types/upload';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
-import { useUploadStore } from 'src/store/upload/useUploadStore';
+import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterHeight } from 'src/utils/filterValue';
 
 import $ from './style.module.scss';
@@ -12,11 +13,12 @@ import $ from './style.module.scss';
 type Props = {
   data: DefaultData[];
   onChange: UpdateUpload;
-};
+} & UploadTemplateProps;
 
 function MeasureInfo(priceProps: Props) {
-  const { data, onChange } = priceProps;
-  const state = useUploadStore((states) => states.measure);
+  const { isUpdate, data, onChange } = priceProps;
+  const useStore = useUploadUpdateStore(isUpdate);
+  const state = useStore((states) => states.measure);
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, subType?: keyof Measure) => {
       const value = filterHeight(e.target.value);

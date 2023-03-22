@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 
 import { UpdateUpload } from '#types/storeType/upload';
+import { UploadTemplateProps } from '#types/upload';
 import Button from '@atoms/Button';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
@@ -8,7 +9,7 @@ import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import { getBreadcrumb, getCategoryTree } from 'src/api/category';
 import useDebounceInput from 'src/hooks/useDebounceInput';
-import { useUploadStore } from 'src/store/upload/useUploadStore';
+import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import Dialog from '../Dialog';
 import { dialogCategoryProps } from '../Dialog/utils';
@@ -18,12 +19,13 @@ import { basicValidate } from './validate';
 type Props = {
   categoryData: res.CategoryTree['data'];
   onChange: UpdateUpload;
-};
+} & UploadTemplateProps;
 
 function Basic(basicProps: Props) {
-  const { onChange, categoryData } = basicProps;
-  const state = useUploadStore((states) => states.basicInfo);
-  const updateValidate = useUploadStore((states) => states.updateValidate);
+  const { isUpdate, onChange, categoryData } = basicProps;
+  const useStore = useUploadUpdateStore(isUpdate);
+  const state = useStore((states) => states.basicInfo);
+  const updateValidate = useStore((states) => states.updateValidate);
   const { category, curCategoryIdx } = state;
   const isBasicValid = basicValidate(state);
 
