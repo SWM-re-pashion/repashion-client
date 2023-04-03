@@ -1,7 +1,8 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { UploadStoreState } from '#types/storeType/upload';
 import DialogModal from '@templates/DialogModal';
+import useModal from 'src/hooks/useModal';
 
 type Props = {
   isRemained: boolean;
@@ -10,18 +11,16 @@ type Props = {
 
 function ContinueWriteModal(modalProps: Props) {
   const { isRemained, clear } = modalProps;
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
 
   useEffect(() => {
-    if (isRemained) setDialogOpen(true);
+    if (isRemained) handleModalOpen();
   }, []);
 
   const handleCancel = useCallback(() => {
     clear();
-    setDialogOpen(false);
-  }, [clear]);
-
-  const handleClick = useCallback(() => setDialogOpen(false), []);
+    handleModalClose();
+  }, [clear, handleModalClose]);
 
   return (
     <DialogModal
@@ -31,9 +30,9 @@ function ContinueWriteModal(modalProps: Props) {
       cancelText="아니요, 새로 작성할래요"
       clickText="네, 이어서 작성할래요"
       isVerticalBtn
-      isOpen={dialogOpen}
+      isOpen={isOpen}
       onCancel={handleCancel}
-      onClick={handleClick}
+      onClick={handleModalOpen}
     />
   );
 }

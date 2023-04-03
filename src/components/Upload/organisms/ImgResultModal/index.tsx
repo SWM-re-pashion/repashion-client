@@ -1,7 +1,8 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 
 import { recognitionResult } from '#types/upload';
 import DialogModal from '@templates/DialogModal';
+import useModal from 'src/hooks/useModal';
 
 import FailText from '../../atoms/FailText';
 import SuccessText from '../../atoms/SuccessText';
@@ -14,7 +15,7 @@ type Props = {
 function ImgResultModal(modalProps: Props) {
   const { isLoading, result } = modalProps;
   const { state, tag, color, material, category } = result;
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const titleText = `이미지 인식에 ${
     state === 'failed' ? '실패' : '성공'
   }했습니다.`;
@@ -27,10 +28,8 @@ function ImgResultModal(modalProps: Props) {
     );
 
   useEffect(() => {
-    if (!isLoading && state && state !== 'error') setDialogOpen(true);
+    if (!isLoading && state && state !== 'error') handleModalOpen();
   }, [result, isLoading, state]);
-
-  const handleClick = useCallback(() => setDialogOpen(false), []);
 
   return (
     <DialogModal
@@ -40,8 +39,8 @@ function ImgResultModal(modalProps: Props) {
       content={contentText}
       clickText="닫기"
       isVerticalBtn
-      isOpen={dialogOpen}
-      onClick={handleClick}
+      isOpen={isOpen}
+      onClick={handleModalClose}
     />
   );
 }
