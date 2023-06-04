@@ -6,6 +6,10 @@ export type recognitionResult = {
   material?: string;
 };
 
-export type UploadTemplateProps = {
+export type UploadUpdateProps = {
   isUpdate: boolean;
 };
+
+export type UploadTemplateProps = {
+  id: string;
+} & UploadUpdateProps;

@@ -97,6 +97,7 @@ export type UpdateArr = (
 ) => void;
 
 export interface UploadStoreState extends UploadState {
+  getIsRemained: () => boolean;
   updateValidate: (type: ValidationKey, value: boolean) => void;
   imgUpload: (imgList: ({ id: number } & ImgBasicProps)[]) => void;
   removeImg: (removeId: number) => void;

@@ -14,8 +14,20 @@ export const createUploadSlice: StateCreator<
   [['zustand/persist', unknown]] | [],
   [],
   UploadStoreState
-> = (set) => ({
+> = (set, get) => ({
   ...uploadInitialState,
+  getIsRemained: () => {
+    const { validation, style, isIncludeDelivery, basicInfo, sellerNote } =
+      get();
+    const { imgList, price, size, contact } = validation;
+    const validationRemain =
+      imgList || price || size || contact || isIncludeDelivery;
+    const styleRemain = !!style.color.length || !!style.tag || !!style.material;
+    const basicRemain =
+      !!basicInfo.category.some((x) => !!x) || !!basicInfo.brand;
+    const sellerNoteRemain = Object.values(sellerNote).some((x) => !!x);
+    return validationRemain || styleRemain || basicRemain || sellerNoteRemain;
+  },
   updateValidate: (type: ValidationKey, isValidate: boolean) => {
     set((state) => ({
       ...state,
