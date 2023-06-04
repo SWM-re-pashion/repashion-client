@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
-
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import Loading from '@atoms/Loading';
 import { ISR_WEEK } from '@constants/api';
@@ -12,8 +10,6 @@ import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import ContinueWriteModal from 'src/components/Upload/organisms/ContinueWriteModal';
 import { useAuthTest } from 'src/hooks/api/login';
-import { useUploadRemained } from 'src/hooks/useUploadRemained';
-import { toastError } from 'src/utils/toaster';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -50,28 +46,13 @@ export const getStaticProps = async () => {
 };
 
 function Upload() {
-  const router = useRouter();
   const { isSuccess } = useAuthTest();
-  const { isRemained, clear } = useUploadRemained();
-
-  const backBtnClick = useCallback(() => {
-    if (isRemained) {
-      toastError({ message: '상품이 임시저장되었습니다.' });
-    }
-  }, [isRemained]);
-
-  useEffect(() => {
-    router.events.on('routeChangeStart', backBtnClick);
-    return () => {
-      router.events.off('routeChangeStart', backBtnClick);
-    };
-  }, [backBtnClick, router.events, router.pathname]);
 
   if (!isSuccess)
     return <Loading style={{ height: 'calc(var(--vh, 1vh) * 100)' }} />;
   return (
     <>
-      <ContinueWriteModal {...{ isRemained, clear }} />
+      <ContinueWriteModal />
       <UploadTemplate {...{ id: '-1', isUpdate: false }} />
     </>
   );

@@ -1,7 +1,5 @@
-import { memo, useCallback } from 'react';
-
 import { AdditionalInfo, UploadState } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import TextArea from '@atoms/TextArea';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
@@ -17,7 +15,7 @@ type Props = {
     type: keyof UploadState;
     subType: keyof AdditionalInfo;
   }[];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function AdditionInfo({ isUpdate, data }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
@@ -26,19 +24,14 @@ function AdditionInfo({ isUpdate, data }: Props) {
   const onChange = useStore((states) => states.updateUpload);
   const handleInput = useDebounceInput(onChange, 200);
 
-  const handleChange = useCallback(
-    (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      subType?: keyof AdditionalInfo,
-    ) => handleInput(e.target.value, 'additionalInfo', subType),
-    [handleInput],
-  );
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    subType?: keyof AdditionalInfo,
+  ) => handleInput(e.target.value, 'additionalInfo', subType);
 
-  const handleOpinionChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      handleInput(e.target.value, 'opinion'),
-    [handleInput],
-  );
+  const handleOpinionChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => handleInput(e.target.value, 'opinion');
 
   return (
     <>
@@ -69,4 +62,4 @@ function AdditionInfo({ isUpdate, data }: Props) {
   );
 }
 
-export default memo(AdditionInfo);
+export default AdditionInfo;

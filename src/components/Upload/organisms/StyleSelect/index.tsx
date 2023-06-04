@@ -1,9 +1,9 @@
-import { memo, useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
 import { StyleUpload, UploadState } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
@@ -21,7 +21,7 @@ type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
 
 type Props = {
   data: btnBox[];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function StyleSelect(styleProps: Props) {
   const { isUpdate, data } = styleProps;
@@ -31,12 +31,10 @@ function StyleSelect(styleProps: Props) {
   const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const handleInput = useDebounceInput(onChange, 200);
-  const handleChange = useCallback(
+  const handleChange =
     // Todo: 성능 최적화
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      onChange(e.target.value, 'style', 'material'),
-    [onChange],
-  );
+      onChange(e.target.value, 'style', 'material');
 
   useEffect(() => {
     updateValidate('style', isStyleValid);
@@ -75,4 +73,4 @@ function StyleSelect(styleProps: Props) {
   );
 }
 
-export default memo(StyleSelect);
+export default StyleSelect;

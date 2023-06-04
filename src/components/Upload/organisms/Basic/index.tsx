@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { UploadTemplateProps } from '#types/upload';
+import { UploadTemplateWithCategory } from '#types/upload';
 import Button from '@atoms/Button';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
@@ -15,11 +15,7 @@ import { dialogCategoryProps } from '../Dialog/utils';
 import $ from './style.module.scss';
 import { basicValidate } from './validate';
 
-type Props = {
-  categoryData: res.CategoryTree['data'];
-} & UploadTemplateProps;
-
-function Basic(basicProps: Props) {
+function Basic(basicProps: UploadTemplateWithCategory) {
   const { isUpdate, categoryData } = basicProps;
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.basicInfo);
@@ -115,4 +111,4 @@ function Basic(basicProps: Props) {
   );
 }
 
-export default memo(Basic);
+export default Basic;

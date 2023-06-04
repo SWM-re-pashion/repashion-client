@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
@@ -10,7 +10,7 @@ import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import $ from './style.module.scss';
 import { contactValidate } from './validate';
 
-type Props = UploadTemplateProps;
+type Props = UploadUpdateProps;
 
 function Contact({ isUpdate }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
@@ -20,11 +20,8 @@ function Contact({ isUpdate }: Props) {
   const isContactValid = contactValidate(state);
   const handleInput = useDebounceInput(onChange, 200);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleInput(e.target.value, 'contact'),
-    [handleInput],
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    handleInput(e.target.value, 'contact');
 
   useEffect(() => {
     updateValidate('contact', isContactValid);
@@ -53,4 +50,4 @@ function Contact({ isUpdate }: Props) {
   );
 }
 
-export default memo(Contact);
+export default Contact;

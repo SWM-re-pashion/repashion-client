@@ -1,9 +1,10 @@
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 
-import { Measure, MeasureType } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { Measure } from '#types/storeType/upload';
+import { UploadTemplateWithCategory } from '#types/upload';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
+import { getMainCategory } from 'src/api/category';
 import { useDidMountEffect } from 'src/hooks';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { getMeasureElement } from 'src/utils';
@@ -11,17 +12,17 @@ import { filterHeight } from 'src/utils/filterValue';
 
 import $ from './style.module.scss';
 
-type Props = {
-  mainCategory: MeasureType;
-} & UploadTemplateProps;
-
-function MeasureInfo(priceProps: Props) {
-  const { isUpdate, mainCategory } = priceProps;
-  const { measureData, measureState } = getMeasureElement(mainCategory);
+function MeasureInfo(priceProps: UploadTemplateWithCategory) {
+  const { isUpdate, categoryData } = priceProps;
   const useStore = useUploadUpdateStore(isUpdate);
-  const state = useStore((states) => states.measure);
+  const category = useStore((states) => states.basicInfo.category);
   const initMeasure = useStore((states) => states.initMeasure);
   const onChange = useStore((states) => states.updateUpload);
+
+  const state = useStore((states) => states.measure);
+  const mainCategory = getMainCategory(categoryData, category);
+  const { measureData, measureState } = getMeasureElement(mainCategory);
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, subType?: keyof Measure) => {
       const value = filterHeight(e.target.value);
@@ -57,4 +58,4 @@ function MeasureInfo(priceProps: Props) {
   );
 }
 
-export default memo(MeasureInfo);
+export default MeasureInfo;

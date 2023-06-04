@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { recognitionResult, UploadTemplateProps } from '#types/upload';
+import { recognitionResult, UploadUpdateProps } from '#types/upload';
 import { getCategoryIds } from 'src/api/category';
 import { useImgUpload } from 'src/hooks/api/upload';
 import useSwiper from 'src/hooks/useSwiper';
@@ -12,7 +12,7 @@ import { imgListValidate } from './validate';
 
 type Props = {
   categoryData: res.CategoryTree['data'];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function ImgUpload(imgProps: Props) {
   const { isUpdate, categoryData } = imgProps;
@@ -34,45 +34,42 @@ function ImgUpload(imgProps: Props) {
     updateValidate('imgList', isImgValid);
   }, [isImgValid, updateValidate]);
 
-  const onUploadClick = useCallback(() => {
+  const onUploadClick = () => {
     if (inputRef.current) inputRef.current.click();
-  }, []);
+  };
 
-  const onUploadImg = useCallback(
-    (e: React.ChangeEvent) => {
-      const formData = getFormData(e);
-      if (formData) {
-        mutate(formData, {
-          onSuccess: ({ error, attribute, image }) => {
-            const images = imageList(image);
-            if (image.length) imgUpload(images);
-            if (error) {
-              if (image.length) setImgResult({ state: 'failed' });
-              else setImgResult({ state: 'error' });
-              return;
-            }
-            const { style: tag, material, color } = attribute;
-            const { gender, mainCategory, subCategory } = attribute;
-            const nameArr = [gender, mainCategory, subCategory];
-            const category = `${gender} > ${mainCategory} > ${subCategory}`;
-            const categoryIds = getCategoryIds(categoryData, nameArr);
-            setImgResult({
-              state: 'success',
-              category,
-              tag,
-              color: color.join(', '),
-              material,
-            });
-            updateArr(categoryIds, 'basicInfo', 'category');
-            updateArr(color, 'style', 'color');
-            onChange(tag, 'style', 'tag');
-            onChange(material, 'style', 'material');
-          },
-        });
-      }
-    },
-    [mutate, categoryData, imgUpload, updateArr, onChange],
-  );
+  const onUploadImg = (e: React.ChangeEvent) => {
+    const formData = getFormData(e);
+    if (formData) {
+      mutate(formData, {
+        onSuccess: ({ error, attribute, image }) => {
+          const images = imageList(image);
+          if (image.length) imgUpload(images);
+          if (error) {
+            if (image.length) setImgResult({ state: 'failed' });
+            else setImgResult({ state: 'error' });
+            return;
+          }
+          const { style: tag, material, color } = attribute;
+          const { gender, mainCategory, subCategory } = attribute;
+          const nameArr = [gender, mainCategory, subCategory];
+          const category = `${gender} > ${mainCategory} > ${subCategory}`;
+          const categoryIds = getCategoryIds(categoryData, nameArr);
+          setImgResult({
+            state: 'success',
+            category,
+            tag,
+            color: color.join(', '),
+            material,
+          });
+          updateArr(categoryIds, 'basicInfo', 'category');
+          updateArr(color, 'style', 'color');
+          onChange(tag, 'style', 'tag');
+          onChange(material, 'style', 'material');
+        },
+      });
+    }
+  };
 
   const props = {
     isLoading,
@@ -89,4 +86,4 @@ function ImgUpload(imgProps: Props) {
   return <ImgUploadView {...props} />;
 }
 
-export default memo(ImgUpload);
+export default ImgUpload;
