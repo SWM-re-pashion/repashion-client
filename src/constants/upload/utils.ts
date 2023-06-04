@@ -48,7 +48,7 @@ export const sizeData = (
   };
 };
 
-type ReviewDatasInput = {
+export type ReviewDatasInput = {
   pollution?: res.StaticData;
   lengths?: res.KindStaticData;
   bodyShapes?: res.StaticData;

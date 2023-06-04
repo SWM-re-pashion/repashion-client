@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 
-import { DefaultData } from '#types/index';
-import { UploadUpdateProps } from '#types/upload';
+import { UploadTemplateWithCategory } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
+import { reviewData, ReviewDatasInput } from '@constants/upload/utils';
 import InfoArticle from '@molecules/InfoArticle';
 import SelectBox from '@molecules/SelectBox';
 import TextInput from '@molecules/TextInput';
+import { getMainCategory } from 'src/api/category';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterHeight } from 'src/utils/filterValue';
@@ -16,22 +17,18 @@ import $ from './style.module.scss';
 import { sellerReviewValidate } from './validate';
 
 type Props = {
-  data: {
-    condition: DefaultData[];
-    pollution: DefaultData[];
-    fit: DefaultData[];
-    bodyShapes: DefaultData[];
-    length: DefaultData[];
-  };
-} & UploadUpdateProps;
+  reviewDatas: ReviewDatasInput;
+} & UploadTemplateWithCategory;
 
-function SellerReview({ isUpdate, data }: Props) {
-  const { condition, pollution, fit, bodyShapes, length } = data;
+function SellerReview({ isUpdate, reviewDatas, categoryData }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
+  const category = useStore((states) => states.basicInfo.category);
   const state = useStore((states) => states.sellerNote);
   const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const isSellerValid = sellerReviewValidate(state);
+  const data = reviewData(getMainCategory(categoryData, category), reviewDatas);
+  const { condition, pollution, fit, bodyShapes, length } = data;
   const optionsData = [condition, pollution, length, fit];
 
   const handleInput = useDebounceInput(onChange, 200);

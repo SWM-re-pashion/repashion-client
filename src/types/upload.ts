@@ -13,3 +13,7 @@ export type UploadUpdateProps = {
 export type UploadTemplateProps = {
   id: string;
 } & UploadUpdateProps;
+
+export type UploadTemplateWithCategory = {
+  categoryData: res.CategoryTree['data'];
+} & UploadUpdateProps;
