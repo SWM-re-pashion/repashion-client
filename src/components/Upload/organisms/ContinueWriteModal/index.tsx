@@ -1,15 +1,15 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { UploadStoreState } from '#types/storeType/upload';
 import DialogModal from '@templates/DialogModal';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 
-type Props = {
-  isRemained: boolean;
-  clear: UploadStoreState['clearUpload'];
-};
+import { useRouteChange, useUploadRemained } from './hooks';
 
-function ContinueWriteModal(modalProps: Props) {
-  const { isRemained, clear } = modalProps;
+function ContinueWriteModal() {
+  const isRemained = useUploadRemained();
+  useRouteChange(isRemained);
+  const clear = useUploadStore((state) => state.clearUpload);
+
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ function ContinueWriteModal(modalProps: Props) {
   );
 }
 
-export default memo(ContinueWriteModal);
+export default ContinueWriteModal;
