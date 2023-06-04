@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { recognitionResult, UploadTemplateProps } from '#types/upload';
+import { recognitionResult, UploadUpdateProps } from '#types/upload';
 import { getCategoryIds } from 'src/api/category';
 import { useImgUpload } from 'src/hooks/api/upload';
 import useSwiper from 'src/hooks/useSwiper';
@@ -12,7 +12,7 @@ import { imgListValidate } from './validate';
 
 type Props = {
   categoryData: res.CategoryTree['data'];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function ImgUpload(imgProps: Props) {
   const { isUpdate, categoryData } = imgProps;
@@ -89,4 +89,4 @@ function ImgUpload(imgProps: Props) {
   return <ImgUploadView {...props} />;
 }
 
-export default memo(ImgUpload);
+export default ImgUpload;

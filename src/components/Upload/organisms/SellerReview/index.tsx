@@ -1,7 +1,7 @@
-import { memo, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import InfoArticle from '@molecules/InfoArticle';
@@ -23,7 +23,7 @@ type Props = {
     bodyShapes: DefaultData[];
     length: DefaultData[];
   };
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function SellerReview({ isUpdate, data }: Props) {
   const { condition, pollution, fit, bodyShapes, length } = data;
@@ -107,4 +107,4 @@ function SellerReview({ isUpdate, data }: Props) {
   );
 }
 
-export default memo(SellerReview);
+export default SellerReview;

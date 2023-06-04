@@ -1,9 +1,9 @@
-import { memo, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
 import { StyleUpload, UploadState } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
@@ -21,7 +21,7 @@ type btnBox = btnTemplateBox<keyof UploadState, keyof StyleUpload> & {
 
 type Props = {
   data: btnBox[];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function StyleSelect(styleProps: Props) {
   const { isUpdate, data } = styleProps;
@@ -75,4 +75,4 @@ function StyleSelect(styleProps: Props) {
   );
 }
 
-export default memo(StyleSelect);
+export default StyleSelect;

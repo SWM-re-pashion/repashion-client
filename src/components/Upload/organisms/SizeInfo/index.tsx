@@ -1,6 +1,6 @@
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { sizeBtnBox } from '@constants/upload/utils';
 import InfoBtnBox from '@organisms/InfoBtnBox';
@@ -10,7 +10,7 @@ import { sizeValidate } from './validate';
 
 type Props = {
   sizeProps: sizeBtnBox;
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function SizeInfo(infoProps: Props) {
   const { isUpdate, sizeProps } = infoProps;
@@ -34,4 +34,4 @@ function SizeInfo(infoProps: Props) {
   );
 }
 
-export default memo(SizeInfo);
+export default SizeInfo;

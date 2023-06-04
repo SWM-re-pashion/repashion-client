@@ -1,7 +1,7 @@
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { Measure, MeasureType } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import { useDidMountEffect } from 'src/hooks';
@@ -13,7 +13,7 @@ import $ from './style.module.scss';
 
 type Props = {
   mainCategory: MeasureType;
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function MeasureInfo(priceProps: Props) {
   const { isUpdate, mainCategory } = priceProps;
@@ -57,4 +57,4 @@ function MeasureInfo(priceProps: Props) {
   );
 }
 
-export default memo(MeasureInfo);
+export default MeasureInfo;

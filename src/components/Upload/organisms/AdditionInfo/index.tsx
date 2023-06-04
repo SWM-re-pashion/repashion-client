@@ -1,7 +1,7 @@
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { AdditionalInfo, UploadState } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import TextArea from '@atoms/TextArea';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
@@ -17,7 +17,7 @@ type Props = {
     type: keyof UploadState;
     subType: keyof AdditionalInfo;
   }[];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function AdditionInfo({ isUpdate, data }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
@@ -69,4 +69,4 @@ function AdditionInfo({ isUpdate, data }: Props) {
   );
 }
 
-export default memo(AdditionInfo);
+export default AdditionInfo;

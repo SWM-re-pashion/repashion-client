@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
@@ -10,7 +10,7 @@ import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import $ from './style.module.scss';
 import { contactValidate } from './validate';
 
-type Props = UploadTemplateProps;
+type Props = UploadUpdateProps;
 
 function Contact({ isUpdate }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
@@ -53,4 +53,4 @@ function Contact({ isUpdate }: Props) {
   );
 }
 
-export default memo(Contact);
+export default Contact;

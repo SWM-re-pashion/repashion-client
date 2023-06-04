@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import Button from '@atoms/Button';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { SelectArrow } from '@atoms/icon';
@@ -17,7 +17,7 @@ import { basicValidate } from './validate';
 
 type Props = {
   categoryData: res.CategoryTree['data'];
-} & UploadTemplateProps;
+} & UploadUpdateProps;
 
 function Basic(basicProps: Props) {
   const { isUpdate, categoryData } = basicProps;
@@ -115,4 +115,4 @@ function Basic(basicProps: Props) {
   );
 }
 
-export default memo(Basic);
+export default Basic;

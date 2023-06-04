@@ -1,7 +1,7 @@
-import { memo, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { UploadState } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import InfoArticle from '@molecules/InfoArticle';
@@ -16,9 +16,7 @@ import { filterMaxPrice } from 'src/utils';
 import $ from './style.module.scss';
 import { priceValidate } from './validate';
 
-type Props = UploadTemplateProps;
-
-function Price({ isUpdate }: Props) {
+function Price({ isUpdate }: UploadUpdateProps) {
   const useStore = useUploadUpdateStore(isUpdate);
   const price = useStore((states) => states.price);
   const isPriceValid = priceValidate(price);
@@ -74,4 +72,4 @@ function Price({ isUpdate }: Props) {
   );
 }
 
-export default memo(Price);
+export default Price;
