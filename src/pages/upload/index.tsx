@@ -12,7 +12,7 @@ import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
 import ContinueWriteModal from 'src/components/Upload/organisms/ContinueWriteModal';
 import { useAuthTest } from 'src/hooks/api/login';
-import { useUploadRemained } from 'src/hooks/useUploadRemained';
+import { useUploadStore } from 'src/store/upload/useUploadStore';
 import { toastError } from 'src/utils/toaster';
 
 export const getStaticProps = async () => {
@@ -52,7 +52,8 @@ export const getStaticProps = async () => {
 function Upload() {
   const router = useRouter();
   const { isSuccess } = useAuthTest();
-  const { isRemained, clear } = useUploadRemained();
+  const isRemained = useUploadStore((state) => state.getIsRemained)();
+  const clear = useUploadStore((state) => state.clearUpload);
 
   const backBtnClick = useCallback(() => {
     if (isRemained) {
