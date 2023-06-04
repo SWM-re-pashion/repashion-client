@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { btnTemplateBox } from '#types/info';
@@ -31,12 +31,10 @@ function StyleSelect(styleProps: Props) {
   const onChange = useStore((states) => states.updateUpload);
   const updateValidate = useStore((states) => states.updateValidate);
   const handleInput = useDebounceInput(onChange, 200);
-  const handleChange = useCallback(
+  const handleChange =
     // Todo: 성능 최적화
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      onChange(e.target.value, 'style', 'material'),
-    [onChange],
-  );
+      onChange(e.target.value, 'style', 'material');
 
   useEffect(() => {
     updateValidate('style', isStyleValid);

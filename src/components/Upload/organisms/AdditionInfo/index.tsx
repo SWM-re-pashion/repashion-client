@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { AdditionalInfo, UploadState } from '#types/storeType/upload';
 import { UploadUpdateProps } from '#types/upload';
 import TextArea from '@atoms/TextArea';
@@ -26,19 +24,14 @@ function AdditionInfo({ isUpdate, data }: Props) {
   const onChange = useStore((states) => states.updateUpload);
   const handleInput = useDebounceInput(onChange, 200);
 
-  const handleChange = useCallback(
-    (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-      subType?: keyof AdditionalInfo,
-    ) => handleInput(e.target.value, 'additionalInfo', subType),
-    [handleInput],
-  );
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    subType?: keyof AdditionalInfo,
+  ) => handleInput(e.target.value, 'additionalInfo', subType);
 
-  const handleOpinionChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      handleInput(e.target.value, 'opinion'),
-    [handleInput],
-  );
+  const handleOpinionChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => handleInput(e.target.value, 'opinion');
 
   return (
     <>

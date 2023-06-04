@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { UploadState } from '#types/storeType/upload';
 import { UploadUpdateProps } from '#types/upload';
@@ -27,14 +27,11 @@ function Price({ isUpdate }: UploadUpdateProps) {
     onChange,
     200,
   );
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const num = filterMaxPrice(e.target.value, max);
-      e.target.value = num;
-      handleInput(+num, 'price', undefined);
-    },
-    [handleInput],
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const num = filterMaxPrice(e.target.value, max);
+    e.target.value = num;
+    handleInput(+num, 'price', undefined);
+  };
 
   useEffect(() => {
     updateValidate('price', isPriceValid);

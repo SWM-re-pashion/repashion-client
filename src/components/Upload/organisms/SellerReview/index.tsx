@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { DefaultData } from '#types/index';
 import { UploadUpdateProps } from '#types/upload';
@@ -35,14 +35,11 @@ function SellerReview({ isUpdate, data }: Props) {
   const optionsData = [condition, pollution, length, fit];
 
   const handleInput = useDebounceInput(onChange, 200);
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = filterHeight(e.target.value);
-      e.target.value = value;
-      handleInput(+value, 'sellerNote', 'height');
-    },
-    [handleInput],
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = filterHeight(e.target.value);
+    e.target.value = value;
+    handleInput(+value, 'sellerNote', 'height');
+  };
 
   useEffect(() => {
     updateValidate('sellerNote', isSellerValid);

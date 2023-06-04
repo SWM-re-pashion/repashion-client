@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
@@ -20,11 +20,8 @@ function Contact({ isUpdate }: Props) {
   const isContactValid = contactValidate(state);
   const handleInput = useDebounceInput(onChange, 200);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleInput(e.target.value, 'contact'),
-    [handleInput],
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    handleInput(e.target.value, 'contact');
 
   useEffect(() => {
     updateValidate('contact', isContactValid);
