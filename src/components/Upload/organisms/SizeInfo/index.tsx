@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
-
 import { UploadTemplateWithCategory } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import { sizeData } from '@constants/upload/utils';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { getMainCategory } from 'src/api/category';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import { sizeValidate } from './validate';
@@ -19,13 +18,9 @@ function SizeInfo(infoProps: Props) {
   const state = useStore((states) => states.size);
   const category = useStore((states) => states.basicInfo.category);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
   const isSizeValid = sizeValidate(state);
   const sizeProps = sizeData(getMainCategory(categoryData, category), sizes);
-
-  useEffect(() => {
-    updateValidate('size', isSizeValid);
-  }, [isSizeValid, updateValidate]);
+  useUploadFormValidate({ isUpdate, isValid: isSizeValid, type: 'size' });
 
   return (
     <InfoBtnBox

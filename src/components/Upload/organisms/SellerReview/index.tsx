@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { UploadTemplateWithCategory } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
@@ -9,6 +7,7 @@ import SelectBox from '@molecules/SelectBox';
 import TextInput from '@molecules/TextInput';
 import { getMainCategory } from 'src/api/category';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterHeight } from 'src/utils/filterValue';
 
@@ -25,11 +24,16 @@ function SellerReview({ isUpdate, reviewDatas, categoryData }: Props) {
   const category = useStore((states) => states.basicInfo.category);
   const state = useStore((states) => states.sellerNote);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
   const isSellerValid = sellerReviewValidate(state);
   const data = reviewData(getMainCategory(categoryData, category), reviewDatas);
   const { condition, pollution, fit, bodyShapes, length } = data;
   const optionsData = [condition, pollution, length, fit];
+
+  useUploadFormValidate({
+    isUpdate,
+    isValid: isSellerValid,
+    type: 'sellerNote',
+  });
 
   const handleInput = useDebounceInput(onChange, 200);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,10 +41,6 @@ function SellerReview({ isUpdate, reviewDatas, categoryData }: Props) {
     e.target.value = value;
     handleInput(+value, 'sellerNote', 'height');
   };
-
-  useEffect(() => {
-    updateValidate('sellerNote', isSellerValid);
-  }, [isSellerValid, updateValidate]);
 
   return (
     <InfoArticle label="쉽게 작성하는 후기" required>

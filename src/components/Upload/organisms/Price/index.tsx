@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { UploadState } from '#types/storeType/upload';
 import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
@@ -10,6 +8,7 @@ import TextInput from '@molecules/TextInput';
 import classnames from 'classnames';
 import { max } from 'src/components/Shop/Organisms/FilterModal/constants';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterMaxPrice } from 'src/utils';
 
@@ -19,23 +18,20 @@ import { priceValidate } from './validate';
 function Price({ isUpdate }: UploadUpdateProps) {
   const useStore = useUploadUpdateStore(isUpdate);
   const price = useStore((states) => states.price);
-  const isPriceValid = priceValidate(price);
   const isIncludeDelivery = useStore((states) => states.isIncludeDelivery);
+  const isPriceValid = priceValidate(price);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
+  useUploadFormValidate({ isUpdate, isValid: isPriceValid, type: 'price' });
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,
   );
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = filterMaxPrice(e.target.value, max);
     e.target.value = num;
     handleInput(+num, 'price', undefined);
   };
-
-  useEffect(() => {
-    updateValidate('price', isPriceValid);
-  }, [isPriceValid, updateValidate]);
 
   return (
     <InfoArticle label="판매가격 설정" required>
