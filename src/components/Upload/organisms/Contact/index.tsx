@@ -1,34 +1,26 @@
-import { memo, useCallback, useEffect } from 'react';
-
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import $ from './style.module.scss';
 import { contactValidate } from './validate';
 
-type Props = UploadTemplateProps;
+type Props = UploadUpdateProps;
 
 function Contact({ isUpdate }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.contact);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
   const isContactValid = contactValidate(state);
   const handleInput = useDebounceInput(onChange, 200);
+  useUploadFormValidate({ isUpdate, isValid: isContactValid, type: 'contact' });
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleInput(e.target.value, 'contact'),
-    [handleInput],
-  );
-
-  useEffect(() => {
-    updateValidate('contact', isContactValid);
-  }, [isContactValid, updateValidate]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    handleInput(e.target.value, 'contact');
 
   return (
     <InfoArticle
@@ -53,4 +45,4 @@ function Contact({ isUpdate }: Props) {
   );
 }
 
-export default memo(Contact);
+export default Contact;

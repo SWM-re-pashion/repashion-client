@@ -1,4 +1,4 @@
-import { UploadState, UploadStoreState } from '#types/storeType/upload';
+import { UploadState } from '#types/storeType/upload';
 import { uploadInitialState } from 'src/store/constants';
 import { StateCreator } from 'zustand';
 

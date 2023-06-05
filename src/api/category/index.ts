@@ -1,4 +1,6 @@
+import { BasicInfo } from '#types/storeType/upload';
 import { Axios } from 'src/api/core';
+import { getJudgeCategory } from 'src/utils';
 
 export const getSelectedCategory = async (
   isExcluded: boolean,
@@ -54,4 +56,13 @@ export const getCategoryIds = (
   if (categoryIds) candidateIds = [...categoryIds, candidateTree.id];
   else candidateIds = [candidateTree.id];
   return getCategoryIds(candidateTree, categoryName.slice(1), candidateIds);
+};
+
+export const getMainCategory = (
+  data: res.CategoryTree['data'] | res.CategoryTreeChildren,
+  category: BasicInfo['category'],
+) => {
+  const [gender, main, sub] = category;
+  const breadCrumb = getBreadcrumb(data, sub || main || gender) || '';
+  return getJudgeCategory(breadCrumb);
 };

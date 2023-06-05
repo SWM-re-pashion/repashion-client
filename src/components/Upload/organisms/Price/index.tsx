@@ -1,7 +1,5 @@
-import { memo, useCallback, useEffect } from 'react';
-
 import { UploadState } from '#types/storeType/upload';
-import { UploadTemplateProps } from '#types/upload';
+import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
 import InfoArticle from '@molecules/InfoArticle';
@@ -10,37 +8,30 @@ import TextInput from '@molecules/TextInput';
 import classnames from 'classnames';
 import { max } from 'src/components/Shop/Organisms/FilterModal/constants';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { filterMaxPrice } from 'src/utils';
 
 import $ from './style.module.scss';
 import { priceValidate } from './validate';
 
-type Props = UploadTemplateProps;
-
-function Price({ isUpdate }: Props) {
+function Price({ isUpdate }: UploadUpdateProps) {
   const useStore = useUploadUpdateStore(isUpdate);
   const price = useStore((states) => states.price);
-  const isPriceValid = priceValidate(price);
   const isIncludeDelivery = useStore((states) => states.isIncludeDelivery);
+  const isPriceValid = priceValidate(price);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
+  useUploadFormValidate({ isUpdate, isValid: isPriceValid, type: 'price' });
   const handleInput = useDebounceInput<[number, keyof UploadState, undefined]>(
     onChange,
     200,
   );
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const num = filterMaxPrice(e.target.value, max);
-      e.target.value = num;
-      handleInput(+num, 'price', undefined);
-    },
-    [handleInput],
-  );
 
-  useEffect(() => {
-    updateValidate('price', isPriceValid);
-  }, [isPriceValid, updateValidate]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const num = filterMaxPrice(e.target.value, max);
+    e.target.value = num;
+    handleInput(+num, 'price', undefined);
+  };
 
   return (
     <InfoArticle label="판매가격 설정" required>
@@ -74,4 +65,4 @@ function Price({ isUpdate }: Props) {
   );
 }
 
-export default memo(Price);
+export default Price;
