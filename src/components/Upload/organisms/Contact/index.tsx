@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
-
 import { UploadUpdateProps } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import $ from './style.module.scss';
@@ -16,16 +15,12 @@ function Contact({ isUpdate }: Props) {
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.contact);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
   const isContactValid = contactValidate(state);
   const handleInput = useDebounceInput(onChange, 200);
+  useUploadFormValidate({ isUpdate, isValid: isContactValid, type: 'contact' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     handleInput(e.target.value, 'contact');
-
-  useEffect(() => {
-    updateValidate('contact', isContactValid);
-  }, [isContactValid, updateValidate]);
 
   return (
     <InfoArticle

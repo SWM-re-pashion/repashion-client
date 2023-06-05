@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { UploadTemplateWithCategory } from '#types/upload';
 import Button from '@atoms/Button';
@@ -8,6 +8,7 @@ import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import { getBreadcrumb, getCategoryTree } from 'src/api/category';
 import useDebounceInput from 'src/hooks/useDebounceInput';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import Dialog from '../Dialog';
@@ -20,13 +21,9 @@ function Basic(basicProps: UploadTemplateWithCategory) {
   const useStore = useUploadUpdateStore(isUpdate);
   const state = useStore((states) => states.basicInfo);
   const onChange = useStore((states) => states.updateUpload);
-  const updateValidate = useStore((states) => states.updateValidate);
   const { category, curCategoryIdx } = state;
   const isBasicValid = basicValidate(state);
-
-  useEffect(() => {
-    updateValidate('basicInfo', isBasicValid);
-  }, [isBasicValid, updateValidate]);
+  useUploadFormValidate({ isUpdate, isValid: isBasicValid, type: 'basicInfo' });
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const openDialog = useCallback(() => setDialogOpen(true), []);

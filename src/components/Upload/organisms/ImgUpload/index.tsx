@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { recognitionResult, UploadUpdateProps } from '#types/upload';
 import { getCategoryIds } from 'src/api/category';
 import { useImgUpload } from 'src/hooks/api/upload';
 import useSwiper from 'src/hooks/useSwiper';
+import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 
 import ImgUploadView from './ImgUploadView';
@@ -22,7 +23,6 @@ function ImgUpload(imgProps: Props) {
   const updateArr = useStore((states) => states.updateArr);
   const imgUpload = useStore((states) => states.imgUpload);
   const removeImg = useStore((states) => states.removeImg);
-  const updateValidate = useStore((states) => states.updateValidate);
   const [imgResult, setImgResult] = useState<recognitionResult>({});
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
@@ -30,9 +30,7 @@ function ImgUpload(imgProps: Props) {
   const isImgValid = imgListValidate(imgList);
 
   useSwiper(uploadRef);
-  useEffect(() => {
-    updateValidate('imgList', isImgValid);
-  }, [isImgValid, updateValidate]);
+  useUploadFormValidate({ isUpdate, isValid: isImgValid, type: 'imgList' });
 
   const onUploadClick = () => {
     if (inputRef.current) inputRef.current.click();
