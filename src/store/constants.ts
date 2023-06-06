@@ -13,12 +13,14 @@ export const infoInitialState = {
   bottomColors: [],
 };
 
+export const priceInitState: [number, number] = [0, 1000000];
+
 export const filterCommonState: {
   style: string[];
   price: [number, number];
 } = {
   style: [],
-  price: [0, 1000000],
+  price: priceInitState,
 };
 
 export const filterInitialState: FilterState = {

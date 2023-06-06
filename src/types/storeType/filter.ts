@@ -30,6 +30,7 @@ export type FilterUpdate = (
 ) => void;
 
 export interface FilterStoreState extends FilterState {
+  initState: (state: FilterState) => void;
   filterUpdate: FilterUpdate;
   priceUpdate: (value: number, idx: number) => void;
   clear: (subType: FilterType) => void;
