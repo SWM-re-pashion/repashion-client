@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-import { useState } from 'react';
-
 import { FilterType } from '#types/storeType/filter';
 import BackBtn from '@atoms/BackBtn';
 import Button from '@atoms/Button';
@@ -12,6 +10,7 @@ import ErrorFallback from '@organisms/ErrorFallback';
 import AsyncBoundary from '@templates/AsyncBoundary';
 import FilterModal from 'src/components/Shop/Organisms/FilterModal';
 import FilterSkeleton from 'src/components/Shop/Organisms/FilterModal/Skeleton';
+import useModal from 'src/hooks/useModal';
 
 import $ from './style.module.scss';
 
@@ -28,12 +27,7 @@ type Props = {
 function HeaderTool(headerProps: Props) {
   const { data, selectedMenu, onClick, isRecommend } = headerProps;
   const { isSelectedSub, breadCrumb, mainCategory } = headerProps;
-  const [filterOpen, setFilterOpen] = useState(false);
-
-  const openFilterModal = () => {
-    setFilterOpen(true);
-  };
-  const closeFilterModal = () => setFilterOpen(false);
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
 
   return (
     <section className={$['tool-container']}>
@@ -82,14 +76,14 @@ function HeaderTool(headerProps: Props) {
               iconBtn
               label="상품 필터 버튼"
               className={$.filter}
-              onClick={openFilterModal}
+              onClick={handleModalOpen}
             >
               <Filter fill="#C9B6FF" stroke="#936DFF" />
             </Button>
             <FilterModal
               {...{ mainCategory }}
-              isOpen={filterOpen}
-              onClose={closeFilterModal}
+              isOpen={isOpen}
+              onClose={handleModalClose}
             />
           </AsyncBoundary>
         )}

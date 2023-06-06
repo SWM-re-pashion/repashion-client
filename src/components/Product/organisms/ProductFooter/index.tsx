@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { ProductFooterInfo } from '#types/product';
 import type { DefaultProps } from '#types/props';
 import Button from '@atoms/Button';
@@ -8,6 +6,7 @@ import IconText from '@atoms/IconText';
 import Span from '@atoms/Span';
 import DialogModal from '@templates/DialogModal';
 import classnames from 'classnames';
+import useModal from 'src/hooks/useModal';
 import useTimeForToday from 'src/hooks/useTimeForToday';
 import { toastSuccess } from 'src/utils/toaster';
 
@@ -22,9 +21,7 @@ export default function ProductFooter(footerProps: Props) {
   const { className, style, children, footer } = footerProps;
   const { price, isIncludeDelivery, updatedAt, like, view, contact } = footer;
   const time = useTimeForToday(updatedAt);
-  const [isOpen, setIsOpen] = useState(false);
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const handleClipBoard = copyClipBoard();
   const handleClickLike = () =>
     toastSuccess({ message: '좋아요 기능 준비중입니다.' });
@@ -80,7 +77,7 @@ export default function ProductFooter(footerProps: Props) {
               className={$.price}
             >{`${price.toLocaleString()}원`}</Span>
           </div>
-          <Button className={$['product-btn']} onClick={openModal}>
+          <Button className={$['product-btn']} onClick={handleModalOpen}>
             {children}
           </Button>
 
@@ -91,7 +88,7 @@ export default function ProductFooter(footerProps: Props) {
             title="아래 정보를 통해 연락할 수 있습니다."
             content="현재 채팅 기능 준비중이에요. 서비스 준비 전까지 조금만 기다려주세요."
             clickText="닫기"
-            onClick={closeModal}
+            onClick={handleModalClose}
             emphasisContent={contact}
             emphasisIcon={
               <Button
