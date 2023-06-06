@@ -133,12 +133,13 @@ export const filterQueryObjToState = (
   const isBottom = mainCategory === 'bottom';
   const priceData: [number, number] =
     priceGoe || priceLoe ? [+priceGoe, +priceLoe] : priceInitState;
+  const styleData = style.length ? filterDataToStateSplit(style) : [];
   const colorData = color.length ? filterDataToStateSplit(color) : [];
   const fitData = fit.length ? filterDataToStateSplit(fit) : [];
   const lenData = len.length ? filterDataToStateSplit(len) : [];
   const sizeData = size.length ? filterDataToStateSplit(size) : [];
   const common: Pick<FilterState, 'style' | 'price'> = {
-    style: filterDataToStateSplit(style),
+    style: styleData,
     price: priceData,
   };
   const topBotData = (bool: boolean, data: string[]) => (bool ? data : []);
