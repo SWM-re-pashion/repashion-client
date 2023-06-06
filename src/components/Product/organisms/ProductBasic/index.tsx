@@ -1,7 +1,7 @@
 import { ProductBasicInfo, SaleStatusDataProp } from '#types/product';
 import { StyleProps } from '#types/props';
+import { productBasicUtil } from 'src/helpers/productDataProcessing';
 import { useUpdateProductStatus } from 'src/hooks/api/product';
-import { productBasicUtil } from 'src/utils/product';
 
 import ProductBasicView from './ProductBasic.view';
 

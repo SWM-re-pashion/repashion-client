@@ -15,11 +15,11 @@ import InfoBtnBox from '@organisms/InfoBtnBox';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Layout from '@templates/Layout';
 import { getStaticData } from 'src/api/staticData';
+import { refinePreferenceData } from 'src/helpers/preferenceDataProcessing';
 import { useAuthTest } from 'src/hooks/api/login';
 import { usePostPreference } from 'src/hooks/api/preference';
 import { useStaticData } from 'src/hooks/api/staticData';
 import { useInfoStore } from 'src/store/useInfoStore';
-import { refinePreferenceData } from 'src/utils/preference.utils';
 
 import $ from './style.module.scss';
 

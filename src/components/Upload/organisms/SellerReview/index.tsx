@@ -1,11 +1,11 @@
 import { UploadTemplateWithCategory } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
 import Span from '@atoms/Span';
-import { reviewData, ReviewDatasInput } from '@constants/upload/utils';
 import InfoArticle from '@molecules/InfoArticle';
 import SelectBox from '@molecules/SelectBox';
 import TextInput from '@molecules/TextInput';
 import { getMainCategory } from 'src/api/category';
+import { reviewData, ReviewDatasInput } from 'src/helpers/uploadDataProcessing';
 import useDebounceInput from 'src/hooks/useDebounceInput';
 import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
