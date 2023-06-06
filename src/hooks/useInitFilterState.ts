@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { FilterType } from '#types/storeType/filter';
-import { filterQueryObjToState } from 'src/components/Shop/Organisms/FilterModal/utils';
+import { filterQueryObjToState } from 'src/helpers/filter';
 import { useFilterStore } from 'src/store/useFilterStore';
 
 export default function useInitFilterState(
