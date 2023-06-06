@@ -5,6 +5,7 @@ import {
   FilterType,
   FilterState,
 } from '#types/storeType/filter';
+import { filterInitialState, priceInitState } from 'src/store/constants';
 
 export type btnBox = btnTemplateBox<
   keyof Omit<FilterState, 'price'>,
@@ -88,13 +89,16 @@ export const filterData = (
   }
 };
 
-export const getFilterElement = (
+const filterStateToDataJoin = (strArr: string[]) => strArr.join(',');
+const filterDataToStateSplit = (str: string) => str.split(',');
+
+export const filterStateToQueryObj = (
   category: FilterType,
   states: FilterStoreState,
 ): FilterElement => {
   const { style, price, color, fit, length, clothesSize } = states;
   const common = {
-    style: style.join(','),
+    style: filterStateToDataJoin(style),
     priceGoe: Math.min(...price).toString(),
     priceLoe: Math.max(...price).toString(),
     color: '',
@@ -106,10 +110,10 @@ export const getFilterElement = (
   if (category === 'all') return common;
   return {
     ...common,
-    color: color[category].join(','),
-    fit: fit[category].join(','),
-    length: length[category].join(','),
-    clothesSize: clothesSize[category].join(','),
+    color: filterStateToDataJoin(color[category]),
+    fit: filterStateToDataJoin(fit[category]),
+    length: filterStateToDataJoin(length[category]),
+    clothesSize: filterStateToDataJoin(clothesSize[category]),
   };
 };
 
@@ -117,4 +121,46 @@ export const getFilteredProducts = (
   category: FilterType,
   states: FilterStoreState,
   router: (queryObj: { [queryName: string]: string }) => Promise<boolean>,
-) => router(getFilterElement(category, states));
+) => router(filterStateToQueryObj(category, states));
+
+export const filterQueryObjToState = (
+  mainCategory: FilterType,
+  queryObj: Record<keyof Omit<req.ShopFeed, 'page' | 'size'>, string>,
+): FilterState => {
+  const { style, priceGoe, priceLoe } = queryObj;
+  const { color, fit, length: len, clothesSize: size } = queryObj;
+
+  const isBottom = mainCategory === 'bottom';
+  const priceData: [number, number] =
+    priceGoe || priceLoe ? [+priceGoe, +priceLoe] : priceInitState;
+  const colorData = color.length ? filterDataToStateSplit(color) : [];
+  const fitData = fit.length ? filterDataToStateSplit(fit) : [];
+  const lenData = len.length ? filterDataToStateSplit(len) : [];
+  const sizeData = size.length ? filterDataToStateSplit(size) : [];
+  const common: Pick<FilterState, 'style' | 'price'> = {
+    style: filterDataToStateSplit(style),
+    price: priceData,
+  };
+  const topBotData = (bool: boolean, data: string[]) => (bool ? data : []);
+
+  if (mainCategory === 'all') return { ...filterInitialState, ...common };
+  return {
+    ...common,
+    color: {
+      top: topBotData(!isBottom, colorData),
+      bottom: topBotData(isBottom, colorData),
+    },
+    fit: {
+      top: topBotData(!isBottom, fitData),
+      bottom: topBotData(isBottom, fitData),
+    },
+    length: {
+      top: topBotData(!isBottom, lenData),
+      bottom: topBotData(isBottom, lenData),
+    },
+    clothesSize: {
+      top: topBotData(!isBottom, sizeData),
+      bottom: topBotData(isBottom, sizeData),
+    },
+  };
+};
