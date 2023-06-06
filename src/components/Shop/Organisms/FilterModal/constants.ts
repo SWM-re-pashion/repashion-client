@@ -1,5 +1,7 @@
-const max = 1000000;
-const min = 0;
+import { priceInitState } from 'src/store/constants';
+
+const max = priceInitState[1];
+const min = priceInitState[0];
 const step = 10000;
 
 export type PriceProps = {
