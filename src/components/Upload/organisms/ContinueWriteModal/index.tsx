@@ -31,7 +31,7 @@ function ContinueWriteModal() {
       isVerticalBtn
       isOpen={isOpen}
       onCancel={handleCancel}
-      onClick={handleModalOpen}
+      onClick={handleModalClose}
     />
   );
 }
