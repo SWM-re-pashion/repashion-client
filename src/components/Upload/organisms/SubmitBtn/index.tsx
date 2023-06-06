@@ -1,6 +1,6 @@
 import { UploadTemplateProps } from '#types/upload';
 import ButtonFooter from '@molecules/ButtonFooter';
-import { uploadStateToData } from 'src/helpers/upload';
+import { uploadStateToData } from 'src/helpers/uploadDataToState';
 import { useProductUpload, useUpdateProduct } from 'src/hooks/api/upload';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 import { toastError } from 'src/utils/toaster';

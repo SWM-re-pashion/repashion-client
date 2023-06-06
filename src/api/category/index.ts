@@ -1,6 +1,6 @@
 import { BasicInfo } from '#types/storeType/upload';
 import { Axios } from 'src/api/core';
-import { getJudgeCategory } from 'src/utils';
+import { getJudgeCategory } from 'src/helpers/measure';
 
 export const getSelectedCategory = async (
   isExcluded: boolean,

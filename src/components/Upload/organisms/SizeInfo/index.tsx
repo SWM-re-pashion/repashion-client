@@ -1,8 +1,8 @@
 import { UploadTemplateWithCategory } from '#types/upload';
 import ErrorMsg from '@atoms/ErrorMsg';
-import { sizeData } from '@constants/upload/utils';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import { getMainCategory } from 'src/api/category';
+import { sizeData } from 'src/helpers/uploadDataProcessing';
 import useUploadFormValidate from 'src/hooks/useUploadFormValidate';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
 

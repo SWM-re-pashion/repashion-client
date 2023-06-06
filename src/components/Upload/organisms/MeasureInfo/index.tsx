@@ -5,9 +5,9 @@ import { UploadTemplateWithCategory } from '#types/upload';
 import InfoArticle from '@molecules/InfoArticle';
 import TextInput from '@molecules/TextInput';
 import { getMainCategory } from 'src/api/category';
+import { getMeasureElement } from 'src/helpers/measure';
 import { useDidMountEffect } from 'src/hooks';
 import { useUploadUpdateStore } from 'src/hooks/useUploadUpdateStore';
-import { getMeasureElement } from 'src/utils';
 import { filterHeight } from 'src/utils/filterValue';
 
 import $ from './style.module.scss';

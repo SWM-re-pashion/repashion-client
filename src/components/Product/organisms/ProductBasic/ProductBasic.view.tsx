@@ -4,7 +4,7 @@ import Span from '@atoms/Span';
 import { SaleStatusData } from '@constants/status';
 import SelectBox from '@molecules/SelectBox';
 import classnames from 'classnames';
-import { ProductBasicDataProp } from 'src/utils/product';
+import { ProductBasicDataProp } from 'src/helpers/productDataProcessing';
 import { replace } from 'src/utils/replace';
 
 import ProductCell from '../../atoms/ProductCell';

@@ -5,7 +5,7 @@ import {
 } from '#types/product';
 import { Skirt, OnePiece, Pants, Top } from '@atoms/icon';
 
-import { replace } from './replace';
+import { replace } from '../utils/replace';
 
 export type ProductBasicDataProp = {
   label: string;

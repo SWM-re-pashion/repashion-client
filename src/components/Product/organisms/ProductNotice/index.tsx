@@ -1,7 +1,7 @@
 import { ProductNoticeInfo } from '#types/product';
 import { StyleProps } from '#types/props';
 import StrongLabel from 'src/components/Product/atoms/StrongLabel';
-import { productNoticeUtil } from 'src/utils/product';
+import { productNoticeUtil } from 'src/helpers/productDataProcessing';
 
 import ProductCell from '../../atoms/ProductCell';
 import $ from './style.module.scss';

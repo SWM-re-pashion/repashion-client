@@ -16,9 +16,9 @@ import { getStaticData } from 'src/api/staticData';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'src/components/Shop/Organisms/ShopHeader';
 import { categoryPropArr } from 'src/components/Upload/organisms/Dialog/utils';
+import { judgeCategoryId } from 'src/helpers/shop';
 import { useMultipleSearch } from 'src/hooks';
 import { useCategoryTree } from 'src/hooks/api/category';
-import { judgeCategoryId } from 'src/utils/shop.utils';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();

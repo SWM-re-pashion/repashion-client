@@ -1,5 +1,5 @@
 import { Measure, MeasureType } from '#types/storeType/upload';
-import { measuresData } from '@constants/style';
+import { measuresData } from '@constants/measure';
 
 export const getJudgeCategory = (kind: string | string[]): MeasureType => {
   if (kind.includes('스커트')) return 'skirt';

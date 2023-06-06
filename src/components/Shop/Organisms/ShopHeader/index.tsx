@@ -4,8 +4,8 @@ import { orderData } from '@constants/category';
 import CategoryBox from 'src/components/Shop/molecules/CategoryBox';
 import HeaderTool from 'src/components/Shop/molecules/HeaderTool';
 import SortBox from 'src/components/Shop/molecules/SortBox';
+import { isRootCategory, judgeMainCategory } from 'src/helpers/shop';
 import { useQueryRouter } from 'src/hooks';
-import { isRootCategory, judgeMainCategory } from 'src/utils/shop.utils';
 
 import $ from './style.module.scss';
 

@@ -10,7 +10,7 @@ import Layout from '@templates/Layout';
 import UploadTemplate from '@templates/UploadTemplate';
 import { getSelectedCategory } from 'src/api/category';
 import { getStaticData } from 'src/api/staticData';
-import { uploadedDataToState } from 'src/helpers/upload';
+import { uploadedDataToState } from 'src/helpers/uploadDataToState';
 import { useSearch } from 'src/hooks';
 import { useUploadedProduct } from 'src/hooks/api/upload';
 import { useUpdateStore } from 'src/store/upload/useUpdateStore';

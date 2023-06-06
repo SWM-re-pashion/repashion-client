@@ -2,7 +2,10 @@ import { ProductSizeInfo } from '#types/product';
 import { StyleProps } from '#types/props';
 import BorderBox from '@atoms/BorderBox';
 import StrongLabel from 'src/components/Product/atoms/StrongLabel';
-import { productSizeUtil, judgeProductIcon } from 'src/utils';
+import {
+  judgeProductIcon,
+  productSizeUtil,
+} from 'src/helpers/productDataProcessing';
 
 import ProductCell from '../../atoms/ProductCell';
 import $ from './style.module.scss';
