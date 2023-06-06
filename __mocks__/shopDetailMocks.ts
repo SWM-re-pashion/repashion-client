@@ -1,4 +1,4 @@
-export const shopDetail = {
+export const shopDetailMocks = {
   isMe: true,
   contact: 'https://coding-factory.tistory.com/819',
   isSoldOut: false,
