@@ -143,25 +143,19 @@ export const filterQueryObjToState = (
     price: priceData,
   };
   const topBotData = (bool: boolean, data: string[]) => (bool ? data : []);
+  const dataToTopBotObj = (datas: string[][]) =>
+    datas.map((data) => ({
+      top: topBotData(!isBottom, data),
+      bottom: topBotData(isBottom, data),
+    }));
 
   if (mainCategory === 'all') return { ...filterInitialState, ...common };
+  const topBotObj = dataToTopBotObj([colorData, fitData, lenData, sizeData]);
   return {
     ...common,
-    color: {
-      top: topBotData(!isBottom, colorData),
-      bottom: topBotData(isBottom, colorData),
-    },
-    fit: {
-      top: topBotData(!isBottom, fitData),
-      bottom: topBotData(isBottom, fitData),
-    },
-    length: {
-      top: topBotData(!isBottom, lenData),
-      bottom: topBotData(isBottom, lenData),
-    },
-    clothesSize: {
-      top: topBotData(!isBottom, sizeData),
-      bottom: topBotData(isBottom, sizeData),
-    },
+    color: topBotObj[0],
+    fit: topBotObj[1],
+    length: topBotObj[2],
+    clothesSize: topBotObj[3],
   };
 };
