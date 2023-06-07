@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { orderData } from '@constants/category';
+import { CATEGORY_MAX_LEN, orderData } from '@constants/category';
 import CategoryBox from 'src/components/Shop/molecules/CategoryBox';
 import HeaderTool from 'src/components/Shop/molecules/HeaderTool';
 import SortBox from 'src/components/Shop/molecules/SortBox';
@@ -28,8 +28,7 @@ function ShopHeader(headerProps: Props) {
   const { categoryQuery, orderQuery, hideSoldQuery } = headerProps;
   const { genderSelectMenu, selectData } = headerProps;
   const { genderQuery, breadCrumb, isRecommend } = headerProps;
-  const isSelectedSub = categoryQuery.length === 7;
-  const selectedMenu = categoryQuery;
+  const isSelectedSub = categoryQuery.length === CATEGORY_MAX_LEN;
   const mainCategory = judgeMainCategory(breadCrumb);
 
   const queryCategory = isRootCategory(categoryQuery) ? pushCtgr : replaceCtgr;
@@ -43,8 +42,9 @@ function ShopHeader(headerProps: Props) {
         selectedMenu={genderQuery}
       />
       <CategoryBox
-        {...{ onClick: queryCategory, isSelectedSub, selectedMenu }} // TODO: 렌더링 최적화
+        {...{ onClick: queryCategory, isSelectedSub }} // TODO: 렌더링 최적화
         data={selectData}
+        selectedMenu={categoryQuery}
       />
       <SortBox
         {...{ onSoldClick: queryHideSold, onOrderClick: queryOrder }} // TODO: 렌더링 최적화

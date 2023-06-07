@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react';
 
 import { FilterType } from '#types/storeType/filter';
+import { btnBox, filterData, getFilteredProducts } from 'src/helpers/filter';
 import { useQueryObjRouter } from 'src/hooks';
 import { useStaticData } from 'src/hooks/api/staticData';
 import { useFilterStore } from 'src/store/useFilterStore';
@@ -8,7 +9,6 @@ import { filterMaxPrice, validatePriceRange } from 'src/utils';
 
 import { max, priceProps } from './constants';
 import FilterModalView from './FilterModalView';
-import { btnBox, filterData, getFilteredProducts } from './utils';
 
 type Props = {
   isOpen: boolean;
@@ -26,15 +26,11 @@ export default function FilterModal(filterProps: Props) {
   const datas = { styles, colors, sizes, lengths, fits };
 
   const router = useQueryObjRouter();
-  const clearState = useFilterStore(useCallback((stat) => stat.clear, []));
+  const clearState = useFilterStore((stat) => stat.clear);
 
   const states = useFilterStore((state) => state);
-  const filterUpdate = useFilterStore(
-    useCallback((stat) => stat.filterUpdate, []),
-  );
-  const priceUpdate = useFilterStore(
-    useCallback((stat) => stat.priceUpdate, []),
-  );
+  const filterUpdate = useFilterStore((stat) => stat.filterUpdate);
+  const priceUpdate = useFilterStore((stat) => stat.priceUpdate);
   const inputLeftRef = useRef<HTMLInputElement>(null);
   const inputRightRef = useRef<HTMLInputElement>(null);
 
@@ -53,20 +49,17 @@ export default function FilterModal(filterProps: Props) {
     if (clearState) clearState(mainCategory);
   };
 
-  const setFilter = useCallback(() => {
+  const setFilter = () => {
     getFilteredProducts(mainCategory, states, router);
     onClose();
-  }, [mainCategory, router, states, onClose]);
+  };
 
-  const compareData = useCallback(
-    (options: btnBox): string[] => {
-      if (options.type !== 'style' && options.subType)
-        return states[options.type][options.subType];
-      if (options.type === 'style') return states[options.type];
-      return [];
-    },
-    [states],
-  );
+  const compareData = (options: btnBox): string[] => {
+    if (options.type !== 'style' && options.subType)
+      return states[options.type][options.subType];
+    if (options.type === 'style') return states[options.type];
+    return [];
+  };
 
   const priceProp = priceProps(states.price);
   const filterDatas = filterData(mainCategory, datas);

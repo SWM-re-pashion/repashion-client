@@ -1,6 +1,9 @@
 import { orderData } from '..';
 
-export const queries: readonly (keyof Omit<req.ShopFeed, 'page' | 'size'>)[] = [
+export const shopQueries: readonly (keyof Omit<
+  req.ShopFeed,
+  'page' | 'size'
+>)[] = [
   'category',
   'hideSold',
   'order',
@@ -13,10 +16,12 @@ export const queries: readonly (keyof Omit<req.ShopFeed, 'page' | 'size'>)[] = [
   'clothesSize',
 ];
 
-export const queryData: [keyof Omit<req.ShopFeed, 'page' | 'size'>, string?][] =
-  ['1', 'false', orderData[0].code, '', '', '', '', '', '', ''].map(
-    (prev, i) => [queries[i], prev],
-  );
+export const shopQueryData: [
+  keyof Omit<req.ShopFeed, 'page' | 'size'>,
+  string?,
+][] = ['1', 'false', orderData[0].code, '', '', '', '', '', '', ''].map(
+  (prev, i) => [shopQueries[i], prev],
+);
 
 export const searchQueries: readonly (keyof Omit<
   req.ShopFeed,

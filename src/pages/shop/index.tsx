@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
-import { queries, queryData } from '@constants/queryString';
+import { RECOMMEND_CATEGORY } from '@constants/category';
+import { shopQueries, shopQueryData } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
 import Footer from '@organisms/Footer';
@@ -16,9 +17,10 @@ import { getStaticData } from 'src/api/staticData';
 import ProductItemList from 'src/components/Shop/Organisms/ProductItemList';
 import ShopHeader from 'src/components/Shop/Organisms/ShopHeader';
 import { categoryPropArr } from 'src/components/Upload/organisms/Dialog/utils';
-import { judgeCategoryId } from 'src/helpers/shop';
+import { judgeCategoryId, judgeMainCategory } from 'src/helpers/shop';
 import { useMultipleSearch } from 'src/hooks';
 import { useCategoryTree } from 'src/hooks/api/category';
+import useInitFilterState from 'src/hooks/useInitFilterState';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -51,8 +53,14 @@ export const getStaticProps = async () => {
 
 function Shop() {
   const data = useCategoryTree(false)?.data;
-  const queryObj = useMultipleSearch(queryData, queries);
+  const queryObj = useMultipleSearch(shopQueryData, shopQueries);
+
   const { category, hideSold, order } = queryObj;
+  const id = judgeCategoryId(category);
+  const breadCrumb = getBreadcrumb(data, id) || '';
+  const mainCategory = judgeMainCategory(breadCrumb);
+
+  useInitFilterState(mainCategory, queryObj);
 
   if (!data) return null;
 
@@ -61,13 +69,11 @@ function Shop() {
   const existingGender = genderSelectMenu[0].id;
   const genderQuery = gender || existingGender;
 
-  const id = judgeCategoryId(category);
   const selectData = getCategoryTree(data, id);
-  const breadCrumb = getBreadcrumb(data, id) || '';
   const isInclude = categoryPropArr(selectData, 'id').includes(category);
   const categoryQuery = isInclude ? category : selectData[0].id;
   const genderData = categoryQuery[0];
-  const isRecommend = categoryQuery.includes('999');
+  const isRecommend = categoryQuery.includes(RECOMMEND_CATEGORY);
   const productType = isRecommend ? 'recommend' : 'shop';
   const categoryData = isRecommend ? genderData : categoryQuery;
 

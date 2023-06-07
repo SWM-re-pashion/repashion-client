@@ -1,10 +1,12 @@
 import { FilterType } from '#types/storeType/filter';
+import { RECOMMEND_CATEGORY, ALL_CATEGORY } from '@constants/category';
 
 export const judgeCategoryId = (id: string) => {
   const isGender = id.length === 1;
   const isMain = id.length === 4;
 
-  if (isMain && (id.endsWith('000') || id.endsWith('999'))) return id[0];
+  if (isMain && (id.endsWith(ALL_CATEGORY) || id.endsWith(RECOMMEND_CATEGORY)))
+    return id[0];
   if (isGender || isMain) return id;
   return id.slice(0, 4);
 };
@@ -18,4 +20,4 @@ export const judgeMainCategory = (category: string): FilterType => {
 };
 
 export const isRootCategory = (categoryQuery: string) =>
-  categoryQuery.slice(-3) === '000' || categoryQuery.length === 4;
+  categoryQuery.slice(-3) === ALL_CATEGORY || categoryQuery.length === 4;

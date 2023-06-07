@@ -7,11 +7,11 @@ import ButtonFooter from '@molecules/ButtonFooter';
 import PageHeader from '@molecules/PageHeader';
 import InfoBtnBox from '@organisms/InfoBtnBox';
 import Modal from '@templates/Modal';
+import { btnBox } from 'src/helpers/filter';
 
 import PriceInput from '../PriceInput';
 import { PriceProps } from './constants';
 import $ from './style.module.scss';
-import { btnBox } from './utils';
 
 type Props = {
   isOpen: boolean;
