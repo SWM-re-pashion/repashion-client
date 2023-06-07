@@ -1,5 +1,6 @@
 export const ALL_CATEGORY = '000';
 export const RECOMMEND_CATEGORY = '999';
+export const CATEGORY_MAX_LEN = 7;
 
 export const orderData = [
   { name: '최신순', code: 'latest' },
