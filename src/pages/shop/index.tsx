@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import HeadMeta from '@atoms/HeadMeta';
+import { RECOMMEND_CATEGORY } from '@constants/category';
 import { shopQueries, shopQueryData } from '@constants/queryString';
 import { queryKey } from '@constants/react-query';
 import { seoData } from '@constants/seo';
@@ -72,7 +73,7 @@ function Shop() {
   const isInclude = categoryPropArr(selectData, 'id').includes(category);
   const categoryQuery = isInclude ? category : selectData[0].id;
   const genderData = categoryQuery[0];
-  const isRecommend = categoryQuery.includes('999');
+  const isRecommend = categoryQuery.includes(RECOMMEND_CATEGORY);
   const productType = isRecommend ? 'recommend' : 'shop';
   const categoryData = isRecommend ? genderData : categoryQuery;
 
